@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   accordionBody: { paddingBottom: spacing.sm },
   sheetBackdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.4)", justifyContent: "flex-end" },
   sheetDismiss: { flex: 1 },
-  sheetCard: { backgroundColor: colors.card, borderTopLeftRadius: radius.xl, borderTopRightRadius: radius.xl, maxHeight: "92%" },
+  sheetCard: { backgroundColor: colors.card, borderTopLeftRadius: radius.xl, borderTopRightRadius: radius.xl, maxHeight: "92%", maxWidth: 560, width: "100%", alignSelf: "center" },
   sheetGrabber: {
     width: 40, height: 4, borderRadius: 2, backgroundColor: colors.border,
     alignSelf: "center", marginTop: spacing.sm,
