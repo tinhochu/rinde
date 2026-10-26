@@ -110,11 +110,23 @@ export default function ShopScreen() {
         : a.offers[0]!.price - b.offers[0]!.price,
   );
 
-  const toShop = (p: ComparedProduct, offer = p.offers[0]!) => fromOffer(offer, request?.term || "mercado", category);
+  const toShop = (p: ComparedProduct, offer = p.offers[0]!) => ({
+    ...fromOffer(offer, request?.term || "mercado", category),
+    compare: { offers: p.offers, missing: p.missing },
+  });
   const ideas = category === "all" ? IDEAS.slice(0, 6) : IDEAS.filter(p => p.category === category);
   const count = (id: string) => cart.find(line => line.product.id === id)?.count || 0;
   const favorite = (id: string) => favorites.some(p => p.id === id);
   const searching = !!request || loading;
+  const multi = compared.filter(p => p.offers.length > 1);
+  const widest = Math.max(0, ...multi.map(p => p.spread));
+  const summary = store !== "all"
+    ? `${compared.length} productos en ${store} · Solo precios del catálogo online`
+    : [
+        `${compared.length} productos`,
+        `${multi.length} con precio en 2 o más tiendas`,
+        widest > 0 ? `hasta ${cop(widest)} de diferencia` : "",
+      ].filter(Boolean).join(" · ");
 
   // Browsing ideas: a two-column grid; an odd last row gets an empty slot so its card keeps half the width.
   // Searching: one comparison card per row, with skeletons holding the list until results arrive.
@@ -135,7 +147,7 @@ export default function ShopScreen() {
           onAdd={() => addProduct(shop)}
           onRemove={() => removeProduct(shop.id)}
           onFavorite={() => favoriteProduct(shop)}
-          onOpen={offer => openProduct(toShop(item, offer))}
+          onOpen={() => openProduct(shop)}
         />
       );
     }
@@ -204,7 +216,7 @@ export default function ShopScreen() {
                 )}
               />
               {!!search && (
-                <Pressable accessibilityLabel="Limpiar búsqueda" onPress={() => setValue("search", "")} style={styles.searchClear}>
+                <Pressable accessibilityLabel="Limpiar búsqueda" onPress={() => (request ? selectCategory("all") : setValue("search", ""))} style={styles.searchClear}>
                   <X size={15} color={colors.mutedForeground} />
                 </Pressable>
               )}
@@ -259,6 +271,7 @@ export default function ShopScreen() {
             </View>
           )}
 
+          {!searching && (<>
           <View style={styles.section}>
             <View style={styles.sectionHead}>
               <Text style={styles.sectionTitle}>Tus tiendas, en un solo lugar</Text>
@@ -302,12 +315,32 @@ export default function ShopScreen() {
               )}
             />
           </View>
+          </>)}
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{request ? `Resultados para “${request.term}”` : "Los básicos de tu semana"}</Text>
-            <Text style={styles.sectionSub}>
-              {request ? `${store === "all" ? "Todas las tiendas" : store} · Solo precios del catálogo online` : "Agrégalos a tu lista. Verificamos los precios al crear tu plan."}
-            </Text>
+            {searching ? (
+              <View style={styles.storeFilter}>
+                <Pressable onPress={() => selectStore("all")} style={[styles.storePill, store === "all" && styles.storePillActive]}>
+                  <Text style={[styles.storePillText, store === "all" && styles.storePillTextActive]}>Todas</Text>
+                </Pressable>
+                {STORES.map(name => (
+                  <Pressable
+                    key={name}
+                    accessibilityLabel={`Ver solo ${name}`}
+                    onPress={() => selectStore(name)}
+                    style={[styles.storePill, store === name && styles.storePillActive]}
+                  >
+                    <StoreLogo store={name} />
+                  </Pressable>
+                ))}
+              </View>
+            ) : (
+              <Text style={styles.sectionSub}>Agrégalos a tu lista. Verificamos los precios al crear tu plan.</Text>
+            )}
+            {request && !loading && compared.length > 0 && (
+              <Text style={styles.sectionSub}>{summary}</Text>
+            )}
             {request ? (
               <View style={styles.sortRow}>
                 <Chip selected={sort === "stores"} onPress={() => setSort("stores")}>En más tiendas</Chip>
@@ -360,6 +393,7 @@ export default function ShopScreen() {
               <Text style={styles.coverageText}>Consulta: {new Date(catalog!.checkedAt).toLocaleString("es-CO")}. Hasta 20 productos por tienda y término; no es un catálogo exhaustivo. Cobertura local por confirmar.{catalog!.reasons.length ? `\n${catalog!.reasons.join("\n")}` : ""}</Text>
             </View>
           )}
+          {!searching && (<>
           <View style={styles.photoBanner}>
             <View style={styles.photoBannerIcon}>
               <Camera size={30} strokeWidth={1.4} color={colors.photoIcon} />
@@ -393,6 +427,7 @@ export default function ShopScreen() {
             </Pressable>
             <Text style={styles.footerText}>Con cariño, desde Colombia.</Text>
           </View>
+          </>)}
           <View style={styles.budgetHint}>
             <ShoppingBag size={14} color={colors.primary} />
             <Text style={styles.budgetHintText}>
@@ -475,6 +510,14 @@ const styles = StyleSheet.create({
   aisleThumb: { width: "100%", height: "100%", borderRadius: 999 },
   aisleName: { fontSize: fontSize.small, fontWeight: "500", lineHeight: 14, textAlign: "center", color: colors.foreground },
   aisleNameActive: { color: colors.primary },
+  storeFilter: { flexDirection: "row", gap: spacing.sm },
+  storePill: {
+    flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: 40, paddingHorizontal: spacing.sm, minWidth: 64,
+    borderRadius: radius.pill, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card,
+  },
+  storePillActive: { borderColor: colors.primary, borderWidth: 2, backgroundColor: colors.secondary },
+  storePillText: { fontSize: fontSize.caption, fontWeight: "600", color: colors.foreground },
+  storePillTextActive: { color: colors.primary },
   sortRow: { flexDirection: "row", gap: spacing.sm },
   statusCard: { borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card, padding: spacing.xl, gap: spacing.md },
   statusTitle: { flexDirection: "row", alignItems: "center", gap: spacing.sm },

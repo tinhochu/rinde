@@ -2,6 +2,7 @@ import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { Clock3, ExternalLink, Heart, Minus, Plus, Search } from "lucide-react-native";
 import { Dialog } from "@/components/ui";
 import { GroceryImage } from "@/components/grocery-image";
+import { StorePrices, Verdict } from "@/components/compare-card";
 import { useAppState } from "@/lib/app-state";
 import { cop, quantityLabel } from "@/lib/market";
 import { isFresh, observedLabel } from "@/lib/shop";
@@ -32,7 +33,15 @@ export function ProductModal() {
             {product.brand && ` · ${product.brand}`}
             {!product.offer && " para tu lista · Foto de referencia, no inventario de una tienda."}
           </Text>
-          {product.offer ? (
+          {product.compare && product.compare.offers.length > 0 ? (
+            <View style={styles.compare}>
+              <Verdict offers={product.compare.offers} />
+              <StorePrices offers={product.compare.offers} missing={product.compare.missing} />
+              <Text style={styles.offerMeta}>
+                Mismo código de barras (EAN {product.offer?.ean || "no informado"}) en cada tienda. Toca una tienda para verificar el precio.
+              </Text>
+            </View>
+          ) : product.offer ? (
             <View style={styles.offer}>
               <Text style={styles.price} selectable>
                 {cop(product.offer.price)} <Text style={styles.priceUnit}>COP / empaque</Text>
@@ -91,6 +100,7 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 24, fontWeight: "800", lineHeight: 30, letterSpacing: -0.5 },
   meta: { fontSize: fontSize.caption, lineHeight: 20, color: colors.mutedForeground },
+  compare: { gap: spacing.md },
   offer: { borderRadius: radius.md, backgroundColor: colors.secondary, padding: spacing.lg, gap: 6 },
   price: { fontSize: 30, fontWeight: "800", letterSpacing: -0.5, color: colors.primary, fontVariant: ["tabular-nums"] },
   priceUnit: { fontSize: fontSize.caption, fontWeight: "400" },

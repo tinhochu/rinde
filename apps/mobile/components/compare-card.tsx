@@ -3,8 +3,8 @@ import { AccessibilityInfo, Animated, Linking, Platform, Pressable, StyleSheet, 
 import { ExternalLink, Heart, Minus, Plus } from "lucide-react-native";
 import { StoreLogo } from "./brand";
 import { GroceryImage } from "./grocery-image";
-import { cop, quantityLabel, type Offer } from "@/lib/market";
-import { observedLabel, type ComparedProduct } from "@/lib/shop";
+import { cop, quantityLabel, type Offer, type Store } from "@/lib/market";
+import type { ComparedProduct } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 /** One product, every store that sells it, cheapest first. Adding uses the cheapest store's offer. */
@@ -13,8 +13,6 @@ export function CompareCard({ product, count, favorite, onAdd, onRemove, onFavor
   onAdd: () => void; onRemove: () => void; onFavorite: () => void; onOpen: (offer: Offer) => void;
 }) {
   const [best] = product.offers;
-  const many = product.offers.length > 1;
-  const cheapest = product.offers.filter((o) => o.price === best!.price).map((o) => o.store);
   return (
     <View style={styles.card}>
       <View style={styles.top}>
@@ -27,15 +25,7 @@ export function CompareCard({ product, count, favorite, onAdd, onRemove, onFavor
             {product.pack > 0 ? quantityLabel(product.pack, product.unit) : "Tamaño sin informar"}
             {product.brand ? ` · ${product.brand}` : ""}
           </Text>
-          {many ? (
-            <Text style={styles.verdict}>
-              {product.spread === 0
-                ? `Mismo precio en ${cheapest.join(" y ")}`
-                : `Más barato en ${cheapest.join(" y ")}: ${cop(product.spread)} menos que en ${product.offers.at(-1)!.store}`}
-            </Text>
-          ) : (
-            <Text style={styles.single}>Solo lo encontramos en {best!.store}</Text>
-          )}
+          <Verdict offers={product.offers} />
         </View>
         <Pressable
           accessibilityLabel={`${favorite ? "Quitar" : "Guardar"} ${product.name} ${favorite ? "de" : "en"} favoritos`}
@@ -46,37 +36,7 @@ export function CompareCard({ product, count, favorite, onAdd, onRemove, onFavor
         </Pressable>
       </View>
 
-      <View style={styles.rows}>
-        {product.offers.map((offer, i) => (
-          <Pressable
-            key={offer.id}
-            accessibilityRole="link"
-            accessibilityLabel={`${offer.store}: ${cop(offer.price)}. Ver en la tienda`}
-            onPress={() => Linking.openURL(offer.url)}
-            style={[styles.row, i === 0 && many && styles.rowBest]}
-          >
-            <StoreLogo store={offer.store} />
-            <View style={styles.rowBody}>
-              <Text style={[styles.price, i > 0 && styles.priceOther]}>{cop(offer.price)}</Text>
-              <Text style={styles.meta}>
-                {offer.pack > 0 && offer.pack !== product.pack ? `${quantityLabel(offer.pack, offer.unit)} · ` : ""}
-                {observedLabel(offer)}
-              </Text>
-            </View>
-            {i === 0 && many && product.spread > 0 ? (
-              <Text style={styles.bestTag}>Más barato</Text>
-            ) : i > 0 && offer.price === best!.price ? (
-              <Text style={styles.same}>Mismo precio</Text>
-            ) : i > 0 ? (
-              <Text style={styles.diff}>+{cop(offer.price - best!.price)}</Text>
-            ) : null}
-            <ExternalLink size={13} color={colors.mutedForeground} />
-          </Pressable>
-        ))}
-        {product.missing.length > 0 && (
-          <Text style={styles.missing}>No está en {product.missing.join(" ni ")}, según su catálogo online.</Text>
-        )}
-      </View>
+      <StorePrices offers={product.offers} missing={product.missing} />
 
       {count === 0 ? (
         <Pressable accessibilityLabel={`Agregar ${product.name} a mi canasta`} onPress={onAdd} style={styles.add}>
@@ -96,6 +56,63 @@ export function CompareCard({ product, count, favorite, onAdd, onRemove, onFavor
       )}
     </View>
   );
+}
+
+/** "Más barato en D1: $1.000 menos que en Jumbo", or which single store has it. Offers are cheapest first. */
+export function Verdict({ offers }: { offers: Offer[] }) {
+  const [best] = offers;
+  if (offers.length < 2) return <Text style={styles.single}>Solo lo encontramos en {best!.store}</Text>;
+  const cheapest = offers.filter(o => o.price === best!.price).map(o => o.store).join(" y ");
+  const spread = offers.at(-1)!.price - best!.price;
+  return (
+    <Text style={styles.verdict}>
+      {spread === 0 ? `Mismo precio en ${cheapest}` : `Más barato en ${cheapest}: ${cop(spread)} menos que en ${offers.at(-1)!.store}`}
+    </Text>
+  );
+}
+
+/** One line per store: price, age and the difference from the cheapest. Each line opens the store's page. */
+export function StorePrices({ offers, missing }: { offers: Offer[]; missing: Store[] }) {
+  const [best] = offers;
+  const many = offers.length > 1;
+  const spread = offers.at(-1)!.price - best!.price;
+  return (
+    <View style={styles.rowsWrap}>
+      <View style={styles.rows}>
+      {offers.map((offer, i) => (
+        <Pressable
+          key={offer.id}
+          accessibilityRole="link"
+          accessibilityLabel={`${offer.store}: ${cop(offer.price)}. Ver en la tienda`}
+          onPress={() => Linking.openURL(offer.url)}
+          style={[styles.row, i > 0 && styles.rowDivider, i === 0 && many && spread > 0 && styles.rowBest]}
+        >
+          <View style={styles.logoSlot}><StoreLogo store={offer.store} /></View>
+          <Text style={[styles.price, (i > 0 || !many || spread === 0) && styles.priceOther]}>{cop(offer.price)}</Text>
+          <Text numberOfLines={1} style={styles.meta}>
+            {offer.pack > 0 && offer.pack !== best!.pack ? `${quantityLabel(offer.pack, offer.unit)} · ` : ""}
+            {ageLabel(offer)}
+          </Text>
+          {i > 0 && offer.price === best!.price ? (
+            <Text style={styles.same}>Igual</Text>
+          ) : i > 0 ? (
+            <Text style={styles.diff}>+{cop(offer.price - best!.price)}</Text>
+          ) : null}
+          <ExternalLink size={12} color={colors.mutedForeground} />
+        </Pressable>
+      ))}
+      </View>
+      {missing.length > 0 && (
+        <Text style={styles.missing}>No está en {missing.join(" ni ")}, según su catálogo online.</Text>
+      )}
+    </View>
+  );
+}
+
+/** "hace 5 min" / "hace 2 h": how old the observed price is, short enough for one line. */
+function ageLabel(offer: Offer) {
+  const mins = Math.max(0, Math.floor((Date.now() - new Date(offer.observedAt).getTime()) / 60000));
+  return mins < 1 ? "ahora" : mins < 60 ? `hace ${mins} min` : `hace ${Math.floor(mins / 60)} h`;
 }
 
 /** Placeholder with the CompareCard footprint, shown while a search is in flight. */
@@ -122,16 +139,16 @@ export function CompareCardSkeleton() {
         </View>
       </View>
       <View style={styles.rows}>
-        {[0, 1].map(i => <View key={i} style={[styles.bone, { height: 44, borderRadius: radius.md }]} />)}
+        <View style={[styles.bone, { height: 76, borderRadius: radius.md }]} />
       </View>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: radius.lg, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, padding: spacing.lg, gap: spacing.md },
+  card: { borderRadius: radius.lg, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, padding: spacing.md, gap: spacing.md },
   top: { flexDirection: "row", gap: spacing.md },
-  image: { width: 84, height: 84, borderRadius: radius.md, backgroundColor: colors.imageBg },
+  image: { width: 64, height: 64, borderRadius: radius.md, backgroundColor: colors.imageBg },
   info: { flex: 1, gap: 4 },
   name: { fontSize: fontSize.subhead, fontWeight: "600", lineHeight: 20, color: colors.foreground },
   sub: { fontSize: fontSize.caption, color: colors.mutedForeground },
@@ -141,30 +158,28 @@ const styles = StyleSheet.create({
     width: 32, height: 32, borderRadius: 16, borderWidth: 1, borderColor: colors.border,
     alignItems: "center", justifyContent: "center",
   },
-  rows: { gap: spacing.sm },
-  row: {
-    flexDirection: "row", alignItems: "center", gap: spacing.md,
-    borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, paddingHorizontal: spacing.md, paddingVertical: spacing.sm,
-  },
-  rowBest: { borderColor: colors.primary, backgroundColor: colors.secondary },
-  rowBody: { flex: 1, gap: 1 },
-  price: { fontSize: fontSize.title, fontWeight: "800", color: colors.primary, fontVariant: ["tabular-nums"] },
+  rowsWrap: { gap: spacing.sm },
+  rows: { borderRadius: radius.md, borderWidth: 1, borderColor: colors.border, overflow: "hidden" },
+  row: { flexDirection: "row", alignItems: "center", gap: spacing.sm, paddingHorizontal: spacing.md, paddingVertical: 7 },
+  rowDivider: { borderTopWidth: 1, borderTopColor: colors.border },
+  rowBest: { backgroundColor: colors.secondary },
+  logoSlot: { width: 64 },
+  price: { fontSize: fontSize.subhead, fontWeight: "800", color: colors.primary, fontVariant: ["tabular-nums"] },
   priceOther: { color: colors.foreground, fontWeight: "700" },
-  meta: { fontSize: fontSize.tiny, color: colors.mutedForeground },
-  bestTag: { fontSize: fontSize.small, fontWeight: "700", color: colors.primary },
+  meta: { flex: 1, fontSize: fontSize.tiny, color: colors.mutedForeground },
   same: { fontSize: fontSize.small, fontWeight: "600", color: colors.mutedForeground },
   diff: { fontSize: fontSize.small, fontWeight: "600", color: colors.savingsInk, fontVariant: ["tabular-nums"] },
   missing: { fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
   add: {
     flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.sm,
-    borderRadius: radius.pill, backgroundColor: colors.primary, paddingVertical: spacing.md,
+    borderRadius: radius.pill, backgroundColor: colors.primary, minHeight: 40,
   },
   addText: { fontSize: fontSize.caption, fontWeight: "700", color: "#FFFFFF" },
   stepper: {
     flexDirection: "row", alignItems: "center", justifyContent: "space-between",
     borderRadius: radius.pill, borderWidth: 1, borderColor: colors.primary, padding: 4,
   },
-  stepperButton: { width: 36, height: 36, borderRadius: 18, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center" },
+  stepperButton: { width: 30, height: 30, borderRadius: 15, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center" },
   stepperCount: { fontSize: fontSize.caption, fontWeight: "700", color: colors.primary },
   bone: { height: 14, borderRadius: 6, backgroundColor: colors.muted },
   boneBlock: { backgroundColor: colors.muted },
