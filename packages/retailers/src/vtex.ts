@@ -26,6 +26,13 @@ async function pace(origin: string, floorMs = 0) {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+// After a 429 the host is left alone until this time. Interactive lookups fail fast
+// instead of waiting (they run under a request deadline); bulk searches wait it out.
+const cooldownUntilByHost = new Map<string, number>();
+const DEFAULT_COOLDOWN_MS = 30_000;
+
+export class RateLimited extends Error {}
+
 interface VtexConfig {
   slug: RetailerSlug;
   name: string;
@@ -61,18 +68,25 @@ class FatalStatus extends Error {}
 export function createVtexClient(config: VtexConfig): RetailerClient {
   const origin = new URL(config.baseUrl).origin;
 
-  async function request(qs: string): Promise<{ products: VtexProduct[]; url: string }> {
+  async function request(qs: string, opts: { patient?: boolean } = {}): Promise<{ products: VtexProduct[]; url: string }> {
     const url = `${config.baseUrl}${config.searchPath}?${qs}`;
     let lastError: unknown = new Error("unreachable");
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      const cooldown = (cooldownUntilByHost.get(origin) ?? 0) - Date.now();
+      if (cooldown > 0) {
+        if (!opts.patient) throw new RateLimited(`${config.slug} cooling down after 429`);
+        await sleep(cooldown);
+      }
       await pace(origin, config.minIntervalMs);
       try {
         const res = await fetch(url, { headers: { "User-Agent": USER_AGENT, Accept: "application/json" } });
         if (res.status === 429) {
           lastError = new Error(`${config.slug} 429 ${url}`);
-          // Rate limited: honor Retry-After, else back off well beyond the normal retry delay.
+          // Rate limited: honor Retry-After, else cool down; only patient callers retry.
           const retryAfter = Number(res.headers.get("retry-after"));
-          if (attempt < MAX_ATTEMPTS) await sleep(Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 15_000 * attempt);
+          const wait = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : DEFAULT_COOLDOWN_MS * attempt;
+          cooldownUntilByHost.set(origin, Date.now() + wait);
+          if (!opts.patient) throw new RateLimited(`${config.slug} 429 ${url}`);
         } else if (res.status >= 500) {
           lastError = new Error(`${config.slug} ${res.status} ${url}`);
         } else if (!res.ok && res.status !== 206) {
@@ -91,7 +105,7 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
           }
         }
       } catch (error) {
-        if (error instanceof FatalStatus) throw error;
+        if (error instanceof FatalStatus || error instanceof RateLimited) throw error;
         lastError = error;
       }
       if (attempt < MAX_ATTEMPTS) await sleep(1000 * 2 ** (attempt - 1));
@@ -133,8 +147,8 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
     slug: config.slug,
     name: config.name,
     baseUrl: config.baseUrl,
-    async search(term, { limit = 10 } = {}) {
-      const { products, url } = await request(`ft=${encodeURIComponent(term)}&_from=0&_to=${Math.min(limit, 50) - 1}`);
+    async search(term, { limit = 10, patient = true } = {}) {
+      const { products, url } = await request(`ft=${encodeURIComponent(term)}&_from=0&_to=${Math.min(limit, 50) - 1}`, { patient });
       return toOffers(products, url);
     },
     async byIds(skuIds) {
@@ -144,6 +158,17 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
         const batch = unique.slice(i, i + SKU_BATCH_SIZE);
         const { products, url } = await request(batch.map((id) => `fq=skuId:${encodeURIComponent(id)}`).join("&"));
         offers.push(...toOffers(products, url).filter((o) => batch.includes(o.externalId)));
+      }
+      return offers;
+    },
+    async byEans(eans) {
+      // Repeated `fq=alternateIds_Ean:` params are OR-ed, like skuId (verified on D1, Jumbo and Éxito, 2026-10-26).
+      const unique = [...new Set(eans)];
+      const offers: Offer[] = [];
+      for (let i = 0; i < unique.length; i += SKU_BATCH_SIZE) {
+        const batch = unique.slice(i, i + SKU_BATCH_SIZE);
+        const { products, url } = await request(batch.map((ean) => `fq=alternateIds_Ean:${encodeURIComponent(ean)}`).join("&"));
+        offers.push(...toOffers(products, url).filter((o) => o.ean && batch.includes(o.ean)));
       }
       return offers;
     },

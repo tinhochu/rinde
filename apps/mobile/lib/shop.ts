@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ListItem, Offer, Unit } from "./market";
+import { ListItem, Offer, Store, Unit } from "./market";
 
 export type ShopProduct = {
   id: string;
@@ -13,7 +13,12 @@ export type ShopProduct = {
   offer?: Offer;
 };
 export type CartLine = { product: ShopProduct; count: number };
-export type CatalogResult = { offers: Offer[]; reasons: string[]; checkedAt: string };
+/** One product across stores, matched by EAN (see apps/web/src/server/contract.ts). */
+export type ComparedProduct = {
+  key: string; name: string; brand: string; ean: string; pack: number; unit: Unit; image: string;
+  offers: Offer[]; missing: Store[]; spread: number;
+};
+export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };
 export const photo = (id: string, width = 500) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;
 export const CATEGORIES = [
   { id: "all", name: "Para ti", term: "arroz", image: "photo-1542838132-92c53300491e", color: "#EDF5E7" },

@@ -11,10 +11,11 @@ import { Button, Chip } from "@/components/ui";
 import { GroceryImage } from "@/components/grocery-image";
 import { Image } from "expo-image";
 import { ProductCard, ProductCardSkeleton } from "@/components/product-card";
+import { CompareCard, CompareCardSkeleton } from "@/components/compare-card";
 import { useAppState } from "@/lib/app-state";
 import { fetchCatalog } from "@/lib/api";
 import { cop, Store, STORES } from "@/lib/market";
-import { CatalogResult, CATEGORIES, fromOffer, IDEAS, photo, ShopProduct } from "@/lib/shop";
+import { CatalogResult, CATEGORIES, ComparedProduct, fromOffer, IDEAS, photo, ShopProduct } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 import { toast } from "@/lib/toast";
 
@@ -29,7 +30,7 @@ export default function ShopScreen() {
   const [catalog, setCatalog] = useState<CatalogResult>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [sort, setSort] = useState("price");
+  const [sort, setSort] = useState("stores");
   const { control, handleSubmit, setValue, watch } = useForm<{ search: string }>({ defaultValues: { search: "" } });
   const search = watch("search");
   const totalCount = cart.reduce((sum, line) => sum + line.count, 0);
@@ -102,21 +103,42 @@ export default function ShopScreen() {
     browse(search.trim() || fallback, next);
   }
 
-  const liveProducts = (catalog?.offers || []).map(offer => fromOffer(offer, request?.term || "mercado", category));
-  const products = [...liveProducts].sort((a, b) => (sort === "name" ? a.name.localeCompare(b.name, "es") : a.offer!.price - b.offer!.price));
+  // Search results are products compared across stores; adding one uses its cheapest store's offer.
+  const compared = [...(catalog?.products || [])].sort((a, b) =>
+    sort === "name" ? a.name.localeCompare(b.name, "es")
+      : sort === "stores" ? b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price
+        : a.offers[0]!.price - b.offers[0]!.price,
+  );
+
+  const toShop = (p: ComparedProduct, offer = p.offers[0]!) => fromOffer(offer, request?.term || "mercado", category);
   const ideas = category === "all" ? IDEAS.slice(0, 6) : IDEAS.filter(p => p.category === category);
   const count = (id: string) => cart.find(line => line.product.id === id)?.count || 0;
   const favorite = (id: string) => favorites.some(p => p.id === id);
+  const searching = !!request || loading;
 
-  // An odd last row gets an empty slot so its card keeps half the width instead of stretching.
-  // While a search runs, skeleton cards hold the grid; results swap in when they arrive.
-  type Cell = ShopProduct | "skeleton" | null;
-  const shown: Cell[] = loading ? Array<Cell>(6).fill("skeleton") : request ? products : ideas;
-  const grid = shown.length % 2 ? [...shown, null] : shown;
+  // Browsing ideas: a two-column grid; an odd last row gets an empty slot so its card keeps half the width.
+  // Searching: one comparison card per row, with skeletons holding the list until results arrive.
+  type Cell = ShopProduct | ComparedProduct | "skeleton" | null;
+  const shown: Cell[] = loading ? Array<Cell>(searching ? 3 : 6).fill("skeleton") : request ? compared : ideas;
+  const grid = !searching && shown.length % 2 ? [...shown, null] : shown;
 
   function renderProduct({ item }: { item: Cell }) {
     if (!item) return <View style={styles.productSlot} />;
-    if (item === "skeleton") return <View style={styles.productSlot}><ProductCardSkeleton /></View>;
+    if (item === "skeleton") return searching ? <CompareCardSkeleton /> : <View style={styles.productSlot}><ProductCardSkeleton /></View>;
+    if ("offers" in item) {
+      const shop = toShop(item);
+      return (
+        <CompareCard
+          product={item}
+          count={count(shop.id)}
+          favorite={favorite(shop.id)}
+          onAdd={() => addProduct(shop)}
+          onRemove={() => removeProduct(shop.id)}
+          onFavorite={() => favoriteProduct(shop)}
+          onOpen={offer => openProduct(toShop(item, offer))}
+        />
+      );
+    }
     return (
       <View style={styles.productSlot}>
         <ProductCard
@@ -134,11 +156,13 @@ export default function ShopScreen() {
 
   return (
     <FlatList
+      // numColumns can't change on a mounted list, so each layout gets its own key.
+      key={searching ? "compare" : "grid"}
       data={grid}
-      keyExtractor={(item, index) => (item && item !== "skeleton" ? item.id : `slot-${index}`)}
-      numColumns={2}
+      keyExtractor={(item, index) => (item && item !== "skeleton" ? ("offers" in item ? item.key : item.id) : `slot-${index}`)}
+      numColumns={searching ? 1 : 2}
       renderItem={renderProduct}
-      columnWrapperStyle={styles.columns}
+      columnWrapperStyle={searching ? undefined : styles.columns}
       contentContainerStyle={styles.list}
       contentInsetAdjustmentBehavior="automatic"
       showsVerticalScrollIndicator={false}
@@ -286,7 +310,8 @@ export default function ShopScreen() {
             </Text>
             {request ? (
               <View style={styles.sortRow}>
-                <Chip selected={sort === "price"} onPress={() => setSort("price")}>Menor precio / empaque</Chip>
+                <Chip selected={sort === "stores"} onPress={() => setSort("stores")}>En más tiendas</Chip>
+                <Chip selected={sort === "price"} onPress={() => setSort("price")}>Menor precio</Chip>
                 <Chip selected={sort === "name"} onPress={() => setSort("name")}>Nombre A–Z</Chip>
               </View>
             ) : (
@@ -303,7 +328,7 @@ export default function ShopScreen() {
               <Text style={styles.statusTitleText}>Buscando precios reales en {store === "all" ? "Éxito, Jumbo y D1" : store}…</Text>
             </View>
           )}
-          {!loading && request && (error || !products.length) && (
+          {!loading && request && (error || !compared.length) && (
             <View style={styles.statusCard}>
               <View style={styles.statusTitle}>
                 <View style={styles.statusIcon}>
@@ -329,7 +354,7 @@ export default function ShopScreen() {
       }
       ListFooterComponent={
         <View style={styles.footerBlock}>
-          {request && products.length > 0 && !loading && (
+          {request && compared.length > 0 && !loading && (
             <View style={styles.coverage}>
               <ShieldCheck size={13} color={colors.primary} />
               <Text style={styles.coverageText}>Consulta: {new Date(catalog!.checkedAt).toLocaleString("es-CO")}. Hasta 20 productos por tienda y término; no es un catálogo exhaustivo. Cobertura local por confirmar.{catalog!.reasons.length ? `\n${catalog!.reasons.join("\n")}` : ""}</Text>

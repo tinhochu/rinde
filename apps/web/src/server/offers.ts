@@ -5,7 +5,7 @@ import { STORE_BY_SLUG, type Offer, type Unit } from "./contract";
 
 /** Snapshot prices older than this are never shown (plan-price-verification spec). */
 const MAX_AGE_HOURS = 36;
-const LIVE_TIMEOUT_MS = 8_000;
+export const LIVE_TIMEOUT_MS = 8_000;
 const STOPWORDS = new Set(["de", "del", "la", "el", "los", "las", "x", "y", "para", "con", "en", "un", "una"]);
 
 export function enabledRetailers(): RetailerSlug[] {
@@ -88,7 +88,29 @@ export async function searchListings(term: string, opts: { stores?: RetailerSlug
     SELECT * FROM ranked WHERE rank <= ${perStore} ORDER BY slug, rank`;
 }
 
-function toOffer(r: ListingRow): Offer {
+/** Latest available snapshot observation for each listing whose product has one of these EANs. */
+export async function listingsByEan(eans: string[], stores: RetailerSlug[]): Promise<ListingRow[]> {
+  if (eans.length === 0 || stores.length === 0) return [];
+  return db().$queryRaw<ListingRow[]>`
+    WITH latest AS (
+      SELECT DISTINCT ON (po."retailerProductId") po.id AS "observationId", po."retailerProductId", po.price, po.stock,
+             po."observedAt", po.source
+      FROM "PriceObservation" po
+      JOIN "RetailerProduct" rp ON rp.id = po."retailerProductId"
+      JOIN "Product" p ON p.id = rp."productId"
+      WHERE po.available AND po."observedAt" > now() - make_interval(hours => ${MAX_AGE_HOURS}) AND p.ean = ANY(${eans})
+      ORDER BY po."retailerProductId", po."observedAt" DESC
+    )
+    SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit,
+           rp."imageUrl", rp.url, l.price, l.stock, l."observedAt", l.source
+    FROM latest l
+    JOIN "RetailerProduct" rp ON rp.id = l."retailerProductId"
+    JOIN "Product" p ON p.id = rp."productId"
+    JOIN "Retailer" r ON r.id = rp."retailerId"
+    WHERE r.slug::text = ANY(${stores})`;
+}
+
+export function toOffer(r: ListingRow): Offer {
   const unit: Unit = r.unit === "unit" ? "und" : (r.unit ?? "und");
   return {
     id: r.listingId,
@@ -118,7 +140,7 @@ export async function searchLive(term: string, stores: RetailerSlug[]): Promise<
   await Promise.all(
     stores.map(async (slug) => {
       try {
-        const found = await withTimeout(retailerBySlug[slug].search(term, { limit: 10 }), LIVE_TIMEOUT_MS);
+        const found = await withTimeout(retailerBySlug[slug].search(term, { limit: 10, patient: false }), LIVE_TIMEOUT_MS);
         const retailer = await ensureRetailer(prisma, slug);
         for (const o of found) await recordOffer(prisma, retailer.id, { ...o, source: `${slug}:live-search` });
       } catch {
@@ -160,6 +182,6 @@ export async function findOffers(term: string, opts: { stores?: RetailerSlug[]; 
   return { offers, reasons };
 }
 
-function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+export function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return Promise.race([promise, new Promise<T>((_, reject) => setTimeout(() => reject(new Error("timeout")), ms))]);
 }

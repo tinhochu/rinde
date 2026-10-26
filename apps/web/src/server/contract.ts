@@ -37,7 +37,26 @@ export const pricesRequestSchema = z.object({
 
 export type LookupRow = { item: ListItem; offers: Offer[]; reasons: string[] };
 export type LookupResult = { rows: LookupRow[]; checkedAt: string; area: string };
-export type CatalogResult = { offers: Offer[]; reasons: string[]; checkedAt: string };
+/**
+ * One product across stores. Offers are matched by EAN (same barcode = same product),
+ * cheapest first, at most one per store. `missing` lists stores we checked that don't
+ * carry this EAN; listings without an EAN can't be matched and have `missing: []`.
+ */
+export type ComparedProduct = {
+  key: string;
+  name: string;
+  brand: string;
+  ean: string;
+  pack: number;
+  unit: Unit;
+  image: string;
+  offers: Offer[];
+  missing: Store[];
+  /** Most expensive minus cheapest store price; 0 with fewer than two stores */
+  spread: number;
+};
+
+export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };
 
 export const STORE_BY_SLUG = { exito: "Éxito", jumbo: "Jumbo", d1: "D1" } as const satisfies Record<string, Store>;
 export const SLUG_BY_STORE = { "Éxito": "exito", Jumbo: "jumbo", D1: "d1" } as const satisfies Record<Store, string>;
