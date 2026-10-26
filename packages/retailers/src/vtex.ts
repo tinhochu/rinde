@@ -1,9 +1,11 @@
-import { parsePackageSize } from "@rinde/core";
+import { resolvePackageSize, type VtexSizeSource } from "./sizes";
 import type { Offer, RetailerClient, RetailerSlug } from "./types";
 
 const USER_AGENT = "RindeBot/0.1 (+https://github.com/rinde; price comparison research)";
 const DEFAULT_MIN_INTERVAL_MS = 2000;
 const MAX_ATTEMPTS = 3;
+/** SKUs per batched lookup (repeated `fq=skuId:` params are OR-ed by VTEX). */
+const SKU_BATCH_SIZE = 30;
 
 function minIntervalMs() {
   const raw = Number(process.env["RETAILER_MIN_INTERVAL_MS"]);
@@ -35,7 +37,7 @@ interface VtexConfig {
 }
 
 // Minimal shape of the VTEX catalog_system search response we rely on.
-interface VtexProduct {
+interface VtexProduct extends VtexSizeSource {
   productId: string;
   productName: string;
   brand?: string;
@@ -102,7 +104,7 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
           brand: p.brand ?? null,
           ean: item.ean || null,
           category: p.categories?.[0]?.split("/").filter(Boolean).pop() ?? null,
-          size: parsePackageSize(p.productName),
+          size: resolvePackageSize(p),
           price: Math.round(offer.Price ?? 0),
           listPrice: offer.ListPrice ? Math.round(offer.ListPrice) : null,
           available: Boolean(offer.IsAvailable) && (offer.Price ?? 0) > 0,
@@ -124,6 +126,16 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
     async search(term, { limit = 10 } = {}) {
       const { products, url } = await request(`ft=${encodeURIComponent(term)}&_from=0&_to=${Math.min(limit, 50) - 1}`);
       return toOffers(products, url);
+    },
+    async byIds(skuIds) {
+      const unique = [...new Set(skuIds)];
+      const offers: Offer[] = [];
+      for (let i = 0; i < unique.length; i += SKU_BATCH_SIZE) {
+        const batch = unique.slice(i, i + SKU_BATCH_SIZE);
+        const { products, url } = await request(batch.map((id) => `fq=skuId:${encodeURIComponent(id)}`).join("&"));
+        offers.push(...toOffers(products, url).filter((o) => batch.includes(o.externalId)));
+      }
+      return offers;
     },
     async byEan(ean) {
       const { products, url } = await request(`fq=alternateIds_Ean:${encodeURIComponent(ean)}`);

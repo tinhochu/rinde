@@ -1,0 +1,71 @@
+[
+ {
+  "productId": "1092",
+  "productName": "Arroz Diana 500 G",
+  "brand": "DIANA",
+  "linkText": "arroz-diana-500g-12002073",
+  "categories": [
+   "/Despensa/Granos azucar y panela/",
+   "/Despensa/"
+  ],
+  "allSpecifications": [
+   "Extraordinario",
+   "Exceso en Azúcares",
+   "Contiene Edulcorantes",
+   "Exceso en sodio",
+   "Exceso en grasas trans",
+   "Exceso en grasas saturadas",
+   "Unidad De Medida",
+   "Valor de Medida",
+   "Máximo por Orden"
+  ],
+  "items": [
+   {
+    "itemId": "1092",
+    "ean": "7702511000014",
+    "images": [
+     {
+      "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/207234/Diana-vitamor-talega500g-Alimentos-300001-Rojo-Lateral-12002073-01.png?v=639270713083670000"
+     }
+    ],
+    "sellers": [
+     {
+      "commertialOffer": {
+       "Price": 1990,
+       "ListPrice": 1990,
+       "IsAvailable": true,
+       "AvailableQuantity": 99999
+      }
+     }
+    ]
+   }
+  ],
+  "Extraordinario": [
+   "No"
+  ],
+  "Exceso en Azúcares": [
+   "No"
+  ],
+  "Contiene Edulcorantes": [
+   "No"
+  ],
+  "Exceso en sodio": [
+   "No"
+  ],
+  "Exceso en grasas trans": [
+   "No"
+  ],
+  "Exceso en grasas saturadas": [
+   "No"
+  ],
+  "Unidad De Medida": [
+   "Gr"
+  ],
+  "Valor de Medida": [
+   "500"
+  ],
+  "Máximo por Orden": [
+   "5"
+  ]
+ }
+]

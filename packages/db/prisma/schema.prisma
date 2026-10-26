@@ -94,47 +94,71 @@ model IngestRun {
   observations PriceObservation[]
 }
 
+enum PriceStatus {
+  live
+  snapshot
+}
+
 model ShoppingList {
-  id        String             @id @default(cuid())
+  id          String             @id @default(cuid())
   /// Anonymous session id (no accounts in MVP)
-  sessionId String
-  budget    Int
-  city      String             @default("bogota")
-  rawInput  String?
-  items     ShoppingListItem[]
-  baskets   OptimizedBasket[]
-  createdAt DateTime           @default(now())
+  sessionId   String
+  budget      Int
+  city        String             @default("bogota")
+  rawInput    String?
+  /// COP weight per extra stop when choosing stores
+  tripCost    Int                @default(10000)
+  /// Set when the user accepts an "add a stop" trade-off
+  forceStores RetailerSlug[]     @default([])
+  items       ShoppingListItem[]
+  baskets     OptimizedBasket[]
+  decisions   TradeoffDecision[]
+  createdAt   DateTime           @default(now())
 
   @@index([sessionId])
 }
 
 model ShoppingListItem {
-  id             String       @id @default(cuid())
-  listId         String
-  list           ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  id              String       @id @default(cuid())
+  listId          String
+  list            ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
   /// What the user wrote, verbatim
-  rawText        String
-  /// LLM-normalized intent, e.g. "arroz blanco"
-  query          String
-  brand          String?
-  quantity       Decimal      @db.Decimal(12, 3)
-  unit           BaseUnit
-  essential      Boolean      @default(true)
-  allowSubstitute Boolean     @default(true)
-  position       Int
+  rawText         String
+  /// Normalized intent used for search, e.g. "arroz blanco"
+  query           String
+  brand           String?
+  quantity        Decimal      @db.Decimal(12, 3)
+  unit            BaseUnit
+  essential       Boolean      @default(true)
+  allowSubstitute Boolean      @default(true)
+  /// Forces a specific listing
+  pinnedListingId String?
+  /// Removed from the plan by an accepted trade-off
+  dropped         Boolean      @default(false)
+  position        Int
 }
 
 model OptimizedBasket {
-  id          String       @id @default(cuid())
-  listId      String
-  list        ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
-  total       Int
-  baselineTotal Int?
+  id                  String         @id @default(cuid())
+  listId              String
+  list                ShoppingList   @relation(fields: [listId], references: [id], onDelete: Cascade)
+  budget              Int
+  /// Goods total in COP
+  total               Int
+  overBudget          Int            @default(0)
+  stops               Int
+  stores              RetailerSlug[]
+  tripCost            Int
+  baselineTotal       Int?
   /// Human-readable definition of the baseline the savings are measured against
   baselineDescription String?
-  assumptions Json
-  items       BasketItem[]
-  createdAt   DateTime     @default(now())
+  savings             Int?
+  /// Best plan per stop count
+  alternatives        Json
+  /// Unavailable items with reasons, verification summary, etc.
+  assumptions         Json
+  items               BasketItem[]
+  createdAt           DateTime       @default(now())
 }
 
 model BasketItem {
@@ -142,9 +166,27 @@ model BasketItem {
   basketId           String
   basket             OptimizedBasket @relation(fields: [basketId], references: [id], onDelete: Cascade)
   listItemId         String
+  retailer           RetailerSlug
+  retailerProductId  String
   priceObservationId String
+  /// COP per pack, as observed
+  price              Int
   packs              Int
   lineTotal          Int
+  priceStatus        PriceStatus
+  observedAt         DateTime
   isSubstitute       Boolean         @default(false)
-  explanation        String?
+  reason             String
+}
+
+model TradeoffDecision {
+  id          String       @id @default(cuid())
+  listId      String
+  list        ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  /// Stable proposal key, e.g. "drop:<itemId>"
+  proposalKey String
+  decision    String
+  createdAt   DateTime     @default(now())
+
+  @@unique([listId, proposalKey])
 }

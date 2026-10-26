@@ -1,0 +1,371 @@
+[
+ {
+  "productId": "345774",
+  "productName": "Arroz Casanare Blanco",
+  "brand": "CASANARE",
+  "linkText": "arroz-casanare-blanco-3655815",
+  "categories": [
+   "/Supermercado/"
+  ],
+  "allSpecifications": [
+   "Vendido por",
+   "Condicion del producto Jumbo",
+   "ProductData",
+   "SkuData"
+  ],
+  "items": [
+   {
+    "itemId": "345774",
+    "ean": "7703308010155",
+    "images": [
+     {
+      "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708545/7703308010155-1.jpg?v=638700498901770000"
+     }
+    ],
+    "sellers": [
+     {
+      "commertialOffer": {
+       "Price": 162990,
+       "ListPrice": 162990,
+       "IsAvailable": true,
+       "AvailableQuantity": 18
+      }
+     }
+    ]
+   }
+  ],
+  "Vendido por": [
+   "Jumbo"
+  ],
+  "Condicion del producto Jumbo": [
+   "Desactivado"
+  ],
+  "ProductData": [
+   "{\"allow_notes\":true,\"allow_substitute\":true,\"cart_limit\":\"0\",\"brandName\":\"CASANARE\",\"brandEcomId\":\"9430\",\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":1,\"measurement_unit_selector\":false}"
+  ],
+  "SkuData": [
+   "{\"345774\":{\"ref_id\":\"3655815\",\"cart_limit\":0,\"allow_notes\":true,\"allow_substitute\":true,\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"promotions\":[],\"url_canonical\":null,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":1,\"measurement_unit_selector\":false,\"release_data\":{\"is_new\":false}}}"
+  ]
+ },
+ {
+  "productId": "13390",
+  "productName": "Arroz Roa x1kg",
+  "brand": "ROA",
+  "linkText": "arroz-roa-x-1kg",
+  "categories": [
+   "/Supermercado/Despensa/Arroz Y Granos/",
+   "/Supermercado/Despensa/",
+   "/Supermercado/"
+  ],
+  "allSpecifications": [
+   "Vendido por",
+   "pickUpFlag",
+   "Condicion del producto Jumbo",
+   "ProductData",
+   "SkuData",
+   "Tipo de Producto",
+   "EAN",
+   "Origen",
+   "Ingredientes",
+   "Porción",
+   "Porciones por envase",
+   "Energía (kCal)",
+   "Proteínas (g)",
+   "Grasas Totales (g)",
+   "Grasas Saturadas (g)",
+   "Grasas Monoinsaturadas (g)",
+   "Grasas Poliinsaturadas (g)",
+   "Hidratos de Carbono disponibles (g)",
+   "Sodio (mg)"
+  ],
+  "items": [
+   {
+    "itemId": "13390",
+    "ean": "7702552000141",
+    "images": [
+     {
+      "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186310/7702552000141.jpg?v=637813981811270000"
+     }
+    ],
+    "sellers": [
+     {
+      "commertialOffer": {
+       "Price": 4890,
+       "ListPrice": 4890,
+       "IsAvailable": true,
+       "AvailableQuantity": 894
+      }
+     }
+    ]
+   }
+  ],
+  "Vendido por": [
+   "Jumbo"
+  ],
+  "pickUpFlag": [
+   "inactive"
+  ],
+  "Condicion del producto Jumbo": [
+   "Desactivado"
+  ],
+  "ProductData": [
+   "{\"allow_notes\":true,\"allow_substitute\":true,\"cart_limit\":\"0\",\"brandName\":\"ROA\",\"brandEcomId\":\"14103\",\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":1,\"measurement_unit_selector\":false}"
+  ],
+  "SkuData": [
+   "{\"13390\":{\"ref_id\":\"0077798\",\"cart_limit\":0,\"allow_notes\":true,\"allow_substitute\":true,\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"promotions\":[\"33271\",\"445001\",\"445002\",\"9970691\",\"9970715\",\"30030033\",\"30030070\",\"30145126\",\"30254567\",\"30254575\",\"30254576\",\"30254577\",\"30779914\",\"30779915\",\"30928021\",\"30928565\",\"34433726\",\"34433727\",\"34581087\",\"35039711\"],\"url_canonical\":null,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":1,\"measurement_unit_selector\":false,\"release_data\":{\"is_new\":false}}}"
+  ],
+  "Tipo de Producto": [
+   "Arroz Blanco"
+  ],
+  "EAN": [
+   "7702552000141"
+  ],
+  "Origen": [
+   "Nacional"
+  ],
+  "Ingredientes": [
+   "100% arroz blanco seleccionado, Vitamina a, Gelificante carboximetil celulosa sódica, ácido fólico"
+  ],
+  "Porción": [
+   "60"
+  ],
+  "Porciones por envase": [
+   "20"
+  ],
+  "Energía (kCal)": [
+   "208.8"
+  ],
+  "Proteínas (g)": [
+   "4.3"
+  ],
+  "Grasas Totales (g)": [
+   "0.4"
+  ],
+  "Grasas Saturadas (g)": [
+   "0.1"
+  ],
+  "Grasas Monoinsaturadas (g)": [
+   "0.1"
+  ],
+  "Grasas Poliinsaturadas (g)": [
+   "0.1"
+  ],
+  "Hidratos de Carbono disponibles (g)": [
+   "47.4"
+  ],
+  "Sodio (mg)": [
+   "10.8"
+  ]
+ },
+ {
+  "productId": "236543",
+  "productName": "Crema de Leche Alqueria 400g",
+  "brand": "ALQUERIA",
+  "linkText": "crema-de-leche-alqueria-400g-3541727",
+  "categories": [
+   "/Supermercado/Dulces Y Postres/Crema Leche Y Leche Condensada/",
+   "/Supermercado/Dulces Y Postres/",
+   "/Supermercado/"
+  ],
+  "allSpecifications": [
+   "Vendido por",
+   "pickUpFlag",
+   "ProductData",
+   "SkuData",
+   "Tipo de Producto",
+   "EAN",
+   "Origen",
+   "País de Origen",
+   "Condiciones Alimentarias"
+  ],
+  "items": [
+   {
+    "itemId": "236543",
+    "ean": "7702177022344",
+    "images": [
+     {
+      "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/887864/7702177022344-1.png?v=639041242692300000"
+     }
+    ],
+    "sellers": [
+     {
+      "commertialOffer": {
+       "Price": 8200,
+       "ListPrice": 10250,
+       "IsAvailable": true,
+       "AvailableQuantity": 193
+      }
+     }
+    ]
+   }
+  ],
+  "Vendido por": [
+   "Jumbo"
+  ],
+  "pickUpFlag": [
+   "inactive"
+  ],
+  "ProductData": [
+   "{\"allow_notes\":true,\"allow_substitute\":true,\"cart_limit\":\"0\",\"brandName\":\"ALQUERIA\",\"brandEcomId\":\"8514\",\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":0.4,\"measurement_unit_selector\":false}"
+  ],
+  "SkuData": [
+   "{\"236543\":{\"ref_id\":\"3541727\",\"cart_limit\":0,\"allow_notes\":true,\"allow_substitute\":true,\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"promotions\":[\"8724188\",\"11225417\",\"11225418\",\"24586317\",\"24586318\",\"32399230\",\"32399258\",\"33067247\",\"33067248\",\"33225976\",\"33225977\",\"35684198\",\"35684303\",\"36376249\",\"36376250\"],\"url_canonical\":null,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":0.4,\"measurement_unit_selector\":false,\"release_data\":{\"is_new\":false}}}"
+  ],
+  "Tipo de Producto": [
+   "Cremas de Leche"
+  ],
+  "EAN": [
+   "7702177022344"
+  ],
+  "Origen": [
+   "Nacional"
+  ],
+  "País de Origen": [
+   "Colombia"
+  ],
+  "Condiciones Alimentarias": [
+   "Libre de Huevo",
+   "Libre de Maní",
+   "Libre de Mariscos",
+   "Libre de Peces",
+   "Libre de Sulfitos",
+   "Vegetariano"
+  ]
+ },
+ {
+  "productId": "362663",
+  "productName": "Leche Alquería Original 1000ml",
+  "brand": "ALQUERIA",
+  "linkText": "leche-alqueria-original-1000ml-362663",
+  "categories": [
+   "/Supermercado/Lácteos, Huevos Y Refrigerados/Leche/",
+   "/Supermercado/Lácteos, Huevos Y Refrigerados/",
+   "/Supermercado/"
+  ],
+  "allSpecifications": [
+   "Vendido por",
+   "Condicion del producto Jumbo",
+   "ProductData",
+   "SkuData",
+   "Marca",
+   "Tipo de Producto",
+   "EAN",
+   "Origen"
+  ],
+  "items": [
+   {
+    "itemId": "362663",
+    "ean": "7702177024393",
+    "images": [
+     {
+      "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/888235/7702177024393-1.jpg?v=639044218614200000"
+     }
+    ],
+    "sellers": [
+     {
+      "commertialOffer": {
+       "Price": 4472,
+       "ListPrice": 5590,
+       "IsAvailable": true,
+       "AvailableQuantity": 280
+      }
+     }
+    ]
+   }
+  ],
+  "Vendido por": [
+   "Jumbo"
+  ],
+  "Condicion del producto Jumbo": [
+   "Desactivado"
+  ],
+  "ProductData": [
+   "{\"allow_notes\":true,\"allow_substitute\":true,\"cart_limit\":\"0\",\"brandName\":\"ALQUERIA\",\"brandEcomId\":\"8514\",\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"measurement_unit_selector\":false}"
+  ],
+  "SkuData": [
+   "{\"362663\":{\"ref_id\":\"3673069\",\"cart_limit\":0,\"allow_notes\":true,\"allow_substitute\":true,\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"promotions\":[],\"url_canonical\":null,\"measurement_unit_selector\":false,\"release_data\":{\"is_new\":false}}}"
+  ],
+  "Marca": [
+   "ALQUERIA"
+  ],
+  "Tipo de Producto": [
+   "Leche Entera"
+  ],
+  "EAN": [
+   "7702177024393"
+  ],
+  "Origen": [
+   "Nacional"
+  ]
+ },
+ {
+  "productId": "374392",
+  "productName": "Leche Colanta Semidescremada 6Und 900ml",
+  "brand": "COLANTA",
+  "linkText": "leche-colanta-semidescremada-6und-900ml-374392",
+  "categories": [
+   "/Supermercado/Lácteos, Huevos Y Refrigerados/Leche/",
+   "/Supermercado/Lácteos, Huevos Y Refrigerados/",
+   "/Supermercado/"
+  ],
+  "allSpecifications": [
+   "Vendido por",
+   "Condicion del producto Jumbo",
+   "ProductData",
+   "SkuData",
+   "Marca",
+   "Tipo de Producto",
+   "EAN",
+   "Origen",
+   "País de Origen"
+  ],
+  "items": [
+   {
+    "itemId": "374392",
+    "ean": "7702129002998",
+    "images": [
+     {
+      "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927654/7702129002998-1.jpg?v=639155856933800000"
+     }
+    ],
+    "sellers": [
+     {
+      "commertialOffer": {
+       "Price": 28590,
+       "ListPrice": 28590,
+       "IsAvailable": true,
+       "AvailableQuantity": 269
+      }
+     }
+    ]
+   }
+  ],
+  "Vendido por": [
+   "Jumbo"
+  ],
+  "Condicion del producto Jumbo": [
+   "Desactivado"
+  ],
+  "ProductData": [
+   "{\"allow_notes\":true,\"allow_substitute\":true,\"cart_limit\":\"0\",\"brandName\":\"COLANTA\",\"brandEcomId\":\"9735\",\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":5.4,\"measurement_unit_selector\":false}"
+  ],
+  "SkuData": [
+   "{\"374392\":{\"ref_id\":\"3685088\",\"cart_limit\":0,\"allow_notes\":true,\"allow_substitute\":true,\"measurement_unit\":\"un\",\"unit_multiplier\":1,\"promotions\":[],\"url_canonical\":null,\"measurement_unit_un\":\"gr\",\"unit_multiplier_un\":5.4,\"measurement_unit_selector\":false,\"release_data\":{\"is_new\":false}}}"
+  ],
+  "Marca": [
+   "COLANTA"
+  ],
+  "Tipo de Producto": [
+   "Leche Semidescremada"
+  ],
+  "EAN": [
+   "7702129002998"
+  ],
+  "Origen": [
+   "Nacional"
+  ],
+  "País de Origen": [
+   "Colombia"
+  ]
+ }
+]

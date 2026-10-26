@@ -26,7 +26,7 @@ Rinde's core promise is "haz que tu plata rinda más": tell a household exactly 
   - totals per store and overall, and the budget remaining
   - savings against a defined baseline: the single cheapest store, the items exactly as written, no substitutions
   - unavailable items, each with a reason
-- **API and UI:** a plan API route and a mobile plan screen in `apps/web` that render this output.
+- **API and UI:** a plan API route in `apps/web` (the backend), and a plan screen in the Expo client `apps/mobile` that renders this output.
 
 ## Capabilities
 
@@ -48,7 +48,8 @@ Rinde's core promise is "haz que tu plata rinda más": tell a household exactly 
   - `BasketItem` needs `retailerSlug` and the price `verifiedAt`/`source` kind
   - `OptimizedBasket` stores the chosen store combination, the stop count, the trip cost used and the alternatives
   - this needs a migration
-- **`apps/web`:** `POST /api/plan` (optimize), `POST /api/plan/:id/tradeoffs/:tradeoffId` (accept/reject), and the plan screen.
+- **`apps/web`** (API only): `POST /api/plan` (optimize) and `POST /api/plan/:id/tradeoffs/:tradeoffId` (accept/reject).
+- **`apps/mobile`** (Expo client: web PWA + native): the plan screen, replacing the client-side `optimize()` in `lib/market.ts` as the source of truth.
 - **Dependencies on other changes:**
   - The planner consumes **candidate products per list item**. Turning list text into candidates (Meta Muse equivalence judging) and list input or parsing are separate changes.
   - Until those land, candidates come from snapshot search plus unit-compatibility filtering behind the same interface, so the planner can be built and tested now.

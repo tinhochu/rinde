@@ -67,3 +67,13 @@ Of 43 seed products, **17 were found in at least 2 chains and 14 in all 3**.
 - Because D1's catalog is mostly store brand, the biggest savings will come from equivalent-product substitution, not from comparing identical EANs.
 
 **Éxito access note:** Éxito's robots.txt disallows `/api/`. Its product listings load client-side via `/api/graphql`, and its sitemap has no product URLs. This comparison used `/io/api/...`, the same endpoint Éxito's own `/api/` redirects to. That path is not literally disallowed, but it goes against the spirit of the rule. **A decision is still needed.**
+
+## Structured package sizes — Oct 26, 2026
+
+Both chains expose package sizes as structured data. `packages/retailers/src/sizes.ts` uses it, falling back to parsing the product name.
+
+- **D1:** product specs `Unidad De Medida` (e.g. `Gr`) and `Valor de Medida` (e.g. `500`).
+- **Jumbo:** the `ProductData` JSON field, where `unit_multiplier_un` is the net content in **kg or L** ("Arroz Roa x1kg" → `1`, "Crema de Leche 400g" → `0.4`, "Leche Colanta 6Und 900ml" → `5.4`).
+  - Its `measurement_unit_un` label is unreliable (milk is tagged `gr`), so grams vs millilitres is decided from the product name.
+  - The field is missing on some products (e.g. "Leche Alquería Original 1000ml"), which then fall back to the name.
+- **Batched re-check:** `fq=skuId:A&fq=skuId:B…` returns all of those SKUs in one request (OR semantics), on both chains.

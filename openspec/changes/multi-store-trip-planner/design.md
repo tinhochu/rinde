@@ -82,15 +82,23 @@ The baseline is computed by the same optimizer: S fixed to each single store, wi
 - No live check, snapshot only: weaker demo, and stale data is risky.
 
 ### D6. Trade-offs are generated deterministically, and the LLM only phrases them
-Over budget, the generator enumerates, per item:
-- the cheapest acceptable substitute (if allowed)
-- the cheapest pack option covering the quantity
-- quantity −1 step and drop (non-essential only)
+Over budget, the generator considers:
+- **Add a stop:** every stop-count alternative with a lower goods total than the recommended plan.
+- **Allow another brand:** items with substitution off that have cheaper substitutes.
+- **Smaller amount** (non-essential only): one pack fewer when the line uses more than one pack, otherwise the largest available presentation below the requested quantity.
+- **Drop** (non-essential only).
 
-Each proposal's saving is computed by **re-running the optimizer** with that change applied, which captures store-combination effects (a swap can remove the need for a second stop). Proposals are ranked per the spec, and the top 5 are returned.
+Each proposal's saving comes from **re-running the optimizer** with the change applied, so store-combination effects are included. Proposals that save nothing are discarded. They are ranked per the spec, and the top 5 are returned.
 
+The optimizer already picks the cheapest acceptable product and pack, so "swap" and "pack change" proposals would never save money. The revised set replaces them with the two levers that actually do: an extra stop, and permission to change brand.
+
+- Applying a proposal changes the list state:
+  - **add a stop:** sets `forceStores` on the plan options
+  - **allow another brand:** sets `allowSubstitute = true` on that item
+  - **smaller amount:** changes `quantity`
+  - **drop:** sets `dropped = true`
 - An optional Muse call phrases each proposal. The numbers are injected as variables, and any numbers in the generated text are validated against them.
-- Accept and reject decisions are persisted (new `TradeoffDecision` rows). Accepting changes the `ShoppingListItem` (quantity, essential flag, or `pinnedListingId` for swaps) and triggers a full re-plan.
+- Accept and reject decisions are persisted (new `TradeoffDecision` rows). Accepting triggers a full re-plan.
 
 ### D7. API shape and streaming
 - **`POST /api/plan`:** takes `{ listId, tripCost?, retailers? }` and returns an **NDJSON stream**:
@@ -113,6 +121,7 @@ Each proposal's saving is computed by **re-running the optimizer** with that cha
   - `priceStatus enum { live, snapshot }`, `observedAt`
   - `reason String`
 - **`ShoppingListItem` gains:** `pinnedListingId String?`, `dropped Boolean`.
+- **`ShoppingList` gains:** `forceStores RetailerSlug[]` (set when an "add a stop" proposal is accepted).
 - **New table:** `TradeoffDecision { id, listId, proposalKey, decision, createdAt }`. `proposalKey` is stable, e.g. `swap:<itemId>:<listingId>`.
 - **Unavailable items:** `{ itemId, reason }` stored in `OptimizedBasket.assumptions`.
 

@@ -30,4 +30,6 @@ export interface RetailerClient {
   baseUrl: string;
   search(term: string, opts?: { limit?: number }): Promise<Offer[]>;
   byEan(ean: string): Promise<Offer[]>;
+  /** Current offers for specific SKUs (item ids), batched. Missing SKUs are simply absent. */
+  byIds(skuIds: string[]): Promise<Offer[]>;
 }

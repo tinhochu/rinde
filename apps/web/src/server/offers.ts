@@ -12,6 +12,13 @@ export function enabledRetailers(): RetailerSlug[] {
   return process.env["INGEST_EXITO"] === "1" ? ["d1", "jumbo", "exito"] : ["d1", "jumbo"];
 }
 
+/** Crude Spanish singularization so "huevos" matches "Huevo" and "limones" matches "Limón". */
+export function stem(token: string): string {
+  if (token.length > 4 && /[^aeiou]es$/.test(token)) return token.slice(0, -2);
+  if (token.length > 3 && token.endsWith("s")) return token.slice(0, -1);
+  return token;
+}
+
 export function searchTokens(term: string): string[] {
   return term
     .toLowerCase()
@@ -22,8 +29,9 @@ export function searchTokens(term: string): string[] {
     .slice(0, 6);
 }
 
-type Row = {
+export type ListingRow = {
   listingId: string;
+  observationId: string;
   slug: RetailerSlug;
   name: string;
   brand: string | null;
@@ -35,31 +43,40 @@ type Row = {
   price: number;
   stock: number | null;
   observedAt: Date;
+  source: string;
 };
+
+/** Search the price snapshot and shape results for the client. */
+export async function searchSnapshot(term: string, opts: { stores?: RetailerSlug[]; perStore?: number } = {}): Promise<Offer[]> {
+  return (await searchListings(term, opts)).map(toOffer);
+}
 
 /**
  * Search the Postgres price snapshot. Every token must appear in the listing name
  * (accent-insensitive); names that start with the first token rank first, then price.
+ * Only the latest available observation per listing within MAX_AGE_HOURS is returned.
  */
-export async function searchSnapshot(term: string, opts: { stores?: RetailerSlug[]; perStore?: number } = {}): Promise<Offer[]> {
+export async function searchListings(term: string, opts: { stores?: RetailerSlug[]; perStore?: number } = {}): Promise<ListingRow[]> {
   const tokens = searchTokens(term);
   if (tokens.length === 0) return [];
   const stores = opts.stores ?? enabledRetailers();
   const perStore = opts.perStore ?? 8;
-  const patterns = tokens.map((t) => `%${t}%`);
+  const stems = tokens.map(stem);
+  const patterns = stems.map((t) => `%${t}%`);
 
-  const rows = await db().$queryRaw<Row[]>`
+  return db().$queryRaw<ListingRow[]>`
     WITH latest AS (
-      SELECT DISTINCT ON (po."retailerProductId") po."retailerProductId", po.price, po.stock, po."observedAt"
+      SELECT DISTINCT ON (po."retailerProductId") po.id AS "observationId", po."retailerProductId", po.price, po.stock,
+             po."observedAt", po.source
       FROM "PriceObservation" po
       WHERE po.available AND po."observedAt" > now() - make_interval(hours => ${MAX_AGE_HOURS})
       ORDER BY po."retailerProductId", po."observedAt" DESC
     ), ranked AS (
-      SELECT rp.id AS "listingId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit,
-             rp."imageUrl", rp.url, l.price, l.stock, l."observedAt",
+      SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit,
+             rp."imageUrl", rp.url, l.price, l.stock, l."observedAt", l.source,
              row_number() OVER (
                PARTITION BY r.slug
-               ORDER BY (unaccent(lower(rp.name)) LIKE ${tokens[0] + "%"}) DESC, l.price ASC
+               ORDER BY (unaccent(lower(rp.name)) LIKE ${stems[0] + "%"}) DESC, l.price ASC
              ) AS rank
       FROM latest l
       JOIN "RetailerProduct" rp ON rp.id = l."retailerProductId"
@@ -69,11 +86,9 @@ export async function searchSnapshot(term: string, opts: { stores?: RetailerSlug
         AND unaccent(lower(rp.name)) LIKE ALL(${patterns})
     )
     SELECT * FROM ranked WHERE rank <= ${perStore} ORDER BY slug, rank`;
-
-  return rows.map(toOffer);
 }
 
-function toOffer(r: Row): Offer {
+function toOffer(r: ListingRow): Offer {
   const unit: Unit = r.unit === "unit" ? "und" : (r.unit ?? "und");
   return {
     id: r.listingId,

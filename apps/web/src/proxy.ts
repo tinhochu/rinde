@@ -9,7 +9,7 @@ const allowedOrigins = (process.env["CORS_ORIGINS"] ?? "http://localhost:8081,ht
 
 const corsHeaders = {
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Headers": "Content-Type, X-Rinde-Session",
   "Access-Control-Max-Age": "86400",
 };
 

@@ -11,5 +11,13 @@ describe.skipIf(!process.env["LIVE"])("live VTEX clients", () => {
       expect(offers[0]?.price).toBeGreaterThan(0);
       expect(offers[0]?.size).toEqual({ amount: 400, unit: "g" });
     }
-  }, 30_000);
+  }, 60_000);
+
+  it("fetches 3 D1 SKUs in a single request", async () => {
+    const found = await d1.search("arroz", { limit: 3 });
+    const ids = found.map((o) => o.externalId);
+    expect(ids).toHaveLength(3);
+    const offers = await d1.byIds(ids);
+    expect(offers.map((o) => o.externalId).sort()).toEqual([...ids].sort());
+  }, 60_000);
 });
