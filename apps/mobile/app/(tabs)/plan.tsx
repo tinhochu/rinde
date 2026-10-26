@@ -1,18 +1,19 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { ArrowLeft, Bookmark, Check, ChevronRight, LoaderCircle, MapPin, ShieldCheck, ShoppingBag, Sparkles } from "lucide-react-native";
-import { Brand, StoreLogo } from "@/components/brand";
+import { ArrowLeft, Bookmark, Check, ChevronRight, MapPin, ShieldCheck, ShoppingBag, Sparkles } from "lucide-react-native";
+import { Brand } from "@/components/brand";
 import { BudgetStep } from "@/components/plan/budget-step";
 import { ListStep } from "@/components/plan/list-step";
 import { ReviewStep } from "@/components/plan/review-step";
 import { PlanStep } from "@/components/plan/plan-step";
+import { VerifyProgressRows } from "@/components/plan/verify-progress";
 import { useAppState } from "@/lib/app-state";
-import { cop, STORES } from "@/lib/market";
+import { cop } from "@/lib/market";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 const STEPS = ["Presupuesto", "Tu lista", "Revisamos", "Precios", "Tu plan"];
 
 export default function PlanScreen() {
-  const { step, go, budget, people, area, items, result, refreshing, fromCart, setBudgetPeople, setItems, compare, refresh, explore, openModal } = useAppState();
+  const { step, go, budget, people, area, items, result, progress, refreshing, deciding, fromCart, setBudgetPeople, setItems, compare, refresh, decide, explore, openModal } = useAppState();
 
   return (
     <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
@@ -72,19 +73,13 @@ export default function PlanScreen() {
           </View>
           <Text style={styles.loadingKicker}>Nosotros hacemos las vueltas</Text>
           <Text style={styles.loadingTitle}>Buscando dónde rinde más.</Text>
-          <Text style={styles.loadingText}>Consultamos tu lista en los catálogos online. Solo contamos los precios que podamos verificar.</Text>
-          {STORES.map(store => (
-            <View key={store} style={styles.loadingStore}>
-              <StoreLogo store={store} />
-              <Text style={styles.loadingStoreText}>Consultando catálogo y existencias</Text>
-              <LoaderCircle size={17} color={colors.primary} />
-            </View>
-          ))}
+          <Text style={styles.loadingText}>Buscamos tu lista en los catálogos y volvemos a verificar en vivo cada precio que elegimos.</Text>
+          <VerifyProgressRows progress={progress} />
           <Text style={styles.loadingFine}>Si una tienda no responde, te lo diremos. Nunca rellenamos precios.</Text>
         </View>
       )}
       {step === 4 && result && (
-        <PlanStep result={result} budget={budget} refreshing={refreshing} onRefresh={refresh} onEdit={() => go(2)} />
+        <PlanStep result={result} area={area} progress={progress} refreshing={refreshing} onRefresh={refresh} deciding={deciding} onDecide={decide} onEdit={() => go(2)} />
       )}
 
       {step > 0 && step < 3 && (
@@ -137,12 +132,6 @@ const styles = StyleSheet.create({
   loadingKicker: { fontSize: fontSize.caption, fontWeight: "800", textTransform: "uppercase", letterSpacing: 2, color: colors.accent },
   loadingTitle: { fontSize: 32, fontWeight: "800", letterSpacing: -1, color: colors.primary, textAlign: "center" },
   loadingText: { fontSize: fontSize.subhead, lineHeight: 26, color: colors.mutedForeground, textAlign: "center" },
-  loadingStore: {
-    width: "100%", flexDirection: "row", alignItems: "center", gap: spacing.lg,
-    borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border,
-    backgroundColor: colors.card, padding: spacing.lg,
-  },
-  loadingStoreText: { flex: 1, fontSize: fontSize.caption, color: colors.mutedForeground },
   loadingFine: { fontSize: fontSize.caption, lineHeight: 18, color: colors.mutedForeground, textAlign: "center" },
   limit: {
     flexDirection: "row", alignItems: "center", gap: spacing.sm, flexWrap: "wrap",

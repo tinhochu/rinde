@@ -90,6 +90,16 @@ export function ReviewStep({ items, onNext }: { items: ListItem[]; onNext: (item
               />
               <Text style={styles.swapText}>Permitir otra marca, solo para el mismo producto y tamaño de empaque.</Text>
             </View>
+            <View style={styles.swapRow}>
+              <Controller
+                control={control}
+                name={`items.${index}.essential`}
+                render={({ field: { onChange, value } }) => (
+                  <Switch value={value ?? true} onValueChange={onChange} trackColor={{ true: colors.primary }} thumbColor={colors.card} />
+                )}
+              />
+              <Text style={styles.swapText}>Imprescindible. Si te pasas del presupuesto, nunca te propondremos quitarlo ni llevar menos.</Text>
+            </View>
           </View>
         ))}
       </View>

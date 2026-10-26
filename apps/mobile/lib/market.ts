@@ -1,7 +1,7 @@
 export type Store = "Éxito" | "Jumbo" | "D1";
 export const STORES: Store[] = ["Éxito", "Jumbo", "D1"];
 export type Unit = "g" | "ml" | "und";
-export type ListItem = { id: string; name: string; quantity: number; unit: Unit; brand: string; allowSubstitution: boolean };
+export type ListItem = { id: string; name: string; quantity: number; unit: Unit; brand: string; allowSubstitution: boolean; essential?: boolean };
 export type Offer = { id: string; store: Store; name: string; brand: string; ean: string; price: number; stock: number; pack: number; unit: Unit; image: string; url: string; observedAt: string; channel: "Tienda online" };
 export type LookupRow = { item: ListItem; offers: Offer[]; reasons: string[] };
 export type LookupResult = { rows: LookupRow[]; checkedAt: string; area: string };

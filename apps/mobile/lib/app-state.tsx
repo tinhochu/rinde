@@ -2,8 +2,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { AppState } from "react-native";
 import { usePathname, useRouter } from "expo-router";
 import NetInfo from "@react-native-community/netinfo";
-import type { ListItem, LookupResult } from "./market";
-import { fetchPrices } from "./api";
+import type { ListItem } from "./market";
+import { createPlan, decideTradeoff, type PlanRequest, type PlanResult, type VerifyProgress } from "./planner";
 import { deleteDraft, loadSaved, saveCart, saveDraft, saveFavorites, savePrefs } from "./storage";
 import { isFresh, toListItems, type CartLine, type SavedDraft, type ShopProduct } from "./shop";
 import { toast } from "./toast";
@@ -12,7 +12,7 @@ export type AppModal = "area" | "saved" | "help" | "privacy" | null;
 
 type AppStateValue = {
   step: number; budget: number; people: number; zone: string; area: string;
-  items: ListItem[]; result?: LookupResult; refreshing: boolean; fromCart: boolean;
+  items: ListItem[]; result?: PlanResult; progress: VerifyProgress[]; refreshing: boolean; deciding: string | null; fromCart: boolean;
   cart: CartLine[]; cartCount: number; favorites: ShopProduct[];
   product: ShopProduct | null; modal: AppModal; saved?: SavedDraft;
   hydrated: boolean; offline: boolean; externalSearch?: { term: string; nonce: number };
@@ -28,6 +28,7 @@ type AppStateValue = {
   setItems: (list: ListItem[]) => void;
   compare: (list: ListItem[]) => void;
   refresh: () => void;
+  decide: (key: string, decision: "accept" | "reject") => void;
   resume: () => void;
   deleteSaved: () => void;
   addProduct: (next: ShopProduct) => void;
@@ -54,8 +55,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [people, setPeople] = useState(4);
   const [zone, setZoneState] = useState("");
   const [items, setItemsState] = useState<ListItem[]>([]);
-  const [result, setResult] = useState<LookupResult>();
+  const [result, setResult] = useState<PlanResult>();
+  const [progress, setProgress] = useState<VerifyProgress[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [deciding, setDeciding] = useState<string | null>(null);
   const [fromCart, setFromCart] = useState(false);
   const [cart, setCart] = useState<CartLine[]>([]);
   const [favorites, setFavorites] = useState<ShopProduct[]>([]);
@@ -116,45 +119,57 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     activeRequest.current?.abort();
     activeRequest.current = null;
     setRefreshing(false);
+    setDeciding(null);
     setResult(undefined);
   }
 
-  const lookup = useCallback(
-    async (list: ListItem[], background = false) => {
-      if (background && activeRequest.current) return;
+  // Runs one plan request (new list, re-check, or trade-off decision) and streams verification progress.
+  const run = useCallback(
+    async (request: (onProgress: (p: VerifyProgress) => void, signal: AbortSignal) => Promise<PlanResult>, mode: "new" | "background" | "decide", key?: string) => {
+      if (mode === "background" && activeRequest.current) return;
       activeRequest.current?.abort();
       const controller = new AbortController();
       activeRequest.current = controller;
-      if (background) setRefreshing(true);
+      setProgress([]);
+      if (mode === "background") setRefreshing(true);
+      else if (mode === "decide") setDeciding(key ?? null);
       else setStep(3);
       try {
-        const data = await fetchPrices(area, list, controller.signal);
+        const data = await request(p => {
+          if (!controller.signal.aborted) setProgress(previous => [...previous.filter(x => x.store !== p.store), p]);
+        }, controller.signal);
         if (!controller.signal.aborted) {
           setResult(data);
-          if (!background) setStep(4);
+          if (mode === "new") setStep(4);
         }
       } catch (error) {
         if (!controller.signal.aborted) {
           toast.error(error instanceof Error ? error.message : "No hay conexión. Tu lista sigue guardada.");
-          if (!background) setStep(2);
+          if (mode === "new") setStep(2);
         }
       } finally {
         if (activeRequest.current === controller) {
           activeRequest.current = null;
           setRefreshing(false);
+          setDeciding(null);
         }
       }
     },
-    [area],
+    [],
+  );
+
+  const plan = useCallback(
+    (body: PlanRequest, mode: "new" | "background") => run((onProgress, signal) => createPlan(body, onProgress, signal), mode),
+    [run],
   );
 
   useEffect(() => {
     if (!pathname.startsWith("/plan") || step !== 4 || !result) return;
     const timer = setInterval(() => {
-      if (!offline && AppState.currentState === "active") void lookup(items, true);
+      if (!offline && AppState.currentState === "active") void plan({ listId: result.listId }, "background");
     }, 5 * 60000);
     return () => clearInterval(timer);
-  }, [pathname, step, result, items, lookup, offline]);
+  }, [pathname, step, result, plan, offline]);
 
   function openPlanner(useCart = true) {
     invalidate();
@@ -260,11 +275,17 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   function compare(list: ListItem[]) {
     setItemsState(list);
     setResult(undefined);
-    void lookup(list);
+    void plan({ budget, area, items: list }, "new");
   }
 
   function refresh() {
-    void lookup(items, true);
+    if (result) void plan({ listId: result.listId }, "background");
+  }
+
+  function decide(key: string, decision: "accept" | "reject") {
+    if (!result) return;
+    const { basketId } = result;
+    void run((onProgress, signal) => decideTradeoff(basketId, key, decision, onProgress, signal), "decide", key);
   }
 
   function deleteSaved() {
@@ -280,12 +301,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const cartCount = useMemo(() => cart.reduce((sum, line) => sum + line.count, 0), [cart]);
 
   const value: AppStateValue = {
-    step, budget, people, zone, area, items, result, refreshing, fromCart,
+    step, budget, people, zone, area, items, result, progress, refreshing, deciding, fromCart,
     cart, cartCount, favorites, product, modal, saved, hydrated, offline, externalSearch,
     go, openPlanner, explore,
     openProduct: setProduct, closeProduct: () => setProduct(null),
     openModal: setModal, closeModal: () => setModal(null),
-    setZone, setBudgetPeople, setItems, compare, refresh, resume, deleteSaved,
+    setZone, setBudgetPeople, setItems, compare, refresh, decide, resume, deleteSaved,
     addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, searchProduct,
   };
 

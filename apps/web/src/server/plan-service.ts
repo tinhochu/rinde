@@ -1,7 +1,7 @@
 import "server-only";
 import { z } from "zod";
 import {
-  applyTradeoff, proposeTradeoffs, type Plan, type PlanItem, type PlanOptions, type Tradeoff,
+  applyTradeoff, optimize, proposeTradeoffs, type Plan, type PlanItem, type PlanOptions, type Tradeoff,
 } from "@rinde/core";
 import { db, type RetailerSlug } from "@rinde/db";
 import { candidatesFor, type ItemRequest } from "./candidates";
@@ -24,7 +24,7 @@ export type CreatePlanRequest = z.infer<typeof createPlanSchema>;
 export type PlanEvent =
   | { type: "list"; listId: string }
   | VerifyProgress
-  | { type: "plan"; basketId: string; listId: string; plan: Plan; tradeoffs: Tradeoff[] }
+  | { type: "plan"; basketId: string; listId: string; plan: Plan; variants: Plan[]; tradeoffs: Tradeoff[] }
   | { type: "error"; error: string };
 
 /** Create a shopping list from the client's items (anonymous session). */
@@ -87,7 +87,11 @@ export async function runPlan(listId: string, emit: (event: PlanEvent) => void) 
   const verified = await planAndVerify(items, options, liveDeps, { onProgress: emit });
   const tradeoffs = proposeTradeoffs(verified.items, options, verified.plan, rejected);
   const basketId = await saveBasket(listId, verified.plan, tradeoffs);
-  emit({ type: "plan", basketId, listId, plan: verified.plan, tradeoffs });
+  // Full pick lists for the other stop counts, so the client can switch without a round trip.
+  const variants = verified.plan.alternatives
+    .filter((a) => !a.recommended)
+    .map((a) => optimize(verified.items, { ...options, forceStores: a.retailers }));
+  emit({ type: "plan", basketId, listId, plan: verified.plan, variants, tradeoffs });
 }
 
 async function saveBasket(listId: string, plan: Plan, tradeoffs: Tradeoff[]) {
