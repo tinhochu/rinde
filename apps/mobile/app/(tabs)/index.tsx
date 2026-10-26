@@ -330,7 +330,7 @@ export default function ShopScreen() {
           {request && products.length > 0 && !loading && (
             <View style={styles.coverage}>
               <ShieldCheck size={13} color={colors.primary} />
-              <Text style={styles.coverageText}>Consulta: {new Date(catalog!.checkedAt).toLocaleString("es-CO")}. Hasta 20 productos por tienda y término; no es un catálogo exhaustivo. Cobertura local por confirmar.</Text>
+              <Text style={styles.coverageText}>Consulta: {new Date(catalog!.checkedAt).toLocaleString("es-CO")}. Hasta 20 productos por tienda y término; no es un catálogo exhaustivo. Cobertura local por confirmar.{catalog!.reasons.length ? `\n${catalog!.reasons.join("\n")}` : ""}</Text>
             </View>
           )}
           <View style={styles.photoBanner}>

@@ -143,8 +143,19 @@ export async function findOffers(term: string, opts: { stores?: RetailerSlug[]; 
     const found = new Set(live.offers.map((o) => o.store));
     for (const s of missing) {
       if (live.failed.includes(s)) reasons.push(`${STORE_BY_SLUG[s]}: no respondió, intenta de nuevo.`);
-      else if (!found.has(STORE_BY_SLUG[s])) reasons.push(`${STORE_BY_SLUG[s]}: sin resultados para "${term}".`);
     }
+    // Store names differ ("tetra pak" is D1 wording): drop trailing words until each store matches something.
+    let pending = missing.filter((s) => !live.failed.includes(s) && !found.has(STORE_BY_SLUG[s]));
+    const tokens = searchTokens(term);
+    for (let n = tokens.length - 1; n >= 1 && pending.length; n--) {
+      const relaxed = tokens.slice(0, n).join(" ");
+      const more = await searchSnapshot(relaxed, { ...opts, stores: pending });
+      offers.push(...more);
+      const hit = new Set(more.map((o) => o.store));
+      for (const s of pending) if (hit.has(STORE_BY_SLUG[s])) reasons.push(`${STORE_BY_SLUG[s]}: sin "${term}"; mostramos resultados para "${relaxed}".`);
+      pending = pending.filter((s) => !hit.has(STORE_BY_SLUG[s]));
+    }
+    for (const s of pending) reasons.push(`${STORE_BY_SLUG[s]}: sin resultados para "${term}".`);
   }
   return { offers, reasons };
 }
