@@ -135,10 +135,6 @@ export default function ShopScreen() {
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
         <View style={styles.headerBlock}>
-          <View style={styles.topStrip}>
-            <Leaf size={12} color="#FFFFFF" />
-            <Text style={styles.topStripText}>Hecho para tu familia. Pensado para tu bolsillo.</Text>
-          </View>
 
           <View style={styles.header}>
             <Pressable accessibilityLabel="Volver a explorar" onPress={() => selectCategory("all")}>
@@ -382,11 +378,6 @@ const styles = StyleSheet.create({
   headerBlock: { gap: spacing.xl },
   footerBlock: { gap: spacing.xl },
   productSlot: { flex: 1 },
-  topStrip: {
-    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.sm,
-    backgroundColor: colors.primary, borderRadius: radius.md, paddingVertical: spacing.sm, paddingHorizontal: spacing.md,
-  },
-  topStripText: { fontSize: fontSize.small, fontWeight: "500", letterSpacing: 0.5, color: "#FFFFFF" },
   header: { gap: spacing.md },
   areaRow: { flexDirection: "row", alignItems: "center", gap: 6, paddingVertical: spacing.xs },
   area: { flex: 1, fontSize: fontSize.caption, fontWeight: "600" },
