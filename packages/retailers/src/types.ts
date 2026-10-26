@@ -15,6 +15,8 @@ export interface Offer {
   price: number;
   listPrice: number | null;
   available: boolean;
+  /** Units the retailer reports in stock (VTEX AvailableQuantity) */
+  stock: number | null;
   url: string;
   imageUrl: string | null;
   source: string;

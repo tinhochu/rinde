@@ -72,6 +72,8 @@ model PriceObservation {
   price             Int
   listPrice         Int?
   available         Boolean
+  /// Units in stock as reported by the retailer, when available
+  stock             Int?
   source            String
   sourceUrl         String
   observedAt        DateTime

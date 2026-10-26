@@ -16,6 +16,13 @@ paced retries all returned HTTP 200.
 
 **Éxito** (`https://www.exito.com`, VTEX FastStore) — Intelligent Search:
 
+> ⚠️ Correction (2026-10-26): Éxito's `robots.txt` line 54 is `Disallow: /api/`.
+> An earlier revision of this doc wrongly claimed all three stores permit `/api/`
+> (only the top of Éxito's file had been read). The endpoints below respond, but
+> the robots-compliant Éxito route is sitemap → product page → schema.org JSON-LD
+> (see `docs/data-feasibility.md`). The worker must use the compliant route; the
+> `/api/` patterns here are reference/probing only.
+
 ```
 GET /api/io/_v/api/intelligent-search/product_search?_from=0&_to=49&query=arroz%20diana
 ```
@@ -25,6 +32,26 @@ Legacy catalog also works but issues a redirect — follow it (`curl -L`):
 ```
 GET /api/catalog_system/pub/products/search?ft=arroz%20diana&_from=0&_to=49
 ```
+
+**Grocery-scoped queries (Éxito):** the `Mercado` department id is `34185082`.
+Scope any search to groceries with `fq=C:/34185082/` — combinable with `ft=`:
+
+```
+GET /api/catalog_system/pub/products/search?ft=arroz&fq=C:/34185082/&_from=0&_to=49
+```
+
+Mercado subcategories (for narrower `fq=C:/34185082/<id>/` splits):
+Pollo/carne/pescado `34185097`, Charcutería `34185098`, Frutas y verduras
+`34185099`, Panadería `34185100`, Despensa `34185101`, Lácteos/huevos `34185103`,
+Congelados `34185104`, Snacks `34185105`, Aseo hogar `34185106`, Mascotas
+`34185107`, Bebidas `346084837`, Dulces `346098434`, Bebés `347733901`,
+Comidas preparadas `348959797`.
+
+**Paging cap (all legacy queries):** `_from` cannot exceed 2500 (API returns
+400 beyond it), so at most ~2,550 results are retrievable per query.
+Despensa and Lácteos each exceed that alone — full grocery enumeration needs
+3rd-level category splits or per-term queries, never a single dept walk.
+Demand-driven `ft+fq` queries return small sets and never hit the cap.
 
 **Jumbo** (`https://www.jumbocolombia.com`, VTEX IO) — same two APIs:
 
@@ -125,7 +152,9 @@ Full-catalog download math at 50 products/request and 2s pacing:
 - D1: ~40 requests, ~2 minutes. Trivially mirrorable in full.
 - Jumbo: ~940 requests, ~30–45 minutes. Feasible but wasteful.
 - Éxito: ~21,300 requests, ~12+ hours, high throttling/blocking risk —
-  and mostly non-grocery marketplace noise.
+  and mostly non-grocery marketplace noise. Grocery (`Mercado` dept) is far
+  smaller but still exceeds the ~2,550-per-query paging cap, so even the
+  grocery slice must be fetched via scoped per-term/per-category queries.
 
 Verdict: **do not full-crawl.** Rinde uses demand-driven ingestion instead:
 
@@ -144,9 +173,9 @@ IP-blocking exposure.
 
 - Pin the Jumbo domain; follow redirects on Éxito legacy; paginate ≤50.
 - Rate-limit, cache observations, backoff on failures.
-- All three `robots.txt` permit `/api/` (only account/checkout/internal paths
-  are disallowed) — still, review each retailer's terms before scaling past
-  the hackathon demo.
+- `robots.txt`: D1 and Jumbo permit `/api/` (only account/checkout/internal
+  paths disallowed). **Éxito disallows `/api/`** — use the sitemap → JSON-LD
+  route there. Review each retailer's terms before scaling past the hackathon demo.
 - Every displayed price carries source store + online-channel label + timestamp.
 - Demo-day insurance: keep a dated snapshot of fetched observations; if live
   fetch fails on stage, serve the snapshot clearly labeled with its date

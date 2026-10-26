@@ -6,18 +6,18 @@
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build", "^generate"],
+      "dependsOn": ["^build", "^generate", "generate"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "typecheck": {
-      "dependsOn": ["^generate"]
+      "dependsOn": ["^generate", "generate"]
     },
     "lint": {},
     "test": {
-      "dependsOn": ["^generate"]
+      "dependsOn": ["^generate", "generate"]
     },
     "dev": {
-      "dependsOn": ["^generate"],
+      "dependsOn": ["^generate", "generate"],
       "cache": false,
       "persistent": true
     }
