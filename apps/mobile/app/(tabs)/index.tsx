@@ -134,7 +134,7 @@ export default function ShopScreen() {
       contentInsetAdjustmentBehavior="automatic"
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
-        <>
+        <View style={styles.headerBlock}>
           <View style={styles.topStrip}>
             <Leaf size={12} color="#FFFFFF" />
             <Text style={styles.topStripText}>Hecho para tu familia. Pensado para tu bolsillo.</Text>
@@ -320,10 +320,10 @@ export default function ShopScreen() {
               ) : null}
             </View>
           )}
-        </>
+        </View>
       }
       ListFooterComponent={
-        <>
+        <View style={styles.footerBlock}>
           {request && products.length > 0 && !loading && (
             <View style={styles.coverage}>
               <ShieldCheck size={13} color={colors.primary} />
@@ -369,7 +369,7 @@ export default function ShopScreen() {
               {totalCount} en canasta · Presupuesto {cop(budget)}
             </Text>
           </View>
-        </>
+        </View>
       }
     />
   );
@@ -378,6 +378,9 @@ export default function ShopScreen() {
 const styles = StyleSheet.create({
   list: { padding: spacing.lg, gap: spacing.lg, paddingBottom: spacing.xxl, backgroundColor: colors.background },
   columns: { gap: spacing.lg },
+  // FlatList gap only separates header / rows / footer; these space the sections inside them.
+  headerBlock: { gap: spacing.xl },
+  footerBlock: { gap: spacing.xl },
   productSlot: { flex: 1 },
   topStrip: {
     flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.sm,
@@ -385,7 +388,7 @@ const styles = StyleSheet.create({
   },
   topStripText: { fontSize: fontSize.small, fontWeight: "500", letterSpacing: 0.5, color: "#FFFFFF" },
   header: { gap: spacing.md },
-  areaRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  areaRow: { flexDirection: "row", alignItems: "center", gap: 6, paddingVertical: spacing.xs },
   area: { flex: 1, fontSize: fontSize.caption, fontWeight: "600" },
   searchRow: {
     flexDirection: "row", alignItems: "center", gap: spacing.md,
@@ -475,7 +478,7 @@ const styles = StyleSheet.create({
   pillarIcon: { width: 32, height: 32, borderRadius: 10, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center" },
   pillarTitle: { fontSize: fontSize.small, fontWeight: "600", textAlign: "center" },
   pillarText: { fontSize: fontSize.tiny, lineHeight: 13, textAlign: "center", color: colors.mutedForeground },
-  footer: { alignItems: "center", gap: 6, paddingTop: spacing.md },
+  footer: { alignItems: "center", gap: spacing.sm, paddingTop: spacing.sm },
   footerText: { fontSize: fontSize.small, color: colors.mutedForeground, textAlign: "center" },
   footerLink: { fontSize: fontSize.small, color: colors.primary, fontWeight: "600" },
   budgetHint: {

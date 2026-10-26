@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   stepperButton: { width: 28, height: 32, alignItems: "center", justifyContent: "center" },
   stepperCount: { minWidth: 12, textAlign: "center", fontSize: fontSize.subhead, fontWeight: "700", color: "#FFFFFF" },
-  body: { paddingHorizontal: 2, gap: 4 },
+  body: { paddingHorizontal: spacing.md, gap: 4 },
   price: { fontSize: 20, fontWeight: "800", letterSpacing: -0.5, color: colors.primary, fontVariant: ["tabular-nums"] },
   priceUnit: { fontSize: fontSize.small, fontWeight: "400", color: colors.mutedForeground },
   unpriced: { fontSize: fontSize.caption, fontWeight: "600", color: colors.primary },
