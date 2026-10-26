@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { Tabs } from "expo-router";
 import { Heart, ShoppingBag, Sparkles, Store } from "lucide-react-native";
 import { useAppState } from "@/lib/app-state";
@@ -13,7 +14,11 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.mutedForeground,
-        tabBarStyle: { backgroundColor: colors.card, borderTopColor: colors.border },
+        // Web has no safe-area inset under the bar, so give the labels their own room.
+        tabBarStyle: {
+          backgroundColor: colors.card, borderTopColor: colors.border,
+          ...(Platform.OS === "web" && { height: 68, paddingTop: 8, paddingBottom: 10 }),
+        },
         tabBarLabelStyle: { fontSize: 10, fontWeight: "600" },
       }}
     >
