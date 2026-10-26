@@ -107,7 +107,12 @@ export default function ShopScreen() {
   const count = (id: string) => cart.find(line => line.product.id === id)?.count || 0;
   const favorite = (id: string) => favorites.some(p => p.id === id);
 
-  function renderProduct({ item }: { item: ShopProduct }) {
+  // An odd last row gets an empty slot so its card keeps half the width instead of stretching.
+  const shown: (ShopProduct | null)[] = request ? products : ideas;
+  const grid = shown.length % 2 ? [...shown, null] : shown;
+
+  function renderProduct({ item }: { item: ShopProduct | null }) {
+    if (!item) return <View style={styles.productSlot} />;
     return (
       <View style={styles.productSlot}>
         <ProductCard
@@ -125,8 +130,8 @@ export default function ShopScreen() {
 
   return (
     <FlatList
-      data={request ? products : ideas}
-      keyExtractor={item => item.id}
+      data={grid}
+      keyExtractor={(item, index) => item?.id ?? `slot-${index}`}
       numColumns={2}
       renderItem={renderProduct}
       columnWrapperStyle={styles.columns}
