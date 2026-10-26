@@ -1,4 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { AccessibilityInfo, Animated, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { Heart, Minus, Plus } from "lucide-react-native";
 import { observedLabel, type ShopProduct } from "@/lib/shop";
 import { cop, quantityLabel } from "@/lib/market";
@@ -58,6 +59,33 @@ export function ProductCard({ product, count, favorite, onAdd, onRemove, onFavor
   );
 }
 
+/** Placeholder with the same footprint as ProductCard, shown while a search is in flight. */
+export function ProductCardSkeleton() {
+  const pulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    let loop: Animated.CompositeAnimation | undefined;
+    AccessibilityInfo.isReduceMotionEnabled().then(reduced => {
+      if (reduced) return;
+      const step = (toValue: number) => Animated.timing(pulse, { toValue, duration: 700, useNativeDriver: Platform.OS !== "web" });
+      loop = Animated.loop(Animated.sequence([step(0.45), step(1)]));
+      loop.start();
+    }).catch(() => undefined);
+    return () => loop?.stop();
+  }, [pulse]);
+  return (
+    <Animated.View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={[styles.card, { opacity: pulse }]}>
+      <View style={[styles.imageWrap, styles.imagePress]} />
+      <View style={styles.body}>
+        <View style={[styles.bone, { width: "55%", height: 22 }]} />
+        <View style={[styles.bone, { width: "90%" }]} />
+        <View style={[styles.bone, { width: "70%", marginBottom: 6 }]} />
+        <View style={[styles.bone, { width: "30%" }]} />
+        <View style={[styles.bone, { width: "45%", height: 10 }]} />
+      </View>
+    </Animated.View>
+  );
+}
+
 const styles = StyleSheet.create({
   card: { flex: 1, backgroundColor: colors.card, borderRadius: radius.lg, paddingBottom: spacing.md },
   imageWrap: { position: "relative", marginBottom: spacing.md, borderRadius: radius.lg, overflow: "hidden", backgroundColor: colors.imageBg },
@@ -92,4 +120,5 @@ const styles = StyleSheet.create({
   name: { fontSize: fontSize.body, fontWeight: "500", lineHeight: 20, color: colors.foreground, minHeight: 40 },
   pack: { fontSize: fontSize.caption, color: colors.mutedForeground },
   meta: { fontSize: fontSize.tiny, lineHeight: 14, color: colors.mutedForeground },
+  bone: { height: 14, borderRadius: 6, backgroundColor: colors.muted },
 });

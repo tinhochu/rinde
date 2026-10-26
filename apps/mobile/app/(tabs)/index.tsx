@@ -9,7 +9,7 @@ import {
 import { Brand, StoreLogo } from "@/components/brand";
 import { Button, Chip } from "@/components/ui";
 import { GroceryImage } from "@/components/grocery-image";
-import { ProductCard } from "@/components/product-card";
+import { ProductCard, ProductCardSkeleton } from "@/components/product-card";
 import { useAppState } from "@/lib/app-state";
 import { fetchCatalog } from "@/lib/api";
 import { cop, Store, STORES } from "@/lib/market";
@@ -108,11 +108,14 @@ export default function ShopScreen() {
   const favorite = (id: string) => favorites.some(p => p.id === id);
 
   // An odd last row gets an empty slot so its card keeps half the width instead of stretching.
-  const shown: (ShopProduct | null)[] = request ? products : ideas;
+  // While a search runs, skeleton cards hold the grid; results swap in when they arrive.
+  type Cell = ShopProduct | "skeleton" | null;
+  const shown: Cell[] = loading ? Array<Cell>(6).fill("skeleton") : request ? products : ideas;
   const grid = shown.length % 2 ? [...shown, null] : shown;
 
-  function renderProduct({ item }: { item: ShopProduct | null }) {
+  function renderProduct({ item }: { item: Cell }) {
     if (!item) return <View style={styles.productSlot} />;
+    if (item === "skeleton") return <View style={styles.productSlot}><ProductCardSkeleton /></View>;
     return (
       <View style={styles.productSlot}>
         <ProductCard
@@ -131,7 +134,7 @@ export default function ShopScreen() {
   return (
     <FlatList
       data={grid}
-      keyExtractor={(item, index) => item?.id ?? `slot-${index}`}
+      keyExtractor={(item, index) => (item && item !== "skeleton" ? item.id : `slot-${index}`)}
       numColumns={2}
       renderItem={renderProduct}
       columnWrapperStyle={styles.columns}
@@ -293,12 +296,9 @@ export default function ShopScreen() {
           </View>
 
           {loading && (
-            <View style={styles.statusCard}>
-              <View style={styles.statusTitle}>
-                <LoaderCircle size={18} color={colors.primary} />
-                <Text style={styles.statusTitleText}>Buscando precios reales en {store === "all" ? "Éxito, Jumbo y D1" : store}…</Text>
-              </View>
-              <Text style={styles.statusText}>Una respuesta de la tienda, no una estimación. Puedes seguir armando tu lista mientras consultamos.</Text>
+            <View accessibilityLiveRegion="polite" style={styles.statusTitle}>
+              <LoaderCircle size={16} color={colors.primary} />
+              <Text style={styles.statusTitleText}>Buscando precios reales en {store === "all" ? "Éxito, Jumbo y D1" : store}…</Text>
             </View>
           )}
           {!loading && request && (error || !products.length) && (
