@@ -55,7 +55,7 @@ services:
       DATABASE_URL: postgresql://rinde:${POSTGRES_PASSWORD:-rinde}@db:5432/rinde
       INGEST_CRON: ${INGEST_CRON:-0 5 * * *}
       INGEST_ON_START: ${INGEST_ON_START:-0}
-      INGEST_EXITO: ${INGEST_EXITO:-0}
+      INGEST_EXITO: ${INGEST_EXITO:-1}
     depends_on:
       migrate:
         condition: service_completed_successfully

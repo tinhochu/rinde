@@ -22,6 +22,8 @@ All three chains (Éxito, Jumbo, D1) run on **VTEX**. Their public catalog data 
 
 → **Éxito:** ingest from sitemap → product page → JSON-LD. **Jumbo and D1:** use the catalog API.
 
+**Decision (2026-10-26):** Éxito is ingested through its VTEX catalog API at `/io/api/` (where its `/api/` redirects), on by default with `INGEST_EXITO=1`. Set `INGEST_EXITO=0` to turn it off.
+
 ## Findings that shape the design
 
 1. **Keyword search is noisy.** "aceite girasol" returned tuna in sunflower oil. "atun lata" at Éxito returned cat food. "harina pan" returned bread. Search results can't be used directly, so an **LLM equivalence/relevance judge is required**. This is a real job for the model, not decoration.

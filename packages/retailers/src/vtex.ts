@@ -17,8 +17,8 @@ function minIntervalMs() {
 // bodies under rapid load, hence the ≥2 s default (validated 2026-10-26).
 const lastRequestByHost = new Map<string, number>();
 
-async function pace(origin: string) {
-  const min = minIntervalMs();
+async function pace(origin: string, floorMs = 0) {
+  const min = Math.max(minIntervalMs(), floorMs);
   const wait = (lastRequestByHost.get(origin) ?? 0) + min - Date.now();
   if (wait > 0) await new Promise((r) => setTimeout(r, wait));
   lastRequestByHost.set(origin, Date.now());
@@ -34,6 +34,8 @@ interface VtexConfig {
   searchPath: string;
   /** EAN prefix for the retailer's own private label, if any */
   privateLabelPrefix?: string;
+  /** Slower pacing for hosts that rate-limit harder than the default allows */
+  minIntervalMs?: number;
 }
 
 // Minimal shape of the VTEX catalog_system search response we rely on.
@@ -63,10 +65,15 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
     const url = `${config.baseUrl}${config.searchPath}?${qs}`;
     let lastError: unknown = new Error("unreachable");
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-      await pace(origin);
+      await pace(origin, config.minIntervalMs);
       try {
         const res = await fetch(url, { headers: { "User-Agent": USER_AGENT, Accept: "application/json" } });
-        if (res.status === 429 || res.status >= 500) {
+        if (res.status === 429) {
+          lastError = new Error(`${config.slug} 429 ${url}`);
+          // Rate limited: honor Retry-After, else back off well beyond the normal retry delay.
+          const retryAfter = Number(res.headers.get("retry-after"));
+          if (attempt < MAX_ATTEMPTS) await sleep(Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : 15_000 * attempt);
+        } else if (res.status >= 500) {
           lastError = new Error(`${config.slug} ${res.status} ${url}`);
         } else if (!res.ok && res.status !== 206) {
           // VTEX returns 206 Partial Content for paginated results; other 4xx fail fast.
@@ -96,7 +103,10 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
     const observedAt = new Date();
     return products.flatMap((p) =>
       p.items.map((item): Offer => {
-        const offer = item.sellers?.[0]?.commertialOffer ?? {};
+        // The first seller can be an out-of-stock marketplace seller; use the first one actually selling.
+        const offer =
+          item.sellers?.map((s) => s.commertialOffer).find((o) => o?.IsAvailable && (o.Price ?? 0) > 0) ??
+          item.sellers?.[0]?.commertialOffer ?? {};
         return {
           retailer: config.slug,
           externalId: item.itemId,

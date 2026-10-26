@@ -13,9 +13,17 @@ export async function ingestRetailer(client: RetailerClient, terms = STAPLE_TERM
   let seen = 0;
   try {
     const offers = new Map<string, Offer>();
+    const failed: string[] = [];
     for (const term of terms) {
-      for (const o of await client.search(term, { limit: PAGE_SIZE })) offers.set(o.externalId, o);
+      try {
+        for (const o of await client.search(term, { limit: PAGE_SIZE })) offers.set(o.externalId, o);
+      } catch (error) {
+        // One throttled term shouldn't throw away the rest of the snapshot.
+        failed.push(term);
+        console.warn(`[ingest] ${client.slug} "${term}" failed:`, String(error));
+      }
     }
+    if (failed.length === terms.length) throw new Error(`${client.slug}: every search failed`);
 
     for (const o of offers.values()) {
       await recordOffer(prisma, retailer.id, o, run.id);
@@ -24,7 +32,7 @@ export async function ingestRetailer(client: RetailerClient, terms = STAPLE_TERM
 
     await prisma.ingestRun.update({
       where: { id: run.id },
-      data: { status: "ok", finishedAt: new Date(), itemsSeen: seen },
+      data: { status: "ok", finishedAt: new Date(), itemsSeen: seen, error: failed.length ? `failed terms: ${failed.join(", ")}` : null },
     });
   } catch (error) {
     await prisma.ingestRun.update({

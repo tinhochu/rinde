@@ -20,13 +20,15 @@ export const jumbo = createVtexClient({
   searchPath: "/api/catalog_system/pub/products/search",
 });
 
-// Éxito disallows /api/ in robots.txt; its /api/ redirects to /io/api/. Pending a
-// decision on access (see docs/data-feasibility.md) — kept behind an explicit opt-in.
+// Éxito disallows /api/ in robots.txt; its /api/ redirects to /io/api/, which we use.
+// Enabled by product decision (2026-10-26); INGEST_EXITO=0 turns it off.
 export const exito = createVtexClient({
   slug: "exito",
   name: "Éxito",
   baseUrl: "https://www.exito.com",
   searchPath: "/io/api/catalog_system/pub/products/search",
+  // Éxito answers 429 at the 2 s default pace.
+  minIntervalMs: 5000,
 });
 
 export function retailers(opts: { includeExito?: boolean } = {}): RetailerClient[] {
