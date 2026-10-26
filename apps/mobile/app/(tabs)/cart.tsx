@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import { ArrowRight, Minus, Plus, ShieldCheck, ShoppingBag, Sparkles, Trash2, Wallet } from "lucide-react-native";
+import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ArrowRight, ListPlus, Minus, Plus, ShieldCheck, ShoppingBag, Sparkles, Trash2, Wallet } from "lucide-react-native";
 import { Button } from "@/components/ui";
+import { ProductCard } from "@/components/product-card";
 import { GroceryImage } from "@/components/grocery-image";
 import { useAppState } from "@/lib/app-state";
 import { cop, quantityLabel } from "@/lib/market";
-import { isFresh, observedLabel, type CartLine } from "@/lib/shop";
+import { IDEAS, isFresh, observedLabel, type CartLine } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 export default function CartScreen() {
-  const { cart, budget, addProduct, removeProduct, deleteLine, clearCart, openProduct, openPlanner, explore } = useAppState();
+  const { cart, favorites, budget, addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, openProduct, openPlanner, explore } = useAppState();
   const [now] = useState(Date.now());
   const verified = cart.filter(line => isFresh(line.product.offer, now));
   const subtotal = verified.reduce((sum, line) => sum + line.count * line.product.offer!.price, 0);
@@ -109,14 +110,41 @@ export default function CartScreen() {
           </View>
         </>
       ) : (
-        <View style={styles.empty}>
-          <View style={styles.emptyIcon}>
-            <ShoppingBag size={42} strokeWidth={1.3} color={colors.primary} />
+        <ScrollView contentContainerStyle={styles.emptyPage} showsVerticalScrollIndicator={false}>
+          <View style={styles.empty}>
+            <View style={styles.emptyIcon}>
+              <ShoppingBag size={36} strokeWidth={1.3} color={colors.primary} />
+            </View>
+            <Text style={styles.emptyTitle}>Aquí empieza tu mercado.</Text>
+            <Text style={styles.emptyText}>Toca el + de los productos que necesitas. Después encontramos un plan para tu bolsillo.</Text>
+            <View style={styles.emptyActions}>
+              <Button title="Explorar productos" onPress={explore} icon={<ArrowRight size={15} color="#FFFFFF" />} />
+              <Button title="Escribir mi lista" variant="outline" onPress={() => openPlanner(false)} icon={<ListPlus size={15} color={colors.primary} />} />
+            </View>
+            <View style={styles.budgetRow}>
+              <Wallet size={14} color={colors.primary} />
+              <Text style={styles.budgetRowText}>Tu presupuesto: <Text style={styles.budgetRowStrong}>{cop(budget)}</Text></Text>
+            </View>
           </View>
-          <Text style={styles.emptyTitle}>Aquí empieza tu mercado.</Text>
-          <Text style={styles.emptyText}>Toca el + de los productos que necesitas. Después encontramos un plan para tu bolsillo.</Text>
-          <Button title="Explorar productos" onPress={explore} icon={<ArrowRight size={15} color="#FFFFFF" />} />
-        </View>
+
+          <Text style={styles.ideasTitle}>Básicos para empezar</Text>
+          <Text style={styles.ideasSub}>Agrégalos y verificamos el precio en cada tienda al armar tu plan.</Text>
+          <View style={styles.ideas}>
+            {IDEAS.slice(0, 4).map(product => (
+              <View key={product.id} style={styles.idea}>
+                <ProductCard
+                  product={product}
+                  count={0}
+                  favorite={favorites.some(f => f.id === product.id)}
+                  onAdd={() => addProduct(product)}
+                  onRemove={() => removeProduct(product.id)}
+                  onFavorite={() => favoriteProduct(product)}
+                  onOpen={() => openProduct(product)}
+                />
+              </View>
+            ))}
+          </View>
+        </ScrollView>
       )}
     </View>
   );
@@ -169,9 +197,21 @@ const styles = StyleSheet.create({
   over: { fontSize: fontSize.caption, color: colors.destructive },
   fine: { flexDirection: "row", alignItems: "flex-start", justifyContent: "center", gap: 6 },
   fineText: { fontSize: fontSize.tiny, lineHeight: 14, color: colors.mutedForeground, textAlign: "center" },
-  empty: { flex: 1, alignItems: "center", justifyContent: "center", gap: spacing.md, padding: spacing.xl },
+  emptyPage: { gap: spacing.md, paddingBottom: spacing.xl },
+  empty: {
+    alignItems: "center", gap: spacing.md, padding: spacing.xl,
+    borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card,
+  },
+  emptyActions: { alignSelf: "stretch", gap: spacing.sm },
+  budgetRow: { flexDirection: "row", alignItems: "center", gap: 6 },
+  budgetRowText: { fontSize: fontSize.caption, color: colors.mutedForeground },
+  budgetRowStrong: { fontWeight: "700", color: colors.primary },
+  ideasTitle: { marginTop: spacing.md, fontSize: fontSize.headline, fontWeight: "800", letterSpacing: -0.5 },
+  ideasSub: { marginTop: -spacing.sm, fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
+  ideas: { flexDirection: "row", flexWrap: "wrap", gap: spacing.md },
+  idea: { width: "47%", flexGrow: 1 },
   emptyIcon: {
-    width: 96, height: 96, borderRadius: 28, backgroundColor: colors.secondary,
+    width: 76, height: 76, borderRadius: 24, backgroundColor: colors.secondary,
     alignItems: "center", justifyContent: "center",
   },
   emptyTitle: { fontSize: 20, fontWeight: "800" },

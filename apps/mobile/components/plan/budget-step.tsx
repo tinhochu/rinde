@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { ArrowRight, ChevronDown, Heart, Leaf, MapPin, ShieldCheck, ShoppingBasket, Sparkles, Wallet } from "lucide-react-native";
+import { ArrowRight, ChevronDown, Heart, Leaf, MapPin, ShieldCheck, ShoppingBasket, Sparkles } from "lucide-react-native";
 import { Button, Stepper } from "@/components/ui";
 import { StoreLogo } from "@/components/brand";
 import { cop } from "@/lib/market";
@@ -46,7 +46,6 @@ export function BudgetStep({ budget, people, area, onArea, onNext }: {
         <Text style={styles.cardSub}>¿Cuánto tienes para este mercado? Nosotros hacemos que rinda.</Text>
         <Text style={[labelStyle, styles.budgetLabel]}>Mi presupuesto para el mercado</Text>
         <View style={styles.budgetBox}>
-          <Wallet size={23} color={colors.primary} />
           <Text style={styles.currency}>$</Text>
           <Controller
             control={control}
@@ -159,7 +158,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.formBg, paddingHorizontal: spacing.lg, paddingVertical: spacing.md,
   },
   currency: { fontSize: 28, fontWeight: "600", color: colors.primary },
-  budgetInput: { flex: 1, fontSize: 32, fontWeight: "800", letterSpacing: -1, color: colors.primary, fontVariant: ["tabular-nums"] },
+  budgetInput: { flex: 1, minWidth: 0, width: "100%", fontSize: 30, fontWeight: "800", letterSpacing: -1, color: colors.primary, fontVariant: ["tabular-nums"] },
   cop: { fontSize: fontSize.caption, fontWeight: "600", color: colors.mutedForeground },
   error: { fontSize: fontSize.caption, color: colors.destructive },
   quickRow: { flexDirection: "row", gap: spacing.sm },

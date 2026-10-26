@@ -44,17 +44,19 @@ export default function PlanScreen() {
           const disabled = index > step || step === 3 || index === 3 || (index === 4 && !result);
           return (
             <View key={label} style={[styles.progressItem, index < STEPS.length - 1 && styles.progressGrow]}>
-              <Pressable disabled={disabled} onPress={() => go(index)} style={styles.progressButton}>
+              <Pressable accessibilityLabel={`Paso ${index + 1}: ${label}`} disabled={disabled} onPress={() => go(index)} style={styles.progressButton}>
                 <View style={[styles.dot, index === step && styles.dotActive, index < step && styles.dotDone, index > step && styles.dotTodo]}>
                   {index < step ? <Check size={13} color={colors.primary} /> : <Text style={[styles.dotText, index === step && styles.dotTextActive]}>{index + 1}</Text>}
                 </View>
-                <Text style={[styles.dotLabel, index <= step ? styles.dotLabelActive : styles.dotLabelTodo]}>{label}</Text>
               </Pressable>
               {index < STEPS.length - 1 && <View style={styles.progressLine} />}
             </View>
           );
         })}
       </View>
+
+      {/* Five step labels don't fit a phone-width bar, so the current one is named here. */}
+      <Text style={styles.stepName}>Paso {step + 1} de {STEPS.length} · <Text style={styles.stepNameStrong}>{STEPS[step]}</Text></Text>
 
       {step > 0 && step !== 3 && (
         <Pressable onPress={() => go(step === 4 ? 2 : step === 2 && fromCart ? 0 : step - 1)} style={styles.back}>
@@ -119,9 +121,8 @@ const styles = StyleSheet.create({
   dotTodo: { backgroundColor: colors.card },
   dotText: { fontSize: fontSize.caption, fontWeight: "600", color: colors.mutedForeground },
   dotTextActive: { color: "#FFFFFF" },
-  dotLabel: { fontSize: fontSize.small, color: colors.mutedForeground },
-  dotLabelActive: { fontWeight: "600", color: colors.primary },
-  dotLabelTodo: { fontWeight: "400" },
+  stepName: { marginTop: -spacing.sm, fontSize: fontSize.caption, color: colors.mutedForeground },
+  stepNameStrong: { fontWeight: "700", color: colors.primary },
   back: { flexDirection: "row", alignItems: "center", gap: spacing.sm, alignSelf: "flex-start" },
   backText: { fontSize: fontSize.caption, fontWeight: "600", color: colors.mutedForeground },
   loading: { alignItems: "center", gap: spacing.md, paddingVertical: spacing.xxl },
