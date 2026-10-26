@@ -233,19 +233,21 @@ export default function ShopScreen() {
                 <ChevronRight size={13} color={colors.primary} />
               </Pressable>
             </View>
-            {STORES.map(name => (
-              <Pressable key={name} onPress={() => selectStore(name)} style={[styles.storeRow, store === name && styles.storeRowActive]}>
-                <StoreLogo store={name} />
-                <View style={styles.storeBody}>
-                  <View style={styles.storeName}>
-                    <Text style={styles.storeNameText}>{name}</Text>
-                    <BadgeCheck size={13} color={colors.primary} />
+            <View style={styles.storeGrid}>
+              {STORES.map(name => (
+                <Pressable key={name} onPress={() => selectStore(name)} style={[styles.storeRow, store === name && styles.storeRowActive]}>
+                  {store === name && <Check size={14} color={colors.primary} style={styles.storeCheck} />}
+                  <StoreLogo store={name} />
+                  <View style={styles.storeBody}>
+                    <View style={styles.storeName}>
+                      <Text style={styles.storeNameText}>{name}</Text>
+                      <BadgeCheck size={13} color={colors.primary} />
+                    </View>
+                    <Text style={styles.storeSub}>Catálogo online</Text>
                   </View>
-                  <Text style={styles.storeSub}>Catálogo online</Text>
-                </View>
-                {store === name && <Check size={14} color={colors.primary} />}
-              </Pressable>
-            ))}
+                </Pressable>
+              ))}
+            </View>
           </View>
 
           <View style={styles.section}>
@@ -422,16 +424,18 @@ const styles = StyleSheet.create({
   sectionSub: { fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
   sectionLink: { flexDirection: "row", alignItems: "center", gap: 2 },
   sectionLinkText: { fontSize: fontSize.caption, fontWeight: "600", color: colors.primary },
+  storeGrid: { flexDirection: "row", gap: spacing.sm },
   storeRow: {
-    flexDirection: "row", alignItems: "center", gap: spacing.lg,
+    flex: 1, alignItems: "center", gap: spacing.md,
     borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border,
-    backgroundColor: colors.card, padding: spacing.lg,
+    backgroundColor: colors.card, paddingVertical: spacing.lg, paddingHorizontal: spacing.sm,
   },
   storeRowActive: { borderColor: colors.primary, backgroundColor: colors.secondary },
-  storeBody: { flex: 1, gap: 2 },
+  storeCheck: { position: "absolute", top: spacing.sm, right: spacing.sm },
+  storeBody: { alignItems: "center", gap: 2 },
   storeName: { flexDirection: "row", alignItems: "center", gap: 4 },
   storeNameText: { fontSize: fontSize.subhead, fontWeight: "700" },
-  storeSub: { fontSize: fontSize.tiny, color: colors.mutedForeground },
+  storeSub: { fontSize: fontSize.tiny, color: colors.mutedForeground, textAlign: "center" },
   aisles: { gap: spacing.lg },
   aisle: { width: 78, alignItems: "center", gap: spacing.sm },
   aisleImage: { width: 76, height: 76, borderRadius: 22, borderWidth: 2, borderColor: "transparent", padding: 10, overflow: "hidden" },
