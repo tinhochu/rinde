@@ -9,6 +9,7 @@ import {
 import { Brand, StoreLogo } from "@/components/brand";
 import { Button, Chip } from "@/components/ui";
 import { GroceryImage } from "@/components/grocery-image";
+import { Image } from "expo-image";
 import { ProductCard, ProductCardSkeleton } from "@/components/product-card";
 import { useAppState } from "@/lib/app-state";
 import { fetchCatalog } from "@/lib/api";
@@ -222,7 +223,8 @@ export default function ShopScreen() {
               <Text style={styles.heroTitle}>Llena tu mesa.{"\n"}Cuida tu bolsillo.</Text>
               <Text style={styles.heroSub}>Todo lo que necesitas, con un plan para que tu plata rinda más.</Text>
               <Button title="Armar mi mercado" onPress={openPlanner} icon={<ArrowRight size={15} color="#FFFFFF" />} />
-              <GroceryImage src={photo("photo-1543168256-418811576931", 850)} alt="Una compra de mercado con vegetales frescos" style={styles.heroImage} />
+              {/* "Market in Bogotá", Wikimedia Commons, CC0. Bundled so the hero never waits on a third-party host. */}
+              <Image source={require("@/assets/hero-mercado-bogota.jpg")} accessibilityLabel="Una plaza de mercado en Bogotá con frutas y verduras" contentFit="cover" style={styles.heroImage} />
               <View style={styles.heroNote}>
                 <Leaf size={17} color={colors.primary} />
                 <View>
