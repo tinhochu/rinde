@@ -3,7 +3,7 @@ import { cartSchema, draftSchema, favoritesSchema, type CartLine, type SavedDraf
 
 const KEYS = { cart: "rinde-cart", favorites: "rinde-favorites", prefs: "rinde-preferences", draft: "rinde-draft" } as const;
 
-type Prefs = { budget: number; people: number; zone: string };
+type Prefs = { budget: number; people: number; zone: string; tripCost?: number };
 
 async function read(key: string): Promise<unknown> {
   try {

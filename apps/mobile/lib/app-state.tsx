@@ -11,7 +11,7 @@ import { toast } from "./toast";
 export type AppModal = "area" | "saved" | "help" | "privacy" | null;
 
 type AppStateValue = {
-  step: number; budget: number; people: number; zone: string; area: string;
+  step: number; budget: number; people: number; zone: string; area: string; tripCost: number;
   items: ListItem[]; result?: PlanResult; progress: VerifyProgress[]; refreshing: boolean; deciding: string | null; fromCart: boolean;
   cart: CartLine[]; cartCount: number; favorites: ShopProduct[];
   product: ShopProduct | null; modal: AppModal; saved?: SavedDraft;
@@ -25,6 +25,7 @@ type AppStateValue = {
   closeModal: () => void;
   setZone: (next: string) => void;
   setBudgetPeople: (nextBudget: number, nextPeople: number) => void;
+  setPrefs: (next: { budget?: number; people?: number; tripCost?: number }) => void;
   setItems: (list: ListItem[]) => void;
   compare: (list: ListItem[]) => void;
   refresh: () => void;
@@ -53,6 +54,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [step, setStep] = useState(0);
   const [budget, setBudget] = useState(200000);
   const [people, setPeople] = useState(4);
+  // COP an extra store stop is worth to the user; the planner only adds a stop when it saves more.
+  const [tripCost, setTripCost] = useState(10000);
   const [zone, setZoneState] = useState("");
   const [items, setItemsState] = useState<ListItem[]>([]);
   const [result, setResult] = useState<PlanResult>();
@@ -79,6 +82,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         setBudget(loaded.prefs.budget);
         setPeople(loaded.prefs.people);
         setZoneState(loaded.prefs.zone);
+        if (loaded.prefs.tripCost !== undefined) setTripCost(loaded.prefs.tripCost);
       }
       setCart(loaded.cart);
       setFavorites(loaded.favorites);
@@ -101,8 +105,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     if (!hydrated) return;
     saveCart(cart);
     saveFavorites(favorites);
-    savePrefs({ budget, people, zone });
-  }, [cart, favorites, budget, people, zone, hydrated]);
+    savePrefs({ budget, people, zone, tripCost });
+  }, [cart, favorites, budget, people, zone, tripCost, hydrated]);
 
   useEffect(() => {
     if (!hydrated || !items.length) return;
@@ -265,6 +269,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setStep(fromCart ? 2 : 1);
   }
 
+  function setPrefs(next: { budget?: number; people?: number; tripCost?: number }) {
+    if (next.budget !== undefined) setBudget(next.budget);
+    if (next.people !== undefined) setPeople(next.people);
+    if (next.tripCost !== undefined) setTripCost(next.tripCost);
+  }
+
   function setItems(list: ListItem[]) {
     invalidate();
     setItemsState(list);
@@ -275,7 +285,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   function compare(list: ListItem[]) {
     setItemsState(list);
     setResult(undefined);
-    void plan({ budget, area, items: list }, "new");
+    void plan({ budget, area, tripCost, items: list }, "new");
   }
 
   function refresh() {
@@ -301,12 +311,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const cartCount = useMemo(() => cart.reduce((sum, line) => sum + line.count, 0), [cart]);
 
   const value: AppStateValue = {
-    step, budget, people, zone, area, items, result, progress, refreshing, deciding, fromCart,
+    step, budget, people, zone, area, tripCost, items, result, progress, refreshing, deciding, fromCart,
     cart, cartCount, favorites, product, modal, saved, hydrated, offline, externalSearch,
     go, openPlanner, explore,
     openProduct: setProduct, closeProduct: () => setProduct(null),
     openModal: setModal, closeModal: () => setModal(null),
-    setZone, setBudgetPeople, setItems, compare, refresh, decide, resume, deleteSaved,
+    setZone, setBudgetPeople, setPrefs, setItems, compare, refresh, decide, resume, deleteSaved,
     addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, searchProduct,
   };
 
