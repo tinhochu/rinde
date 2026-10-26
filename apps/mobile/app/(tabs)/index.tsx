@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { AppState, FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { AppState, FlatList, Keyboard, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import {
   ArrowRight, BadgeCheck, Bookmark, Camera, Check, ChevronDown, ChevronRight, CircleHelp,
@@ -14,8 +14,8 @@ import { ProductCard, ProductCardSkeleton } from "@/components/product-card";
 import { CompareCard, CompareCardSkeleton } from "@/components/compare-card";
 import { useAppState } from "@/lib/app-state";
 import { fetchCatalog } from "@/lib/api";
-import { cop, Store, STORES } from "@/lib/market";
-import { CatalogResult, CATEGORIES, ComparedProduct, fromOffer, IDEAS, photo, ShopProduct } from "@/lib/shop";
+import { Aisle, cop, Store, STORES } from "@/lib/market";
+import { AISLE_NAMES, CatalogResult, CATEGORIES, ComparedProduct, fromOffer, IDEAS, photo, ShopProduct } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 import { toast } from "@/lib/toast";
 
@@ -30,12 +30,14 @@ export default function ShopScreen() {
   const [catalog, setCatalog] = useState<CatalogResult>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [sort, setSort] = useState("stores");
+  const [sort, setSort] = useState("relevant");
+  const [aisle, setAisle] = useState<Aisle | "all">("all");
   const { control, handleSubmit, setValue, watch } = useForm<{ search: string }>({ defaultValues: { search: "" } });
   const search = watch("search");
   const totalCount = cart.reduce((sum, line) => sum + line.count, 0);
 
   function browse(term: string, nextStore = store, nextCategory = category) {
+    setAisle("all");
     if (term.trim().length < 2 || term.length > 100) {
       toast.error("Escribe un producto de 2 a 100 caracteres.");
       return;
@@ -104,11 +106,18 @@ export default function ShopScreen() {
   }
 
   // Search results are products compared across stores; adding one uses its cheapest store's offer.
+  // "relevant" keeps the API's order: the searched thing first, then products sold in more stores.
   const compared = [...(catalog?.products || [])].sort((a, b) =>
-    sort === "name" ? a.name.localeCompare(b.name, "es")
-      : sort === "stores" ? b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price
-        : a.offers[0]!.price - b.offers[0]!.price,
+    sort === "stores" ? b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price
+      : sort === "price" ? a.offers[0]!.price - b.offers[0]!.price
+        : 0,
   );
+
+  // A search for "manzana" spans fruit, sodas and fabric softener; the aisle chips split them.
+  const aisles = Object.entries(
+    compared.reduce<Partial<Record<Aisle, number>>>((acc, p) => ({ ...acc, [p.aisle]: (acc[p.aisle] || 0) + 1 }), {}),
+  ).sort(([a, x], [b, y]) => Number(a === "other") - Number(b === "other") || y! - x!) as [Aisle, number][];
+  const visible = aisle === "all" ? compared : compared.filter(p => p.aisle === aisle);
 
   const toShop = (p: ComparedProduct, offer = p.offers[0]!) => ({
     ...fromOffer(offer, request?.term || "mercado", category),
@@ -131,7 +140,7 @@ export default function ShopScreen() {
   // Browsing ideas: a two-column grid; an odd last row gets an empty slot so its card keeps half the width.
   // Searching: one comparison card per row, with skeletons holding the list until results arrive.
   type Cell = ShopProduct | ComparedProduct | "skeleton" | null;
-  const shown: Cell[] = loading ? Array<Cell>(searching ? 3 : 6).fill("skeleton") : request ? compared : ideas;
+  const shown: Cell[] = loading ? Array<Cell>(searching ? 3 : 6).fill("skeleton") : request ? visible : ideas;
   const grid = !searching && shown.length % 2 ? [...shown, null] : shown;
 
   function renderProduct({ item }: { item: Cell }) {
@@ -320,21 +329,12 @@ export default function ShopScreen() {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{request ? `Resultados para “${request.term}”` : "Los básicos de tu semana"}</Text>
             {searching ? (
-              <View style={styles.storeFilter}>
-                <Pressable onPress={() => selectStore("all")} style={[styles.storePill, store === "all" && styles.storePillActive]}>
-                  <Text style={[styles.storePillText, store === "all" && styles.storePillTextActive]}>Todas</Text>
-                </Pressable>
-                {STORES.map(name => (
-                  <Pressable
-                    key={name}
-                    accessibilityLabel={`Ver solo ${name}`}
-                    onPress={() => selectStore(name)}
-                    style={[styles.storePill, store === name && styles.storePillActive]}
-                  >
-                    <StoreLogo store={name} />
-                  </Pressable>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.aisleFilter}>
+                <Chip selected={aisle === "all"} onPress={() => setAisle("all")}>{`Todo · ${compared.length}`}</Chip>
+                {aisles.map(([id, n]) => (
+                  <Chip key={id} selected={aisle === id} onPress={() => setAisle(id)}>{`${AISLE_NAMES[id]} · ${n}`}</Chip>
                 ))}
-              </View>
+              </ScrollView>
             ) : (
               <Text style={styles.sectionSub}>Agrégalos a tu lista. Verificamos los precios al crear tu plan.</Text>
             )}
@@ -343,9 +343,9 @@ export default function ShopScreen() {
             )}
             {request ? (
               <View style={styles.sortRow}>
+                <Chip selected={sort === "relevant"} onPress={() => setSort("relevant")}>Relevantes</Chip>
                 <Chip selected={sort === "stores"} onPress={() => setSort("stores")}>En más tiendas</Chip>
                 <Chip selected={sort === "price"} onPress={() => setSort("price")}>Menor precio</Chip>
-                <Chip selected={sort === "name"} onPress={() => setSort("name")}>Nombre A–Z</Chip>
               </View>
             ) : (
               <Pressable onPress={() => browse("arroz")} style={styles.sectionLink}>
@@ -510,14 +510,7 @@ const styles = StyleSheet.create({
   aisleThumb: { width: "100%", height: "100%", borderRadius: 999 },
   aisleName: { fontSize: fontSize.small, fontWeight: "500", lineHeight: 14, textAlign: "center", color: colors.foreground },
   aisleNameActive: { color: colors.primary },
-  storeFilter: { flexDirection: "row", gap: spacing.sm },
-  storePill: {
-    flexDirection: "row", alignItems: "center", justifyContent: "center", minHeight: 40, paddingHorizontal: spacing.sm, minWidth: 64,
-    borderRadius: radius.pill, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card,
-  },
-  storePillActive: { borderColor: colors.primary, borderWidth: 2, backgroundColor: colors.secondary },
-  storePillText: { fontSize: fontSize.caption, fontWeight: "600", color: colors.foreground },
-  storePillTextActive: { color: colors.primary },
+  aisleFilter: { flexDirection: "row", gap: spacing.sm },
   sortRow: { flexDirection: "row", gap: spacing.sm },
   statusCard: { borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card, padding: spacing.xl, gap: spacing.md },
   statusTitle: { flexDirection: "row", alignItems: "center", gap: spacing.sm },

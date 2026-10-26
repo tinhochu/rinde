@@ -2,7 +2,7 @@ import "server-only";
 import { db, ensureRetailer, recordOffer, type RetailerSlug } from "@rinde/db";
 import { retailerBySlug } from "@rinde/retailers";
 import { STORE_BY_SLUG, type ComparedProduct, type Offer, type Store } from "./contract";
-import { findOffers, LIVE_TIMEOUT_MS, listingsByEan, toOffer, withTimeout } from "./offers";
+import { findOffers, isThingFor, LIVE_TIMEOUT_MS, listingsByEan, toOffer, withTimeout } from "./offers";
 
 const MAX_PRODUCTS = 24;
 
@@ -70,12 +70,16 @@ export async function compareProducts(term: string, stores: RetailerSlug[]) {
       image: best.find((o) => o.image)?.image ?? "",
       offers: best,
       missing,
+      // Any store's specific category beats a generic one.
+      aisle: best.find((o) => o.aisle !== "other")?.aisle ?? "other",
       spread: best.length > 1 ? best.at(-1)!.price - lead.price : 0,
     };
   });
 
-  // Products sold in more stores first: that's the comparison people came for.
-  products.sort((a, b) => b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price);
+  // The searched thing before things that only mention it ("Manzana" before "Gaseosa … manzana"),
+  // then products sold in more stores: that's the comparison people came for.
+  const isThing = isThingFor(term);
+  products.sort((a, b) => Number(isThing(b)) - Number(isThing(a)) || b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price);
   return { offers, products, reasons };
 }
 

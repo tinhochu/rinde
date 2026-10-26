@@ -1,3 +1,4 @@
+import { aisleOf } from "./aisles";
 import "server-only";
 import { db, ensureRetailer, recordOffer, type RetailerSlug } from "@rinde/db";
 import { retailerBySlug } from "@rinde/retailers";
@@ -38,6 +39,7 @@ export type ListingRow = {
   ean: string | null;
   size: string | null;
   unit: "g" | "ml" | "unit" | null;
+  category: string | null;
   imageUrl: string | null;
   url: string;
   price: number;
@@ -72,7 +74,7 @@ export async function searchListings(term: string, opts: { stores?: RetailerSlug
       WHERE po.available AND po."observedAt" > now() - make_interval(hours => ${MAX_AGE_HOURS})
       ORDER BY po."retailerProductId", po."observedAt" DESC
     ), ranked AS (
-      SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit,
+      SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
              rp."imageUrl", rp.url, l.price, l.stock, l."observedAt", l.source,
              row_number() OVER (
                PARTITION BY r.slug
@@ -101,7 +103,7 @@ export async function listingsByEan(eans: string[], stores: RetailerSlug[]): Pro
       WHERE po.available AND po."observedAt" > now() - make_interval(hours => ${MAX_AGE_HOURS}) AND p.ean = ANY(${eans})
       ORDER BY po."retailerProductId", po."observedAt" DESC
     )
-    SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit,
+    SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
            rp."imageUrl", rp.url, l.price, l.stock, l."observedAt", l.source
     FROM latest l
     JOIN "RetailerProduct" rp ON rp.id = l."retailerProductId"
@@ -127,6 +129,7 @@ export function toOffer(r: ListingRow): Offer {
     url: r.url,
     observedAt: r.observedAt.toISOString(),
     channel: "Tienda online",
+    aisle: aisleOf(r.category, r.name),
   };
 }
 
@@ -153,22 +156,34 @@ export async function searchLive(term: string, stores: RetailerSlug[]): Promise<
 }
 
 /** Snapshot first; fall back to a live search for stores with no snapshot hits. */
+/** Whether a listing *is* the searched thing: its name starts with the term's first word. */
+export function isThingFor(term: string) {
+  const first = searchTokens(term)[0];
+  const lead = first ? stem(first) : "";
+  return (o: { name: string }) => !!lead && (searchTokens(o.name)[0]?.startsWith(lead) ?? false);
+}
+
 export async function findOffers(term: string, opts: { stores?: RetailerSlug[]; perStore?: number } = {}) {
   const stores = opts.stores ?? enabledRetailers();
-  const offers = await searchSnapshot(term, { ...opts, stores });
-  const covered = new Set(offers.map((o) => o.store));
+  let offers = await searchSnapshot(term, { ...opts, stores });
+  const tokens = searchTokens(term);
+  // A listing *is* the thing searched when its name starts with it ("Manzana Royal Gala"), not when it's
+  // only a flavor or scent ("Gaseosa … manzana"). A store whose snapshot has only the latter is asked live.
+  const isThing = isThingFor(term);
+  const covered = new Set(offers.filter(isThing).map((o) => o.store));
+  const anything = new Set(offers.map((o) => o.store));
   const missing = stores.filter((s) => !covered.has(STORE_BY_SLUG[s]));
   const reasons: string[] = [];
   if (missing.length) {
     const live = await searchLive(term, missing);
-    offers.push(...live.offers);
+    const seen = new Set(offers.map((o) => o.id));
+    offers.push(...live.offers.filter((o) => !seen.has(o.id)));
     const found = new Set(live.offers.map((o) => o.store));
     for (const s of missing) {
-      if (live.failed.includes(s)) reasons.push(`${STORE_BY_SLUG[s]}: no respondió, intenta de nuevo.`);
+      if (live.failed.includes(s) && !anything.has(STORE_BY_SLUG[s])) reasons.push(`${STORE_BY_SLUG[s]}: no respondió, intenta de nuevo.`);
     }
     // Store names differ ("tetra pak" is D1 wording): drop trailing words until each store matches something.
-    let pending = missing.filter((s) => !live.failed.includes(s) && !found.has(STORE_BY_SLUG[s]));
-    const tokens = searchTokens(term);
+    let pending = missing.filter((s) => !live.failed.includes(s) && !found.has(STORE_BY_SLUG[s]) && !anything.has(STORE_BY_SLUG[s]));
     for (let n = tokens.length - 1; n >= 1 && pending.length; n--) {
       const relaxed = tokens.slice(0, n).join(" ");
       const more = await searchSnapshot(relaxed, { ...opts, stores: pending });
@@ -179,6 +194,8 @@ export async function findOffers(term: string, opts: { stores?: RetailerSlug[]; 
     }
     for (const s of pending) reasons.push(`${STORE_BY_SLUG[s]}: sin resultados para "${term}".`);
   }
+  // The thing itself before things that merely mention it; callers cap the list.
+  offers = [...offers.filter(isThing), ...offers.filter((o) => !isThing(o))];
   return { offers, reasons };
 }
 

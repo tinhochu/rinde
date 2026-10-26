@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ListItem, Offer, Store, Unit } from "./market";
+import { Aisle, ListItem, Offer, Store, Unit } from "./market";
 
 export type ShopProduct = {
   id: string;
@@ -18,9 +18,13 @@ export type CartLine = { product: ShopProduct; count: number };
 /** One product across stores, matched by EAN (see apps/web/src/server/contract.ts). */
 export type ComparedProduct = {
   key: string; name: string; brand: string; ean: string; pack: number; unit: Unit; image: string;
-  offers: Offer[]; missing: Store[]; spread: number;
+  offers: Offer[]; missing: Store[]; spread: number; aisle: Aisle;
 };
 export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };
+export const AISLE_NAMES: Record<Aisle, string> = {
+  produce: "Frutas y verduras", dairy: "Lácteos y huevos", pantry: "Despensa", meat: "Carnes y pescado", bakery: "Panadería",
+  drinks: "Bebidas", home: "Aseo y hogar", personal: "Cuidado personal", other: "Otros",
+};
 export const photo = (id: string, width = 500) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;
 export const CATEGORIES = [
   { id: "all", name: "Para ti", term: "arroz", image: "photo-1542838132-92c53300491e", color: "#EDF5E7" },

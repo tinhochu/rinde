@@ -3,6 +3,8 @@ import { z } from "zod";
 
 export type Store = "Éxito" | "Jumbo" | "D1";
 export type Unit = "g" | "ml" | "und";
+/** Rinde's aisles; the mobile app names them (apps/mobile/lib/shop.ts AISLE_NAMES). */
+export type Aisle = "produce" | "dairy" | "pantry" | "meat" | "bakery" | "drinks" | "home" | "personal" | "other";
 
 export type Offer = {
   id: string;
@@ -18,6 +20,7 @@ export type Offer = {
   url: string;
   observedAt: string;
   channel: "Tienda online";
+  aisle: Aisle;
 };
 
 export const listItemSchema = z.object({
@@ -52,6 +55,7 @@ export type ComparedProduct = {
   image: string;
   offers: Offer[];
   missing: Store[];
+  aisle: Aisle;
   /** Most expensive minus cheapest store price; 0 with fewer than two stores */
   spread: number;
 };
