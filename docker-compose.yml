@@ -1,0 +1,64 @@
+# Coolify: create a "Docker Compose" resource pointing at this repo (Base Directory "/").
+# Set POSTGRES_PASSWORD (and later META_API_KEY) in Coolify's environment variables;
+# assign your domain to the `web` service on port 3000.
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rinde
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-rinde}
+      POSTGRES_DB: rinde
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rinde -d rinde"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  migrate:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    command: ["pnpm", "--filter", "@rinde/db", "migrate:deploy"]
+    environment:
+      DATABASE_URL: postgresql://rinde:${POSTGRES_PASSWORD:-rinde}@db:5432/rinde
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+    labels:
+      - coolify.exclude_from_hc=true
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://rinde:${POSTGRES_PASSWORD:-rinde}@db:5432/rinde
+      META_API_KEY: ${META_API_KEY:-}
+      META_API_BASE_URL: ${META_API_BASE_URL:-}
+    ports:
+      - "3000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  worker:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://rinde:${POSTGRES_PASSWORD:-rinde}@db:5432/rinde
+      INGEST_CRON: ${INGEST_CRON:-0 5 * * *}
+      INGEST_ON_START: ${INGEST_ON_START:-0}
+      INGEST_EXITO: ${INGEST_EXITO:-0}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:

@@ -1,0 +1,23 @@
+{
+  "name": "rinde",
+  "private": true,
+  "packageManager": "pnpm@10.34.9",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "db:generate": "pnpm --filter @rinde/db generate",
+    "db:migrate": "pnpm --filter @rinde/db migrate:dev",
+    "db:deploy": "pnpm --filter @rinde/db migrate:deploy",
+    "ingest": "pnpm --filter @rinde/worker ingest"
+  },
+  "devDependencies": {
+    "turbo": "2.11.10",
+    "typescript": "^5"
+  }
+}

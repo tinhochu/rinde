@@ -1,0 +1,20 @@
+# Local development only: Postgres on localhost:5433. Run apps with `pnpm dev`.
+#   docker compose -f docker-compose.dev.yml up -d
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: rinde
+      POSTGRES_PASSWORD: rinde
+      POSTGRES_DB: rinde
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata-dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rinde -d rinde"]
+      interval: 2s
+      retries: 20
+
+volumes:
+  pgdata-dev:

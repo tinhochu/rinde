@@ -1,0 +1,5 @@
+{
+  "extends": "@rinde/tsconfig/base.json",
+  "compilerOptions": { "types": ["node"] },
+  "include": ["src"]
+}

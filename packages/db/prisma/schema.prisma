@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RetailerSlug {
+  exito
+  jumbo
+  d1
+}
+
+/// Base unit a package size is normalized to, so prices compare per g / ml / unit.
+enum BaseUnit {
+  g
+  ml
+  unit
+}
+
+model Retailer {
+  id        String            @id @default(cuid())
+  slug      RetailerSlug      @unique
+  name      String
+  baseUrl   String
+  products  RetailerProduct[]
+  createdAt DateTime          @default(now())
+}
+
+/// A canonical product, shared across retailers when they sell the same EAN.
+model Product {
+  id         String            @id @default(cuid())
+  ean        String?           @unique
+  name       String
+  brand      String?
+  category   String?
+  /// Normalized package size, e.g. 500 + g
+  size       Decimal?          @db.Decimal(12, 3)
+  unit       BaseUnit?
+  isPrivateLabel Boolean       @default(false)
+  listings   RetailerProduct[]
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+}
+
+/// A retailer's own listing of a product (its SKU, name, URL).
+model RetailerProduct {
+  id           String             @id @default(cuid())
+  retailerId   String
+  retailer     Retailer           @relation(fields: [retailerId], references: [id])
+  productId    String
+  product      Product            @relation(fields: [productId], references: [id])
+  externalId   String
+  name         String
+  url          String
+  imageUrl     String?
+  observations PriceObservation[]
+  lastSeenAt   DateTime
+
+  @@unique([retailerId, externalId])
+  @@index([productId])
+}
+
+/// Append-only price history. Every price shown to a user must come from a row here.
+model PriceObservation {
+  id                String          @id @default(cuid())
+  retailerProductId String
+  retailerProduct   RetailerProduct @relation(fields: [retailerProductId], references: [id])
+  /// COP, integer pesos
+  price             Int
+  listPrice         Int?
+  available         Boolean
+  source            String
+  sourceUrl         String
+  observedAt        DateTime
+  ingestRunId       String?
+  ingestRun         IngestRun?      @relation(fields: [ingestRunId], references: [id])
+
+  @@index([retailerProductId, observedAt(sort: Desc)])
+}
+
+model IngestRun {
+  id           String             @id @default(cuid())
+  retailer     RetailerSlug
+  startedAt    DateTime           @default(now())
+  finishedAt   DateTime?
+  status       String             @default("running")
+  itemsSeen    Int                @default(0)
+  error        String?
+  observations PriceObservation[]
+}
+
+model ShoppingList {
+  id        String             @id @default(cuid())
+  /// Anonymous session id (no accounts in MVP)
+  sessionId String
+  budget    Int
+  city      String             @default("bogota")
+  rawInput  String?
+  items     ShoppingListItem[]
+  baskets   OptimizedBasket[]
+  createdAt DateTime           @default(now())
+
+  @@index([sessionId])
+}
+
+model ShoppingListItem {
+  id             String       @id @default(cuid())
+  listId         String
+  list           ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  /// What the user wrote, verbatim
+  rawText        String
+  /// LLM-normalized intent, e.g. "arroz blanco"
+  query          String
+  brand          String?
+  quantity       Decimal      @db.Decimal(12, 3)
+  unit           BaseUnit
+  essential      Boolean      @default(true)
+  allowSubstitute Boolean     @default(true)
+  position       Int
+}
+
+model OptimizedBasket {
+  id          String       @id @default(cuid())
+  listId      String
+  list        ShoppingList @relation(fields: [listId], references: [id], onDelete: Cascade)
+  total       Int
+  baselineTotal Int?
+  /// Human-readable definition of the baseline the savings are measured against
+  baselineDescription String?
+  assumptions Json
+  items       BasketItem[]
+  createdAt   DateTime     @default(now())
+}
+
+model BasketItem {
+  id                 String          @id @default(cuid())
+  basketId           String
+  basket             OptimizedBasket @relation(fields: [basketId], references: [id], onDelete: Cascade)
+  listItemId         String
+  priceObservationId String
+  packs              Int
+  lineTotal          Int
+  isSubstitute       Boolean         @default(false)
+  explanation        String?
+}
