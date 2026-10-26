@@ -7,7 +7,7 @@ export function Brand({ small = false }: { small?: boolean }) {
     <View style={styles.brand}>
       <Image source={require("@/assets/logo-mark.png")} accessibilityIgnoresInvertColors style={[styles.mark, small ? styles.markSmall : styles.markLarge]} />
       <Text style={[styles.word, small ? styles.wordSmall : styles.wordLarge]}>
-        rinde<Text style={styles.dot}>.</Text>
+        Rinde<Text style={styles.dot}>.</Text>
       </Text>
     </View>
   );
