@@ -1,14 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
-import { ShoppingBag } from "lucide-react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { colors, fontSize } from "@/lib/theme";
 import { stores } from "@/lib/theme";
 
 export function Brand({ small = false }: { small?: boolean }) {
   return (
     <View style={styles.brand}>
-      <View style={[styles.mark, small ? styles.markSmall : styles.markLarge]}>
-        <ShoppingBag size={small ? 22 : 27} strokeWidth={1.7} color="#FFFFFF" />
-      </View>
+      <Image source={require("@/assets/logo-mark.png")} accessibilityIgnoresInvertColors style={[styles.mark, small ? styles.markSmall : styles.markLarge]} />
       <Text style={[styles.word, small ? styles.wordSmall : styles.wordLarge]}>
         rinde<Text style={styles.dot}>.</Text>
       </Text>
@@ -29,7 +26,7 @@ export function StoreLogo({ store, large = false }: { store: string; large?: boo
 
 const styles = StyleSheet.create({
   brand: { flexDirection: "row", alignItems: "center", gap: 10 },
-  mark: { backgroundColor: colors.primary, borderRadius: 12, alignItems: "center", justifyContent: "center" },
+  mark: { borderRadius: 12 },
   markSmall: { width: 36, height: 36 },
   markLarge: { width: 44, height: 44 },
   word: { fontWeight: "800", color: colors.primary, letterSpacing: -1 },
