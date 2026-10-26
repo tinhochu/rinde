@@ -1,0 +1,47 @@
+import { StyleSheet, Text, View } from "react-native";
+import { ShoppingBag } from "lucide-react-native";
+import { colors, fontSize } from "@/lib/theme";
+import { stores } from "@/lib/theme";
+
+export function Brand({ small = false }: { small?: boolean }) {
+  return (
+    <View style={styles.brand}>
+      <View style={[styles.mark, small ? styles.markSmall : styles.markLarge]}>
+        <ShoppingBag size={small ? 22 : 27} strokeWidth={1.7} color="#FFFFFF" />
+      </View>
+      <Text style={[styles.word, small ? styles.wordSmall : styles.wordLarge]}>
+        rinde<Text style={styles.dot}>.</Text>
+      </Text>
+    </View>
+  );
+}
+
+export function StoreLogo({ store, large = false }: { store: string; large?: boolean }) {
+  const theme = store === "Éxito" ? stores.exito : store === "Jumbo" ? stores.jumbo : stores.d1;
+  return (
+    <View style={[styles.store, large && styles.storeLarge, { backgroundColor: theme.bg }]}>
+      <Text style={[styles.storeText, large && styles.storeTextLarge, { color: theme.fg }, "italic" in theme && theme.italic ? styles.italic : null]}>
+        {theme.label}
+      </Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  brand: { flexDirection: "row", alignItems: "center", gap: 10 },
+  mark: { backgroundColor: colors.primary, borderRadius: 12, alignItems: "center", justifyContent: "center" },
+  markSmall: { width: 36, height: 36 },
+  markLarge: { width: 44, height: 44 },
+  word: { fontWeight: "800", color: colors.primary, letterSpacing: -1 },
+  wordSmall: { fontSize: 28 },
+  wordLarge: { fontSize: 36 },
+  dot: { color: colors.accent },
+  store: {
+    height: 28, minWidth: 48, borderRadius: 6, paddingHorizontal: 8,
+    alignItems: "center", justifyContent: "center",
+  },
+  storeLarge: { height: 36, minWidth: 64 },
+  storeText: { fontSize: fontSize.subhead, fontWeight: "800", letterSpacing: -0.5 },
+  storeTextLarge: { fontSize: 18 },
+  italic: { fontStyle: "italic" },
+});

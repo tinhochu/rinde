@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Rinde",
+    "slug": "rinde",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "rinde",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#00573D"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.rinde.mobile",
+      "icon": "./assets/app-icon.icon"
+    },
+    "android": {
+      "package": "app.rinde.mobile",
+      "adaptiveIcon": {
+        "backgroundColor": "#00573D",
+        "foregroundImage": "./assets/android-icon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router"]
+  }
+}
