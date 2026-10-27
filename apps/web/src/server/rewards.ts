@@ -96,3 +96,77 @@ export async function revokeReceipt(tx: Tx, receiptId: string, reason: string) {
   await syncBadges(tx, receipt.contributorId);
   return sum;
 }
+
+/** "Vecino #K3F9Q" unless the contributor picked a name; never anything read from a receipt. */
+export const publicName = (c: { id: string; displayName: string | null }) => c.displayName || `Vecino #${c.id.slice(-5).toUpperCase()}`;
+
+export type LeaderboardRow = { rank: number; name: string; points: number; you: boolean };
+export type Leaderboard = { zone: string; weekStart: string; top: LeaderboardRow[]; you: LeaderboardRow | null };
+
+/** Points earned this week (Monday 00:00 Colombia time onward) by contributors in `zone`, highest first. */
+export async function leaderboard(tx: Tx, zone: string, opts: { contributorId?: string; now?: Date } = {}): Promise<Leaderboard> {
+  const start = weekStart(opts.now ?? new Date());
+  const end = new Date(start.getTime() + 7 * 86_400_000);
+  const sums = await tx.rewardEvent.groupBy({
+    by: ["contributorId"],
+    where: { createdAt: { gte: start, lt: end }, contributor: { zone } },
+    _sum: { points: true },
+  });
+  const ranked = sums
+    .map((s) => ({ contributorId: s.contributorId, points: s._sum.points ?? 0 }))
+    .filter((s) => s.points > 0)
+    .sort((a, b) => b.points - a.points || a.contributorId.localeCompare(b.contributorId));
+  const people = new Map((await tx.contributor.findMany({
+    where: { id: { in: ranked.map((r) => r.contributorId) } }, select: { id: true, displayName: true },
+  })).map((c) => [c.id, c]));
+  const rows = ranked.map((r, i): LeaderboardRow => ({
+    rank: i + 1, name: publicName(people.get(r.contributorId)!), points: r.points, you: r.contributorId === opts.contributorId,
+  }));
+  return { zone, weekStart: start.toISOString(), top: rows.slice(0, 10), you: rows.find((r) => r.you) ?? null };
+}
+
+export type MyRewards = {
+  points: number;
+  name: string;
+  zone: string;
+  badges: { id: BadgeId; name: string; description: string; earnedAt: string }[];
+  history: { label: string; points: number; at: string }[];
+  rank: LeaderboardRow | null;
+};
+
+/** Balance, badges, recent ledger entries and this week's rank for a session; empty before the first receipt. */
+export async function rewardsFor(tx: Tx, sessionId: string, now = new Date()): Promise<MyRewards | null> {
+  const c = await tx.contributor.findUnique({ where: { sessionId }, include: { badges: { orderBy: { earnedAt: "asc" } } } });
+  if (!c) return null;
+  const points = (await tx.rewardEvent.aggregate({ where: { contributorId: c.id }, _sum: { points: true } }))._sum.points ?? 0;
+  const events = await tx.rewardEvent.findMany({ where: { contributorId: c.id }, orderBy: { createdAt: "desc" }, take: 30, select: { label: true, points: true, createdAt: true } });
+  const board = await leaderboard(tx, c.zone, { contributorId: c.id, now });
+  return {
+    points,
+    name: publicName(c),
+    zone: c.zone,
+    badges: c.badges.map((b) => ({ id: b.badge as BadgeId, ...BADGES[b.badge as BadgeId], earnedAt: b.earnedAt.toISOString() })),
+    history: events.map((e) => ({ label: e.label, points: e.points, at: e.createdAt.toISOString() })),
+    rank: board.you,
+  };
+}
+
+/**
+ * Moves everything a device session earned onto another contributor (for the sign-in hook): ledger
+ * entries and receipts change owner, so balances add up; a badge held by both keeps its earliest date.
+ */
+export async function mergeContributors(tx: Prisma.TransactionClient, fromId: string, intoId: string) {
+  if (fromId === intoId) return;
+  await tx.rewardEvent.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
+  await tx.receipt.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
+  await tx.duplicateAttempt.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
+  const held = new Map((await tx.contributorBadge.findMany({ where: { contributorId: intoId } })).map((b) => [b.badge, b]));
+  for (const b of await tx.contributorBadge.findMany({ where: { contributorId: fromId } })) {
+    const mine = held.get(b.badge);
+    if (!mine) await tx.contributorBadge.create({ data: { contributorId: intoId, badge: b.badge, earnedAt: b.earnedAt } });
+    else if (b.earnedAt < mine.earnedAt) await tx.contributorBadge.update({ where: { contributorId_badge: { contributorId: intoId, badge: b.badge } }, data: { earnedAt: b.earnedAt } });
+  }
+  await tx.contributorBadge.deleteMany({ where: { contributorId: fromId } });
+  await tx.contributor.delete({ where: { id: fromId } });
+  await syncBadges(tx, intoId);
+}

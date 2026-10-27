@@ -55,10 +55,10 @@
 
 ## 6. Rewards
 
-- [ ] 6.1 Implement point rules: 10 per accepted line, plus 15 for a gap or produce line (at most one bonus per line), decided inside the confirm transaction. Verify with a test where a first Éxito price earns 25 and is labeled "Primer precio en Éxito".
-- [ ] 6.2 Implement the badges (Primera factura, Cazador de frutas, Pionero, Constante), granted once from ledger counts. Verify with tests at each threshold, including no second grant.
-- [ ] 6.3 Implement `GET /api/rewards/me` (balance, badges, history, own rank) and `GET /api/rewards/leaderboard?zone=` (current week in America/Bogota, top 10 plus own position, display name or "Vecino #id"). Verify with a test seeded across a Sunday-to-Monday boundary.
-- [ ] 6.4 Implement revocation: negative ledger events and badge re-evaluation. Implement contributor merging (sum the ledgers, keep the earliest badge) for the future sign-in hook. Verify with tests for "Factura duplicada: −120" and a merge of 340 points.
+- [x] 6.1 Implement point rules: 10 per accepted line, plus 15 for a gap or produce line (at most one bonus per line), decided inside the confirm transaction. Verify with a test where a first Éxito price earns 25 and is labeled "Primer precio en Éxito".
+- [x] 6.2 Implement the badges (Primera factura, Cazador de frutas, Pionero, Constante), granted once from ledger counts. Verify with tests at each threshold, including no second grant.
+- [x] 6.3 Implement `GET /api/rewards/me` (balance, badges, history, own rank) and `GET /api/rewards/leaderboard?zone=` (current week in America/Bogota, top 10 plus own position, display name or "Vecino #id"). Verify with a test seeded across a Sunday-to-Monday boundary.
+- [x] 6.4 Implement revocation: negative ledger events and badge re-evaluation. Implement contributor merging (sum the ledgers, keep the earliest badge) for the future sign-in hook. Verify with tests for "Factura duplicada: −120" and a merge of 340 points.
 
 ## 7. Mobile flow (`apps/mobile`)
 
