@@ -20,7 +20,7 @@ const LOGOS: Record<string, { source: number; round?: boolean }> = {
   "Éxito": { source: require("@/assets/stores/exito.png"), round: true },
 };
 
-export function StoreLogo({ store, large = false }: { store: string; large?: boolean }) {
+export function StoreLogo({ store, large = false, small = false }: { store: string; large?: boolean; small?: boolean }) {
   const logo = LOGOS[store];
   if (logo) {
     return (
@@ -28,7 +28,7 @@ export function StoreLogo({ store, large = false }: { store: string; large?: boo
         source={logo.source}
         accessibilityLabel={store}
         accessibilityIgnoresInvertColors
-        style={[styles.logoImage, large && styles.logoImageLarge, logo.round && (large ? styles.roundLarge : styles.round)]}
+        style={[styles.logoImage, large && styles.logoImageLarge, small && styles.logoImageSmall, logo.round && (large ? styles.roundLarge : small ? styles.roundSmall : styles.round)]}
       />
     );
   }
@@ -58,7 +58,9 @@ const styles = StyleSheet.create({
   storeLarge: { height: 36, minWidth: 64 },
   logoImage: { width: 28, height: 28, borderRadius: 6 },
   logoImageLarge: { width: 36, height: 36, borderRadius: 7 },
+  logoImageSmall: { width: 20, height: 20, borderRadius: 5 },
   round: { borderRadius: 14 },
+  roundSmall: { borderRadius: 10 },
   roundLarge: { borderRadius: 18 },
   storeText: { fontSize: fontSize.subhead, fontWeight: "800", letterSpacing: -0.5, color: colors.foreground },
   storeTextLarge: { fontSize: 18, color: colors.foreground },

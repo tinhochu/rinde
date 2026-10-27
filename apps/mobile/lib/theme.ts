@@ -46,6 +46,7 @@ const light = {
   imageBg: "#F5F7F1",
   formBg: "#FAFCF9",
   savingsInk: "#B85A2F",
+  savingsBg: "#FBEDE3",
 };
 
 // Same roles at night: warm green-black surfaces, a brighter green that reads as text and still carries white.
@@ -91,6 +92,7 @@ const dark: typeof light = {
   imageBg: "#EEF0EA",
   formBg: "#171E1A",
   savingsInk: "#F0996A",
+  savingsBg: "#33241A",
 };
 
 /** Category card tints, light and dark (apps/mobile/lib/shop.ts CATEGORIES). */

@@ -94,6 +94,7 @@ export function StorePrices({ offers, inStore = [], missing }: { offers: Offer[]
                 {offer.pack > 0 && offer.pack !== best!.pack ? `${quantityLabel(offer.pack, offer.unit)} · ` : ""}
                 {reported ? "" : ageLabel(offer)}
               </Text>
+              {i === 0 && many && spread > 0 && <Text style={styles.bestTag}>Mejor precio</Text>}
               {i > 0 && offer.price === best!.price ? (
                 <Text style={styles.same}>Igual</Text>
               ) : i > 0 ? (
@@ -204,6 +205,7 @@ const styles = StyleSheet.create({
   priceOther: { color: colors.foreground, fontWeight: "700" },
   meta: { flex: 1, fontSize: fontSize.tiny, color: colors.mutedForeground },
   same: { fontSize: fontSize.small, fontWeight: "600", color: colors.mutedForeground },
+  bestTag: { fontSize: fontSize.small, fontWeight: "800", color: colors.primary },
   diff: { fontSize: fontSize.small, fontWeight: "600", color: colors.savingsInk, fontVariant: ["tabular-nums"] },
   missing: { fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
   inStore: { fontSize: fontSize.tiny, color: colors.mutedForeground, paddingLeft: spacing.md + 64 + spacing.sm, paddingRight: spacing.md, paddingBottom: 7, marginTop: -3 },
