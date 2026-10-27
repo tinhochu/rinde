@@ -83,8 +83,8 @@ export default function ProfileScreen() {
         </View>
       </Section>
 
-      <Section title="Tus listas y ayuda">
-        <Row icon={<Bookmark size={18} color={colors.primary} />} label="Mis listas" value={saved ? `${saved.items.length} productos` : "Ninguna guardada"} onPress={() => openModal("saved")} />
+      <Section title="Tus planes y ayuda">
+        <Row icon={<Bookmark size={18} color={colors.primary} />} label="Planes guardados" value={saved ? `${saved.items.length} productos` : "Ninguno guardado"} onPress={() => openModal("saved")} />
         <Row icon={<CircleHelp size={18} color={colors.primary} />} label="Cómo funciona" onPress={() => openModal("help")} />
         <Row icon={<Lock size={18} color={colors.primary} />} label="Privacidad y tus datos" onPress={() => openModal("privacy")} last />
       </Section>

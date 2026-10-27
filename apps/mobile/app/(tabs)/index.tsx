@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { router, useFocusEffect } from "expo-router";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import { ArrowRight, ChevronDown, ChevronRight, MapPin, ShieldCheck, ShoppingCart } from "lucide-react-native";
+import { ArrowRight, ChevronDown, ChevronRight, MapPin, ListChecks, ShieldCheck } from "lucide-react-native";
 import { Brand } from "@/components/brand";
 import { GroceryImage } from "@/components/grocery-image";
 import { BasicRow, BasicRowSkeleton } from "@/components/basic-row";
@@ -206,13 +206,13 @@ export default function HomeScreen() {
         <View style={styles.footerBlock}>
           <PressScale
             accessibilityRole="button"
-            accessibilityLabel={totalCount ? "Comparar mi carrito en cada tienda" : "Crear mi lista para comparar"}
+            accessibilityLabel={totalCount ? "Comparar mi lista en cada tienda" : "Crear mi lista para comparar"}
             onPress={() => (totalCount ? router.push("/cart") : openPlanner())}
             scaleTo={0.985}
             style={styles.basket}
           >
             <View style={styles.basketIcon}>
-              <ShoppingCart size={22} color={colors.primary} />
+              <ListChecks size={22} color={colors.primary} />
             </View>
             <View style={styles.basketBody}>
               <Text style={styles.basketTitle}>¿Dónde sale más barato tu mercado?</Text>
@@ -222,7 +222,7 @@ export default function HomeScreen() {
                   : "Arma tu lista y sumamos el total en Éxito, Jumbo y D1, contando los productos que le faltan a cada una."}
               </Text>
               <View style={styles.basketGo}>
-                <Text style={styles.basketGoText}>{totalCount ? "Comparar mi carrito" : "Crear mi lista"}</Text>
+                <Text style={styles.basketGoText}>{totalCount ? "Comparar mi lista" : "Crear mi lista"}</Text>
                 <ArrowRight size={15} color={colors.primary} />
               </View>
             </View>
@@ -234,7 +234,7 @@ export default function HomeScreen() {
             </View>
             <View style={styles.footerLinks}>
               <Pressable onPress={() => openModal("help")} hitSlop={8}><Text style={styles.footerLink}>Cómo funciona</Text></Pressable>
-              <Pressable onPress={() => openModal("saved")} hitSlop={8}><Text style={styles.footerLink}>Mis listas</Text></Pressable>
+              <Pressable onPress={() => openModal("saved")} hitSlop={8}><Text style={styles.footerLink}>Planes guardados</Text></Pressable>
               <Pressable onPress={() => openModal("privacy")} hitSlop={8}><Text style={styles.footerLink}>Privacidad</Text></Pressable>
             </View>
           </View>

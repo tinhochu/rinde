@@ -1,6 +1,6 @@
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { Tabs } from "expo-router";
-import { Heart, ShoppingCart, Sparkles, Store, UserRound, type LucideIcon } from "lucide-react-native";
+import { Heart, ListChecks, Sparkles, Store, UserRound, type LucideIcon } from "lucide-react-native";
 import { useAppState } from "@/lib/app-state";
 import { colors } from "@/lib/theme";
 
@@ -48,10 +48,10 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="cart"
         options={{
-          title: "Carrito",
+          title: "Mi lista",
           tabBarBadge: cartCount > 0 ? cartCount : undefined,
           tabBarBadgeStyle: { backgroundColor: colors.primary },
-          tabBarIcon: ({ color, focused }) => <TabIcon icon={ShoppingCart} color={String(color)} focused={focused} />,
+          tabBarIcon: ({ color, focused }) => <TabIcon icon={ListChecks} color={String(color)} focused={focused} />,
           tabBarLabel: ({ color, focused, children }) => <TabLabel color={String(color)} focused={focused}>{children}</TabLabel>,
         }}
       />

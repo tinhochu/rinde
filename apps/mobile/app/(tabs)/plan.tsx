@@ -23,7 +23,7 @@ export default function PlanScreen() {
         </Pressable>
         <Pressable onPress={() => openModal("saved")} style={styles.savedButton}>
           <Bookmark size={16} color={colors.mutedForeground} />
-          <Text style={styles.savedText}>Mis listas</Text>
+          <Text style={styles.savedText}>Planes guardados</Text>
         </Pressable>
       </View>
 

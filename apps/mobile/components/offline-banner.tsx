@@ -11,7 +11,7 @@ export function OfflineBanner() {
     <SafeAreaView edges={["top"]} style={styles.safe}>
       <View style={styles.banner}>
         <WifiOff size={14} color={colors.warnInk} />
-        <Text style={styles.text}>Sin conexión. Puedes preparar tu carrito; consultar precios requiere internet.</Text>
+        <Text style={styles.text}>Sin conexión. Puedes preparar tu lista; consultar precios requiere internet.</Text>
       </View>
     </SafeAreaView>
   );

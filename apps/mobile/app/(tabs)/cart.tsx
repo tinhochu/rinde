@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useFocusEffect } from "expo-router";
-import { ArrowRight, ListPlus, Minus, Plus, ShieldCheck, ShoppingCart, Sparkles, Trash2, Wallet } from "lucide-react-native";
+import { ArrowRight, ListPlus, Minus, Plus, ListChecks, ShieldCheck, Sparkles, Trash2, Wallet } from "lucide-react-native";
 import { StoreLogo } from "@/components/brand";
 import { Button } from "@/components/ui";
 import { ProductCard } from "@/components/product-card";
@@ -84,8 +84,8 @@ export default function CartScreen() {
   return (
     <View style={styles.page}>
       <View style={styles.header}>
-        <ShoppingCart size={24} color={colors.primary} />
-        <Text style={styles.headerTitle}>Tu carrito</Text>
+        <ListChecks size={24} color={colors.primary} />
+        <Text style={styles.headerTitle}>Tu lista</Text>
       </View>
       {cart.length > 0 && (
         <Text style={styles.headerSub}>
@@ -128,7 +128,7 @@ export default function CartScreen() {
 
             <Pressable onPress={clearCart} style={styles.clear}>
               <Trash2 size={13} color={colors.destructive} />
-              <Text style={styles.clearText}>Vaciar carrito</Text>
+              <Text style={styles.clearText}>Vaciar lista</Text>
             </Pressable>
           </ScrollView>
           <View style={styles.footer}>
@@ -151,13 +151,13 @@ export default function CartScreen() {
         <ScrollView contentContainerStyle={styles.emptyPage} showsVerticalScrollIndicator={false}>
           <View style={styles.empty}>
             <View style={styles.emptyIcon}>
-              <ShoppingCart size={36} strokeWidth={1.3} color={colors.primary} />
+              <ListChecks size={36} strokeWidth={1.3} color={colors.primary} />
             </View>
             <Text style={styles.emptyTitle}>Aquí empieza tu mercado.</Text>
             <Text style={styles.emptyText}>Toca el + de los productos que necesitas. Después encontramos un plan para tu bolsillo.</Text>
             <View style={styles.emptyActions}>
               <Button title="Explorar productos" onPress={explore} icon={<ArrowRight size={15} color="#FFFFFF" />} />
-              <Button title="Escribir mi lista" variant="outline" onPress={() => openPlanner(false)} icon={<ListPlus size={15} color={colors.primary} />} />
+              <Button title="Escribir productos" variant="outline" onPress={() => openPlanner(false)} icon={<ListPlus size={15} color={colors.primary} />} />
             </View>
             <View style={styles.budgetRow}>
               <Wallet size={14} color={colors.primary} />

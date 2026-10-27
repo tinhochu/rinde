@@ -4,7 +4,7 @@ import { Pop, PressScale } from "./motion";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 /**
- * Add to the carrito, then a stepper once it's there. `compact` is a round + for dense rows;
+ * Add to the lista, then a stepper once it's there. `compact` is a round + for dense rows;
  * the full size spells the action out.
  */
 export function AddControl({ name, count, onAdd, onRemove, compact = false }: {
@@ -12,7 +12,7 @@ export function AddControl({ name, count, onAdd, onRemove, compact = false }: {
 }) {
   if (count === 0) {
     return (
-      <PressScale accessibilityRole="button" accessibilityLabel={`Agregar ${name} a mi carrito`} onPress={onAdd} hitSlop={6} style={compact ? styles.addRound : styles.add}>
+      <PressScale accessibilityRole="button" accessibilityLabel={`Agregar ${name} a mi lista`} onPress={onAdd} hitSlop={6} style={compact ? styles.addRound : styles.add}>
         <Plus size={compact ? 18 : 16} strokeWidth={2.6} color="#FFFFFF" />
         {!compact && <Text style={styles.addText}>Agregar</Text>}
       </PressScale>

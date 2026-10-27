@@ -10,13 +10,13 @@ import { inputStyle } from "@/components/ui";
 
 const TITLES: Record<Exclude<AppModal, null>, string> = {
   area: "Tu mercado empieza cerca.",
-  saved: "Tu lista, a la mano.",
+  saved: "Tu plan, a la mano.",
   help: "Menos vueltas. Así funciona.",
   privacy: "Tu información es tuya.",
 };
 const DESCRIPTIONS: Record<Exclude<AppModal, null>, string> = {
   area: "Empezamos en Medellín. Dinos en qué zona compras.",
-  saved: "Guardada en este dispositivo, sin necesidad de registrarte.",
+  saved: "Guardado en este dispositivo, sin necesidad de registrarte.",
   help: "Explora lo que necesitas y convierte tu lista en un plan para ahorrar.",
   privacy: "Sin cuenta. Sin cobros. Tú decides qué guardar y compartir.",
 };
@@ -78,17 +78,17 @@ export function DialogsHost() {
                 <Text style={styles.savedBudget}>
                   {cop(saved.budget)} <Text style={styles.savedPeople}>· {saved.people} personas</Text>
                 </Text>
-                <Button title="Continuar mi lista" onPress={resume} icon={<ArrowRight size={15} color="#FFFFFF" />} />
+                <Button title="Continuar mi plan" onPress={resume} icon={<ArrowRight size={15} color="#FFFFFF" />} />
               </View>
               <Pressable onPress={deleteSaved} style={styles.deleteRow}>
                 <Trash2 size={14} color={colors.destructive} />
-                <Text style={styles.deleteText}>Eliminar lista guardada</Text>
+                <Text style={styles.deleteText}>Eliminar plan guardado</Text>
               </Pressable>
             </>
           ) : (
             <View style={styles.savedEmpty}>
               <Bookmark size={30} color={colors.primary} />
-              <Text style={styles.savedEmptyText}>Aquí estará la lista de tu plan.{"\n"}Tu carrito y tus favoritos se guardan por separado.</Text>
+              <Text style={styles.savedEmptyText}>Aquí estará tu plan guardado.{"\n"}Tu lista y tus favoritos se guardan por separado.</Text>
               <Button title="Preparar mi mercado" onPress={() => openPlanner(false)} />
             </View>
           )}
@@ -99,8 +99,8 @@ export function DialogsHost() {
       {modal === "help" && (
         <>
           {[
-            { title: "Explora tu mercado", text: "Elige una tienda o un pasillo, busca productos y usa el + para añadirlos al carrito. Las ideas sin precio son referencias para tu lista, no inventario verificado." },
-            { title: "Ponle un límite", text: "Abre tu carrito y toca Armar mi plan. Confirma tu presupuesto, productos, cantidades y marcas. También puedes empezar un plan con una foto, texto o ingreso manual." },
+            { title: "Explora tu mercado", text: "Elige una tienda o un pasillo, busca productos y usa el + para añadirlos a tu lista. Las ideas sin precio son referencias, no inventario verificado." },
+            { title: "Ponle un límite", text: "Abre tu lista y toca Armar mi plan. Confirma tu presupuesto, productos, cantidades y marcas. También puedes empezar un plan con una foto, texto o ingreso manual." },
             { title: "Comparamos, sin inventar", text: "Consultamos Éxito, Jumbo y D1 desde el servidor. Mostramos solo los precios que recibimos, con enlace, canal y hora. Si una tienda falla o falta un precio, te lo decimos." },
             { title: "Tú decides dónde comprar", text: "Compara la compra dividida y una sola tienda. Revisa paradas, saldo y faltantes, y comparte tu comprobante. Rinde no cobra, reserva ni compra por ti." },
           ].map((item, index) => (
@@ -124,10 +124,10 @@ export function DialogsHost() {
       {modal === "privacy" && (
         <View style={styles.privacy}>
           <ShieldCheck size={35} color={colors.primary} />
-          <Text style={styles.privacyText}>Tu carrito, tus favoritos, tu zona y tu lista se guardan en este dispositivo. No pedimos nombre, correo ni dirección exacta.</Text>
+          <Text style={styles.privacyText}>Tu lista, tus favoritos, tu zona y tu plan guardado se guardan en este dispositivo. No pedimos nombre, correo ni dirección exacta.</Text>
           <Text style={styles.privacyText}>Los precios no se conservan como vigentes al volver a abrir la app. Para comparar, nuestro servidor consulta los nombres de los productos en los catálogos de las tiendas.</Text>
           <Text style={styles.privacyText}>Si usas la lectura de fotos con un modelo conectado, la foto se envía al proveedor para extraer la lista. No se guarda en tu historial local.</Text>
-          <Text style={styles.privacyText}>Puedes vaciar el carrito, quitar favoritos o eliminar tu lista desde sus respectivas secciones.</Text>
+          <Text style={styles.privacyText}>Puedes vaciar tu lista, quitar favoritos o eliminar tu plan guardado desde sus respectivas secciones.</Text>
           <Text style={styles.note}>No hay cuentas ni sincronización. Compartir un comprobante siempre es una acción tuya. Rinde no hace compras ni entregas.</Text>
         </View>
       )}
