@@ -11,7 +11,7 @@ import { colors } from "@/lib/theme";
 export default function RootLayout() {
   return (
     <AppStateProvider>
-      <StatusBar style="dark" />
+      <StatusBar style="auto" />
       <View style={styles.backdrop}>
         <View style={styles.column}>
           <Stack screenOptions={{ headerShown: false }}>

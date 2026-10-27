@@ -1,6 +1,8 @@
+import { Appearance, Platform } from "react-native";
+
 // Rinde palette ported from the PWA (shadcn new-york tokens, HSL -> hex).
 // Rule: every color in the app comes from here. No Tailwind on native.
-export const colors = {
+const light = {
   background: "#FCFAF8",
   foreground: "#22352C",
   card: "#FFFFFF",
@@ -8,6 +10,7 @@ export const colors = {
   primaryForeground: "#FFFFFF",
   secondary: "#ECF3EE",
   secondaryForeground: "#2A5A43",
+  secondaryBorder: "#D6E4DA",
   muted: "#F3F1ED",
   mutedForeground: "#69776F",
   accent: "#DD6D27",
@@ -15,12 +18,16 @@ export const colors = {
   destructive: "#BC2929",
   border: "#E5E2DC",
   input: "#DCD6C6",
+  /** Controls floating over photos (favorite button, chips) */
+  floating: "rgba(255,255,255,0.95)",
+  floatingSoft: "rgba(255,255,255,0.75)",
   // Web hex literals used across the PWA, kept identical:
   cream: "#FFFDF5",
   receiptBg: "#FFF9EF",
   receiptInk: "#263D2F",
   receiptMuted: "#626A61",
   warnBg: "#FFF8F0",
+  warnSurface: "#FFF4E8",
   warnInk: "#88431F",
   warnInkSoft: "#995322",
   warnText: "#956026",
@@ -38,7 +45,70 @@ export const colors = {
   imageBg: "#F5F7F1",
   formBg: "#FAFCF9",
   savingsInk: "#B85A2F",
-} as const;
+};
+
+// Same roles at night: warm green-black surfaces, a brighter green that reads as text and still carries white.
+const dark: typeof light = {
+  background: "#111613",
+  foreground: "#E6EDE8",
+  card: "#1A211D",
+  primary: "#2F9463",
+  primaryForeground: "#FFFFFF",
+  secondary: "#1D2F25",
+  secondaryForeground: "#A8D4B9",
+  secondaryBorder: "#2C4636",
+  muted: "#222924",
+  mutedForeground: "#9AA79F",
+  accent: "#EE8443",
+  accentForeground: "#FFFFFF",
+  destructive: "#E26060",
+  border: "#2C3530",
+  input: "#3A443E",
+  floating: "rgba(26,33,29,0.92)",
+  floatingSoft: "rgba(26,33,29,0.75)",
+  cream: "#1C1F18",
+  receiptBg: "#1F1F18",
+  receiptInk: "#E6EBE3",
+  receiptMuted: "#A6ADA3",
+  warnBg: "#2A2117",
+  warnSurface: "#30251A",
+  warnInk: "#F0B48B",
+  warnInkSoft: "#E8A878",
+  warnText: "#E2AF78",
+  staleInk: "#EF9A72",
+  heroGreen: "#1B2B20",
+  heroInk: "#D5EAD8",
+  heroSub: "#A6C0A2",
+  photoBg: "#272016",
+  photoFrame: "#46392A",
+  photoInk: "#E0A66C",
+  photoIcon: "#E5A262",
+  cartFooter: "#151B17",
+  errorBg: "#161C18",
+  searchBg: "#202824",
+  // Product packshots are shot on white; a light well keeps them looking like products, not cutouts.
+  imageBg: "#EEF0EA",
+  formBg: "#171E1A",
+  savingsInk: "#F0996A",
+};
+
+/** Category card tints, light and dark (apps/mobile/lib/shop.ts CATEGORIES). */
+const lightTints = { all: "#EDF5E7", produce: "#FFF1DB", dairy: "#EAF3FA", pantry: "#F7EFE4", meat: "#FBECE6", bakery: "#FBF0DD", drinks: "#F2ECF8", home: "#EAF3ED" };
+const darkTints: typeof lightTints = { all: "#1E2B1E", produce: "#2D2516", dairy: "#18252F", pantry: "#2A2219", meat: "#2E1F1B", bakery: "#2C2416", drinks: "#251E2E", home: "#1A2A20" };
+
+/**
+ * Styles are built once when each screen loads, so the scheme is read at launch. On the web a change
+ * reloads the page; on a phone it applies the next time the app opens.
+ */
+export const scheme: "light" | "dark" = Appearance.getColorScheme() === "dark" ? "dark" : "light";
+export const colors = scheme === "dark" ? dark : light;
+export const tints = scheme === "dark" ? darkTints : lightTints;
+
+if (Platform.OS === "web" && typeof window !== "undefined") {
+  Appearance.addChangeListener(({ colorScheme }) => {
+    if ((colorScheme === "dark" ? "dark" : "light") !== scheme) window.location.reload();
+  });
+}
 
 export const stores = {
   exito: { bg: "#FFE627", fg: "#282921", label: "éxito" },

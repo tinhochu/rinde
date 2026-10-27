@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   accountTitle: { fontSize: fontSize.subhead, fontWeight: "700", color: colors.primary },
   accountText: { fontSize: fontSize.caption, lineHeight: 19, color: colors.secondaryForeground },
   section: { gap: spacing.sm },
-  sectionTitle: { fontSize: fontSize.headline, fontWeight: "800", letterSpacing: -0.5 },
+  sectionTitle: { fontSize: fontSize.headline, fontWeight: "800", letterSpacing: -0.5, color: colors.foreground },
   card: { borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card, overflow: "hidden" },
   setting: { padding: spacing.lg, gap: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.border },
   settingRow: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", borderBottomWidth: 0 },

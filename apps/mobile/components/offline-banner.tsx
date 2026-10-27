@@ -18,7 +18,7 @@ export function OfflineBanner() {
 }
 
 const styles = StyleSheet.create({
-  safe: { position: "absolute", top: 0, left: 0, right: 0, zIndex: 90, backgroundColor: "#FFF4E8" },
+  safe: { position: "absolute", top: 0, left: 0, right: 0, zIndex: 90, backgroundColor: colors.warnSurface },
   banner: {
     flexDirection: "row", alignItems: "center", justifyContent: "center",
     gap: spacing.sm, paddingHorizontal: spacing.lg, paddingVertical: spacing.sm,

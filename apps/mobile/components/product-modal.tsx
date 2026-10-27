@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     alignItems: "center", justifyContent: "center",
     boxShadow: "0 1px 4px rgba(0,0,0,0.15)",
   },
-  title: { fontSize: 24, fontWeight: "800", lineHeight: 30, letterSpacing: -0.5 },
+  title: { fontSize: 24, fontWeight: "800", lineHeight: 30, letterSpacing: -0.5, color: colors.foreground },
   meta: { fontSize: fontSize.caption, lineHeight: 20, color: colors.mutedForeground },
   compare: { gap: spacing.md },
   offer: { borderRadius: radius.md, backgroundColor: colors.secondary, padding: spacing.lg, gap: 6 },
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.pill, borderWidth: 1, borderColor: colors.border, paddingHorizontal: spacing.sm,
   },
   stepperButton: { padding: spacing.sm },
-  stepperCount: { fontSize: fontSize.subhead, fontWeight: "700" },
+  stepperCount: { fontSize: fontSize.subhead, fontWeight: "700", color: colors.foreground },
   add: {
     flex: 1, minHeight: 48, borderRadius: radius.pill, backgroundColor: colors.primary,
     flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.sm, paddingHorizontal: spacing.lg,

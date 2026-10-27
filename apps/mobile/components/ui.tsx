@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   buttonWhite: { backgroundColor: colors.card },
   buttonDisabled: { opacity: 0.5 },
   buttonPressed: { opacity: 0.85 },
-  buttonText: { fontSize: fontSize.subhead, fontWeight: "700" },
+  buttonText: { fontSize: fontSize.subhead, fontWeight: "700", color: colors.foreground },
   buttonTextPrimary: { color: "#FFFFFF" },
   buttonTextDark: { color: colors.primary },
   chip: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   stepperDisabled: { opacity: 0.3 },
-  stepperValue: { minWidth: 12, textAlign: "center", fontSize: fontSize.subhead, fontWeight: "700" },
+  stepperValue: { minWidth: 12, textAlign: "center", fontSize: fontSize.subhead, fontWeight: "700", color: colors.foreground },
   accordionHeader: { flexDirection: "row", alignItems: "center", gap: 4, paddingVertical: spacing.sm },
   accordionTitle: { fontSize: fontSize.small, fontWeight: "600", color: colors.primary, flex: 1 },
   accordionBody: { paddingBottom: spacing.sm },

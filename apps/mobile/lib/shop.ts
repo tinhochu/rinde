@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { tints } from "./theme";
 import { Aisle, ListItem, Offer, Store, Unit } from "./market";
 
 export type ShopProduct = {
@@ -27,14 +28,14 @@ export const AISLE_NAMES: Record<Aisle, string> = {
 };
 export const photo = (id: string, width = 500) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;
 export const CATEGORIES = [
-  { id: "all", name: "Para ti", term: "arroz", image: "photo-1542838132-92c53300491e", color: "#EDF5E7" },
-  { id: "produce", name: "Frutas y verduras", term: "tomate", image: "photo-1619566636858-adf3ef46400b", color: "#FFF1DB" },
-  { id: "dairy", name: "Lácteos y huevos", term: "leche", image: "photo-1563636619-e9143da7973b", color: "#EAF3FA" },
-  { id: "pantry", name: "Despensa", term: "arroz", image: "photo-1586201375761-83865001e31c", color: "#F7EFE4" },
-  { id: "meat", name: "Carnes y pescado", term: "pollo", image: "photo-1607623814075-e51df1bdc82f", color: "#FBECE6" },
-  { id: "bakery", name: "Panadería", term: "pan", image: "photo-1509440159596-0249088772ff", color: "#FBF0DD" },
-  { id: "drinks", name: "Bebidas", term: "jugo", image: "photo-1613478223719-2ab802602423", color: "#F2ECF8" },
-  { id: "home", name: "Aseo y hogar", term: "detergente", image: "photo-1585421514738-01798e348b17", color: "#EAF3ED" },
+  { id: "all", name: "Para ti", term: "arroz", image: "photo-1542838132-92c53300491e", color: tints.all },
+  { id: "produce", name: "Frutas y verduras", term: "tomate", image: "photo-1619566636858-adf3ef46400b", color: tints.produce },
+  { id: "dairy", name: "Lácteos y huevos", term: "leche", image: "photo-1563636619-e9143da7973b", color: tints.dairy },
+  { id: "pantry", name: "Despensa", term: "arroz", image: "photo-1586201375761-83865001e31c", color: tints.pantry },
+  { id: "meat", name: "Carnes y pescado", term: "pollo", image: "photo-1607623814075-e51df1bdc82f", color: tints.meat },
+  { id: "bakery", name: "Panadería", term: "pan", image: "photo-1509440159596-0249088772ff", color: tints.bakery },
+  { id: "drinks", name: "Bebidas", term: "jugo", image: "photo-1613478223719-2ab802602423", color: tints.drinks },
+  { id: "home", name: "Aseo y hogar", term: "detergente", image: "photo-1585421514738-01798e348b17", color: tints.home },
 ];
 
 // Ideas de lista, no inventario: no tienen marca comercial, precio ni disponibilidad supuestos.

@@ -35,7 +35,7 @@ export function PlanLineRow({ line, now }: { line: PlanLine; now: number }) {
 const styles = StyleSheet.create({
   root: { padding: spacing.lg, gap: 6 },
   titleRow: { flexDirection: "row", justifyContent: "space-between", gap: spacing.sm },
-  title: { flex: 1, fontSize: fontSize.subhead, fontWeight: "600", lineHeight: 20 },
+  title: { flex: 1, fontSize: fontSize.subhead, fontWeight: "600", lineHeight: 20, color: colors.foreground },
   total: { fontSize: fontSize.title, fontWeight: "800", color: colors.primary, fontVariant: ["tabular-nums"] },
   sub: { fontSize: fontSize.caption, color: colors.mutedForeground },
   reason: { flexDirection: "row", alignItems: "center", gap: 6, alignSelf: "flex-start", borderRadius: radius.sm, backgroundColor: colors.background, paddingHorizontal: spacing.sm, paddingVertical: 4 },

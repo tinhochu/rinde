@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
   columns: { gap: spacing.lg },
   slot: { flex: 1, backgroundColor: colors.card, borderRadius: radius.lg },
   empty: { flex: 1, alignItems: "center", justifyContent: "center", gap: spacing.md },
-  emptyTitle: { fontSize: fontSize.headline, fontWeight: "800" },
+  emptyTitle: { fontSize: fontSize.headline, fontWeight: "800", color: colors.foreground },
   emptyText: { fontSize: fontSize.caption, lineHeight: 20, textAlign: "center", color: colors.mutedForeground, maxWidth: 260 },
 });

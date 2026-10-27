@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   logoImageLarge: { width: 36, height: 36, borderRadius: 7 },
   round: { borderRadius: 14 },
   roundLarge: { borderRadius: 18 },
-  storeText: { fontSize: fontSize.subhead, fontWeight: "800", letterSpacing: -0.5 },
-  storeTextLarge: { fontSize: 18 },
+  storeText: { fontSize: fontSize.subhead, fontWeight: "800", letterSpacing: -0.5, color: colors.foreground },
+  storeTextLarge: { fontSize: 18, color: colors.foreground },
   italic: { fontStyle: "italic" },
 });
