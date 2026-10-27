@@ -1,4 +1,5 @@
 import { Appearance, Platform } from "react-native";
+import { readThemePref, type ThemePref } from "./theme-pref";
 
 // Rinde palette ported from the PWA (shadcn new-york tokens, HSL -> hex).
 // Rule: every color in the app comes from here. No Tailwind on native.
@@ -97,14 +98,17 @@ const lightTints = { all: "#EDF5E7", produce: "#FFF1DB", dairy: "#EAF3FA", pantr
 const darkTints: typeof lightTints = { all: "#1E2B1E", produce: "#2D2516", dairy: "#18252F", pantry: "#2A2219", meat: "#2E1F1B", bakery: "#2C2416", drinks: "#251E2E", home: "#1A2A20" };
 
 /**
- * Styles are built once when each screen loads, so the scheme is read at launch. On the web a change
- * reloads the page; on a phone it applies the next time the app opens.
+ * Styles are built once when each screen loads, so the scheme is fixed at launch: the person's choice in
+ * Perfil, or the system's. Changing either reloads the app (on a phone build, the system change applies
+ * the next time it opens).
  */
-export const scheme: "light" | "dark" = Appearance.getColorScheme() === "dark" ? "dark" : "light";
+export const themePref: ThemePref = readThemePref();
+export const scheme: "light" | "dark" =
+  themePref !== "system" ? themePref : Appearance.getColorScheme() === "dark" ? "dark" : "light";
 export const colors = scheme === "dark" ? dark : light;
 export const tints = scheme === "dark" ? darkTints : lightTints;
 
-if (Platform.OS === "web" && typeof window !== "undefined") {
+if (Platform.OS === "web" && typeof window !== "undefined" && themePref === "system") {
   Appearance.addChangeListener(({ colorScheme }) => {
     if ((colorScheme === "dark" ? "dark" : "light") !== scheme) window.location.reload();
   });

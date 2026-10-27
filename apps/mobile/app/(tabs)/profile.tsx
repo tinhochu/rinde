@@ -1,14 +1,26 @@
 import type { ReactNode } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { Bookmark, Car, ChevronRight, CircleHelp, Lock, MapPin, ShieldCheck, UserRound, Users, Wallet } from "lucide-react-native";
+import { Bookmark, Car, ChevronRight, CircleHelp, Lock, MapPin, Palette, ShieldCheck, UserRound, Users, Wallet } from "lucide-react-native";
 import { Brand } from "@/components/brand";
 import { Chip, Stepper } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
 import { cop } from "@/lib/market";
-import { colors, fontSize, radius, spacing } from "@/lib/theme";
+import { colors, fontSize, radius, spacing, themePref } from "@/lib/theme";
+import { saveThemePref, type ThemePref } from "@/lib/theme-pref";
+import { toast } from "@/lib/toast";
 
 const BUDGETS = [100000, 150000, 200000, 300000, 400000];
 const TRIP_COSTS = [0, 5000, 10000, 15000, 20000];
+const THEMES: { id: ThemePref; label: string }[] = [
+  { id: "system", label: "Como tu celular" },
+  { id: "light", label: "Claro" },
+  { id: "dark", label: "Oscuro" },
+];
+
+function chooseTheme(next: ThemePref) {
+  if (next === themePref) return;
+  if (!saveThemePref(next)) toast.success("Listo. Verás el cambio la próxima vez que abras Rinde.");
+}
 
 export default function ProfileScreen() {
   const { area, budget, people, tripCost, saved, setPrefs, openModal } = useAppState();
@@ -52,6 +64,17 @@ export default function ProfileScreen() {
             minusLabel="Una persona menos"
             plusLabel="Una persona más"
           />
+        </View>
+      </Section>
+
+      <Section title="Apariencia">
+        <View style={styles.setting}>
+          <SettingTitle icon={<Palette size={18} color={colors.primary} />} label="Tema" value={THEMES.find(t => t.id === themePref)!.label} />
+          <View style={styles.chips}>
+            {THEMES.map(t => (
+              <Chip key={t.id} selected={themePref === t.id} onPress={() => chooseTheme(t.id)}>{t.label}</Chip>
+            ))}
+          </View>
         </View>
       </Section>
 
