@@ -17,9 +17,10 @@ COPY --from=pruner /repo/out/full/ .
 # Prisma generate needs a syntactically valid URL at build time only
 RUN DATABASE_URL=postgresql://build:build@localhost:5432/build pnpm turbo run build --filter=@rinde/web
 
-FROM base AS runner
+# Plain node: the standalone server needs neither pnpm/corepack nor libc6-compat.
+FROM node:24-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0
+ENV NODE_ENV=production PORT=3000 HOSTNAME=0.0.0.0 NEXT_TELEMETRY_DISABLED=1
 RUN addgroup -S -g 1001 nodejs && adduser -S -u 1001 -G nodejs nextjs
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/web/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /repo/apps/web/.next/static ./apps/web/.next/static

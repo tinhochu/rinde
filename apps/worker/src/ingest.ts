@@ -57,8 +57,9 @@ export async function ingestAll() {
   }
 }
 
-// `pnpm ingest` runs a single snapshot and exits.
-if (import.meta.url === `file://${process.argv[1]}`) {
+// `pnpm ingest` (or `node dist/ingest.mjs`) runs a single snapshot and exits. Matched by file name, not
+// import.meta.url, because the bundled worker inlines this module into dist/index.mjs.
+if (/[\\/]ingest\.(ts|mjs)$/.test(process.argv[1] ?? "")) {
   await ingestAll();
   await db().$disconnect();
 }

@@ -21,7 +21,8 @@ services:
     build:
       context: .
       dockerfile: apps/worker/Dockerfile
-    command: ["pnpm", "--filter", "@rinde/db", "migrate:deploy"]
+      target: migrate
+    command: ["node_modules/.bin/prisma", "migrate", "deploy"]
     environment:
       DATABASE_URL: postgresql://rinde:${POSTGRES_PASSWORD:-rinde}@db:5432/rinde
     depends_on:
