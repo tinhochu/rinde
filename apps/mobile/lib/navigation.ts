@@ -4,6 +4,11 @@ import { colors } from "./theme";
 /** The bottom tab bar. The planner hides it while the person is building a plan and restores this. */
 export const tabBarStyle: ViewStyle = {
   backgroundColor: colors.card, borderTopColor: colors.border,
-  // Web has no safe-area inset under the bar, so give the labels their own room.
-  ...(Platform.OS === "web" && { height: 68, paddingTop: 8, paddingBottom: 10 }),
+  // Web sizes the bar itself: room for the labels, plus the home indicator once installed on an iPhone
+  // (the inset is 0 in a browser tab). react-native-web passes the calc() through to CSS.
+  ...(Platform.OS === "web" && {
+    height: "calc(68px + env(safe-area-inset-bottom))" as unknown as number,
+    paddingTop: 8,
+    paddingBottom: "calc(10px + env(safe-area-inset-bottom))" as unknown as number,
+  }),
 };

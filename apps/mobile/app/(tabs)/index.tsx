@@ -3,6 +3,7 @@ import { router, useFocusEffect } from "expo-router";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { ArrowRight, ChevronDown, ChevronRight, MapPin, ListChecks, ShieldCheck } from "lucide-react-native";
 import { Brand } from "@/components/brand";
+import { InstallCard } from "@/components/install-card";
 import { GroceryImage } from "@/components/grocery-image";
 import { BasicRow, BasicRowSkeleton } from "@/components/basic-row";
 import { FeaturedCompare, FeaturedEmpty, FeaturedSkeleton } from "@/components/home/featured-compare";
@@ -136,6 +137,7 @@ export default function HomeScreen() {
               onList={() => openPlanner()}
               onReceipt={() => router.push("/receipt")}
             />
+            <InstallCard dismissible />
           </View>
 
           <View style={styles.section}>

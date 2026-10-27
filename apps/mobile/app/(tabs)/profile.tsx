@@ -1,5 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { ShieldCheck } from "lucide-react-native";
+import { InstallCard } from "@/components/install-card";
 import { ProfileAccountCard } from "@/components/profile/account-card";
 import { ContributionSummary } from "@/components/profile/contribution-summary";
 import { DataSection } from "@/components/profile/data-section";
@@ -16,6 +17,7 @@ export default function ProfileScreen() {
     <ScrollView style={styles.screen} contentInsetAdjustmentBehavior="automatic" contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
       <Text accessibilityRole="header" style={styles.title}>Mi perfil</Text>
       <ProfileAccountCard />
+      <InstallCard />
       <ShoppingPreferences />
       <ContributionSummary />
       <SettingsSection />
