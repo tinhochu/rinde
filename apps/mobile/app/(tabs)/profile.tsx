@@ -3,6 +3,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-
 import { Bookmark, Car, ChevronRight, CircleHelp, Lock, MapPin, Palette, ShieldCheck, UserRound, Users, Wallet } from "lucide-react-native";
 import { router } from "expo-router";
 import { Brand } from "@/components/brand";
+import { RewardsSection } from "@/components/rewards/rewards-section";
 import { Button, Chip, Stepper } from "@/components/ui";
 import { useAccount } from "@/lib/auth";
 import { useAppState } from "@/lib/app-state";
@@ -34,6 +35,11 @@ export default function ProfileScreen() {
       </View>
 
       <AccountCard />
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Tus puntos</Text>
+        <RewardsSection area={area} />
+      </View>
 
       <Section title="Tu mercado">
         <Row icon={<MapPin size={18} color={colors.primary} />} label="Tu zona" value={area} onPress={() => openModal("area")} />

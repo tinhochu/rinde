@@ -3,7 +3,7 @@ import { allowedOrigins } from "@/server/origins";
 
 
 const corsHeaders = {
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
   // The web app's sign-in cookie rides along on API calls.
   "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Headers": "Content-Type, X-Rinde-Session",

@@ -63,8 +63,8 @@
 ## 7. Mobile flow (`apps/mobile`)
 
 - [x] 7.1 Persist the anonymous session UUID in AsyncStorage and use it for every API call (replacing the per-launch UUID in `lib/planner.ts`). Verify that the same id is sent after reloading the web export.
-- [ ] 7.2 Add the "Escanear factura" entry points in Explorar (the header and the end of search results) and in Perfil. The camera or library goes through `expo-image-picker` (quality 0.7), with an upload progress state and a "Probar con una factura de ejemplo" button when the API reports demo mode. Verify with a screenshot of each entry point.
-- [ ] 7.3 Build the review screen:
+- [x] 7.2 Add the "Escanear factura" entry points in Explorar (the header and the end of search results) and in Perfil. The camera or library goes through `expo-image-picker` (quality 0.7), with an upload progress state and a "Probar con una factura de ejemplo" button when the API reports demo mode. Verify with a screenshot of each entry point.
+- [x] 7.3 Build the review screen:
   - A read-only header (store, branch, date, total, invoice number) with "Tomar la foto de nuevo".
   - Editable lines with the check status ("Revisa este precio", "Los números no cuadran") recomputed on each edit by the shared core module.
   - Match chips with "Cambiar producto" and "No está en la lista".
@@ -73,8 +73,8 @@
   - The demo label.
 
   Verify with screenshots of a clean receipt and of one with a failing line.
-- [ ] 7.4 Build the confirmation screen ("+90 puntos" with breakdown, gap labels, newly earned badges). Verify with a screenshot after confirming the demo receipt.
-- [ ] 7.5 In Perfil, add the rewards section: balance, badges, weekly neighborhood ranking with own position, an editable display name, and the line "Los puntos no tienen valor en dinero". Verify with a screenshot.
+- [x] 7.4 Build the confirmation screen ("+90 puntos" with breakdown, gap labels, newly earned badges). Verify with a screenshot after confirming the demo receipt.
+- [x] 7.5 In Perfil, add the rewards section: balance, badges, weekly neighborhood ranking with own position, an editable display name, and the line "Los puntos no tienen valor en dinero". Verify with a screenshot.
 
 ## 8. End-to-end and demo
 

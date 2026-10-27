@@ -14,14 +14,14 @@ export function QuickActions({ onList, onReceipt }: { onList: () => void; onRece
         <Text style={[styles.title, styles.titlePrimary]}>Crear mi lista</Text>
         <Text style={[styles.text, styles.textPrimary]}>Compara todo tu mercado</Text>
       </PressScale>
-      <PressScale accessibilityRole="button" accessibilityLabel="Escanear factura. Disponible pronto." onPress={onReceipt} style={styles.card}>
+      <PressScale accessibilityRole="button" accessibilityLabel="Escanear factura. Gana puntos por tus precios." onPress={onReceipt} style={styles.card}>
         <View style={styles.icon}>
           <ScanLine size={20} color={colors.primary} />
         </View>
         <View style={styles.titleRow}>
           <Text style={styles.title}>Escanear factura</Text>
         </View>
-        <Text style={styles.text}>Pronto: gana puntos por tus precios</Text>
+        <Text style={styles.text}>Gana puntos por tus precios</Text>
       </PressScale>
     </View>
   );

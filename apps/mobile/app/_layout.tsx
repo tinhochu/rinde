@@ -20,6 +20,7 @@ export default function RootLayout() {
             {/* Search and product pages sit over the tabs: their own Back, no tab bar competing with the results. */}
             <Stack.Screen name="search" />
             <Stack.Screen name="product/[id]" />
+            <Stack.Screen name="receipt" />
           </Stack>
           <OfflineBanner />
           <ProductModal />

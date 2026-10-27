@@ -7,6 +7,7 @@ import { animateNextLayout, FadeIn } from "@/components/motion";
 import { SearchFilterBar } from "@/components/search/filter-bar";
 import { SearchHeader, type SearchInput } from "@/components/search/search-header";
 import { SearchSuggestions } from "@/components/search/search-suggestions";
+import { ReceiptPrompt } from "@/components/search/receipt-prompt";
 import { ResultCard, ResultCardSkeleton } from "@/components/search/result-card";
 import { Button } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
@@ -184,12 +185,15 @@ export default function SearchScreen() {
           }
           ListFooterComponent={
             !loading && results.length > 0 && data ? (
-              <View style={styles.coverage}>
-                <ShieldCheck size={13} color={colors.mutedForeground} />
-                <Text style={styles.coverageText}>
-                  Consulta: {new Date(data.checkedAt).toLocaleString("es-CO")}. Productos iguales por código de barras o fruta y verdura por kilo. Hasta 20 por tienda; no es un catálogo completo.
-                  {data.reasons.length ? `\n${data.reasons.join("\n")}` : ""}
-                </Text>
+              <View style={styles.footer}>
+                <ReceiptPrompt />
+                <View style={styles.coverage}>
+                  <ShieldCheck size={13} color={colors.mutedForeground} />
+                  <Text style={styles.coverageText}>
+                    Consulta: {new Date(data.checkedAt).toLocaleString("es-CO")}. Productos iguales por código de barras o fruta y verdura por kilo. Hasta 20 por tienda; no es un catálogo completo.
+                    {data.reasons.length ? `\n${data.reasons.join("\n")}` : ""}
+                  </Text>
+                </View>
               </View>
             ) : undefined
           }
@@ -243,6 +247,7 @@ const styles = StyleSheet.create({
   messageText: { fontSize: fontSize.body, lineHeight: 19, color: colors.mutedForeground },
   tryRow: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
   reasons: { fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
+  footer: { gap: spacing.md, marginTop: spacing.sm },
   coverage: { flexDirection: "row", gap: spacing.sm, alignItems: "flex-start", marginTop: spacing.sm },
   coverageText: { flex: 1, fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
 });

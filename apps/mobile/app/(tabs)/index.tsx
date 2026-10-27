@@ -19,7 +19,6 @@ import { cop, Store, STORES, type Aisle } from "@/lib/market";
 import { searchHref } from "@/lib/search";
 import { CATEGORIES, ComparedProduct, fromOffer, IDEAS, photo, ShopProduct } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
-import { toast } from "@/lib/toast";
 
 /** Shown in "Compara en segundos" when the person's own staples have no product priced at two stores. */
 const FEATURED_TERM = "leche entera";
@@ -134,7 +133,7 @@ export default function HomeScreen() {
             <SearchEntry onPress={() => router.push(searchHref("", { stores }))} />
             <QuickActions
               onList={() => openPlanner()}
-              onReceipt={() => toast.success("Muy pronto podrás escanear tu factura y ganar puntos por cada precio que compartas.")}
+              onReceipt={() => router.push("/receipt")}
             />
           </View>
 
