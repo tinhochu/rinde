@@ -2,6 +2,7 @@ import "server-only";
 import type { BaseUnit, Candidate, PlanItem } from "@rinde/core";
 import type { RetailerSlug } from "@rinde/db";
 import { enabledRetailers, searchListings, searchLive, searchTokens, type ListingRow } from "./offers";
+import { isRelevant } from "./relevance";
 
 /** A shopping-list item before candidates are attached. */
 export interface ItemRequest {
@@ -36,6 +37,8 @@ export async function candidatesFor(item: ItemRequest, stores: RetailerSlug[] = 
   const toCandidates = (list: ListingRow[]) => list
     // Unit-counted items ("1 und") accept any package; otherwise the unit kind must match
     .filter((r) => r.size !== null && r.unit !== null && (r.unit === item.unit || item.unit === "unit"))
+    // Same kind of product: "café" must not price a coffee yogurt
+    .filter((r) => isRelevant(r, item.query))
     .map((r): Candidate => {
       const literal = brandTokens.length === 0 || matchesBrand(r, brandTokens);
       return {
