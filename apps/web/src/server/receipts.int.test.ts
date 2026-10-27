@@ -107,6 +107,35 @@ describe.skipIf(!process.env["INTEGRATION"])("receipts (dev DB)", () => {
     await expect(createDraft({ sessionId: session("b"), image: image(), mime: "image/jpeg" })).rejects.toThrow(MESSAGES.duplicate);
   });
 
+  it("holds an invoice for whoever sent it first, while their draft awaits review", async () => {
+    muse.extraction = receipt(`POS ${RUN}-claim`);
+    const first = await createDraft({ sessionId: session("claim-a"), image: image(), mime: "image/jpeg" });
+    // Someone else, with their own photo of it: refused, and it counts as a duplicate attempt.
+    await expect(createDraft({ sessionId: session("claim-b"), image: image(), mime: "image/jpeg" })).rejects.toThrow(MESSAGES.duplicate);
+    expect(await db().duplicateAttempt.findFirst({ where: { contributor: { sessionId: session("claim-b") } }, select: { layer: true, matchedReceiptId: true } }))
+      .toEqual({ layer: "invoice", matchedReceiptId: first.id });
+    // The sender may scan it again (a retake), and still confirms it.
+    const retake = await createDraft({ sessionId: session("claim-a"), image: image(), mime: "image/jpeg" });
+    await confirmDraft({ sessionId: session("claim-a"), receiptId: retake.id, edits: [] });
+  });
+
+  it("releases the hold once the unreviewed draft is a day old", async () => {
+    muse.extraction = receipt(`POS ${RUN}-lapsed`);
+    const stale = await createDraft({ sessionId: session("lapse-a"), image: image(), mime: "image/jpeg" });
+    await db().receipt.update({ where: { id: stale.id }, data: { createdAt: new Date(Date.now() - 25 * 3_600_000) } });
+    await expect(createDraft({ sessionId: session("lapse-b"), image: image(), mime: "image/jpeg" })).resolves.toMatchObject({ store: "Jumbo" });
+  });
+
+  it("gives a draft to only one of two people sending the same invoice at once", async () => {
+    muse.extraction = receipt(`POS ${RUN}-race`);
+    const results = await Promise.allSettled([
+      createDraft({ sessionId: session("race-a"), image: image(), mime: "image/jpeg" }),
+      createDraft({ sessionId: session("race-b"), image: image(), mime: "image/jpeg" }),
+    ]);
+    expect(results.filter((r) => r.status === "fulfilled")).toHaveLength(1);
+    expect(String((results.find((r) => r.status === "rejected") as PromiseRejectedResult).reason.message)).toBe(MESSAGES.duplicate);
+  });
+
   it("rejects the exact same file without calling the model", async () => {
     const file = image();
     muse.extraction = second;
@@ -128,6 +157,8 @@ describe.skipIf(!process.env["INTEGRATION"])("receipts (dev DB)", () => {
     muse.extraction = receipt(`POS ${RUN}-3`);
     const invoice3 = `POS ${RUN}-3`.toUpperCase().replace(/[^A-Z0-9]/g, "");
     const one = await createDraft({ sessionId: session("f"), image: image(), mime: "image/jpeg" });
+    // A pending draft holds the invoice for a day; age it so a second person's draft can exist at all.
+    await db().receipt.update({ where: { id: one.id }, data: { createdAt: new Date(Date.now() - 25 * 3_600_000) } });
     const two = await createDraft({ sessionId: session("g"), image: image(), mime: "image/jpeg" });
     const results = await Promise.allSettled([
       confirmDraft({ sessionId: session("f"), receiptId: one.id, edits: [] }),

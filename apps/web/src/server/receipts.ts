@@ -109,13 +109,26 @@ const ACCEPTED = ["confirmed", "revoked"];
 
 type Identity = { imageHash: string; store?: RetailerSlug; invoiceNumber?: string; cufe?: string | null; headerFingerprint?: string };
 
-/** Which duplicate layer (if any) an accepted receipt already holds. */
-async function findDuplicate(tx: Prisma.TransactionClient | ReturnType<typeof db>, id: Identity) {
+/** Unreviewed drafts are discarded after this long (apps/worker cleanup), which releases their claim. */
+const DRAFT_TTL_MS = 24 * 3_600_000;
+
+/**
+ * Who is asking, when a pending draft should count: one invoice belongs to one person, so another
+ * person's draft of it (still within its 24 h) holds it as firmly as a confirmed receipt does.
+ */
+type Claimant = { contributorId: string; now: Date };
+
+/** Which duplicate layer (if any) an accepted receipt, or another person's pending draft, already holds. */
+async function findDuplicate(tx: Prisma.TransactionClient | ReturnType<typeof db>, id: Identity, claimant?: Claimant) {
   const or: Prisma.ReceiptWhereInput[] = [{ imageHash: id.imageHash }];
   if (id.store && id.invoiceNumber) or.push({ store: id.store, invoiceNumber: id.invoiceNumber });
   if (id.cufe) or.push({ cufe: id.cufe });
   if (id.headerFingerprint) or.push({ headerFingerprint: id.headerFingerprint });
-  const match = await tx.receipt.findFirst({ where: { status: { in: ACCEPTED }, OR: or }, select: { id: true, imageHash: true, store: true, invoiceNumber: true, cufe: true, headerFingerprint: true } });
+  const held: Prisma.ReceiptWhereInput[] = [{ status: { in: ACCEPTED } }];
+  if (claimant) {
+    held.push({ status: "draft", contributorId: { not: claimant.contributorId }, createdAt: { gt: new Date(claimant.now.getTime() - DRAFT_TTL_MS) } });
+  }
+  const match = await tx.receipt.findFirst({ where: { AND: [{ OR: held }, { OR: or }] }, select: { id: true, imageHash: true, store: true, invoiceNumber: true, cufe: true, headerFingerprint: true } });
   if (!match) return null;
   const layer =
     match.imageHash === id.imageHash ? "image"
@@ -187,9 +200,9 @@ async function assertUnderCap(contributorId: string, now: Date) {
   if (today >= DAILY_RECEIPTS) throw new ReceiptRejected("cap", MESSAGES.cap, 429);
 }
 
-/** Refuses a file an accepted receipt already came from, recording the attempt. */
+/** Refuses a file an accepted receipt, or someone else's pending draft, already came from, recording the attempt. */
 async function assertNewFile(contributorId: string, fileHash: string, now: Date) {
-  const sameFile = await findDuplicate(db(), { imageHash: fileHash });
+  const sameFile = await findDuplicate(db(), { imageHash: fileHash }, { contributorId, now });
   if (sameFile) {
     await recordDuplicate(contributorId, sameFile.layer, sameFile.receiptId, now);
     throw new ReceiptRejected("duplicate", MESSAGES.duplicate, 409);
@@ -212,7 +225,9 @@ export async function draftFromInput(contributor: Submitter, input: ReceiptInput
   const { store, invoiceNumber, cufe } = input;
   const headerFingerprint = sha256(headerKey(store, input.branch, input.purchasedAt, input.total ?? 0));
 
-  const duplicate = await findDuplicate(prisma, { imageHash: input.fileHash, store, invoiceNumber, cufe, headerFingerprint });
+  const identity = { imageHash: input.fileHash, store, invoiceNumber, cufe, headerFingerprint };
+  const claimant = { contributorId: contributor.id, now };
+  const duplicate = await findDuplicate(prisma, identity, claimant);
   if (duplicate) {
     await recordDuplicate(contributor.id, duplicate.layer, duplicate.receiptId, now);
     throw new ReceiptRejected("duplicate", MESSAGES.duplicate, 409);
@@ -224,22 +239,35 @@ export async function draftFromInput(contributor: Submitter, input: ReceiptInput
   const draftLines = lines.map((l) => draftLine(l, byIndex.get(l.index)?.match ?? null, byIndex.get(l.index)?.options ?? []));
   const tolerance = input.tolerance ?? 1;
 
-  const receipt = await prisma.receipt.create({
-    data: {
-      contributorId: contributor.id, status: "draft", store, branch: input.branch, purchasedAt: input.purchasedAt, total: input.total, invoiceNumber, cufe,
-      headerFingerprint, imageHash: input.fileHash, demo: input.demo, source: input.source, dianConfirmed: input.dianConfirmed, tolerance,
-      lines: {
-        create: draftLines.map((l) => {
-          const parsed = lines[l.index]!;
-          return {
-            position: l.index, kind: l.kind, text: l.text, code: l.code, quantity: parsed.quantity?.value ?? null, saleUnit: parsed.quantity?.unit ?? null,
-            unitPrice: l.unitPrice, total: l.total, priceDerived: parsed.priceDerived ?? false, check: l.check,
-            retailerProductId: l.match?.listingId ?? null, matchedBy: l.match?.by ?? null, produceSlug: l.match?.produce?.slug ?? null,
-          };
-        }),
+  // Matching takes seconds, so two people can send the same invoice at once: claim it under a lock on
+  // the store and invoice number, checking again inside it, so only the first gets a draft.
+  const created = await prisma.$transaction(async (tx) => {
+    await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${`receipt:${store}:${invoiceNumber}`}, 0))`;
+    const raced = await findDuplicate(tx, identity, claimant);
+    if (raced) return { raced, receipt: null };
+    const receipt = await tx.receipt.create({
+      data: {
+        contributorId: contributor.id, status: "draft", store, branch: input.branch, purchasedAt: input.purchasedAt, total: input.total, invoiceNumber, cufe,
+        headerFingerprint, imageHash: input.fileHash, demo: input.demo, source: input.source, dianConfirmed: input.dianConfirmed, tolerance,
+        lines: {
+          create: draftLines.map((l) => {
+            const parsed = lines[l.index]!;
+            return {
+              position: l.index, kind: l.kind, text: l.text, code: l.code, quantity: parsed.quantity?.value ?? null, saleUnit: parsed.quantity?.unit ?? null,
+              unitPrice: l.unitPrice, total: l.total, priceDerived: parsed.priceDerived ?? false, check: l.check,
+              retailerProductId: l.match?.listingId ?? null, matchedBy: l.match?.by ?? null, produceSlug: l.match?.produce?.slug ?? null,
+            };
+          }),
+        },
       },
-    },
+    });
+    return { raced: null, receipt };
   });
+  if (created.raced) {
+    await recordDuplicate(contributor.id, created.raced.layer, created.raced.receiptId, now);
+    throw new ReceiptRejected("duplicate", MESSAGES.duplicate, 409);
+  }
+  const receipt = created.receipt!;
 
   return {
     id: receipt.id, store: STORE_BY_SLUG[store], branch: input.branch, purchasedAt: input.purchasedAt.toISOString(), total: input.total, invoiceNumber,

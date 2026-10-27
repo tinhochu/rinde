@@ -111,11 +111,19 @@ When the only invoice file is a PDF, the system SHALL read the PDF's pages throu
 - **THEN** a draft is created from the PDF's content and every line awaits review as for a photo
 
 ### Requirement: E-invoices become reviewable drafts under the receipt rules
-An accepted invoice SHALL become a receipt draft for the contributor, matched to catalog listings of its store in the same way as a photographed receipt (the item code first, then the description), and SHALL follow the same rules: duplicates are refused (the CUFE and the store plus invoice number identify the invoice, whichever way it arrives, including a photo of the same purchase), the purchase must be within 72 hours and not in the future, at most 5 confirmed receipts per contributor per day, and a paused contributor cannot submit. The header (store, branch, date and time, total, invoice number, CUFE) SHALL be read-only. Lines read from the XML SHALL start as passing the line check; the user SHALL still review the product matches and confirm before any price is stored or points are awarded. Points SHALL follow the existing rewards rules.
+An accepted invoice SHALL become a receipt draft for the contributor, matched to catalog listings of its store in the same way as a photographed receipt (the item code first, then the description), and SHALL follow the same rules: duplicates are refused (the CUFE and the store plus invoice number identify the invoice, whichever way it arrives, including a photo of the same purchase), and one invoice belongs to one contributor only: while one contributor's draft of it awaits review (for up to 24 hours), the same invoice from anyone else is refused as a duplicate, even if they send it at the same moment; the sender can still send it again themselves, the purchase must be within 72 hours and not in the future, at most 5 confirmed receipts per contributor per day, and a paused contributor cannot submit. The header (store, branch, date and time, total, invoice number, CUFE) SHALL be read-only. Lines read from the XML SHALL start as passing the line check; the user SHALL still review the product matches and confirm before any price is stored or points are awarded. Points SHALL follow the existing rewards rules.
 
 #### Scenario: Same purchase sent twice
 - **WHEN** a contributor forwards an invoice whose CUFE matches a confirmed receipt (sent earlier by email, upload, or read from a photo with the CUFE printed)
 - **THEN** the intake is rejected with "Esta factura ya fue registrada." and counts as a duplicate attempt
+
+#### Scenario: Someone else already sent it
+- **WHEN** contributor A forwards an invoice and, before A confirms the draft, contributor B uploads the same invoice
+- **THEN** B's intake is rejected with "Esta factura ya fue registrada." and A's draft is unaffected
+
+#### Scenario: Unreviewed hold lapses
+- **WHEN** A's draft of an invoice has waited more than 24 hours without being confirmed
+- **THEN** the hold is released and another contributor can send the same invoice
 
 #### Scenario: Invoice older than 72 hours
 - **WHEN** a contributor forwards an invoice issued four days ago

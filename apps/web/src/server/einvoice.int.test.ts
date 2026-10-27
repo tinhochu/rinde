@@ -136,7 +136,9 @@ describe.skipIf(!process.env["INTEGRATION"])("e-invoice intake (dev DB)", () => 
     expect(stored.imagePath).toBeNull();
 
     muse.down = true;
-    expect(await intake("j", [{ name: "fv0891.pdf", data: PDF }])).toMatchObject([{ status: "rejected", message: EINVOICE_MESSAGES.pdf }]);
+    // Another file: the same PDF from someone else would be refused before reading, as held by "i".
+    const other = new Uint8Array([...PDF, ...strToU8("% another\n")]);
+    expect(await intake("j", [{ name: "fv0891.pdf", data: other }])).toMatchObject([{ status: "rejected", message: EINVOICE_MESSAGES.pdf }]);
   });
 
   it("confirms an e-invoice like a photo: prices, points, and the 'factura electrónica' label", async () => {

@@ -50,7 +50,7 @@ const FIXTURES = path.join(import.meta.dirname, "../../../../packages/core/src/e
 function fresh(name: string, n: number) {
   const cufe = createHash("sha384").update(`${RUN}-${n}`).digest("hex");
   // Its own hour, apart from the other e-invoice test files (see einvoice-routes.int.test.ts).
-  const local = new Date(Date.now() - 4 * 3_600_000 - 5 * 3_600_000).toISOString();
+  const local = new Date(Date.now() - 6 * 3_600_000 - 5 * 3_600_000).toISOString();
   return readFileSync(path.join(FIXTURES, name), "utf8")
     .replace(/0d87f960718cc4c279feec708b35a4d298d8bbc88b339cc9d6d23327b73c9c81731ecca8117f49e60ad9116aca3eecf4/g, cufe)
     .replaceAll("QZ9667377", `QZ96${RUN.slice(-8)}${n}`)
