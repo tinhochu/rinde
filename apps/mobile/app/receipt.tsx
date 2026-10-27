@@ -1,47 +1,143 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { router } from "expo-router";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { ActivityIndicator, Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
 import { AlertTriangle, ArrowLeft, Camera, CalendarClock, FileImage, FlaskConical, Receipt, ScanLine, Store, X } from "lucide-react-native";
 import { StoreLogo } from "@/components/brand";
 import { ReceiptDone } from "@/components/receipt/done";
+import { EmailInvoiceCard, PendingInvoices, RecentOutcomes } from "@/components/receipt/einvoice";
 import { ReceiptReview } from "@/components/receipt/review";
 import { Button } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
 import { STORES } from "@/lib/market";
-import { confirmReceipt, editsFor, fetchSamples, MAX_PARTS, uploadReceipt, type ConfirmResult, type ReceiptDraft, type ReceiptPhoto, type ReviewLine } from "@/lib/receipts";
+import { copyText } from "@/lib/clipboard";
+import {
+  confirmReceipt, editsFor, fetchDraft, fetchInbox, fetchSamples, INVOICE_TYPE_MESSAGE, MAX_INVOICE_BYTES, MAX_PARTS, replaceAddress,
+  uploadEInvoice, uploadReceipt, type ConfirmResult, type Inbox, type InvoiceFile, type ReceiptDraft, type ReceiptPhoto, type ReviewLine,
+} from "@/lib/receipts";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 import { toast } from "@/lib/toast";
 
 type Stage =
   | { kind: "start" }
   | { kind: "parts"; photos: ReceiptPhoto[] }
-  | { kind: "uploading"; progress: number; parts: number }
-  | { kind: "error"; message: string }
+  | { kind: "uploading"; progress: number; parts: number; einvoice?: boolean }
+  | { kind: "opening" }
+  | { kind: "error"; message: string; einvoice?: boolean }
   | { kind: "review"; draft: ReceiptDraft }
   | { kind: "done"; draft: ReceiptDraft; result: ConfirmResult };
 
 const SAMPLE_NAME: Record<string, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito" };
 
+// What the e-invoice picker offers: extensions in the browser's file dialog, MIME types on the phone.
+const INVOICE_TYPES = Platform.OS === "web"
+  ? [".zip", ".xml", ".pdf", "application/zip", "application/x-zip-compressed", "application/xml", "text/xml", "application/pdf"]
+  : ["application/zip", "application/x-zip-compressed", "application/xml", "text/xml", "application/pdf"];
+
 /**
- * /receipt: photo (or the parts of a long receipt, top to bottom) → upload → review → points. The draft only lives on this screen; leaving it
- * discards the draft (the API drops unconfirmed drafts after 24 h).
+ * /receipt: photo (or the parts of a long receipt, top to bottom) → upload → review → points. Also the
+ * DIAN e-invoice: uploaded here, or forwarded by email to the address shown and listed for review.
+ * `/receipt?draft=<id>` (the link in a reply email) opens that draft. Unconfirmed drafts are dropped
+ * by the API after 24 h.
  */
 export default function ReceiptScreen() {
   const { area } = useAppState();
-  const [stage, setStage] = useState<Stage>({ kind: "start" });
+  const { draft: draftParam } = useLocalSearchParams<{ draft?: string }>();
+  const [stage, setStage] = useState<Stage>(draftParam ? { kind: "opening" } : { kind: "start" });
   const [samples, setSamples] = useState<string[]>([]);
+  const [inbox, setInbox] = useState<Inbox | null>(null);
+  const [opening, setOpening] = useState<string | null>(null);
+  const [replacing, setReplacing] = useState(false);
   const [sending, setSending] = useState(false);
   const alive = useRef(true);
 
+  const loadInbox = useCallback(() => {
+    void fetchInbox().then(i => alive.current && setInbox(i)).catch(() => { /* the cards wait for the next visit */ });
+  }, []);
+
   useEffect(() => {
+    alive.current = true;
     void fetchSamples().then(s => alive.current && setSamples(s));
     return () => { alive.current = false; };
   }, []);
 
+  // Back on the start: refresh the address, invoices to review and recent outcomes.
+  useEffect(() => {
+    if (stage.kind === "start") loadInbox();
+  }, [stage.kind, loadInbox]);
+
+  // A draft linked from a reply email (or the inbox): only this device's session can open it.
+  useEffect(() => {
+    if (!draftParam) return;
+    setStage({ kind: "opening" });
+    fetchDraft(draftParam)
+      .then(draft => alive.current && setStage({ kind: "review", draft }))
+      .catch((e: unknown) => alive.current && setStage({ kind: "error", einvoice: true, message: e instanceof Error ? e.message : "No pudimos abrir la factura." }));
+  }, [draftParam]);
+
+  async function openDraft(id: string) {
+    setOpening(id);
+    try {
+      const draft = await fetchDraft(id);
+      if (alive.current) setStage({ kind: "review", draft });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "No pudimos abrir la factura.");
+      loadInbox();
+    } finally {
+      if (alive.current) setOpening(null);
+    }
+  }
+
+  // Called straight from the tap: Safari only lets a page write the clipboard inside the gesture.
+  function copyAddress() {
+    const address = inbox?.address;
+    if (!address) return;
+    void copyText(address).then(ok => (ok ? toast.success("Dirección copiada") : toast.error("No pudimos copiarla. Mantén presionada la dirección para copiarla.")));
+  }
+
+  async function newAddress() {
+    setReplacing(true);
+    try {
+      const address = await replaceAddress();
+      if (alive.current) setInbox(i => (i ? { ...i, address } : i));
+      toast.success("Listo: la dirección anterior ya no recibe facturas.", { duration: 3600 });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "No pudimos cambiar la dirección.");
+    } finally {
+      if (alive.current) setReplacing(false);
+    }
+  }
+
+  // Also straight from the tap: browsers only open the file dialog on a user gesture.
+  async function pickInvoice() {
+    let picked: InvoiceFile;
+    try {
+      const result = await DocumentPicker.getDocumentAsync({ type: INVOICE_TYPES, copyToCacheDirectory: true, base64: false });
+      const asset = result.canceled ? null : result.assets?.[0];
+      if (!asset) return;
+      picked = { uri: asset.uri, name: asset.name || "factura", mimeType: asset.mimeType ?? "application/octet-stream", file: asset.file };
+      if (!/\.(zip|xml|pdf)$/i.test(picked.name)) return toast.error(INVOICE_TYPE_MESSAGE, { duration: 3600 });
+      if ((asset.size ?? asset.file?.size ?? 0) > MAX_INVOICE_BYTES) return toast.error("El archivo pesa más de 10 MB.");
+    } catch {
+      return toast.error("No pudimos abrir tus archivos.");
+    }
+    setStage({ kind: "uploading", progress: 0, parts: 1, einvoice: true });
+    try {
+      const draft = await uploadEInvoice(picked, area, progress => alive.current && setStage(s => (s.kind === "uploading" ? { ...s, progress } : s)));
+      if (alive.current) setStage({ kind: "review", draft });
+    } catch (e) {
+      if (alive.current) setStage({ kind: "error", einvoice: true, message: e instanceof Error ? e.message : "No pudimos leer la factura." });
+    }
+  }
+
   function back() {
-    if (stage.kind === "review" || stage.kind === "error" || stage.kind === "parts") return setStage({ kind: "start" });
+    if (stage.kind === "review" || stage.kind === "error" || stage.kind === "parts") {
+      // Leaving a draft opened from a link goes to the screen's start, without the link.
+      if (draftParam) router.setParams({ draft: undefined });
+      return setStage({ kind: "start" });
+    }
     if (router.canGoBack()) router.back();
     else router.replace("/");
   }
@@ -94,7 +190,11 @@ export default function ReceiptScreen() {
     }
   }
 
-  const title = stage.kind === "review" ? "Revisar factura" : stage.kind === "done" ? "Factura enviada" : "Escanear factura";
+  const title = stage.kind === "review" || stage.kind === "opening" ? "Revisar factura" : stage.kind === "done" ? "Factura enviada" : "Escanear factura";
+  const restart = () => {
+    if (draftParam) router.setParams({ draft: undefined });
+    setStage({ kind: "start" });
+  };
 
   return (
     <SafeAreaView edges={["top"]} style={styles.safe}>
@@ -108,7 +208,19 @@ export default function ReceiptScreen() {
         <View style={styles.back} />
       </View>
 
-      {stage.kind === "start" && <Start samples={samples} onCamera={() => pick(true)} onLibrary={() => pick(false)} onSample={s => upload({ sample: s })} />}
+      {stage.kind === "start" && (
+        <Start
+          samples={samples}
+          onCamera={() => pick(true)}
+          onLibrary={() => pick(false)}
+          onSample={s => upload({ sample: s })}
+          einvoice={
+            <EmailInvoiceCard inbox={inbox} onCopy={copyAddress} onReplace={newAddress} replacing={replacing} onUpload={pickInvoice} />
+          }
+          pending={<PendingInvoices drafts={inbox?.drafts ?? []} opening={opening} onOpen={openDraft} />}
+          recent={<RecentOutcomes recent={inbox?.recent ?? []} />}
+        />
+      )}
       {stage.kind === "parts" && (
         <Parts
           photos={stage.photos}
@@ -118,14 +230,21 @@ export default function ReceiptScreen() {
           onRead={() => upload({ photos: stage.photos })}
         />
       )}
-      {stage.kind === "uploading" && <Uploading progress={stage.progress} parts={stage.parts} />}
-      {stage.kind === "error" && <Failed message={stage.message} onRetry={() => setStage({ kind: "start" })} />}
-      {stage.kind === "review" && <ReceiptReview draft={stage.draft} sending={sending} onRetake={() => setStage({ kind: "start" })} onSend={send} />}
+      {stage.kind === "uploading" && <Uploading progress={stage.progress} parts={stage.parts} einvoice={stage.einvoice} />}
+      {stage.kind === "opening" && (
+        <View style={styles.center} accessibilityLiveRegion="polite">
+          <ActivityIndicator size="large" color={colors.primary} />
+          <Text style={styles.centerTitle}>Abriendo tu factura…</Text>
+        </View>
+      )}
+      {stage.kind === "error" && <Failed message={stage.message} einvoice={stage.einvoice} onRetry={restart} />}
+      {stage.kind === "review" && <ReceiptReview draft={stage.draft} sending={sending} onRetake={restart} onSend={send} />}
       {stage.kind === "done" && (
         <ReceiptDone
           result={stage.result}
           store={stage.draft.store}
-          onAnother={() => setStage({ kind: "start" })}
+          einvoice={stage.draft.source === "einvoice"}
+          onAnother={restart}
           onRewards={() => router.replace("/profile")}
           onHome={() => router.replace("/")}
         />
@@ -134,11 +253,14 @@ export default function ReceiptScreen() {
   );
 }
 
-function Start({ samples, onCamera, onLibrary, onSample }: {
+function Start({ samples, onCamera, onLibrary, onSample, einvoice, pending, recent }: {
   samples: string[]; onCamera: () => void; onLibrary: () => void; onSample: (name: string) => void;
+  /** The e-invoice cards: forwarding address and upload, invoices to review, recent emailed outcomes */
+  einvoice: ReactNode; pending: ReactNode; recent: ReactNode;
 }) {
   return (
     <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      {pending}
       <View style={styles.hero}>
         <View style={styles.heroIcon}><Receipt size={30} color={colors.primary} /></View>
         <Text accessibilityRole="header" style={styles.headline}>Comparte los precios de tu factura</Text>
@@ -170,6 +292,9 @@ function Start({ samples, onCamera, onLibrary, onSample }: {
           </View>
         </View>
       )}
+
+      {einvoice}
+      {recent}
 
       <View style={styles.rules}>
         <Rule icon={<Store size={16} color={colors.primary} />} text="Facturas de D1, Jumbo o Éxito" />
@@ -253,12 +378,13 @@ function Rule({ icon, text }: { icon: ReactNode; text: string }) {
   );
 }
 
-function Uploading({ progress, parts }: { progress: number; parts: number }) {
+function Uploading({ progress, parts, einvoice }: { progress: number; parts: number; einvoice?: boolean }) {
   const reading = progress >= 1;
+  const uploading = einvoice ? "Subiendo la factura…" : parts > 1 ? `Subiendo ${parts} fotos…` : "Subiendo la foto…";
   return (
     <View style={styles.center} accessibilityLiveRegion="polite">
       <ActivityIndicator size="large" color={colors.primary} />
-      <Text style={styles.centerTitle}>{reading ? "Leyendo tu factura…" : parts > 1 ? `Subiendo ${parts} fotos…` : "Subiendo la foto…"}</Text>
+      <Text style={styles.centerTitle}>{reading ? (einvoice ? "Leyendo tu factura electrónica…" : "Leyendo tu factura…") : uploading}</Text>
       <View style={styles.bar}><View style={[styles.barFill, { width: `${Math.round((reading ? 1 : progress) * 100)}%` }]} /></View>
       <Text style={styles.centerText}>
         {reading
@@ -269,13 +395,15 @@ function Uploading({ progress, parts }: { progress: number; parts: number }) {
   );
 }
 
-function Failed({ message, onRetry }: { message: string; onRetry: () => void }) {
+function Failed({ message, einvoice, onRetry }: { message: string; einvoice?: boolean; onRetry: () => void }) {
   return (
     <View style={styles.center}>
       <View style={styles.failIcon}><AlertTriangle size={26} color={colors.warnInk} /></View>
       <Text style={styles.centerTitle}>No pudimos usar esta factura</Text>
       <Text style={styles.centerText}>{message}</Text>
-      <Button title="Tomar la foto de nuevo" onPress={onRetry} icon={<Camera size={16} color="#FFFFFF" />} />
+      {einvoice
+        ? <Button title="Volver" onPress={onRetry} icon={<Receipt size={16} color="#FFFFFF" />} />
+        : <Button title="Tomar la foto de nuevo" onPress={onRetry} icon={<Camera size={16} color="#FFFFFF" />} />}
     </View>
   );
 }

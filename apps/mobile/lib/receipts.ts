@@ -23,10 +23,30 @@ export type DraftLine = {
   match: LineMatch | null;
   options: ListingOption[];
 };
+/** How a receipt arrived: a photo, a DIAN e-invoice's XML, or its PDF read like a photo. */
+export type ReceiptSource = "photo" | "einvoice" | "einvoice-pdf";
 export type ReceiptDraft = {
   id: string; store: Store; branch: string; purchasedAt: string; total: number | null; invoiceNumber: string; demo: boolean;
   lines: DraftLine[]; reconciliation: Reconciliation;
+  cufe?: string | null;
+  source?: ReceiptSource;
+  /** An e-invoice whose DIAN validation matched its CUFE */
+  dianConfirmed?: boolean;
+  /** Pesos the lines may differ from the total and still add up (an e-invoice's rounding); 1 for photos */
+  tolerance?: number;
 };
+/** An e-invoice draft waiting for review, and what became of recent forwarded emails (GET /api/receipts/inbox). */
+export type InboxDraft = { id: string; store: Store; purchasedAt: string; lines: number; source: string };
+export type InboxOutcome = { id: string; status: "accepted" | "rejected"; message: string | null; store: Store | null; at: string };
+/** `address` is null while receiving email is off; uploading still works. */
+export type Inbox = { address: string | null; drafts: InboxDraft[]; recent: InboxOutcome[] };
+/** An e-invoice file picked from the phone: a web `File`, or a native file uri. */
+export type InvoiceFile = { file?: Blob; uri: string; name: string; mimeType: string };
+/** The API's limit for an e-invoice file. */
+export const MAX_INVOICE_BYTES = 10 * 1024 * 1024;
+export const INVOICE_TYPE_MESSAGE = "Sube el archivo .zip, .xml o .pdf de tu factura electrónica.";
+
+export const isEInvoice = (draft: ReceiptDraft) => draft.source === "einvoice" || draft.source === "einvoice-pdf";
 export type ConfirmEdit = { index: number; excluded?: boolean; quantity?: number; unitPrice?: number; total?: number; listingId?: string; noMatch?: boolean };
 export type Badge = { id: string; name: string; description: string };
 export type ConfirmResult = {
@@ -85,6 +105,25 @@ export async function fetchSamples(): Promise<string[]> {
   return data.samples;
 }
 
+/** XHR upload with progress, resolving with the parsed JSON or rejecting with the API's message. */
+function xhrUpload<T>(path: string, form: FormData, head: Record<string, string>, onProgress: (fraction: number) => void): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", `${BASE}${path}`);
+    for (const [k, v] of Object.entries(head)) xhr.setRequestHeader(k, v);
+    xhr.upload.onprogress = e => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
+    xhr.upload.onload = () => onProgress(1);
+    xhr.onerror = () => reject(new Error(OFFLINE));
+    xhr.onload = () => {
+      let data: unknown = {};
+      try { data = JSON.parse(xhr.responseText); } catch { /* keep {} */ }
+      if (xhr.status >= 200 && xhr.status < 300) resolve(data as T);
+      else reject(new Error((data as { error?: string }).error || "No pudimos leer la factura. Intenta de nuevo."));
+    };
+    xhr.send(form);
+  });
+}
+
 /**
  * Uploads a photo (or names a sample) and resolves with the draft. XHR rather than fetch so the
  * screen can show real upload progress; `onUploaded` fires once the bytes are sent and the server
@@ -106,23 +145,31 @@ export async function uploadReceipt(
     });
   }
   if (zone) form.append("zone", zone);
-  const head = await headers();
+  return xhrUpload<ReceiptDraft>("/api/receipts", form, await headers(), onProgress);
+}
 
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", `${BASE}/api/receipts`);
-    for (const [k, v] of Object.entries(head)) xhr.setRequestHeader(k, v);
-    xhr.upload.onprogress = e => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
-    xhr.upload.onload = () => onProgress(1);
-    xhr.onerror = () => reject(new Error(OFFLINE));
-    xhr.onload = () => {
-      let data: unknown = {};
-      try { data = JSON.parse(xhr.responseText); } catch { /* keep {} */ }
-      if (xhr.status >= 200 && xhr.status < 300) resolve(data as ReceiptDraft);
-      else reject(new Error((data as { error?: string }).error || "No pudimos leer la factura. Intenta de nuevo."));
-    };
-    xhr.send(form);
-  });
+/** Uploads the e-invoice's .zip, .xml or .pdf; resolves with the draft, through the same checks as a forwarded email. */
+export async function uploadEInvoice(invoice: InvoiceFile, zone: string, onProgress: (fraction: number) => void): Promise<ReceiptDraft> {
+  const form = new FormData();
+  if (Platform.OS === "web" && invoice.file) form.append("file", invoice.file, invoice.name);
+  else form.append("file", { uri: invoice.uri, type: invoice.mimeType, name: invoice.name } as unknown as Blob);
+  if (zone) form.append("zone", zone);
+  return xhrUpload<ReceiptDraft>("/api/receipts/einvoice", form, await headers(), onProgress);
+}
+
+/** The forwarding address, e-invoices waiting for review and recent emailed outcomes. */
+export async function fetchInbox(signal?: AbortSignal): Promise<Inbox> {
+  return request(`${BASE}/api/receipts/inbox`, { headers: await headers(), signal }).then(r => parse<Inbox>(r));
+}
+
+/** "Cambiar dirección": a new forwarding address; the old one stops accepting invoices. */
+export async function replaceAddress(): Promise<string> {
+  return request(`${BASE}/api/receipts/inbox/address`, { method: "POST", headers: await headers() }).then(r => parse<{ address: string }>(r)).then(d => d.address);
+}
+
+/** A draft to review again (from the inbox or a reply email's link); only this device's session can open it. */
+export async function fetchDraft(id: string): Promise<ReceiptDraft> {
+  return request(`${BASE}/api/receipts/${encodeURIComponent(id)}`, { headers: await headers() }).then(r => parse<ReceiptDraft>(r));
 }
 
 export async function confirmReceipt(id: string, lines: ConfirmEdit[]): Promise<ConfirmResult> {

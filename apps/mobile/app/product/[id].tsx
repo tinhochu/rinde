@@ -133,7 +133,7 @@ export default function ProductScreen() {
                 <View style={styles.bestWhere}>
                   <StoreLogo store={best.store} small />
                   <Text style={styles.bestWhereText}>
-                    {best.store} · {best.source === "receipt" ? "factura de un comprador" : "tienda online"} · {ageLabel(best.observedAt)}
+                    {best.store} · {best.source === "receipt" ? (best.einvoice ? "factura electrónica de un comprador" : "factura de un comprador") : "tienda online"} · {ageLabel(best.observedAt)}
                   </Text>
                 </View>
                 {saved && (

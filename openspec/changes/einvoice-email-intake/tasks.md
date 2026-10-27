@@ -34,10 +34,10 @@
 
 ## 6. Mobile app
 
-- [ ] 6.1 Add `expo-document-picker` and `expo-clipboard` with `npx expo install` (after reading their SDK 58 docs), and the inbox/upload client in `lib/receipts.ts`. Verify with `npx tsc --noEmit`.
-- [ ] 6.2 Receipt screen start state: a "Facturas por revisar" list (store, date, line count; opens review) and a "¿Te llegó la factura por correo?" card with the address, "Copiar" ("Dirección copiada"), "Cambiar dirección" and "Subir factura electrónica"; hidden address card when inbound is off. Verify with screenshots at 390 px in light and dark mode.
-- [ ] 6.3 Review screen for e-invoices: header "Factura electrónica · validada por la DIAN" (or "no confirmada por la DIAN" for a bare XML), no "Tomar la foto de nuevo", and `/receipt?draft=<id>` opens a draft from a reply link, with the spec's message on a device that doesn't own it. Verify end to end on the web build: upload the Éxito fixture → review → confirm → points shown.
-- [ ] 6.4 Recent outcomes list (last 7 days) on the receipt screen showing rejection messages. Verify by forwarding the Carulla sample and checking that its message appears.
+- [x] 6.1 Add `expo-document-picker` and `expo-clipboard` with `npx expo install` (after reading their SDK 58 docs), and the inbox/upload client in `lib/receipts.ts`. Verify with `npx tsc --noEmit`.
+- [x] 6.2 Receipt screen start state: a "Facturas por revisar" list (store, date, line count; opens review) and a "¿Te llegó la factura por correo?" card with the address, "Copiar" ("Dirección copiada"), "Cambiar dirección" and "Subir factura electrónica"; hidden address card when inbound is off. Verify with screenshots at 390 px in light and dark mode.
+- [x] 6.3 Review screen for e-invoices: header "Factura electrónica · validada por la DIAN" (or "no confirmada por la DIAN" for a bare XML), no "Tomar la foto de nuevo", and `/receipt?draft=<id>` opens a draft from a reply link, with the spec's message on a device that doesn't own it. Verify end to end on the web build: upload the Éxito fixture → review → confirm → points shown.
+- [x] 6.4 Recent outcomes list (last 7 days) on the receipt screen showing rejection messages. Verify by forwarding the Carulla sample and checking that its message appears.
 
 ## 7. Configuration, deploy and end-to-end check
 

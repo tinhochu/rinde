@@ -146,7 +146,7 @@ function perLabel(offer: Offer) {
 
 /** "Reportado en tienda · factura · hace 2 h · Jumbo Calle 80" */
 function reportedLabel(offer: Offer) {
-  return `Reportado en tienda · factura · ${ageLabel(offer)}${offer.branch ? ` · ${offer.branch}` : ""}`;
+  return `Reportado en tienda · ${offer.einvoice ? "factura electrónica" : "factura"} · ${ageLabel(offer)}${offer.branch ? ` · ${offer.branch}` : ""}`;
 }
 
 /** "hace 5 min" / "hace 2 h": how old the observed price is, short enough for one line. */

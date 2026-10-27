@@ -7,8 +7,8 @@ import type { ConfirmResult } from "@/lib/receipts";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 /** After sending: what was earned and why, line by line category, and any new badge. */
-export function ReceiptDone({ result, store, onAnother, onRewards, onHome }: {
-  result: ConfirmResult; store: string; onAnother: () => void; onRewards: () => void; onHome: () => void;
+export function ReceiptDone({ result, store, einvoice, onAnother, onRewards, onHome }: {
+  result: ConfirmResult; store: string; /** Read from a DIAN e-invoice's XML */ einvoice?: boolean; onAnother: () => void; onRewards: () => void; onHome: () => void;
 }) {
   const saved = result.acceptedLines;
   return (
@@ -20,7 +20,7 @@ export function ReceiptDone({ result, store, onAnother, onRewards, onHome }: {
             <Text accessibilityRole="header" style={styles.points}>+{result.points} puntos</Text>
           </Pop>
           <Text style={styles.lede}>
-            {saved === 1 ? "Guardamos 1 precio" : `Guardamos ${saved} precios`} de {store}. Desde ya aparecen como “Reportado en tienda · factura” para tus vecinos.
+            {saved === 1 ? "Guardamos 1 precio" : `Guardamos ${saved} precios`} de {store}. Desde ya aparecen como “Reportado en tienda · {einvoice ? "factura electrónica" : "factura"}” para tus vecinos.
           </Text>
         </View>
 

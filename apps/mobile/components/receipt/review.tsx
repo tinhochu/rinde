@@ -1,17 +1,17 @@
 import { useMemo, useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AlertTriangle, Camera, CheckCircle2, CircleSlash, FlaskConical, Info } from "lucide-react-native";
+import { AlertTriangle, BadgeCheck, Camera, CheckCircle2, CircleSlash, FileText, FlaskConical, Info } from "lucide-react-native";
 import { StoreLogo } from "@/components/brand";
 import { Button, Sheet } from "@/components/ui";
 import { cop } from "@/lib/market";
-import { reconcileLines, type ListingOption, type ReceiptDraft, type ReviewLine } from "@/lib/receipts";
+import { isEInvoice, reconcileLines, type ListingOption, type ReceiptDraft, type ReviewLine } from "@/lib/receipts";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 import { LineRow, lineCounts } from "./line-row";
 
 /**
  * The person checks what we read before anything is saved. The header is read-only (it identifies the
- * receipt); lines can be corrected, re-matched or left out. Only lines that pass the check, have a
+ * receipt; for an e-invoice it comes from the DIAN document); lines can be corrected, re-matched or left out. Only lines that pass the check, have a
  * product and are included become prices.
  */
 export function ReceiptReview({ draft, sending, onRetake, onSend }: {
@@ -23,6 +23,8 @@ export function ReceiptReview({ draft, sending, onRetake, onSend }: {
   const items = lines.filter(l => l.kind === "item").length;
   const sums = useMemo(() => reconcileLines(lines, draft.total), [lines, draft.total]);
   const pickingLine = picking === null ? null : lines.find(l => l.index === picking) ?? null;
+  const einvoice = isEInvoice(draft);
+  const fromXml = draft.source === "einvoice";
 
   const update = (next: ReviewLine) => setLines(all => all.map(l => (l.index === next.index ? next : l)));
 
@@ -40,7 +42,11 @@ export function ReceiptReview({ draft, sending, onRetake, onSend }: {
     <View style={styles.page}>
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <Text accessibilityRole="header" style={styles.title}>Revisa lo que leímos</Text>
-        <Text style={styles.lede}>Corrige lo que no coincida con tu factura. Solo guardamos los precios que confirmes.</Text>
+        <Text style={styles.lede}>
+          {fromXml
+            ? "Los precios vienen exactos de tu factura electrónica. Revisa que cada producto sea el correcto y envía."
+            : "Corrige lo que no coincida con tu factura. Solo guardamos los precios que confirmes."}
+        </Text>
 
         {draft.demo && (
           <View style={styles.demo}>
@@ -57,18 +63,22 @@ export function ReceiptReview({ draft, sending, onRetake, onSend }: {
               {!!draft.branch && <Text numberOfLines={1} style={styles.paperMeta}>{draft.branch}</Text>}
             </View>
           </View>
+          {einvoice && <EInvoiceTag draft={draft} />}
           <View style={styles.paperRows}>
             <PaperRow label="Fecha" value={formatDate(draft.purchasedAt)} />
             <PaperRow label="Factura" value={draft.invoiceNumber} />
-            <PaperRow label="Total impreso" value={draft.total === null ? "No se lee" : cop(draft.total)} strong />
+            {fromXml && !!draft.cufe && <PaperRow label="CUFE" value={`${draft.cufe.slice(0, 8)}…${draft.cufe.slice(-6)}`} />}
+            <PaperRow label={einvoice ? "Total" : "Total impreso"} value={draft.total === null ? "No se lee" : cop(draft.total)} strong />
           </View>
-          <Pressable accessibilityRole="button" onPress={onRetake} hitSlop={6} style={styles.retake}>
-            <Camera size={14} color={colors.primary} />
-            <Text style={styles.retakeText}>Tomar la foto de nuevo</Text>
-          </Pressable>
+          {!einvoice && (
+            <Pressable accessibilityRole="button" onPress={onRetake} hitSlop={6} style={styles.retake}>
+              <Camera size={14} color={colors.primary} />
+              <Text style={styles.retakeText}>Tomar la foto de nuevo</Text>
+            </Pressable>
+          )}
         </View>
 
-        <Reconciliation difference={sums.difference} linesTotal={sums.linesTotal} printed={draft.total} />
+        <Reconciliation difference={sums.difference} linesTotal={sums.linesTotal} printed={draft.total} tolerance={draft.tolerance ?? 1} />
 
         <Text style={styles.count}>{counted} de {items} productos suman puntos</Text>
 
@@ -81,7 +91,7 @@ export function ReceiptReview({ draft, sending, onRetake, onSend }: {
         <View style={styles.note}>
           <Info size={13} color={colors.mutedForeground} />
           <Text style={styles.noteText}>
-            Los precios se muestran como “Reportado en tienda · factura” durante 2 días. Los puntos no tienen valor en dinero.
+            Los precios se muestran como “Reportado en tienda · {fromXml ? "factura electrónica" : "factura"}” durante 2 días. Los puntos no tienen valor en dinero.
           </Text>
         </View>
       </ScrollView>
@@ -141,14 +151,29 @@ function PaperRow({ label, value, strong }: { label: string; value: string; stro
   );
 }
 
-/** Whether what we read adds up to the printed total. Never hides a difference. */
-function Reconciliation({ difference, linesTotal, printed }: { difference: number | null; linesTotal: number; printed: number | null }) {
+/** "Factura electrónica · validada por la DIAN" (or not confirmed, for a bare XML; or read from its PDF). */
+function EInvoiceTag({ draft }: { draft: ReceiptDraft }) {
+  const confirmed = draft.source === "einvoice" && draft.dianConfirmed;
+  const text = draft.source === "einvoice-pdf"
+    ? "Factura electrónica · leída del PDF"
+    : confirmed ? "Factura electrónica · validada por la DIAN" : "Factura electrónica · no confirmada por la DIAN";
+  const Icon = confirmed ? BadgeCheck : FileText;
+  return (
+    <View style={[styles.tag, confirmed && styles.tagOk]}>
+      <Icon size={14} color={confirmed ? colors.primary : colors.receiptMuted} />
+      <Text style={[styles.tagText, confirmed && styles.tagTextOk]}>{text}</Text>
+    </View>
+  );
+}
+
+/** Whether what we read adds up to the total, within the receipt's tolerance. Never hides a difference. */
+function Reconciliation({ difference, linesTotal, printed, tolerance }: { difference: number | null; linesTotal: number; printed: number | null; tolerance: number }) {
   if (printed === null) {
     return (
       <Banner tone="idle" text={`No pudimos leer el total impreso. Las líneas suman ${cop(linesTotal)}.`} />
     );
   }
-  if (Math.abs(difference ?? 0) <= 1) return <Banner tone="ok" text={`Las líneas suman ${cop(linesTotal)}, igual que el total de la factura.`} />;
+  if (Math.abs(difference ?? 0) <= tolerance) return <Banner tone="ok" text={`Las líneas suman ${cop(linesTotal)}, igual que el total de la factura.`} />;
   return (
     <Banner
       tone="warn"
@@ -192,6 +217,10 @@ const styles = StyleSheet.create({
   paperLabel: { fontSize: fontSize.body, color: colors.receiptMuted },
   paperValue: { flexShrink: 1, textAlign: "right", fontSize: fontSize.body, fontWeight: "600", color: colors.receiptInk, fontVariant: ["tabular-nums"] },
   paperStrong: { fontSize: fontSize.subhead, fontWeight: "800" },
+  tag: { flexDirection: "row", alignItems: "center", gap: 6, alignSelf: "flex-start", paddingHorizontal: spacing.sm, paddingVertical: 5, borderRadius: radius.md, backgroundColor: colors.muted },
+  tagOk: { backgroundColor: colors.secondary },
+  tagText: { fontSize: fontSize.caption + 1, fontWeight: "700", color: colors.receiptMuted },
+  tagTextOk: { color: colors.secondaryForeground },
   retake: { flexDirection: "row", alignItems: "center", gap: 6, alignSelf: "flex-start", minHeight: 32 },
   retakeText: { fontSize: fontSize.body, fontWeight: "700", color: colors.primary },
   banner: { flexDirection: "row", gap: spacing.sm, padding: spacing.md, borderRadius: radius.md, backgroundColor: colors.muted },
