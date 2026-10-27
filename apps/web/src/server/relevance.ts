@@ -17,12 +17,24 @@ const PACKAGING = new Set([
   "bandeja", "malla", "combo", "display", "kit", "promo", "oferta", "x",
 ]);
 
+/**
+ * Generic requests whose products are sold under another head noun: D1 sells "Spaghetti Capríssima
+ * 250 G", not "Pasta spaghetti". Without these, a store's cheapest listing never reaches the planner.
+ */
+const KIND_HEADS: Record<string, string[]> = {
+  pasta: [
+    "spaghetti", "spaguetti", "espagueti", "espaguetis", "fideo", "fideos", "macarron", "macarrones", "codito",
+    "coditos", "tornillo", "tornillos", "penne", "fusilli", "conchita", "conchitas", "tallarin", "tallarines",
+    "fettuccine", "linguine", "linguini", "lasana", "lasagna",
+  ],
+};
+
 /** Singular and plural are the same product: huevo / huevos, tomate / tomates. */
 const same = (a: string, b: string) => a === b || `${a}s` === b || `${b}s` === a || `${a}es` === b || `${b}es` === a;
 
 /**
  * The listing's head noun must be the first word of the request, after packaging words and a
- * leading brand ("Alpina Leche Entera"). A "<noun> de <word>" listing only counts when the request
+ * leading brand ("Alpina Leche Entera"), or a kind of it ("Spaghetti" for "pasta"). A "<noun> de <word>" listing only counts when the request
  * names that word too: "Pasta de Tomate" is not pasta and "Huevo de Codorniz" is not a hen's egg.
  * Fresh produce also has to sit in the produce aisle. A store left with no relevant listing is
  * reported as not quoted instead of quoted wrong.
@@ -49,7 +61,8 @@ export function isRelevant(listing: { name: string; brand: string | null; catego
   }
 
   const head = name[i];
-  if (!head || !same(head, asked[0]!)) return false;
+  const kind = !words(request).includes("de") && !!KIND_HEADS[asked[0]!]?.includes(head ?? "");
+  if (!head || !(same(head, asked[0]!) || kind)) return false;
   if (name[i + 1] === "de" || name[i + 1] === "del") {
     const modifier = name[i + 2];
     if (modifier && !asked.slice(1).some((w) => same(w, modifier))) return false;

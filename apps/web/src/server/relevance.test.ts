@@ -15,6 +15,8 @@ describe("isRelevant", () => {
     ["Arroz", "Bolsa ARROZ SONORA PREMIUM blanco (1000  gr)"],
     ["Leche", "Alpina Leche Entera 1100 ml", "Alpina"],
     ["pasta de tomate", "Pasta de Tomate Zev 200 Grs"],
+    ["Pasta", "Spaghetti Capríssima 250 G"],
+    ["Pasta", "Macarrones Doria 250 g"],
   ] as [string, string, string?][])("%s → %s", (request, name, brand?: string) => {
     expect(isRelevant(listing(name, brand ?? null), request)).toBe(true);
   });
@@ -26,6 +28,8 @@ describe("isRelevant", () => {
     ["Pasta", "Pasta de Tomate Zev 200 Grs"],
     ["Huevos", "Huevo de Codorniz Sol Naciente 24 Und"],
     ["Pasta", "Crema dental pasta de dientes"],
+    ["Pasta", "Sopa de Fideos Maggi 60 g"],
+    ["pasta de tomate", "Spaghetti Capríssima 250 G"],
     ["Papa", "Papas Pringles Queso X 40g"],
   ])("%s ✗ %s", (request, name) => {
     expect(isRelevant(listing(name), request)).toBe(false);
