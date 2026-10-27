@@ -1,5 +1,6 @@
 import { apiBase } from "./api";
 import type { Offer, Store } from "./market";
+import { sessionId } from "./session";
 import type { CartLine } from "./shop";
 
 /** One basket product at every store, cheapest first (see apps/web/src/server/basket.ts). */
@@ -13,6 +14,17 @@ export async function fetchBasket(ids: string[], signal?: AbortSignal): Promise<
   const data = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error((data as { error?: string }).error || "No pudimos consultar los precios.");
   return data as BasketPrices;
+}
+
+/** One of the person's own staples: bought on their receipts, or picked from search. */
+export type Basic = BasketLine & { source: "receipt" | "search"; times: number };
+
+export async function fetchBasics(ids: string[], signal?: AbortSignal): Promise<Basic[]> {
+  const response = await fetch(`${apiBase()}/api/basics`, {
+    method: "POST", headers: { "Content-Type": "application/json", "X-Rinde-Session": await sessionId() }, body: JSON.stringify({ ids }), signal,
+  });
+  if (!response.ok) return [];
+  return ((await response.json()) as { items: Basic[] }).items;
 }
 
 export type PricedLine = { cart: CartLine; prices: BasketLine };

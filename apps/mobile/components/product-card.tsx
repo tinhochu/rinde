@@ -50,7 +50,10 @@ export function ProductCard({ product, count, favorite, onAdd, onRemove, onFavor
         </Pressable>
         <Text style={styles.pack}>{quantityLabel(product.pack, product.unit)}{!product.offer && " para tu lista"}</Text>
         {product.offer ? (
-          <Text style={styles.meta}>{product.offer.store} · Online{"\n"}{observedLabel(product.offer)}</Text>
+          <Text style={styles.meta}>
+            {product.compare && product.compare.offers.length > 1 ? `Más barato en ${product.offer.store}` : product.offer.store}
+            {" · "}{product.offer.source === "receipt" ? "factura" : "online"}{"\n"}{observedLabel(product.offer)}
+          </Text>
         ) : (
           <Text style={styles.meta}>Foto de referencia · Sin marca definida</Text>
         )}

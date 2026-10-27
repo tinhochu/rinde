@@ -62,7 +62,7 @@
 
 ## 7. Mobile flow (`apps/mobile`)
 
-- [ ] 7.1 Persist the anonymous session UUID in AsyncStorage and use it for every API call (replacing the per-launch UUID in `lib/planner.ts`). Verify that the same id is sent after reloading the web export.
+- [x] 7.1 Persist the anonymous session UUID in AsyncStorage and use it for every API call (replacing the per-launch UUID in `lib/planner.ts`). Verify that the same id is sent after reloading the web export.
 - [ ] 7.2 Add the "Escanear factura" entry points in Explorar (the header and the end of search results) and in Perfil. The camera or library goes through `expo-image-picker` (quality 0.7), with an upload progress state and a "Probar con una factura de ejemplo" button when the API reports demo mode. Verify with a screenshot of each entry point.
 - [ ] 7.3 Build the review screen:
   - A read-only header (store, branch, date, total, invoice number) with "Tomar la foto de nuevo".

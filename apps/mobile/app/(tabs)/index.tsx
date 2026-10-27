@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { AppState, FlatList, Keyboard, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import {
   ArrowRight, BadgeCheck, Bookmark, Camera, Check, ChevronDown, ChevronRight, CircleHelp,
-  Heart, Leaf, LoaderCircle, MapPin, Search, ShieldCheck, ShoppingBag, Sparkles, Wallet, X,
+  Heart, Leaf, LoaderCircle, MapPin, Search, ShieldCheck, ShoppingCart, Sparkles, Wallet, X,
 } from "lucide-react-native";
 import { Brand, StoreLogo } from "@/components/brand";
 import { Button, Chip } from "@/components/ui";
@@ -14,6 +15,8 @@ import { ProductCard, ProductCardSkeleton } from "@/components/product-card";
 import { CompareCard, CompareCardSkeleton } from "@/components/compare-card";
 import { useAppState } from "@/lib/app-state";
 import { fetchCatalog } from "@/lib/api";
+import { fetchBasics, type Basic } from "@/lib/basket";
+import { topPicks } from "@/lib/history";
 import { Aisle, cop, Store, STORES } from "@/lib/market";
 import { AISLE_NAMES, CatalogResult, CATEGORIES, ComparedProduct, fromOffer, IDEAS, photo, ShopProduct } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
@@ -27,6 +30,16 @@ export default function ShopScreen() {
   const [category, setCategory] = useState("all");
   const [store, setStore] = useState<Store | "all">("all");
   const [request, setRequest] = useState<Request>();
+  // The person's own staples (receipts, then picks from search); generic ideas until there are any.
+  const [mine, setMine] = useState<ShopProduct[]>([]);
+  useFocusEffect(useCallback(() => {
+    const controller = new AbortController();
+    topPicks()
+      .then(ids => fetchBasics(ids, controller.signal))
+      .then(items => setMine(items.map(toBasic)))
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []));
   const [catalog, setCatalog] = useState<CatalogResult>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -123,7 +136,8 @@ export default function ShopScreen() {
     ...fromOffer(offer, request?.term || "mercado", category),
     compare: { offers: p.offers, inStore: p.inStore, missing: p.missing, produce: p.produce },
   });
-  const ideas = category === "all" ? IDEAS.slice(0, 6) : IDEAS.filter(p => p.category === category);
+  const ideas = category === "all" ? (mine.length ? mine : IDEAS.slice(0, 6)) : IDEAS.filter(p => p.category === category);
+  const personal = category === "all" && mine.length > 0;
   const count = (id: string) => cart.find(line => line.product.id === id)?.count || 0;
   const favorite = (id: string) => favorites.some(p => p.id === id);
   const searching = !!request || loading;
@@ -327,7 +341,7 @@ export default function ShopScreen() {
           </>)}
 
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>{request ? `Resultados para “${request.term}”` : "Los básicos de tu semana"}</Text>
+            <Text style={styles.sectionTitle}>{request ? `Resultados para “${request.term}”` : personal ? "Lo que compras seguido" : "Los básicos de tu semana"}</Text>
             {searching ? (
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.aisleFilter}>
                 <Chip selected={aisle === "all"} onPress={() => setAisle("all")}>{`Todo · ${compared.length}`}</Chip>
@@ -336,7 +350,11 @@ export default function ShopScreen() {
                 ))}
               </ScrollView>
             ) : (
-              <Text style={styles.sectionSub}>Agrégalos a tu lista. Verificamos los precios al crear tu plan.</Text>
+              <Text style={styles.sectionSub}>
+                {personal
+                  ? "De tus facturas y lo que eliges al buscar, con el precio más bajo de hoy."
+                  : "Ideas para empezar. Cuando escanees facturas o agregues productos, aquí verás los tuyos."}
+              </Text>
             )}
             {request && !loading && compared.length > 0 && (
               <Text style={styles.sectionSub}>{summary}</Text>
@@ -409,14 +427,16 @@ export default function ShopScreen() {
           </View>
           <View style={styles.pillars}>
             {[
-              { icon: <ShieldCheck size={16} color={colors.primary} />, title: "Precios, no promesas", text: "Con tienda, hora y enlace." },
-              { icon: <Wallet size={16} color={colors.primary} />, title: "Tu presupuesto manda", text: "Sin gastos escondidos." },
-              { icon: <Heart size={16} color={colors.primary} />, title: "Tú eliges, siempre", text: "Un plan, no una obligación." },
+              { icon: <ShieldCheck size={18} color={colors.primary} />, title: "Precios, no promesas", text: "Con tienda, hora y enlace." },
+              { icon: <Wallet size={18} color={colors.primary} />, title: "Tu presupuesto manda", text: "Sin gastos escondidos." },
+              { icon: <Heart size={18} color={colors.primary} />, title: "Tú eliges, siempre", text: "Un plan, no una obligación." },
             ].map(p => (
               <View key={p.title} style={styles.pillar}>
                 <View style={styles.pillarIcon}>{p.icon}</View>
-                <Text style={styles.pillarTitle}>{p.title}</Text>
-                <Text style={styles.pillarText}>{p.text}</Text>
+                <View style={styles.pillarBody}>
+                  <Text style={styles.pillarTitle}>{p.title}</Text>
+                  <Text style={styles.pillarText}>{p.text}</Text>
+                </View>
               </View>
             ))}
           </View>
@@ -429,7 +449,7 @@ export default function ShopScreen() {
           </View>
           </>)}
           <View style={styles.budgetHint}>
-            <ShoppingBag size={14} color={colors.primary} />
+            <ShoppingCart size={16} color={colors.primary} />
             <Text style={styles.budgetHintText}>
               {totalCount} en el carrito · Presupuesto {cop(budget)}
             </Text>
@@ -536,11 +556,13 @@ const styles = StyleSheet.create({
   photoBannerTitle: { fontSize: fontSize.title, fontWeight: "800", letterSpacing: -0.4 },
   photoBannerText: { fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
   photoBannerGo: { width: 40, height: 40, borderRadius: 20, backgroundColor: colors.card, alignItems: "center", justifyContent: "center" },
-  pillars: { flexDirection: "row", gap: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.border, paddingBottom: spacing.xl },
-  pillar: { flex: 1, alignItems: "center", gap: spacing.sm },
-  pillarIcon: { width: 32, height: 32, borderRadius: 10, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center" },
-  pillarTitle: { fontSize: fontSize.small, fontWeight: "600", textAlign: "center" },
-  pillarText: { fontSize: fontSize.tiny, lineHeight: 13, textAlign: "center", color: colors.mutedForeground },
+  // One row per point: three columns are too narrow to read on a small phone.
+  pillars: { gap: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.border, paddingBottom: spacing.xl },
+  pillar: { flexDirection: "row", alignItems: "center", gap: spacing.md },
+  pillarIcon: { width: 40, height: 40, borderRadius: 12, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center" },
+  pillarBody: { flex: 1, gap: 2 },
+  pillarTitle: { fontSize: fontSize.subhead, fontWeight: "600" },
+  pillarText: { fontSize: fontSize.caption, lineHeight: 18, color: colors.mutedForeground },
   footer: { alignItems: "center", gap: spacing.sm, paddingTop: spacing.sm },
   footerText: { fontSize: fontSize.small, color: colors.mutedForeground, textAlign: "center" },
   footerLink: { fontSize: fontSize.small, color: colors.primary, fontWeight: "600" },
@@ -550,3 +572,9 @@ const styles = StyleSheet.create({
   },
   budgetHintText: { fontSize: fontSize.caption, fontWeight: "600", color: colors.primary },
 });
+
+/** A basic as a product card: its cheapest store's offer, with every store's price for the modal. */
+function toBasic(b: Basic): ShopProduct {
+  const best = b.offers[0]!;
+  return { ...fromOffer(best, best.name, best.aisle ?? "all"), compare: { offers: b.offers, inStore: b.inStore, missing: b.missing, produce: best.produce } };
+}

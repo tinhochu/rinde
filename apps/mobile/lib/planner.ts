@@ -1,5 +1,5 @@
-import * as Crypto from "expo-crypto";
 import { apiBase } from "./api";
+import { sessionId } from "./session";
 import type { ListItem, Store } from "./market";
 
 // Wire types for POST /api/plan (see packages/core/src/optimizer/types.ts). Keep in sync.
@@ -34,8 +34,6 @@ type PlanEvent =
   | { type: "plan"; basketId: string; listId: string; plan: Plan; variants?: Plan[]; tradeoffs: Tradeoff[] }
   | { type: "error"; error: string };
 
-// Anonymous per-install session; lists are stored server-side under it.
-const session = Crypto.randomUUID();
 
 export type PlanRequest =
   | { listId: string }
@@ -54,7 +52,7 @@ export function decideTradeoff(basketId: string, key: string, decision: "accept"
 async function stream(url: string, body: unknown, onProgress: (p: VerifyProgress) => void, signal?: AbortSignal): Promise<PlanResult> {
   const response = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "X-Rinde-Session": session },
+    headers: { "Content-Type": "application/json", "X-Rinde-Session": await sessionId() },
     body: JSON.stringify(body),
     signal,
   });

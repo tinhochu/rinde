@@ -6,6 +6,7 @@ import type { ListItem } from "./market";
 import { createPlan, decideTradeoff, type PlanRequest, type PlanResult, type VerifyProgress } from "./planner";
 import { deleteDraft, loadSaved, saveCart, saveDraft, saveFavorites, savePrefs } from "./storage";
 import { isFresh, toListItems, type CartLine, type SavedDraft, type ShopProduct } from "./shop";
+import { recordPick } from "./history";
 import { toast } from "./toast";
 
 export type AppModal = "area" | "saved" | "help" | "privacy" | null;
@@ -213,6 +214,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         : [...previous, { product: next, count: 1 }];
     });
     if (!existing) toast.success(`${next.name} en tu carrito.`, { duration: 1800 });
+    if (next.offer) void recordPick(next.id);
   }
 
   function removeProduct(id: string) {
@@ -314,7 +316,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     step, budget, people, zone, area, tripCost, items, result, progress, refreshing, deciding, fromCart,
     cart, cartCount, favorites, product, modal, saved, hydrated, offline, externalSearch,
     go, openPlanner, explore,
-    openProduct: setProduct, closeProduct: () => setProduct(null),
+    openProduct: (next: ShopProduct) => { if (next.offer) void recordPick(next.id); setProduct(next); }, closeProduct: () => setProduct(null),
     openModal: setModal, closeModal: () => setModal(null),
     setZone, setBudgetPeople, setPrefs, setItems, compare, refresh, decide, resume, deleteSaved,
     addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, searchProduct,

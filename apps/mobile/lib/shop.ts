@@ -63,7 +63,8 @@ export function isFresh(offer?: Offer, now = Date.now()) {
 }
 export function observedLabel(offer: Offer, now = Date.now()) {
   const mins = Math.max(0, Math.floor((now - new Date(offer.observedAt).getTime()) / 60000));
-  return mins < 1 ? "Verificado ahora" : `Hace ${mins} min${mins >= 5 ? " · Actualizar" : ""}`;
+  if (mins < 1) return "Verificado ahora";
+  return mins < 60 ? `Hace ${mins} min` : `Hace ${Math.floor(mins / 60)} h`;
 }
 const productSchema = z.object({ id: z.string().max(150), name: z.string().min(1).max(250), term: z.string().min(2).max(100), image: z.string().max(2000), pack: z.number().positive().max(1000000), unit: z.enum(["g", "ml", "und"]), brand: z.string().max(80), category: z.string().max(50) });
 export const cartSchema = z.array(z.object({ product: productSchema, count: z.number().int().min(1).max(99) })).max(20).refine(lines => lines.every(line => line.product.pack * line.count <= 1000000), "Cantidad por producto demasiado grande.");
