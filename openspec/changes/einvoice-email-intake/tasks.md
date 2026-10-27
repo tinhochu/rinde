@@ -41,6 +41,6 @@
 
 ## 7. Configuration, deploy and end-to-end check
 
-- [ ] 7.1 Gate the inbound route and the forwarding card on `RESEND_WEBHOOK_SECRET` and `INBOUND_EMAIL_DOMAIN`; document the env vars in `.env.example` and `docker-compose.yml`. Verify that with the vars unset the route returns 404, `address` is null and the upload still works.
+- [x] 7.1 Gate the inbound route and the forwarding card on `RESEND_WEBHOOK_SECRET` and `INBOUND_EMAIL_DOMAIN`; document the env vars in `.env.example` and `docker-compose.yml`. Verify that with the vars unset the route returns 404, `address` is null and the upload still works.
 - [ ] 7.2 Set up Resend receiving on the managed `<id>.resend.app` domain, register the webhook to the production API, add the env vars to Coolify and deploy. Verify by forwarding the real sample email from a phone to a personal address and checking that the app shows the Carulla rejection, then that an Éxito invoice becomes a draft.
 - [ ] 7.3 Confirm the D1 and Jumbo NITs and banner names with one real e-invoice of each and add them as scrubbed fixtures. Verify with the store-table tests and one end-to-end forward per store.

@@ -20,6 +20,7 @@ const upload = (await import("@/app/api/receipts/einvoice/route")).POST;
 const inbox = (await import("@/app/api/receipts/inbox/route")).GET;
 const rotate = (await import("@/app/api/receipts/inbox/address/route")).POST;
 const draftRoute = (await import("@/app/api/receipts/[id]/route")).GET;
+const inbound = (await import("@/app/api/inbound/email/route")).POST;
 const { EINVOICE_MESSAGES } = await import("./einvoice");
 const { resolveRecipient } = await import("./forwarding");
 const { cleanupContributors } = await import("./receipt-fixture");
@@ -99,6 +100,8 @@ describe.skipIf(!process.env["INTEGRATION"])("e-invoice routes (dev DB)", () => 
 
   it("returns no address while receiving email is off, and uploads still work", async () => {
     vi.stubEnv("INBOUND_EMAIL_DOMAIN", "");
+    const webhook = await inbound(new Request("http://localhost/api/inbound/email", { method: "POST", body: "{}" }));
+    expect(webhook.status).toBe(404);
     const body = await (await inbox(get("http://localhost/api/receipts/inbox", session("c")))).json();
     expect(body.address).toBeNull();
     const carulla = readFileSync(path.join(FIXTURES, "carulla.xml"));

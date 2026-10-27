@@ -51,6 +51,14 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8081,http://localhost:19006}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      # Email via Resend: outbound (sign-in codes, replies to forwarded invoices) needs the key and sender;
+      # receiving e-invoices needs the webhook secret and inbound domain (off while either is unset).
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      EMAIL_FROM: ${EMAIL_FROM:-}
+      RESEND_WEBHOOK_SECRET: ${RESEND_WEBHOOK_SECRET:-}
+      INBOUND_EMAIL_DOMAIN: ${INBOUND_EMAIL_DOMAIN:-}
+      # The app's URL for the review link in reply emails; unset uses the first CORS origin.
+      APP_URL: ${APP_URL:-}
     volumes:
       - receipts:/data/receipts
     ports:
@@ -70,6 +78,9 @@ services:
       INGEST_ON_START: ${INGEST_ON_START:-0}
       INGEST_EXITO: ${INGEST_EXITO:-1}
       RECEIPTS_DIR: /data/receipts
+      # Retries forwarded invoice emails cut short by a web restart, through the web service.
+      RESEND_WEBHOOK_SECRET: ${RESEND_WEBHOOK_SECRET:-}
+      WEB_INTERNAL_URL: http://web:3000
     volumes:
       # Receipt photos; the worker deletes them after 30 days.
       - receipts:/data/receipts
