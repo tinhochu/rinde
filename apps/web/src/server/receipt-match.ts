@@ -22,7 +22,7 @@ export type LineMatchResult = { index: number; match: LineMatch | null; options:
 
 const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, " ").trim();
 
-function sizeLabel(size: string | null, unit: ListingRow["unit"]): string {
+export function sizeLabel(size: string | null, unit: ListingRow["unit"]): string {
   if (!size || !unit) return "";
   const n = Number(size);
   if (unit === "g") return n >= 1000 ? `${n / 1000} kg` : `${n} g`;
@@ -30,7 +30,7 @@ function sizeLabel(size: string | null, unit: ListingRow["unit"]): string {
   return `${n} und`;
 }
 
-const option = (r: ListingRow): ListingOption => ({ listingId: r.listingId, name: r.name, image: r.imageUrl, size: sizeLabel(r.size, r.unit) });
+export const option = (r: ListingRow): ListingOption => ({ listingId: r.listingId, name: r.name, image: r.imageUrl, size: sizeLabel(r.size, r.unit) });
 
 /** Store listings whose product carries one of these printed codes (EAN, or a store's own code like Jumbo "116"). */
 async function listingsByCode(store: RetailerSlug, codes: string[]) {
@@ -51,7 +51,7 @@ async function listingsByCode(store: RetailerSlug, codes: string[]) {
 }
 
 /** Catalog search on the expanded line text; relaxes to fewer words until something matches. */
-async function searchCandidates(store: RetailerSlug, text: string): Promise<ListingOption[]> {
+export async function searchCandidates(store: RetailerSlug, text: string): Promise<ListingOption[]> {
   const words = expandAbbreviations(text).split(" ").filter((w) => w.length >= 2 && !/\d/.test(w));
   for (let n = Math.min(words.length, 3); n >= 1; n--) {
     const rows = await searchListings(words.slice(0, n).join(" "), { stores: [store], perStore: 8 });

@@ -6,7 +6,7 @@ import {
 import { db, ensureRetailer, RETAILERS, type Prisma, type RetailerSlug } from "@rinde/db";
 import { STORE_BY_SLUG, type Store } from "./contract";
 import { extractReceipt, MuseUnavailable, sha256 } from "./muse";
-import { matchLines, type LineMatch, type ListingOption } from "./receipt-match";
+import { matchLines, searchCandidates, sizeLabel, type LineMatch, type ListingOption } from "./receipt-match";
 import { saveReceiptImage } from "./receipt-storage";
 import { awardLines, isGap, syncBadges, BADGES, type BadgeId } from "./rewards";
 
@@ -62,6 +62,13 @@ export type ReceiptDraft = {
   purchasedAt: string;
   total: number | null;
   invoiceNumber: string;
+  cufe: string | null;
+  /** photo | einvoice | einvoice-pdf */
+  source: ReceiptSource;
+  /** An e-invoice whose DIAN validation matched its CUFE */
+  dianConfirmed: boolean;
+  /** Pesos the lines may differ from the total and still add up */
+  tolerance: number;
   demo: boolean;
   lines: DraftLine[];
   reconciliation: Reconciliation;
@@ -90,7 +97,7 @@ export type ConfirmResult = {
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-async function contributorFor(sessionId: string, zone?: string) {
+export async function contributorFor(sessionId: string, zone?: string) {
   return db().contributor.upsert({
     where: { sessionId },
     create: { sessionId, ...(zone ? { zone } : {}) },
@@ -145,34 +152,123 @@ function draftLine(line: ParsedLine, match: LineMatch | null, options: ListingOp
 
 // ── Draft ────────────────────────────────────────────────────────────────────
 
-/**
- * Upload → checks → extraction → matching → draft. Every rejection happens before the photo is
- * stored; an identical photo is turned away before the model is called.
- */
-export async function createDraft(input: {
-  sessionId: string; zone?: string;
-  /** The photo, or the top part of a long receipt */
-  image: Uint8Array; mime: string;
-  /** The rest of a long receipt, in order down the paper */
-  more?: { data: Uint8Array; mime: string }[];
-  now?: Date;
-}): Promise<ReceiptDraft> {
-  const now = input.now ?? new Date();
-  const prisma = db();
-  const contributor = await contributorFor(input.sessionId, input.zone);
-  if (contributor.suspendedUntil && contributor.suspendedUntil > now) throw new ReceiptRejected("paused", MESSAGES.paused, 429);
+/** Where a draft's lines came from: a photo, an e-invoice's XML, or its PDF read like a photo. */
+export type ReceiptSource = "photo" | "einvoice" | "einvoice-pdf";
 
-  const photos = [{ data: input.image, mime: input.mime }, ...(input.more ?? [])];
-  // One photo keeps its own hash (recorded demo receipts match on it); parts hash as an ordered set.
-  const imageHash = photos.length === 1 ? sha256(input.image) : sha256(photos.map((p) => sha256(p.data)).join(","));
-  const sameFile = await findDuplicate(prisma, { imageHash });
+/** A receipt line ready for checks; `priceDerived` when its unit price is total ÷ quantity. */
+export type InputLine = ParsedLine & { priceDerived?: boolean };
+
+/** A receipt as read, whichever way it arrived: the shared input of `draftFromInput`. */
+export type ReceiptInput = {
+  store: RetailerSlug;
+  branch: string;
+  purchasedAt: Date;
+  total: number | null;
+  invoiceNumber: string;
+  cufe: string | null;
+  lines: InputLine[];
+  source: ReceiptSource;
+  dianConfirmed: boolean;
+  demo: boolean;
+  /** sha256 of the file (photos, the XML or the PDF): the "same file" duplicate layer */
+  fileHash: string;
+  /** Pesos the lines may differ from the total and still add up; 1 for photos */
+  tolerance?: number;
+};
+
+type Submitter = { id: string; suspendedUntil: Date | null };
+
+function assertActive(contributor: Submitter, now: Date) {
+  if (contributor.suspendedUntil && contributor.suspendedUntil > now) throw new ReceiptRejected("paused", MESSAGES.paused, 429);
+}
+
+async function assertUnderCap(contributorId: string, now: Date) {
+  const today = await db().receipt.count({ where: { contributorId, status: "confirmed", confirmedAt: { gte: todayStart(now) } } });
+  if (today >= DAILY_RECEIPTS) throw new ReceiptRejected("cap", MESSAGES.cap, 429);
+}
+
+/** Refuses a file an accepted receipt already came from, recording the attempt. */
+async function assertNewFile(contributorId: string, fileHash: string, now: Date) {
+  const sameFile = await findDuplicate(db(), { imageHash: fileHash });
   if (sameFile) {
-    await recordDuplicate(contributor.id, sameFile.layer, sameFile.receiptId, now);
+    await recordDuplicate(contributorId, sameFile.layer, sameFile.receiptId, now);
+    throw new ReceiptRejected("duplicate", MESSAGES.duplicate, 409);
+  }
+}
+
+/**
+ * The shared back half of every receipt: pause, daily cap, validity window, every duplicate layer,
+ * catalog matching, and the draft rows. Photos and e-invoices both end here, so their rules can't drift.
+ */
+export async function draftFromInput(contributor: Submitter, input: ReceiptInput, now = new Date()): Promise<ReceiptDraft> {
+  const prisma = db();
+  assertActive(contributor, now);
+  await assertUnderCap(contributor.id, now);
+  // Demo fixtures were recorded on a past day, so the freshness window doesn't apply to them.
+  if (!input.demo) {
+    if (input.purchasedAt.getTime() > now.getTime() + FUTURE_SLACK_MS) throw new ReceiptRejected("future", MESSAGES.future);
+    if (now.getTime() - input.purchasedAt.getTime() > MAX_AGE_MS) throw new ReceiptRejected("old", MESSAGES.old);
+  }
+  const { store, invoiceNumber, cufe } = input;
+  const headerFingerprint = sha256(headerKey(store, input.branch, input.purchasedAt, input.total ?? 0));
+
+  const duplicate = await findDuplicate(prisma, { imageHash: input.fileHash, store, invoiceNumber, cufe, headerFingerprint });
+  if (duplicate) {
+    await recordDuplicate(contributor.id, duplicate.layer, duplicate.receiptId, now);
     throw new ReceiptRejected("duplicate", MESSAGES.duplicate, 409);
   }
 
-  const today = await prisma.receipt.count({ where: { contributorId: contributor.id, status: "confirmed", confirmedAt: { gte: todayStart(now) } } });
-  if (today >= DAILY_RECEIPTS) throw new ReceiptRejected("cap", MESSAGES.cap, 429);
+  const lines = input.lines;
+  const matches = await matchLines(store, STORE_BY_SLUG[store], lines);
+  const byIndex = new Map(matches.map((m) => [m.index, m]));
+  const draftLines = lines.map((l) => draftLine(l, byIndex.get(l.index)?.match ?? null, byIndex.get(l.index)?.options ?? []));
+  const tolerance = input.tolerance ?? 1;
+
+  const receipt = await prisma.receipt.create({
+    data: {
+      contributorId: contributor.id, status: "draft", store, branch: input.branch, purchasedAt: input.purchasedAt, total: input.total, invoiceNumber, cufe,
+      headerFingerprint, imageHash: input.fileHash, demo: input.demo, source: input.source, dianConfirmed: input.dianConfirmed, tolerance,
+      lines: {
+        create: draftLines.map((l) => {
+          const parsed = lines[l.index]!;
+          return {
+            position: l.index, kind: l.kind, text: l.text, code: l.code, quantity: parsed.quantity?.value ?? null, saleUnit: parsed.quantity?.unit ?? null,
+            unitPrice: l.unitPrice, total: l.total, priceDerived: parsed.priceDerived ?? false, check: l.check,
+            retailerProductId: l.match?.listingId ?? null, matchedBy: l.match?.by ?? null, produceSlug: l.match?.produce?.slug ?? null,
+          };
+        }),
+      },
+    },
+  });
+
+  return {
+    id: receipt.id, store: STORE_BY_SLUG[store], branch: input.branch, purchasedAt: input.purchasedAt.toISOString(), total: input.total, invoiceNumber,
+    cufe, source: input.source, dianConfirmed: input.dianConfirmed, tolerance,
+    demo: input.demo, lines: draftLines, reconciliation: reconcile(lines, input.total),
+  };
+}
+
+/**
+ * The photo front end: model transcription → personal data scrubbed → header read. An identical
+ * file is turned away before the model is called. Also reads an e-invoice's PDF pages (`einvoice-pdf`),
+ * whose pages are never stored.
+ */
+export async function draftFromPhotos(input: {
+  contributor: Submitter;
+  photos: { data: Uint8Array; mime: string }[];
+  source?: ReceiptSource;
+  /** The PDF's hash for its rendered pages; photos hash themselves */
+  fileHash?: string;
+  now?: Date;
+}): Promise<ReceiptDraft> {
+  const now = input.now ?? new Date();
+  const { contributor, photos } = input;
+  const source = input.source ?? "photo";
+  assertActive(contributor, now);
+  // One photo keeps its own hash (recorded demo receipts match on it); parts hash as an ordered set.
+  const fileHash = input.fileHash ?? (photos.length === 1 ? sha256(photos[0]!.data) : sha256(photos.map((p) => sha256(p.data)).join(",")));
+  await assertNewFile(contributor.id, fileHash, now);
+  await assertUnderCap(contributor.id, now);
 
   let read;
   try {
@@ -194,48 +290,72 @@ export async function createDraft(input: {
   if (!invoiceNumber) throw new ReceiptRejected("invoice", MESSAGES.invoice);
   const purchasedAt = parseReceiptDate(extraction.purchased_at);
   if (!purchasedAt) throw new ReceiptRejected("date", MESSAGES.date);
-  // Demo fixtures were recorded on a past day, so the freshness window doesn't apply to them.
-  if (!read.demo) {
-    if (purchasedAt.getTime() > now.getTime() + FUTURE_SLACK_MS) throw new ReceiptRejected("future", MESSAGES.future);
-    if (now.getTime() - purchasedAt.getTime() > MAX_AGE_MS) throw new ReceiptRejected("old", MESSAGES.old);
+
+  const draft = await draftFromInput(contributor, {
+    store, branch: extraction.branch, purchasedAt, total: parseCop(extraction.total), invoiceNumber, cufe: normalizeCufe(extraction.cufe),
+    lines: parseLines(extraction), source, dianConfirmed: false, demo: read.demo, fileHash,
+  }, now);
+  if (source === "photo") {
+    const [imagePath] = await Promise.all(photos.map((p, part) => saveReceiptImage(draft.id, p.data, part)));
+    await db().receipt.update({ where: { id: draft.id }, data: { imagePath } });
   }
-  const total = parseCop(extraction.total);
-  const cufe = normalizeCufe(extraction.cufe);
-  const headerFingerprint = sha256(headerKey(store, extraction.branch, purchasedAt, total ?? 0));
+  return draft;
+}
 
-  const duplicate = await findDuplicate(prisma, { imageHash, store, invoiceNumber, cufe, headerFingerprint });
-  if (duplicate) {
-    await recordDuplicate(contributor.id, duplicate.layer, duplicate.receiptId, now);
-    throw new ReceiptRejected("duplicate", MESSAGES.duplicate, 409);
-  }
+/** Upload → checks → extraction → matching → draft. Every rejection happens before the photo is stored. */
+export async function createDraft(input: {
+  sessionId: string; zone?: string;
+  /** The photo, or the top part of a long receipt */
+  image: Uint8Array; mime: string;
+  /** The rest of a long receipt, in order down the paper */
+  more?: { data: Uint8Array; mime: string }[];
+  now?: Date;
+}): Promise<ReceiptDraft> {
+  const contributor = await contributorFor(input.sessionId, input.zone);
+  const photos = [{ data: input.image, mime: input.mime }, ...(input.more ?? [])];
+  return draftFromPhotos({ contributor, photos, now: input.now });
+}
 
-  const lines = parseLines(extraction);
-  const matches = await matchLines(store, STORE_BY_SLUG[store], lines);
-  const byIndex = new Map(matches.map((m) => [m.index, m]));
-  const draftLines = lines.map((l) => draftLine(l, byIndex.get(l.index)?.match ?? null, byIndex.get(l.index)?.options ?? []));
-
-  const receipt = await prisma.receipt.create({
-    data: {
-      contributorId: contributor.id, status: "draft", store, branch: extraction.branch, purchasedAt, total, invoiceNumber, cufe,
-      headerFingerprint, imageHash, demo: read.demo,
-      lines: {
-        create: draftLines.map((l) => {
-          const parsed = lines[l.index]!;
-          return {
-            position: l.index, kind: l.kind, text: l.text, code: l.code, quantity: parsed.quantity?.value ?? null, saleUnit: parsed.quantity?.unit ?? null,
-            unitPrice: l.unitPrice, total: l.total, check: l.check,
-            retailerProductId: l.match?.listingId ?? null, matchedBy: l.match?.by ?? null, produceSlug: l.match?.produce?.slug ?? null,
-          };
-        }),
-      },
-    },
+/**
+ * A draft as the review screen needs it, for opening it again (from the inbox or a reply link). Only its
+ * owner gets it. Proposed matches come from the stored rows; alternatives are searched again (no model call).
+ */
+export async function draftFor(sessionId: string, receiptId: string): Promise<ReceiptDraft | null> {
+  const prisma = db();
+  const receipt = await prisma.receipt.findFirst({
+    where: { id: receiptId, status: "draft", contributor: { sessionId } },
+    include: { lines: { orderBy: { position: "asc" } } },
   });
-  const [imagePath] = await Promise.all(photos.map((p, part) => saveReceiptImage(receipt.id, p.data, part)));
-  await prisma.receipt.update({ where: { id: receipt.id }, data: { imagePath } });
+  if (!receipt) return null;
+  const listingIds = receipt.lines.map((l) => l.retailerProductId).filter((id): id is string => !!id);
+  const listings = new Map((await prisma.retailerProduct.findMany({
+    where: { id: { in: listingIds } },
+    select: { id: true, name: true, imageUrl: true, product: { select: { size: true, unit: true } } },
+  })).map((r) => [r.id, { listingId: r.id, name: r.name, image: r.imageUrl, size: sizeLabel(r.product.size?.toString() ?? null, r.product.unit) }]));
 
+  const parsed: ParsedLine[] = [];
+  const lines: DraftLine[] = [];
+  for (const l of receipt.lines) {
+    const line: ParsedLine = {
+      index: l.position, kind: l.kind === "discount" ? "discount" : "item", text: l.text, code: l.code,
+      quantity: l.quantity !== null ? quantityOf(Number(l.quantity), l.saleUnit) : null, unitPrice: l.unitPrice, total: l.total,
+    };
+    parsed.push(line);
+    const listing = l.retailerProductId ? listings.get(l.retailerProductId) : undefined;
+    const produce = l.produceSlug ? PRODUCE.find((p) => p.slug === l.produceSlug) : undefined;
+    let match: LineMatch | null = null;
+    if (listing) match = { ...listing, by: (l.matchedBy ?? "search") as LineMatch["by"], produce: null };
+    else if (produce) {
+      const unit = l.saleUnit === "kg" || l.saleUnit === "g" ? "kg" : produce.defaultUnit;
+      match = { listingId: null, name: produce.name, image: null, size: unit === "kg" ? "por kg" : "por unidad", by: "produce", produce: { slug: produce.slug, name: produce.name, unit } };
+    }
+    const options = line.kind === "item" && !produce ? await searchCandidates(receipt.store, l.text) : [];
+    lines.push({ ...draftLine(line, match, options), check: l.check === "ok" ? "ok" : (l.check as LineIssue) });
+  }
   return {
-    id: receipt.id, store: STORE_BY_SLUG[store], branch: extraction.branch, purchasedAt: purchasedAt.toISOString(), total, invoiceNumber,
-    demo: read.demo, lines: draftLines, reconciliation: reconcile(lines, total),
+    id: receipt.id, store: STORE_BY_SLUG[receipt.store], branch: receipt.branch, purchasedAt: receipt.purchasedAt.toISOString(), total: receipt.total,
+    invoiceNumber: receipt.invoiceNumber, cufe: receipt.cufe, source: receipt.source as ReceiptSource, dianConfirmed: receipt.dianConfirmed,
+    tolerance: receipt.tolerance, demo: receipt.demo, lines, reconciliation: reconcile(parsed, receipt.total),
   };
 }
 
@@ -325,7 +445,9 @@ export async function confirmDraft(input: { sessionId: string; receiptId: string
         await tx.receiptLine.update({
           where: { id: line.id },
           data: {
-            quantity: quantity?.value ?? null, unitPrice: unitPrice?.price ?? parsed.unitPrice, total: parsed.total, priceDerived: unitPrice?.derived ?? false,
+            quantity: quantity?.value ?? null, unitPrice: unitPrice?.price ?? parsed.unitPrice, total: parsed.total,
+            // An e-invoice's per-unit price of a multi-unit line was derived on read, unless the person typed one.
+            priceDerived: (unitPrice?.derived ?? false) || (line.priceDerived && edit?.unitPrice === undefined),
             check: check.ok ? "ok" : check.issue!, retailerProductId: observationListing, produceSlug,
             matchedBy: edit?.listingId ? "user" : line.matchedBy, editedByUser: edited, excluded, accepted,
           },

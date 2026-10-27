@@ -29,7 +29,8 @@ function latestObservations(source: PriceSource, extra: Prisma.Sql = Prisma.empt
           WHERE po.available AND po.source = 'community:receipt' AND po."observedAt" > now() - make_interval(hours => ${RECEIPT_PRICE_HOURS})`;
   return Prisma.sql`
     SELECT DISTINCT ON (po."retailerProductId") po.id AS "observationId", po."retailerProductId", po.price, po.stock,
-           po."observedAt", po.source, ${source === "receipt" ? Prisma.sql`rc.branch` : Prisma.sql`NULL::text`} AS branch
+           po."observedAt", po.source, ${source === "receipt" ? Prisma.sql`rc.branch` : Prisma.sql`NULL::text`} AS branch,
+           ${source === "receipt" ? Prisma.sql`rc.source` : Prisma.sql`NULL::text`} AS "receiptSource"
     ${from} ${extra}
     ORDER BY po."retailerProductId", po."observedAt" DESC`;
 }
@@ -78,6 +79,8 @@ export type ListingRow = {
   source: string;
   /** Store branch printed on the receipt; null for online prices */
   branch: string | null;
+  /** How the receipt arrived (photo | einvoice | einvoice-pdf); null for online prices */
+  receiptSource?: string | null;
   /** The store's id, or `produce:<slug>:<kg|unit>` for a canonical produce item (receipt prices only) */
   externalId: string;
 };
@@ -103,7 +106,7 @@ export async function searchListings(term: string, opts: ReadOptions = {}): Prom
   return db().$queryRaw<ListingRow[]>`
     WITH latest AS (${latestObservations(opts.source ?? "online")}), ranked AS (
       SELECT rp.id AS "listingId", rp."productId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
-             rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch,
+             rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch, l."receiptSource",
              row_number() OVER (
                PARTITION BY r.slug
                ORDER BY (unaccent(lower(rp.name)) LIKE ${stems[0] + "%"}) DESC, l.price ASC
@@ -146,7 +149,7 @@ function listingsWhere(filter: Prisma.Sql, stores: RetailerSlug[], source: Price
   return db().$queryRaw<ListingRow[]>`
     WITH latest AS (${latestObservations(source, filter)})
     SELECT rp.id AS "listingId", rp."productId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
-           rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch
+           rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch, l."receiptSource"
     FROM latest l
     JOIN "RetailerProduct" rp ON rp.id = l."retailerProductId"
     JOIN "Product" p ON p.id = rp."productId"
@@ -205,6 +208,7 @@ export function toOffer(r: ListingRow): Offer {
     aisle: aisleOf(r.category, r.name),
     source: r.source.startsWith("community:") ? "receipt" : "online",
     ...(r.branch ? { branch: r.branch } : {}),
+    ...(r.receiptSource === "einvoice" ? { einvoice: true } : {}),
     ...(produce ? { produce } : {}),
     ...(egg ? { egg } : {}),
   };

@@ -24,6 +24,8 @@ export type Offer = {
   /** Online: the store's catalog. Receipt: reported on a shopper's receipt, with the branch when printed. */
   source: "online" | "receipt";
   branch?: string;
+  /** A receipt price read from a DIAN electronic invoice: labeled "factura electrónica" */
+  einvoice?: true;
   /** A canonical fruit or vegetable priced per kg or per unit: receipts, plus online reference packs recognized by name since stores' own codes differ */
   produce?: Produce;
   /** A carton of eggs recognized by grade and count, so cartons compare across brands */

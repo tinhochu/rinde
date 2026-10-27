@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: monorepoRoot,
   // Internal workspace packages ship TypeScript source
   transpilePackages: ["@rinde/core", "@rinde/db", "@rinde/retailers"],
-  serverExternalPackages: ["pg", "@prisma/adapter-pg"],
+  serverExternalPackages: ["pg", "@prisma/adapter-pg", "mupdf"],
   cacheComponents: true,
   experimental: {
     // The CORS proxy buffers request bodies, 10 MB by default and silently cut beyond that; a long
