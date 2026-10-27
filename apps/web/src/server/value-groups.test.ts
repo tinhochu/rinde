@@ -40,4 +40,21 @@ describe("valueGroups", () => {
     expect(out.by).toBe("rules");
     expect(out.groups).toEqual([{ label: "Atun c", keys: ["c-1", "c-2", "c-3", "c-4"] }]);
   });
+
+  it("groups egg cartons by grade by rule, and never asks the model about them", async () => {
+    const calls: { input: { content: { text: string }[] }[] }[] = [];
+    const eggs: ValueItem[] = [
+      { key: "egg:A:30", name: "Huevos tipo A", brand: "Varias marcas", pack: 30, unit: "und" },
+      { key: "egg:A:12", name: "Huevos A rojos San Pio x12und", brand: "SAN PIO", pack: 12, unit: "und" },
+      { key: "egg:B:30", name: "Huevo Tipo B 30 Und", brand: "SOL NACIENTE", pack: 30, unit: "und" },
+      { key: "egg:AA:12", name: "Huevos tipo AA", brand: "Varias marcas", pack: 12, unit: "und" },
+      { key: "egg:AA:30", name: "Huevos AA rojos Vigor x30und", brand: "VIGOR", pack: 30, unit: "und" },
+    ];
+    const out = await valueGroups("huevos grade", eggs, cfg('{"kinds":[]}', calls));
+    expect(out.groups).toEqual([
+      { label: "Huevos tipo A", keys: ["egg:A:30", "egg:A:12"] },
+      { label: "Huevos tipo AA", keys: ["egg:AA:12", "egg:AA:30"] },
+    ]);
+    expect(calls.map((c) => c.input[0]!.content[0]!.text).join("")).not.toMatch(/Huevo/);
+  });
 });

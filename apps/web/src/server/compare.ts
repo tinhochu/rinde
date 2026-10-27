@@ -1,14 +1,20 @@
 import "server-only";
 import type { RetailerSlug } from "@rinde/db";
 import { STORE_BY_SLUG, type ComparedProduct, type Offer, type Store } from "./contract";
-import { findOffers, isThingFor, listingsByEan, lookupMissingEans, searchListings, toOffer } from "./offers";
+import { eggKey, eggLabel } from "./eggs";
+import { eggListings, findOffers, isThingFor, listingsByEan, lookupMissingEans, searchListings, toOffer } from "./offers";
+import { missingStores } from "./produce-online";
 
 const MAX_PRODUCTS = 24;
 /** Products known only from receipts (mostly produce) shown on top of the online ones */
 const MAX_REPORTED_ONLY = 8;
 
-/** Same barcode, or for produce the same canonical item sold the same way (per kg or per unit). */
-const groupKey = (o: Offer) => (o.produce ? `produce:${o.produce.slug}:${o.produce.per}` : o.ean ? `ean:${o.ean}` : `id:${o.id}`);
+/**
+ * Same barcode; for produce the same canonical item sold the same way (per kg or per unit); for eggs
+ * the same grade and count, since shoppers swap brands of eggs freely.
+ */
+const groupKey = (o: Offer) =>
+  o.produce ? `produce:${o.produce.slug}:${o.produce.per}` : o.egg ? eggKey(o.egg) : o.ean ? `ean:${o.ean}` : `id:${o.id}`;
 
 /** Cheapest offer per store, cheapest store first. */
 const cheapestPerStore = (list: Offer[]) =>
@@ -61,6 +67,15 @@ export async function compareProducts(term: string, stores: RetailerSlug[]) {
   add((await listingsByEan(eans, stores)).map(toOffer));
   add((await listingsByEan(eans, stores, "receipt")).map(toOffer));
 
+  // Every store's cartons of the grades and counts shown, not only those the search ranked first.
+  if (keys.some((k) => k.startsWith("egg:"))) {
+    const cartons = [...(await eggListings(stores)), ...(await eggListings(stores, "receipt"))].map(toOffer);
+    for (const o of cartons) {
+      const group = o.egg && groups.get(eggKey(o.egg));
+      if (group && !group.some((x) => x.id === o.id && x.source === o.source)) group.push(o);
+    }
+  }
+
   // Stores we could check for a given EAN; a failed live lookup leaves the answer unknown.
   const live = await lookupMissingEans(eans, stores, (ean, slug) =>
     groups.get(`ean:${ean}`)!.some((o) => o.store === STORE_BY_SLUG[slug] && o.source === "online"));
@@ -72,17 +87,18 @@ export async function compareProducts(term: string, stores: RetailerSlug[]) {
     const { offers: best, inStore } = storePrices(groups.get(key)!);
     const lead = best[0]!;
     const byEan = key.startsWith("ean:");
-    const missing: Store[] = byEan
-      ? [...checked].map((s) => STORE_BY_SLUG[s]).filter((s) => !best.some((o) => o.store === s))
-      : [];
+    const missing: Store[] = missingStores(byEan, lead.aisle, checked, best);
     const sized = best.find((o) => o.pack > 0) ?? lead;
+    // Cartons from several brands are named by what they share; each store line keeps its brand.
+    const brands = new Set(best.map((o) => o.brand));
+    const egg = lead.egg && brands.size > 1 ? lead.egg : undefined;
     return {
       key,
-      name: lead.name,
-      brand: lead.brand,
+      name: egg ? eggLabel(egg) : lead.name,
+      brand: egg ? "Varias marcas" : lead.brand,
       ean: lead.ean,
-      pack: sized.pack,
-      unit: sized.unit,
+      pack: egg ? egg.count : sized.pack,
+      unit: egg ? "und" : sized.unit,
       image: best.find((o) => o.image)?.image ?? "",
       offers: best,
       inStore,
@@ -91,6 +107,7 @@ export async function compareProducts(term: string, stores: RetailerSlug[]) {
       aisle: best.find((o) => o.aisle !== "other")?.aisle ?? "other",
       spread: best.length > 1 ? best.at(-1)!.price - lead.price : 0,
       ...(lead.produce ? { produce: lead.produce } : {}),
+      ...(egg ? { egg } : {}),
     };
   });
 

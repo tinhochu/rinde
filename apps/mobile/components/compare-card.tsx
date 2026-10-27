@@ -78,6 +78,8 @@ export function Verdict({ offers }: { offers: Offer[] }) {
 export function StorePrices({ offers, inStore = [], missing }: { offers: Offer[]; inStore?: Offer[]; missing: Store[] }) {
   const [best] = offers;
   const many = offers.length > 1;
+  // Cartons of eggs line up across brands, so each store says which one it is.
+  const brands = new Set(offers.map(o => o.brand).filter(Boolean)).size > 1;
   const spread = offers.at(-1)!.price - best!.price;
   return (
     <View style={styles.rowsWrap}>
@@ -102,6 +104,7 @@ export function StorePrices({ offers, inStore = [], missing }: { offers: Offer[]
               ) : null}
               {!reported && <ExternalLink size={12} color={colors.mutedForeground} />}
             </View>
+            {brands && offer.brand ? <Text numberOfLines={1} style={styles.inStore}>Marca: {offer.brand}</Text> : null}
             {reported && <Text style={styles.inStore}>{reportedLabel(offer)}</Text>}
             {below && (
               <Text style={styles.inStore}>

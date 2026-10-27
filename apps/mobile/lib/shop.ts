@@ -16,10 +16,10 @@ export type ShopProduct = {
   compare?: Pick<ComparedProduct, "offers" | "inStore" | "missing" | "produce">;
 };
 export type CartLine = { product: ShopProduct; count: number };
-/** One product across stores, matched by EAN or produce item and unit (see apps/web/src/server/contract.ts). */
+/** One product across stores, matched by EAN, produce item and unit, or egg grade and count (see apps/web/src/server/contract.ts). */
 export type ComparedProduct = {
   key: string; name: string; brand: string; ean: string; pack: number; unit: Unit; image: string;
-  offers: Offer[]; inStore?: Offer[]; missing: Store[]; spread: number; aisle: Aisle; produce?: { slug: string; per: "kg" | "unit" };
+  offers: Offer[]; inStore?: Offer[]; missing: Store[]; spread: number; aisle: Aisle; produce?: { slug: string; per: "kg" | "unit" }; egg?: { grade: string; count: number };
 };
 export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };
 export const AISLE_NAMES: Record<Aisle, string> = {

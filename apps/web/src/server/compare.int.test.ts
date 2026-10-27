@@ -1,5 +1,6 @@
+import { randomUUID } from "node:crypto";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { db } from "@rinde/db";
+import { db, ensureRetailer, recordOffer } from "@rinde/db";
 import { compareProducts } from "./compare";
 import { cleanupContributors, seedConfirmedReceipt } from "./receipt-fixture";
 import { produceListing } from "./receipts";
@@ -32,5 +33,49 @@ describe.skipIf(!process.env["INTEGRATION"])("comparing receipt produce prices (
     // D1 per unit stands alone: nothing in its unit to compare with, so no verdict against Jumbo per kg.
     expect(products[unit]!.offers.map((o) => [o.store, o.price])).toEqual([["D1", 550]]);
     expect(products[unit]!.spread).toBe(0);
+  }, 60_000);
+});
+
+const ONLINE_RUN = `test-compare-online-${Date.now()}`;
+const UNIQ = `pq${Date.now().toString(36)}`;
+// Random (not timestamp-derived): other suites use `99${Date.now()}` EANs and share this DB.
+const randEan = (prefix: string) => `${prefix}${randomUUID().replace(/\D/g, "")}`.padEnd(13, "0").slice(0, 13);
+const EAN_D1 = randEan("98");
+const EAN_JUMBO = randEan("97");
+
+describe.skipIf(!process.env["INTEGRATION"])("comparing online produce across stores (dev DB)", () => {
+  beforeAll(async () => {
+    const prisma = db();
+    const [d1, jumbo] = await Promise.all([ensureRetailer(prisma, "d1"), ensureRetailer(prisma, "jumbo")]);
+    const observedAt = new Date();
+    // Same 1 kg plátano under each chain's private code (different EANs, like the real catalog).
+    await recordOffer(prisma, d1.id, {
+      retailer: "d1", externalId: `test-produce-${ONLINE_RUN}-d1`, name: `Plátano X 1000 G ${UNIQ}`, brand: "LA HUERTA",
+      ean: EAN_D1, category: "Frutas y verduras", size: { amount: 1000, unit: "g" }, price: 3100, listPrice: null,
+      available: true, stock: null, url: "https://www.d1.com.co/test", imageUrl: null,
+      source: "test:online-produce", sourceUrl: `rinde://test/${ONLINE_RUN}#d1`, observedAt,
+    });
+    await recordOffer(prisma, jumbo.id, {
+      retailer: "jumbo", externalId: `test-produce-${ONLINE_RUN}-jumbo`, name: `Plátano verde ${UNIQ}`, brand: "A GRANEL",
+      ean: EAN_JUMBO, category: "Frutas y verduras", size: { amount: 1000, unit: "g" }, price: 4980, listPrice: null,
+      available: true, stock: null, url: "https://www.jumbocolombia.com/test", imageUrl: null,
+      source: "test:online-produce", sourceUrl: `rinde://test/${ONLINE_RUN}#jumbo`, observedAt,
+    });
+  });
+  afterAll(async () => {
+    const prisma = db();
+    await prisma.priceObservation.deleteMany({ where: { sourceUrl: { startsWith: `rinde://test/${ONLINE_RUN}` } } });
+    await prisma.retailerProduct.deleteMany({ where: { externalId: { startsWith: `test-produce-${ONLINE_RUN}` } } });
+    // Only products this run named: a shared EAN would keep the other suite's name (upsert updates nothing).
+    await prisma.product.deleteMany({ where: { ean: { in: [EAN_D1, EAN_JUMBO] }, name: { contains: UNIQ } } });
+  });
+
+  it("groups the same 1kg produce by canonical item, with no false 'not carried' verdict", async () => {
+    const { products } = await compareProducts(`platano ${UNIQ}`, ["d1", "jumbo"]);
+    const group = products.find((p) => p.key === "produce:platano:kg");
+    expect(group).toBeDefined();
+    expect(group!.offers.map((o) => [o.store, o.price, o.source])).toEqual([["D1", 3100, "online"], ["Jumbo", 4980, "online"]]);
+    expect(group!.spread).toBe(1880);
+    expect(group!.missing).toEqual([]);
   }, 60_000);
 });

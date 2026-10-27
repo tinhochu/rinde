@@ -1,6 +1,7 @@
 import "server-only";
 import { createHash } from "node:crypto";
 import { z } from "zod";
+import { eggLabel } from "./eggs";
 import { museJson, MuseUnavailable, type MuseConfig, museConfig } from "./muse";
 import { isRelevant } from "./relevance";
 
@@ -25,12 +26,15 @@ export async function valueGroups(query: string, items: ValueItem[], cfg: MuseCo
   const hit = cache.get(key);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.value;
 
+  // Eggs are a kind per grade (A, AA, codorniz…), decided by rule so grades never mix; Muse sorts the rest.
+  const eggs = eggGroups(sized);
+  const rest = sized.filter((i) => !i.key.startsWith("egg:"));
   let value: ValueGroups;
   try {
-    value = { groups: await museGroups(query, sized, cfg), by: "muse" };
+    value = { groups: [...eggs, ...(await museGroups(query, rest, cfg))], by: "muse" };
   } catch (e) {
     if (!(e instanceof MuseUnavailable)) throw e;
-    value = { groups: ruleGroups(query, sized), by: "rules" };
+    value = { groups: [...eggs, ...ruleGroups(query, rest)], by: "rules" };
   }
   cache.set(key, { at: Date.now(), value });
   return value;
@@ -67,6 +71,16 @@ ${list}`;
     cfg,
   );
   return clean(result.kinds.map((k) => ({ label: k.label, keys: k.items.map((n) => items[n]?.key).filter((x): x is string => !!x) })), items);
+}
+
+/** Cartons keyed `egg:<grade>:<count>` (see compare.ts), one kind per grade across counts. */
+function eggGroups(items: ValueItem[]): ValueGroup[] {
+  const byGrade = new Map<string, string[]>();
+  for (const i of items) {
+    const grade = /^egg:([^:]+):\d+$/.exec(i.key)?.[1];
+    if (grade) byGrade.set(grade, [...(byGrade.get(grade) ?? []), i.key]);
+  }
+  return clean([...byGrade].map(([grade, keys]) => ({ label: eggLabel({ grade, count: 0 }), keys })), items);
 }
 
 /** Invented or repeated items are dropped, mixed units split off, and a kind needs two products to compare. */

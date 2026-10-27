@@ -8,7 +8,7 @@ const querySchema = z.object({
   store: z.enum(["Éxito", "Jumbo", "D1"]).optional(),
 });
 
-// Browse observed offers for a search term, grouped into products compared across stores by EAN.
+// Browse observed offers for a search term, grouped into products compared across stores by EAN (or canonical produce item).
 export async function GET(request: Request) {
   const params = Object.fromEntries(new URL(request.url).searchParams);
   const parsed = querySchema.safeParse(params);

@@ -3,6 +3,8 @@ import "server-only";
 import { db, ensureRetailer, Prisma, recordOffer, type RetailerSlug } from "@rinde/db";
 import { retailerBySlug } from "@rinde/retailers";
 import { STORE_BY_SLUG, type Offer, type Unit } from "./contract";
+import { eggOf } from "./eggs";
+import { onlineProduceOf } from "./produce-online";
 
 /** Snapshot prices older than this are never shown (plan-price-verification spec). */
 export const ONLINE_PRICE_HOURS = 36;
@@ -132,6 +134,13 @@ export async function listingsForProducts(productIds: string[], stores: Retailer
   return listingsWhere(Prisma.sql`AND po."retailerProductId" IN (SELECT id FROM "RetailerProduct" WHERE "productId" = ANY(${productIds}))`, stores, source);
 }
 
+/** Latest available observation for every carton of eggs at these stores, to line cartons up by grade and count. */
+export async function eggListings(stores: RetailerSlug[], source: PriceSource = "online"): Promise<ListingRow[]> {
+  return listingsWhere(Prisma.sql`AND po."retailerProductId" IN (
+    SELECT rp.id FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId"
+    WHERE unaccent(lower(rp.name)) LIKE 'huevo%' AND unaccent(lower(p.category)) LIKE '%huevo%')`, stores, source);
+}
+
 function listingsWhere(filter: Prisma.Sql, stores: RetailerSlug[], source: PriceSource): Promise<ListingRow[]> {
   if (stores.length === 0) return Promise.resolve([]);
   return db().$queryRaw<ListingRow[]>`
@@ -174,7 +183,9 @@ export async function lookupMissingEans(eans: string[], stores: RetailerSlug[], 
 
 export function toOffer(r: ListingRow): Offer {
   const unit: Unit = r.unit === "unit" ? "und" : (r.unit ?? "und");
-  const produce = /^produce:([a-z0-9-]+):(kg|unit)$/.exec(r.externalId);
+  const coded = /^produce:([a-z0-9-]+):(kg|unit)$/.exec(r.externalId);
+  const produce = coded ? { slug: coded[1]!, per: coded[2] as "kg" | "unit" } : onlineProduceOf(r);
+  const egg = produce ? undefined : eggOf(r);
   return {
     id: r.listingId,
     store: STORE_BY_SLUG[r.slug],
@@ -184,8 +195,9 @@ export function toOffer(r: ListingRow): Offer {
     price: r.price,
     stock: r.stock ?? 0,
     // pack 0 = size unknown; the client excludes it from quantity math rather than guessing
-    pack: r.size ? Number(r.size) : 0,
-    unit,
+    // A carton's count is read from its name; some stores file it in grams.
+    pack: egg ? egg.count : r.size ? Number(r.size) : 0,
+    unit: egg ? "und" : unit,
     image: r.imageUrl ?? "",
     url: r.url,
     observedAt: r.observedAt.toISOString(),
@@ -193,7 +205,8 @@ export function toOffer(r: ListingRow): Offer {
     aisle: aisleOf(r.category, r.name),
     source: r.source.startsWith("community:") ? "receipt" : "online",
     ...(r.branch ? { branch: r.branch } : {}),
-    ...(produce ? { produce: { slug: produce[1]!, per: produce[2] as "kg" | "unit" } } : {}),
+    ...(produce ? { produce } : {}),
+    ...(egg ? { egg } : {}),
   };
 }
 

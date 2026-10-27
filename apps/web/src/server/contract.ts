@@ -24,10 +24,13 @@ export type Offer = {
   /** Online: the store's catalog. Receipt: reported on a shopper's receipt, with the branch when printed. */
   source: "online" | "receipt";
   branch?: string;
-  /** A canonical fruit or vegetable priced per kg or per unit (only from receipts; stores' own codes differ) */
+  /** A canonical fruit or vegetable priced per kg or per unit: receipts, plus online reference packs recognized by name since stores' own codes differ */
   produce?: Produce;
+  /** A carton of eggs recognized by grade and count, so cartons compare across brands */
+  egg?: Egg;
 };
 
+export type Egg = { grade: string; count: number };
 export type Produce = { slug: string; per: "kg" | "unit" };
 
 export const listItemSchema = z.object({
@@ -48,9 +51,11 @@ export const pricesRequestSchema = z.object({
 export type LookupRow = { item: ListItem; offers: Offer[]; reasons: string[] };
 export type LookupResult = { rows: LookupRow[]; checkedAt: string; area: string };
 /**
- * One product across stores. Offers are matched by EAN (same barcode = same product),
- * cheapest first, at most one per store. `missing` lists stores we checked that don't
- * carry this EAN; listings without an EAN can't be matched and have `missing: []`.
+ * One product across stores. Offers are matched by EAN (same barcode = same product), or by
+ * canonical produce item for 1 kg / 1 unit fresh packs (stores code produce privately), or for
+ * eggs by grade and count whatever the brand, cheapest
+ * first, at most one per store. `missing` lists stores we checked that don't carry this EAN;
+ * listings without an EAN, and fresh produce, can't prove absence and have `missing: []`.
  */
 export type ComparedProduct = {
   key: string;
@@ -65,6 +70,8 @@ export type ComparedProduct = {
   missing: Store[];
   aisle: Aisle;
   produce?: Produce;
+  /** Set when stores' cartons of the same grade and count are compared regardless of brand */
+  egg?: Egg;
   /** Most expensive minus cheapest store price; 0 with fewer than two stores */
   spread: number;
 };
