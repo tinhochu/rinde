@@ -1,14 +1,11 @@
 import "server-only";
 import type { Prisma, PrismaClient, RetailerSlug } from "@rinde/db";
 import { STORE_BY_SLUG } from "./contract";
+import { ONLINE_PRICE_HOURS, RECEIPT_PRICE_HOURS } from "./offers";
 
 type Tx = Prisma.TransactionClient | PrismaClient;
 
 export const POINTS = { line: 10, bonus: 15 } as const;
-/** How long a receipt price counts as current (community-prices spec). */
-export const RECEIPT_PRICE_HOURS = 72;
-/** Online snapshot prices count as current this long (plan-price-verification spec). */
-export const ONLINE_PRICE_HOURS = 36;
 
 export type BadgeId = "primera-factura" | "cazador-de-frutas" | "pionero" | "constante";
 export const BADGES: Record<BadgeId, { name: string; description: string }> = {

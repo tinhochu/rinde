@@ -19,6 +19,7 @@ vi.mock("./muse", async (orig) => {
 vi.stubEnv("RECEIPTS_DIR", "/tmp/rinde-receipts-test");
 
 const { createDraft, confirmDraft, MESSAGES } = await import("./receipts");
+const { cleanupContributors } = await import("./receipt-fixture");
 
 const RUN = `test-${Date.now()}`;
 const session = (n: string) => `${RUN}-${n}`;
@@ -59,17 +60,7 @@ describe.skipIf(!process.env["INTEGRATION"])("receipts (dev DB)", () => {
   });
   beforeEach(() => { muse.calls = 0; muse.down = false; });
 
-  afterAll(async () => {
-    const prisma = db();
-    const contributors = await prisma.contributor.findMany({ where: { sessionId: { startsWith: RUN } }, select: { id: true } });
-    const ids = contributors.map((c) => c.id);
-    await prisma.priceObservation.deleteMany({ where: { receiptLine: { receipt: { contributorId: { in: ids } } } } });
-    await prisma.rewardEvent.deleteMany({ where: { contributorId: { in: ids } } });
-    await prisma.contributorBadge.deleteMany({ where: { contributorId: { in: ids } } });
-    await prisma.duplicateAttempt.deleteMany({ where: { contributorId: { in: ids } } });
-    await prisma.receipt.deleteMany({ where: { contributorId: { in: ids } } });
-    await prisma.contributor.deleteMany({ where: { id: { in: ids } } });
-  });
+  afterAll(() => cleanupContributors(RUN));
 
   it("drafts a receipt, then confirms 9 of 12 lines into 9 observations and 90 points", async () => {
     muse.extraction = receipt(`POS ${RUN}-1`);

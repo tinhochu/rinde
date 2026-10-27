@@ -48,9 +48,9 @@
 
 ## 5. Community prices in search, modal and planner
 
-- [ ] 5.1 Extend the `Offer` contract with `source: "online" | "receipt"` and `branch?`. Online reads exclude `community:%`; add community reads with a 72 h window. Verify with a test that an 80 h receipt observation is not returned and that online-only callers see no community rows.
-- [ ] 5.2 In `compare.ts`, group produce by `produce:<slug>:<unit>` and keep the cheapest offer per store and source. Show kg and unit groups of one item together with no cross-unit verdict. Verify with a test that Banano per kg at D1 and Jumbo gets a verdict, and Banano per unit at D1 against per kg at Jumbo does not.
-- [ ] 5.3 In `candidates.ts`, add receipt candidates (`priceStatus: "reported"`) only for (item, store) pairs with no acceptable online candidate. `verify.ts` skips them, and the line reason reads "Precio reportado en factura hace N h; no verificado en línea". Verify with tests for both planner scenarios in the spec (produce from a receipt, and online wins).
+- [x] 5.1 Extend the `Offer` contract with `source: "online" | "receipt"` and `branch?`. Online reads exclude `community:%`; add community reads with a 72 h window. Verify with a test that an 80 h receipt observation is not returned and that online-only callers see no community rows.
+- [x] 5.2 In `compare.ts`, group produce by `produce:<slug>:<unit>` and keep the cheapest offer per store and source. Show kg and unit groups of one item together with no cross-unit verdict. Verify with a test that Banano per kg at D1 and Jumbo gets a verdict, and Banano per unit at D1 against per kg at Jumbo does not.
+- [x] 5.3 In `candidates.ts`, add receipt candidates (`priceStatus: "reported"`) only for (item, store) pairs with no acceptable online candidate. `verify.ts` skips them, and the line reason reads "Precio reportado en factura hace N h; no verificado en línea". Verify with tests for both planner scenarios in the spec (produce from a receipt, and online wins).
 - [ ] 5.4 On mobile, render receipt prices in `StorePrices` and the product modal: a full row labeled "Reportado en tienda · factura · hace X h" when the store has no online price, or a sub-line "En tienda: …" under the online row. Verify in a web-export screenshot with a seeded receipt.
 
 ## 6. Rewards

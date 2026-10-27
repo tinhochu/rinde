@@ -17,7 +17,8 @@ export interface Candidate {
   observationId?: string;
   /** ISO timestamp of the price observation */
   observedAt: string;
-  priceStatus: "live" | "snapshot";
+  /** live: re-checked now; snapshot: online catalog; reported: from a shopper's receipt, never re-checked */
+  priceStatus: "live" | "snapshot" | "reported";
   /** Same product the user asked for (same EAN, or same brand and type) */
   isLiteralMatch: boolean;
   /** An equivalent product that differs from what the user asked for */
@@ -51,6 +52,8 @@ export interface PlanOptions {
   tripCost?: number;
   /** Plan with exactly these stores, regardless of trip cost (set by an accepted "add a stop") */
   forceStores?: RetailerSlug[];
+  /** Clock for price ages in line reasons (ms). Default Date.now() */
+  now?: number;
 }
 
 export interface PlanLine {

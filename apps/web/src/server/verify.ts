@@ -51,14 +51,15 @@ export async function planAndVerify(
     // Always re-plan so lines carry the verified candidate data (price, observation, status).
     plan = optimize(current, options);
     if (!result.changed) break;
-    const unverified = plan.stores.flatMap((s) => s.lines).filter((l) => !verified.has(l.candidate.listingId));
+    const unverified = plan.stores.flatMap((s) => s.lines).filter((l) => l.candidate.priceStatus !== "reported" && !verified.has(l.candidate.listingId));
     if (unverified.length === 0) break;
   }
 
   // Lines that could not be checked (failure/timeout/round limit) must still be fresh enough.
+  // Receipt prices were read within their own 72 h window and are labeled unverified instead.
   const now = deps.now?.() ?? Date.now();
   const stale = plan.stores.flatMap((s) => s.lines).filter(
-    (l) => !verified.has(l.candidate.listingId) && now - Date.parse(l.candidate.observedAt) > MAX_SNAPSHOT_AGE_MS,
+    (l) => l.candidate.priceStatus !== "reported" && !verified.has(l.candidate.listingId) && now - Date.parse(l.candidate.observedAt) > MAX_SNAPSHOT_AGE_MS,
   );
   if (stale.length) {
     current = removeCandidates(current, new Set(stale.map((l) => l.candidate.listingId)), "Precio desactualizado");
@@ -83,7 +84,8 @@ export async function verifyPlan(
 
   await Promise.all(
     plan.stores.map(async ({ retailer, lines }) => {
-      const pending = lines.map((l) => l.candidate).filter((c) => !opts.skip?.has(c.listingId));
+      // Receipt prices are never re-checked live (community-prices spec).
+      const pending = lines.map((l) => l.candidate).filter((c) => c.priceStatus !== "reported" && !opts.skip?.has(c.listingId));
       if (pending.length === 0) return;
       let changed = 0;
       try {

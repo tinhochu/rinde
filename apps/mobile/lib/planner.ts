@@ -9,7 +9,7 @@ export const STORE_NAME: Record<RetailerSlug, Store> = { d1: "D1", jumbo: "Jumbo
 export type Candidate = {
   listingId: string; retailer: RetailerSlug; name: string; brand: string | null; price: number;
   size: { amount: number; unit: "g" | "ml" | "unit" } | null;
-  url: string; source: string; observedAt: string; priceStatus: "live" | "snapshot";
+  url: string; source: string; observedAt: string; priceStatus: "live" | "snapshot" | "reported";
   isLiteralMatch: boolean; isSubstitute: boolean;
 };
 export type PlanLine = { itemId: string; label: string; candidate: Candidate; packs: number; lineTotal: number; isSubstitute: boolean; reason: string };
@@ -110,5 +110,6 @@ function trim(n: number) {
 export function provenance(c: Candidate, now: number) {
   const mins = Math.max(0, Math.floor((now - new Date(c.observedAt).getTime()) / 60000));
   const age = mins < 1 ? "ahora" : mins < 60 ? `hace ${mins} min` : `hace ${Math.floor(mins / 60)} h`;
+  if (c.priceStatus === "reported") return `Reportado en tienda · factura · ${age}; no verificado en línea`;
   return c.priceStatus === "live" ? `Verificado en ${STORE_NAME[c.retailer]} ${age}` : `Precio de catálogo de ${STORE_NAME[c.retailer]}, ${age}`;
 }

@@ -19,9 +19,16 @@ export type Offer = {
   image: string;
   url: string;
   observedAt: string;
-  channel: "Tienda online";
+  channel: "Tienda online" | "Tienda física";
   aisle: Aisle;
+  /** Online: the store's catalog. Receipt: reported on a shopper's receipt, with the branch when printed. */
+  source: "online" | "receipt";
+  branch?: string;
+  /** A canonical fruit or vegetable priced per kg or per unit (only from receipts; stores' own codes differ) */
+  produce?: Produce;
 };
+
+export type Produce = { slug: string; per: "kg" | "unit" };
 
 export const listItemSchema = z.object({
   id: z.string().max(150),
@@ -54,8 +61,10 @@ export type ComparedProduct = {
   unit: Unit;
   image: string;
   offers: Offer[];
+  inStore: Offer[];
   missing: Store[];
   aisle: Aisle;
+  produce?: Produce;
   /** Most expensive minus cheapest store price; 0 with fewer than two stores */
   spread: number;
 };

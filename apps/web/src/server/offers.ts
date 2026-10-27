@@ -1,11 +1,36 @@
 import { aisleOf } from "./aisles";
 import "server-only";
-import { db, ensureRetailer, recordOffer, type RetailerSlug } from "@rinde/db";
+import { db, ensureRetailer, Prisma, recordOffer, type RetailerSlug } from "@rinde/db";
 import { retailerBySlug } from "@rinde/retailers";
 import { STORE_BY_SLUG, type Offer, type Unit } from "./contract";
 
 /** Snapshot prices older than this are never shown (plan-price-verification spec). */
-const MAX_AGE_HOURS = 36;
+export const ONLINE_PRICE_HOURS = 36;
+/** Receipt prices count this long from the purchase time (community-prices spec). */
+export const RECEIPT_PRICE_HOURS = 72;
+
+/** Which prices a read returns: the online catalog, or prices reported on confirmed receipts. */
+export type PriceSource = "online" | "receipt";
+
+/**
+ * Latest observation per listing from one source. Online reads never see community prices; receipt
+ * reads see only lines of receipts that are still confirmed (a revoked receipt's prices disappear).
+ */
+function latestObservations(source: PriceSource, extra: Prisma.Sql = Prisma.empty) {
+  const from =
+    source === "online"
+      ? Prisma.sql`FROM "PriceObservation" po
+          WHERE po.available AND po.source NOT LIKE 'community:%' AND po."observedAt" > now() - make_interval(hours => ${ONLINE_PRICE_HOURS})`
+      : Prisma.sql`FROM "PriceObservation" po
+          JOIN "ReceiptLine" rl ON rl.id = po."receiptLineId"
+          JOIN "Receipt" rc ON rc.id = rl."receiptId" AND rc.status = 'confirmed'
+          WHERE po.available AND po.source = 'community:receipt' AND po."observedAt" > now() - make_interval(hours => ${RECEIPT_PRICE_HOURS})`;
+  return Prisma.sql`
+    SELECT DISTINCT ON (po."retailerProductId") po.id AS "observationId", po."retailerProductId", po.price, po.stock,
+           po."observedAt", po.source, ${source === "receipt" ? Prisma.sql`rc.branch` : Prisma.sql`NULL::text`} AS branch
+    ${from} ${extra}
+    ORDER BY po."retailerProductId", po."observedAt" DESC`;
+}
 export const LIVE_TIMEOUT_MS = 8_000;
 const STOPWORDS = new Set(["de", "del", "la", "el", "los", "las", "x", "y", "para", "con", "en", "un", "una"]);
 
@@ -30,6 +55,8 @@ export function searchTokens(term: string): string[] {
     .slice(0, 6);
 }
 
+export type ReadOptions = { stores?: RetailerSlug[]; perStore?: number; source?: PriceSource };
+
 export type ListingRow = {
   listingId: string;
   observationId: string;
@@ -46,19 +73,23 @@ export type ListingRow = {
   stock: number | null;
   observedAt: Date;
   source: string;
+  /** Store branch printed on the receipt; null for online prices */
+  branch: string | null;
+  /** The store's id, or `produce:<slug>:<kg|unit>` for a canonical produce item (receipt prices only) */
+  externalId: string;
 };
 
 /** Search the price snapshot and shape results for the client. */
-export async function searchSnapshot(term: string, opts: { stores?: RetailerSlug[]; perStore?: number } = {}): Promise<Offer[]> {
+export async function searchSnapshot(term: string, opts: ReadOptions = {}): Promise<Offer[]> {
   return (await searchListings(term, opts)).map(toOffer);
 }
 
 /**
  * Search the Postgres price snapshot. Every token must appear in the listing name
  * (accent-insensitive); names that start with the first token rank first, then price.
- * Only the latest available observation per listing within MAX_AGE_HOURS is returned.
+ * Only the latest available observation per listing from `opts.source` (online by default) is returned.
  */
-export async function searchListings(term: string, opts: { stores?: RetailerSlug[]; perStore?: number } = {}): Promise<ListingRow[]> {
+export async function searchListings(term: string, opts: ReadOptions = {}): Promise<ListingRow[]> {
   const tokens = searchTokens(term);
   if (tokens.length === 0) return [];
   const stores = opts.stores ?? enabledRetailers();
@@ -67,15 +98,9 @@ export async function searchListings(term: string, opts: { stores?: RetailerSlug
   const patterns = stems.map((t) => `%${t}%`);
 
   return db().$queryRaw<ListingRow[]>`
-    WITH latest AS (
-      SELECT DISTINCT ON (po."retailerProductId") po.id AS "observationId", po."retailerProductId", po.price, po.stock,
-             po."observedAt", po.source
-      FROM "PriceObservation" po
-      WHERE po.available AND po."observedAt" > now() - make_interval(hours => ${MAX_AGE_HOURS})
-      ORDER BY po."retailerProductId", po."observedAt" DESC
-    ), ranked AS (
+    WITH latest AS (${latestObservations(opts.source ?? "online")}), ranked AS (
       SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
-             rp."imageUrl", rp.url, l.price, l.stock, l."observedAt", l.source,
+             rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch,
              row_number() OVER (
                PARTITION BY r.slug
                ORDER BY (unaccent(lower(rp.name)) LIKE ${stems[0] + "%"}) DESC, l.price ASC
@@ -90,21 +115,15 @@ export async function searchListings(term: string, opts: { stores?: RetailerSlug
     SELECT * FROM ranked WHERE rank <= ${perStore} ORDER BY slug, rank`;
 }
 
-/** Latest available snapshot observation for each listing whose product has one of these EANs. */
-export async function listingsByEan(eans: string[], stores: RetailerSlug[]): Promise<ListingRow[]> {
+/** Latest available observation for each listing whose product has one of these EANs. */
+export async function listingsByEan(eans: string[], stores: RetailerSlug[], source: PriceSource = "online"): Promise<ListingRow[]> {
   if (eans.length === 0 || stores.length === 0) return [];
+  const byEan = Prisma.sql`AND po."retailerProductId" IN (
+    SELECT rp.id FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId" WHERE p.ean = ANY(${eans}))`;
   return db().$queryRaw<ListingRow[]>`
-    WITH latest AS (
-      SELECT DISTINCT ON (po."retailerProductId") po.id AS "observationId", po."retailerProductId", po.price, po.stock,
-             po."observedAt", po.source
-      FROM "PriceObservation" po
-      JOIN "RetailerProduct" rp ON rp.id = po."retailerProductId"
-      JOIN "Product" p ON p.id = rp."productId"
-      WHERE po.available AND po."observedAt" > now() - make_interval(hours => ${MAX_AGE_HOURS}) AND p.ean = ANY(${eans})
-      ORDER BY po."retailerProductId", po."observedAt" DESC
-    )
+    WITH latest AS (${latestObservations(source, byEan)})
     SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
-           rp."imageUrl", rp.url, l.price, l.stock, l."observedAt", l.source
+           rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch
     FROM latest l
     JOIN "RetailerProduct" rp ON rp.id = l."retailerProductId"
     JOIN "Product" p ON p.id = rp."productId"
@@ -114,6 +133,7 @@ export async function listingsByEan(eans: string[], stores: RetailerSlug[]): Pro
 
 export function toOffer(r: ListingRow): Offer {
   const unit: Unit = r.unit === "unit" ? "und" : (r.unit ?? "und");
+  const produce = /^produce:([a-z0-9-]+):(kg|unit)$/.exec(r.externalId);
   return {
     id: r.listingId,
     store: STORE_BY_SLUG[r.slug],
@@ -128,8 +148,11 @@ export function toOffer(r: ListingRow): Offer {
     image: r.imageUrl ?? "",
     url: r.url,
     observedAt: r.observedAt.toISOString(),
-    channel: "Tienda online",
+    channel: r.source.startsWith("community:") ? "Tienda física" : "Tienda online",
     aisle: aisleOf(r.category, r.name),
+    source: r.source.startsWith("community:") ? "receipt" : "online",
+    ...(r.branch ? { branch: r.branch } : {}),
+    ...(produce ? { produce: { slug: produce[1]!, per: produce[2] as "kg" | "unit" } } : {}),
   };
 }
 
@@ -163,7 +186,7 @@ export function isThingFor(term: string) {
   return (o: { name: string }) => !!lead && (searchTokens(o.name)[0]?.startsWith(lead) ?? false);
 }
 
-export async function findOffers(term: string, opts: { stores?: RetailerSlug[]; perStore?: number } = {}) {
+export async function findOffers(term: string, opts: Omit<ReadOptions, "source"> = {}) {
   const stores = opts.stores ?? enabledRetailers();
   let offers = await searchSnapshot(term, { ...opts, stores });
   const tokens = searchTokens(term);

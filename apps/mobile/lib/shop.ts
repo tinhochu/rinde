@@ -15,10 +15,10 @@ export type ShopProduct = {
   compare?: { offers: Offer[]; missing: Store[] };
 };
 export type CartLine = { product: ShopProduct; count: number };
-/** One product across stores, matched by EAN (see apps/web/src/server/contract.ts). */
+/** One product across stores, matched by EAN or produce item and unit (see apps/web/src/server/contract.ts). */
 export type ComparedProduct = {
   key: string; name: string; brand: string; ean: string; pack: number; unit: Unit; image: string;
-  offers: Offer[]; missing: Store[]; spread: number; aisle: Aisle;
+  offers: Offer[]; inStore?: Offer[]; missing: Store[]; spread: number; aisle: Aisle; produce?: { slug: string; per: "kg" | "unit" };
 };
 export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };
 export const AISLE_NAMES: Record<Aisle, string> = {

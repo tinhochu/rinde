@@ -33,7 +33,7 @@ export async function candidatesFor(item: ItemRequest, stores: RetailerSlug[] = 
   const rows = dedupe((await Promise.all(searches)).flat());
 
   const brandTokens = brand ? searchTokens(brand) : [];
-  const candidates = rows
+  const toCandidates = (list: ListingRow[]) => list
     // Unit-counted items ("1 und") accept any package; otherwise the unit kind must match
     .filter((r) => r.size !== null && r.unit !== null && (r.unit === item.unit || item.unit === "unit"))
     .map((r): Candidate => {
@@ -49,11 +49,21 @@ export async function candidatesFor(item: ItemRequest, stores: RetailerSlug[] = 
         source: r.source,
         observationId: r.observationId,
         observedAt: r.observedAt.toISOString(),
-        priceStatus: r.source.endsWith(":live-verify") ? "live" : "snapshot",
+        priceStatus: r.source.startsWith("community:") ? "reported" : r.source.endsWith(":live-verify") ? "live" : "snapshot",
         isLiteralMatch: literal,
         isSubstitute: !literal,
       };
     });
+  const online = toCandidates(rows);
+
+  // Receipt prices only fill in stores with no online price the plan would accept (design D8).
+  const acceptable = (c: Candidate) => c.isLiteralMatch || item.allowSubstitute;
+  const uncovered = stores.filter((s) => !online.some((c) => c.retailer === s && acceptable(c)));
+  const reported = uncovered.length
+    ? toCandidates(dedupe((await Promise.all([item.query, ...(brand ? [`${item.query} ${brand}`] : [])].map((q) =>
+        searchListings(q, { stores: uncovered, perStore: PER_STORE, source: "receipt" })))).flat()))
+    : [];
+  const candidates = [...online, ...reported];
 
   return {
     id: item.id,

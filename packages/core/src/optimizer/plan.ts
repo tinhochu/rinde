@@ -130,7 +130,7 @@ export function optimize(items: PlanItem[], options: PlanOptions): Plan {
       packs: choice.packs,
       lineTotal: choice.lineTotal,
       isSubstitute: choice.candidate.isSubstitute,
-      reason: lineReason(item, choice, acceptable.get(item.id)!, enabled, recommended.stores),
+      reason: lineReason(item, choice, acceptable.get(item.id)!, enabled, recommended.stores) + reportedNote(choice.candidate, options.now ?? Date.now()),
     };
   });
 
@@ -243,6 +243,13 @@ function lineReason(
       reason += `. Reemplaza a ${literal.candidate.name} (${formatCop(literal.lineTotal - choice.lineTotal)} menos)`;
   }
   return reason;
+}
+
+/** Receipt prices say where they come from, since nobody checked them online. */
+function reportedNote(c: Candidate, now: number): string {
+  if (c.priceStatus !== "reported") return "";
+  const hours = Math.max(0, Math.floor((now - Date.parse(c.observedAt)) / 3_600_000));
+  return `. Precio reportado en factura hace ${hours} h; no verificado en línea`;
 }
 
 function unavailableReason(item: PlanItem, enabled: ReadonlySet<RetailerSlug>): string {

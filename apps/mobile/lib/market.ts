@@ -2,7 +2,7 @@ export type Store = "Éxito" | "Jumbo" | "D1";
 export const STORES: Store[] = ["Éxito", "Jumbo", "D1"];
 export type Unit = "g" | "ml" | "und";
 export type ListItem = { id: string; name: string; quantity: number; unit: Unit; brand: string; allowSubstitution: boolean; essential?: boolean };
-export type Offer = { id: string; store: Store; name: string; brand: string; ean: string; price: number; stock: number; pack: number; unit: Unit; image: string; url: string; observedAt: string; channel: "Tienda online"; aisle?: Aisle };
+export type Offer = { id: string; store: Store; name: string; brand: string; ean: string; price: number; stock: number; pack: number; unit: Unit; image: string; url: string; observedAt: string; channel: "Tienda online" | "Tienda física"; aisle?: Aisle; source?: "online" | "receipt"; branch?: string; produce?: { slug: string; per: "kg" | "unit" } };
 /** Rinde's aisles, assigned by the API from each store's category (apps/web/src/server/aisles.ts). */
 export type Aisle = "produce" | "dairy" | "pantry" | "meat" | "bakery" | "drinks" | "home" | "personal" | "other";
 export type LookupRow = { item: ListItem; offers: Offer[]; reasons: string[] };

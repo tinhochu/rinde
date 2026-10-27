@@ -222,7 +222,7 @@ export async function createDraft(input: { sessionId: string; zone?: string; ima
 // ── Confirm ──────────────────────────────────────────────────────────────────
 
 /** The per-store listing that carries receipt prices for a produce item ("produce:banano:kg"). */
-async function produceListing(tx: Prisma.TransactionClient, store: RetailerSlug, slug: string, unit: "kg" | "unit") {
+export async function produceListing(tx: Prisma.TransactionClient, store: RetailerSlug, slug: string, unit: "kg" | "unit") {
   const externalId = `produce:${slug}:${unit}`;
   const retailer = await ensureRetailer(tx as never, store);
   const existing = await tx.retailerProduct.findUnique({ where: { retailerId_externalId: { retailerId: retailer.id, externalId } } });
