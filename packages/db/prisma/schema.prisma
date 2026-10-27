@@ -221,6 +221,12 @@ model Receipt {
   imagePath         String?
   /// Extraction came from a recorded demo fixture
   demo              Boolean       @default(false)
+  /// photo | einvoice (read from the DIAN XML) | einvoice-pdf (the invoice's PDF, read like a photo)
+  source            String        @default("photo")
+  /// An e-invoice whose DIAN validation response matched its CUFE
+  dianConfirmed     Boolean       @default(false)
+  /// Pesos the lines may differ from the total and still add up (an e-invoice's rounding plus 1 per line)
+  tolerance         Int           @default(1)
   lines             ReceiptLine[]
   rewards           RewardEvent[]
   createdAt         DateTime      @default(now())
@@ -246,7 +252,7 @@ model ReceiptLine {
   saleUnit          String?
   unitPrice         Int?
   total             Int?
-  /// unitPrice was computed as total ÷ quantity because the receipt printed only the total
+  /// unitPrice was computed as total ÷ quantity (the receipt printed only the total, or an e-invoice line of several units)
   priceDerived      Boolean           @default(false)
   /// ok | illegible | mismatch
   check             String
@@ -299,8 +305,61 @@ model Contributor {
   rewards        RewardEvent[]
   badges         ContributorBadge[]
   duplicates     DuplicateAttempt[]
+  addresses      ForwardingAddress[]
+  intakes        InvoiceIntake[]
   createdAt      DateTime           @default(now())
 
+}
+
+/// Where a contributor forwards e-invoice emails: facturas+<token>@INBOUND_EMAIL_DOMAIN. Replacing it
+/// deactivates the row and creates another; a merge on sign-in moves rows, so both addresses keep working.
+model ForwardingAddress {
+  id            String          @id @default(cuid())
+  /// 10 random lowercase base32 characters
+  token         String          @unique
+  contributorId String
+  contributor   Contributor     @relation(fields: [contributorId], references: [id])
+  active        Boolean         @default(true)
+  /// Emails counted on `countedOn` (Colombia day), for the 20-per-day limit
+  emailsToday   Int             @default(0)
+  countedOn     DateTime?
+  intakes       InvoiceIntake[]
+  createdAt     DateTime        @default(now())
+
+  @@index([contributorId])
+}
+
+/// One forwarded email or uploaded file and what became of it. Never holds the email, the files or buyer data.
+model InvoiceIntake {
+  id            String             @id @default(cuid())
+  /// Null while unresolved, and for emails to an unknown address
+  contributorId String?
+  contributor   Contributor?       @relation(fields: [contributorId], references: [id])
+  addressId     String?
+  address       ForwardingAddress? @relation(fields: [addressId], references: [id])
+  /// email | upload
+  via           String
+  /// Resend's email id; unique so webhook retries are recorded once
+  resendEmailId String?            @unique
+  /// received | accepted | rejected | dropped
+  status        String             @default("received")
+  /// Rejection message shown to the person
+  message       String?
+  /// The draft created (first accepted invoice); drafts may be deleted later, so not a foreign key
+  receiptId     String?
+  /// One outcome per invoice when an email holds several: [{ status, code?, message?, receiptId?, store? }]
+  results       Json?
+  /// sha256 of each attachment, for tracing duplicates without keeping files
+  fileHashes    String[]           @default([])
+  /// Store of the accepted invoice, for the outcomes list
+  store         RetailerSlug?
+  replied       Boolean            @default(false)
+  attempts      Int                @default(0)
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  @@index([contributorId, createdAt])
+  @@index([status, createdAt])
 }
 
 /// Append-only points ledger; balances and rankings are sums over it.

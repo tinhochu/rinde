@@ -2,6 +2,7 @@ import { afterAll, describe, expect, it } from "vitest";
 import { db } from "@rinde/db";
 
 const { linkDevice } = await import("./account");
+const { activeAddress, resolveRecipient } = await import("./forwarding");
 const { cleanupContributors } = await import("./receipt-fixture");
 
 const RUN = `test-${Date.now()}`;
@@ -38,6 +39,20 @@ describe.skipIf(!process.env["INTEGRATION"])("linkDevice (dev DB)", () => {
     expect(linked).toEqual({ sessionId: device("phone"), merged: true });
     expect(await pointsOf(device("phone"))).toBe(65);
     expect(await db().contributor.findUnique({ where: { sessionId: device("laptop") } })).toBeNull();
+  });
+
+  it("delivers invoices sent to either device's forwarding address to the merged contributor", async () => {
+    const tablet = await db().contributor.create({ data: { sessionId: device("tablet") } });
+    const account = await db().contributor.findUniqueOrThrow({ where: { sessionId: device("phone") } });
+    const accountAddress = await activeAddress(account.id);
+    const tabletAddress = await activeAddress(tablet.id);
+    await db().invoiceIntake.create({ data: { contributorId: tablet.id, addressId: tabletAddress.id, via: "email", status: "rejected", message: "x" } });
+    await linkDevice(user("a"), device("tablet"));
+    for (const address of [accountAddress, tabletAddress]) {
+      const found = await resolveRecipient([`Rinde <facturas+${address.token}@example.resend.app>`]);
+      expect(found?.contributorId).toBe(account.id);
+    }
+    expect(await db().invoiceIntake.count({ where: { contributorId: account.id } })).toBe(1);
   });
 
   it("is a no-op when the device already uses the account's session", async () => {

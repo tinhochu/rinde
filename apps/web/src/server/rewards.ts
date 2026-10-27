@@ -205,6 +205,9 @@ export async function mergeContributors(tx: Prisma.TransactionClient, fromId: st
   await tx.rewardEvent.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
   await tx.receipt.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
   await tx.duplicateAttempt.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
+  // Both forwarding addresses keep delivering to the merged contributor.
+  await tx.forwardingAddress.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
+  await tx.invoiceIntake.updateMany({ where: { contributorId: fromId }, data: { contributorId: intoId } });
   const held = new Map((await tx.contributorBadge.findMany({ where: { contributorId: intoId } })).map((b) => [b.badge, b]));
   for (const b of await tx.contributorBadge.findMany({ where: { contributorId: fromId } })) {
     const mine = held.get(b.badge);

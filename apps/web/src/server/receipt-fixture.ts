@@ -45,6 +45,8 @@ export async function cleanupContributors(prefix: string) {
   await prisma.rewardEvent.deleteMany({ where: { contributorId: { in: ids } } });
   await prisma.contributorBadge.deleteMany({ where: { contributorId: { in: ids } } });
   await prisma.duplicateAttempt.deleteMany({ where: { contributorId: { in: ids } } });
+  await prisma.invoiceIntake.deleteMany({ where: { contributorId: { in: ids } } });
+  await prisma.forwardingAddress.deleteMany({ where: { contributorId: { in: ids } } });
   await prisma.receipt.deleteMany({ where: { contributorId: { in: ids } } });
   await prisma.contributor.deleteMany({ where: { id: { in: ids } } });
 }
