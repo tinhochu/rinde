@@ -1,90 +1,29 @@
-import { useCallback, useState } from "react";
-import { ActivityIndicator, Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { router, useFocusEffect } from "expo-router";
-import { Award, Pencil, ScanLine, Trophy } from "lucide-react-native";
+import { useState } from "react";
+import { Platform, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pencil, Users } from "lucide-react-native";
 import { Button } from "@/components/ui";
-import { fetchLeaderboard, fetchRewards, saveDisplayName, type Leaderboard, type MyRewards, type RankRow } from "@/lib/receipts";
+import { saveDisplayName, type Leaderboard, type MyRewards, type RankRow } from "@/lib/receipts";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 import { toast } from "@/lib/toast";
 
-// Shown greyed out until earned, so people know what there is to get (mirrors BADGES in apps/web/src/server/rewards.ts).
-const ALL_BADGES = [
-  { id: "primera-factura", name: "Primera factura" },
-  { id: "cazador-de-frutas", name: "Cazador de frutas" },
-  { id: "pionero", name: "Pionero" },
-  { id: "constante", name: "Constante" },
-];
-
 /**
- * Perfil → "Tus puntos": balance, badges, this week's ranking in the person's zone, and the name
- * shown there. Reloads whenever Perfil comes back into view, so a receipt just sent shows up.
+ * "Ranking de la semana" for the person's zone, and the alias it shows them under. With nobody on it
+ * yet, an invitation instead of an empty table. Only aliases and points are public, never receipt data.
  */
-export function RewardsSection({ area }: { area: string }) {
-  const [mine, setMine] = useState<MyRewards | null>(null);
-  const [board, setBoard] = useState<Leaderboard | null>(null);
-  const [failed, setFailed] = useState(false);
-
-  useFocusEffect(useCallback(() => {
-    const controller = new AbortController();
-    setFailed(false);
-    fetchRewards(controller.signal)
-      .then(async r => {
-        setMine(r);
-        // Before a first receipt the API has no zone for this device; Perfil's zone is where it will rank.
-        setBoard(await fetchLeaderboard(r.zone || area, controller.signal));
-      })
-      .catch(() => { if (!controller.signal.aborted) setFailed(true); });
-    return () => controller.abort();
-  }, [area]));
-
-  const scan = <Button title="Escanear factura" onPress={() => router.push("/receipt")} icon={<ScanLine size={16} color="#FFFFFF" />} />;
-
-  if (!mine) {
-    return (
-      <View style={styles.card}>
-        {failed
-          ? <Text style={styles.muted}>No pudimos cargar tus puntos. Revisa tu conexión.</Text>
-          : <ActivityIndicator color={colors.primary} />}
-        {scan}
-      </View>
-    );
-  }
-
-  const earned = new Set(mine.badges.map(b => b.id));
+export function CommunityLeaderboard({ mine, board, onSaved }: { mine: MyRewards; board: Leaderboard | null; onSaved: (r: MyRewards) => void }) {
+  const empty = !board || board.top.length === 0;
   return (
     <View style={styles.card}>
-      <View style={styles.balanceRow}>
-        <View style={styles.balanceBody}>
-          <Text style={styles.balance}>{mine.points.toLocaleString("es-CO")}</Text>
-          <Text style={styles.balanceLabel}>{mine.points === 1 ? "punto" : "puntos"}</Text>
+      {empty ? (
+        <View style={styles.invite}>
+          <Users size={22} color={colors.primary} />
+          <Text style={styles.inviteTitle}>Ayuda a iniciar la comunidad de tu zona.</Text>
+          <Text style={styles.muted}>Comparte precios y ayuda a que más personas encuentren mejores opciones. Cuando haya aportes esta semana, aquí verás el ranking.</Text>
         </View>
-        {mine.rank && (
-          <View style={styles.rankPill}>
-            <Trophy size={14} color={colors.accent} />
-            <Text style={styles.rankText}>#{mine.rank.rank} esta semana</Text>
-          </View>
-        )}
-      </View>
-      <Text style={styles.muted}>
-        {mine.points ? "Ganas 10 por cada precio aceptado, y 15 más si esa tienda no tenía precio para ese producto o si es fruta o verdura." : "Escanea una factura de D1, Jumbo o Éxito y gana 10 puntos por cada precio que confirmes."}
-      </Text>
-
-      {scan}
-
-      <View style={styles.badges}>
-        {ALL_BADGES.map(b => (
-          <View key={b.id} accessibilityLabel={`${b.name}${earned.has(b.id) ? ", ganada" : ", por ganar"}`} style={[styles.badge, !earned.has(b.id) && styles.badgeLocked]}>
-            <Award size={18} color={earned.has(b.id) ? colors.accent : colors.mutedForeground} />
-            <Text numberOfLines={2} style={[styles.badgeName, !earned.has(b.id) && styles.badgeNameLocked]}>{b.name}</Text>
-          </View>
-        ))}
-      </View>
-
-      <NameEditor name={mine.name} onSaved={setMine} />
-
-      {board && <Ranking board={board} />}
-
-      <Text style={styles.fine}>Los puntos no tienen valor en dinero.</Text>
+      ) : (
+        <Ranking board={board} />
+      )}
+      <NameEditor name={mine.name} onSaved={onSaved} />
     </View>
   );
 }
@@ -145,18 +84,13 @@ function Ranking({ board }: { board: Leaderboard }) {
   const showYou = board.you && !board.top.some(r => r.you);
   return (
     <View style={styles.ranking}>
-      <Text style={styles.rankingTitle}>Ranking de la semana · {board.zone.split(",")[0]}</Text>
-      {board.top.length === 0 ? (
-        <Text style={styles.muted}>Aún nadie ha enviado facturas esta semana en tu zona. Escanea la tuya y apareces aquí.</Text>
-      ) : (
+      <Text style={styles.rankingTitle}>{board.zone.split(",")[0]} · semana del {new Date(board.weekStart).toLocaleDateString("es-CO", { day: "numeric", month: "short" })}</Text>
+      <Text style={styles.fine}>Puntos de precios aceptados esta semana.</Text>
+      {board.top.map(r => <RankLine key={`${r.rank}-${r.name}`} row={r} />)}
+      {showYou && (
         <>
-          {board.top.map(r => <RankLine key={`${r.rank}-${r.name}`} row={r} />)}
-          {showYou && (
-            <>
-              <Text style={styles.gap}>···</Text>
-              <RankLine row={board.you!} />
-            </>
-          )}
+          <Text style={styles.gap}>···</Text>
+          <RankLine row={board.you!} />
         </>
       )}
     </View>
@@ -176,19 +110,10 @@ function RankLine({ row }: { row: RankRow }) {
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   card: { gap: spacing.md, padding: spacing.lg, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card },
+  invite: { alignItems: "flex-start", gap: spacing.xs },
+  inviteTitle: { fontSize: fontSize.subhead, fontWeight: "800", color: colors.foreground },
   muted: { fontSize: fontSize.body, lineHeight: 18, color: colors.mutedForeground },
   fine: { fontSize: fontSize.caption, lineHeight: 16, color: colors.mutedForeground },
-  balanceRow: { flexDirection: "row", alignItems: "center", gap: spacing.md },
-  balanceBody: { flex: 1, flexDirection: "row", alignItems: "baseline", gap: 6 },
-  balance: { fontSize: fontSize.hero, fontWeight: "900", color: colors.primary, fontVariant: ["tabular-nums"] },
-  balanceLabel: { fontSize: fontSize.subhead, fontWeight: "700", color: colors.foreground },
-  rankPill: { flexDirection: "row", alignItems: "center", gap: 5, paddingHorizontal: spacing.md, paddingVertical: 6, borderRadius: radius.pill, backgroundColor: colors.warnSurface },
-  rankText: { fontSize: fontSize.caption, fontWeight: "800", color: colors.warnInk },
-  badges: { flexDirection: "row", gap: spacing.sm },
-  badge: { flex: 1, alignItems: "center", gap: 4, paddingVertical: spacing.sm, paddingHorizontal: 4, borderRadius: radius.md, backgroundColor: colors.warnBg },
-  badgeLocked: { backgroundColor: colors.muted },
-  badgeName: { textAlign: "center", fontSize: fontSize.small, fontWeight: "700", color: colors.foreground },
-  badgeNameLocked: { color: colors.mutedForeground },
   nameRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm, minHeight: 40, paddingHorizontal: spacing.md, borderRadius: radius.md, backgroundColor: colors.muted },
   nameLabel: { fontSize: fontSize.body, color: colors.mutedForeground },
   nameValue: { flex: 1, fontSize: fontSize.body, fontWeight: "700", color: colors.foreground },

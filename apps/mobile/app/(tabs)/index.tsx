@@ -25,9 +25,10 @@ const FEATURED_TERM = "leche entera";
 
 /** Home: discovery only. Every search, category and "ver similares" opens /search; nothing here turns into results. */
 export default function HomeScreen() {
-  const { cart, favorites, area, budget, hasBudget, addProduct, removeProduct, favoriteProduct, openProduct, openPlanner, openModal } = useAppState();
-  // Which stores to compare. Carried into /search, so results start with the same choice.
-  const [stores, setStores] = useState<StoreFilter>([]);
+  const { cart, favorites, area, budget, hasBudget, stores: preferred, addProduct, removeProduct, favoriteProduct, openProduct, openPlanner, openModal } = useAppState();
+  // Which stores to compare: starts from Perfil's "Tiendas preferidas", and is carried into /search.
+  const [stores, setStores] = useState<StoreFilter>(preferred);
+  useEffect(() => setStores(preferred), [preferred]);
   // The person's own staples (receipts, then picks from search); generic ideas until there are any.
   const [mine, setMine] = useState<ShopProduct[]>([]);
   const [mineLoaded, setMineLoaded] = useState(false);

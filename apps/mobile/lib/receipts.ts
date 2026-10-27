@@ -34,9 +34,19 @@ export type ConfirmResult = {
   acceptedLines: number; badges: Badge[]; balance: number;
 };
 export type RankRow = { rank: number; name: string; points: number; you: boolean };
+export type BadgeId = "primera-factura" | "cazador-de-frutas" | "pionero" | "constante";
+export type Achievement = { id: BadgeId; name: string; description: string; target: number; progress: number; earnedAt: string | null };
+/** draft: read but never sent; confirmed: its accepted prices count; revoked: annulled afterwards, with the reason. */
+export type ReceiptSummary = {
+  id: string; store: string; purchasedAt: string; status: "draft" | "confirmed" | "revoked";
+  acceptedLines: number; points: number; reason: string | null;
+};
 export type MyRewards = {
   points: number; name: string; zone: string;
   badges: (Badge & { earnedAt: string })[];
+  achievements: Achievement[];
+  receipts: { confirmed: number; revoked: number; prices: number };
+  recentReceipts: ReceiptSummary[];
   history: { label: string; points: number; at: string }[];
   rank: RankRow | null;
 };

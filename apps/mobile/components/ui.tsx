@@ -7,7 +7,7 @@ import { colors, fontSize, radius, spacing } from "@/lib/theme";
 export function Button({
   title, onPress, variant = "primary", disabled, loading, icon,
 }: {
-  title: string; onPress: () => void; variant?: "primary" | "outline" | "white";
+  title: string; onPress: () => void; variant?: "primary" | "outline" | "white" | "danger";
   disabled?: boolean; loading?: boolean; icon?: ReactNode;
 }) {
   return (
@@ -19,19 +19,20 @@ export function Button({
         variant === "primary" && styles.buttonPrimary,
         variant === "outline" && styles.buttonOutline,
         variant === "white" && styles.buttonWhite,
+        variant === "danger" && styles.buttonDanger,
         (disabled || loading) && styles.buttonDisabled,
         pressed && styles.buttonPressed,
       ]}
     >
       {loading ? (
-        <ActivityIndicator color={variant === "primary" ? "#FFFFFF" : colors.primary} />
+        <ActivityIndicator color={variant === "primary" || variant === "danger" ? "#FFFFFF" : colors.primary} />
       ) : (
         <>
           {icon}
           <Text
             style={[
               styles.buttonText,
-              variant === "primary" ? styles.buttonTextPrimary : styles.buttonTextDark,
+              variant === "primary" || variant === "danger" ? styles.buttonTextPrimary : styles.buttonTextDark,
             ]}
           >
             {title}
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
   },
   buttonPrimary: { backgroundColor: colors.primary },
   buttonOutline: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border },
+  buttonDanger: { backgroundColor: colors.destructive },
   buttonWhite: { backgroundColor: colors.card },
   buttonDisabled: { opacity: 0.5 },
   buttonPressed: { opacity: 0.85 },

@@ -1,9 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import type { Store } from "./market";
 import { cartSchema, draftSchema, favoritesSchema, type CartLine, type Frequency, type SavedDraft, type ShopProduct } from "./shop";
 
 const KEYS = { cart: "rinde-cart", favorites: "rinde-favorites", prefs: "rinde-preferences", draft: "rinde-draft" } as const;
 
-type Prefs = { budget: number; people: number; zone: string; tripCost?: number; hasBudget?: boolean; frequency?: Frequency };
+type Prefs = { budget: number; people: number; zone: string; tripCost?: number; hasBudget?: boolean; frequency?: Frequency; stores?: Store[] };
 
 async function read(key: string): Promise<unknown> {
   try {
@@ -14,11 +15,13 @@ async function read(key: string): Promise<unknown> {
   }
 }
 
-async function write(key: string, value: unknown) {
+/** False when the device refused the write; the flow keeps working either way. */
+async function write(key: string, value: unknown): Promise<boolean> {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
+    return true;
   } catch {
-    // El flujo sigue funcionando aunque no se pueda guardar.
+    return false;
   }
 }
 
@@ -47,8 +50,8 @@ export function saveFavorites(favorites: ShopProduct[]) {
   if (parsed.success) void write(KEYS.favorites, parsed.data);
 }
 
-export function savePrefs(prefs: Prefs) {
-  void write(KEYS.prefs, prefs);
+export function savePrefs(prefs: Prefs): Promise<boolean> {
+  return write(KEYS.prefs, prefs);
 }
 
 export function saveDraft(draft: SavedDraft) {

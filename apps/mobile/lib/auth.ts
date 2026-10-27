@@ -72,7 +72,29 @@ export function useAccount() {
     await resetSession();
   }
 
-  return { user, loading: isPending, methods, signOut };
+  /** Changes the private account name (not the alias on the ranking). */
+  async function rename(name: string) {
+    const { error } = await authClient.updateUser({ name });
+    if (error) throw new Error("No pudimos cambiar tu nombre. Revisa tu conexión e inténtalo de nuevo.");
+  }
+
+  /**
+   * Deletes the account. Better Auth asks for the password, or for a recent sign-in when there is
+   * none (Google). This device then starts over as an anonymous session.
+   */
+  async function deleteAccount(password?: string) {
+    const { error } = await authClient.deleteUser(password ? { password } : {});
+    if (error) {
+      const code = error.code ?? "";
+      if (code.includes("PASSWORD")) throw new Error("La contraseña no coincide.");
+      if (code.includes("SESSION_EXPIRED") || code.includes("FRESH")) throw new Error("Por seguridad, cierra sesión, vuelve a entrar y repite este paso.");
+      throw new Error("No pudimos eliminar tu cuenta. Revisa tu conexión e inténtalo de nuevo.");
+    }
+    await AsyncStorage.removeItem(LINKED).catch(() => undefined);
+    await resetSession();
+  }
+
+  return { user, loading: isPending, methods, signOut, rename, deleteAccount };
 }
 
 /** Better Auth's error codes, in the app's voice. */

@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { AppState } from "react-native";
 import { usePathname, useRouter } from "expo-router";
 import NetInfo from "@react-native-community/netinfo";
-import type { ListItem } from "./market";
+import type { ListItem, Store } from "./market";
 import { createPlan, decideTradeoff, itemStatuses, NO_BUDGET, type ItemStatus, type PlanRequest, type PlanResult, type VerifyProgress } from "./planner";
 import { deleteDraft, loadSaved, saveCart, saveDraft, saveFavorites, savePrefs } from "./storage";
 import { isFresh, toListItems, type CartLine, type Frequency, type SavedDraft, type ShopProduct } from "./shop";
@@ -16,9 +16,13 @@ export type AppModal = "area" | "saved" | "help" | "privacy" | null;
 /** The planner's phases: build the list, set the budget, wait for prices, see where it goes further. */
 export const PHASE = { list: 0, budget: 1, checking: 2, results: 3 } as const;
 
+type Prefs = Partial<{ budget: number; hasBudget: boolean; frequency: Frequency; people: number; tripCost: number; stores: Store[] }>;
+
 type AppStateValue = {
   step: number; budget: number; hasBudget: boolean; frequency?: Frequency; people: number; knowsPeople: boolean;
   zone: string; area: string; tripCost: number;
+  /** Stores the person wants in comparisons by default; empty means all */
+  stores: Store[];
   items: ListItem[]; result?: PlanResult; itemStatus: Record<string, ItemStatus>;
   progress: VerifyProgress[]; refreshing: boolean; deciding: string | null; fromCart: boolean;
   cart: CartLine[]; cartCount: number; favorites: ShopProduct[];
@@ -32,7 +36,7 @@ type AppStateValue = {
   openModal: (next: AppModal) => void;
   closeModal: () => void;
   setZone: (next: string) => void;
-  setPrefs: (next: Partial<{ budget: number; hasBudget: boolean; frequency: Frequency; people: number; tripCost: number }>) => void;
+  setPrefs: (next: Prefs) => void;
   setItems: (list: ListItem[]) => void;
   compare: (opts?: { hasBudget?: boolean }) => void;
   refresh: () => void;
@@ -67,6 +71,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [knowsPeople, setKnowsPeople] = useState(false);
   // COP an extra store stop is worth to the user; the planner only adds a stop when it saves more.
   const [tripCost, setTripCost] = useState(10000);
+  const [stores, setStores] = useState<Store[]>([]);
   const [zone, setZoneState] = useState("");
   const [items, setItemsState] = useState<ListItem[]>([]);
   const [result, setResult] = useState<PlanResult>();
@@ -84,6 +89,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const [offline, setOffline] = useState(false);
   const activeRequest = useRef<AbortController | null>(null);
+  const prefsWarned = useRef(false);
   const area = zone ? `Medellín, ${zone}` : "Medellín, Antioquia";
 
   useEffect(() => {
@@ -98,6 +104,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         if (loaded.prefs.frequency) setFrequency(loaded.prefs.frequency);
         setZoneState(loaded.prefs.zone);
         if (loaded.prefs.tripCost !== undefined) setTripCost(loaded.prefs.tripCost);
+        if (loaded.prefs.stores) setStores(loaded.prefs.stores);
       }
       setCart(loaded.cart);
       setFavorites(loaded.favorites);
@@ -120,8 +127,14 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     if (!hydrated) return;
     saveCart(cart);
     saveFavorites(favorites);
-    savePrefs({ budget, people, zone, tripCost, hasBudget, frequency });
-  }, [cart, favorites, budget, people, zone, tripCost, hasBudget, frequency, hydrated]);
+    void savePrefs({ budget, people, zone, tripCost, hasBudget, frequency, stores }).then(ok => {
+      // Said once per session: the setting still applies now, it just won't survive a restart.
+      if (!ok && !prefsWarned.current) {
+        prefsWarned.current = true;
+        toast.error("No pudimos guardar tus preferencias en este dispositivo. Siguen activas hasta que cierres Rinde.");
+      }
+    });
+  }, [cart, favorites, budget, people, zone, tripCost, hasBudget, frequency, stores, hydrated]);
 
   useEffect(() => {
     if (!hydrated || !items.length) return;
@@ -283,7 +296,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   function searchProduct() {
     if (!product) return;
     setProduct(null);
-    router.push(searchHref(product.term));
+    router.push(searchHref(product.term, { stores }));
   }
 
   function setZone(next: string) {
@@ -293,7 +306,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     if (step >= PHASE.checking) setStep(PHASE.budget);
   }
 
-  function setPrefs(next: Partial<{ budget: number; hasBudget: boolean; frequency: Frequency; people: number; tripCost: number }>) {
+  function setPrefs(next: Prefs) {
     if (next.budget !== undefined) setBudget(next.budget);
     if (next.hasBudget !== undefined) setHasBudget(next.hasBudget);
     if (next.frequency !== undefined) setFrequency(next.frequency);
@@ -302,6 +315,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setKnowsPeople(true);
     }
     if (next.tripCost !== undefined) setTripCost(next.tripCost);
+    if (next.stores !== undefined) setStores(next.stores.length === 3 ? [] : next.stores);
   }
 
   // Edits the list in place, on any phase. A plan for the old list no longer applies, but what it found
@@ -344,7 +358,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const cartCount = useMemo(() => cart.reduce((sum, line) => sum + line.count, 0), [cart]);
 
   const value: AppStateValue = {
-    step, budget, hasBudget, frequency, people, knowsPeople, zone, area, tripCost, items, result, itemStatus, progress, refreshing, deciding, fromCart,
+    step, budget, hasBudget, frequency, people, knowsPeople, zone, area, tripCost, stores, items, result, itemStatus, progress, refreshing, deciding, fromCart,
     cart, cartCount, favorites, product, modal, saved, hydrated, offline,
     go, openPlanner, explore,
     openProduct, closeProduct: () => setProduct(null),

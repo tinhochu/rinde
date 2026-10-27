@@ -1,6 +1,7 @@
 import { apiBase } from "./api";
 import { sessionId } from "./session";
 import type { ListItem, Store } from "./market";
+import type { Frequency } from "./shop";
 
 // Wire types for POST /api/plan (see packages/core/src/optimizer/types.ts). Keep in sync.
 export type RetailerSlug = "d1" | "jumbo" | "exito";
@@ -36,6 +37,21 @@ type PlanEvent =
 
 
 /** What one more store stop costs the person (transport, time), in COP: the planner only adds a stop that saves more. */
+/** The plan API's budget range, COP. */
+export const MIN_BUDGET = 10_000;
+export const MAX_BUDGET = 10_000_000;
+export const FREQUENCIES: { id: Frequency; label: string; per: string }[] = [
+  { id: "semanal", label: "Semanal", per: "a la semana" },
+  { id: "quincenal", label: "Quincenal", per: "a la quincena" },
+  { id: "mensual", label: "Mensual", per: "al mes" },
+];
+// Round amounts to start from, scaled to how long the purchase lasts. Shortcuts, not a judgment of what's enough.
+export const SUGGESTED_BUDGETS: Record<Frequency, number[]> = {
+  semanal: [100_000, 150_000, 200_000, 300_000],
+  quincenal: [200_000, 300_000, 400_000, 500_000],
+  mensual: [400_000, 600_000, 800_000, 1_000_000],
+};
+
 export const TRIP_COSTS = [0, 5000, 10000, 15000, 20000];
 
 /** Sent as the budget when the person has none: the API's ceiling. Screens never show it. */

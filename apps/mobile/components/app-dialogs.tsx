@@ -124,11 +124,12 @@ export function DialogsHost() {
       {modal === "privacy" && (
         <View style={styles.privacy}>
           <ShieldCheck size={35} color={colors.primary} />
-          <Text style={styles.privacyText}>Tu lista, tus favoritos, tu zona y tu plan guardado se guardan en este dispositivo. No pedimos nombre, correo ni dirección exacta.</Text>
+          <Text style={styles.privacyText}>Tu lista, tus favoritos, tu zona y tu plan guardado se guardan en este dispositivo. No necesitas cuenta para comparar precios.</Text>
           <Text style={styles.privacyText}>Los precios no se conservan como vigentes al volver a abrir la app. Para comparar, nuestro servidor consulta los nombres de los productos en los catálogos de las tiendas.</Text>
-          <Text style={styles.privacyText}>Si usas la lectura de fotos con un modelo conectado, la foto se envía al proveedor para extraer la lista. No se guarda en tu historial local.</Text>
+          <Text style={styles.privacyText}>Si lees una lista o una factura con una foto, la enviamos a nuestro servidor y al modelo de Meta para extraer los productos. Las fotos de facturas se borran a los 30 días.</Text>
+          <Text style={styles.privacyText}>Si creas una cuenta, guardamos tu nombre y tu correo para que tus puntos y facturas te acompañen en otros dispositivos. Puedes eliminarla en Perfil → Gestionar cuenta; tus aportes quedan anónimos.</Text>
           <Text style={styles.privacyText}>Puedes vaciar tu lista, quitar favoritos o eliminar tu plan guardado desde sus respectivas secciones.</Text>
-          <Text style={styles.note}>No hay cuentas ni sincronización. Compartir un comprobante siempre es una acción tuya. Rinde no hace compras ni entregas.</Text>
+          <Text style={styles.note}>En el ranking solo aparece el alias que elijas. Compartir un comprobante siempre es una acción tuya. Rinde no hace compras ni entregas.</Text>
         </View>
       )}
     </Dialog>

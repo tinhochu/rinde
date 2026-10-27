@@ -4,23 +4,10 @@ import { ArrowRight, ChevronDown, MapPin, Minus, Plus, X } from "lucide-react-na
 import { animateNextLayout, FadeIn, Pop } from "@/components/motion";
 import { Button, Chip } from "@/components/ui";
 import { cop, type ListItem } from "@/lib/market";
-import { TRIP_COSTS } from "@/lib/planner";
+import { FREQUENCIES, MAX_BUDGET as MAX, MIN_BUDGET as MIN, SUGGESTED_BUDGETS as SUGGESTED, TRIP_COSTS } from "@/lib/planner";
 import type { Frequency } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
-const MIN = 10_000;
-const MAX = 10_000_000;
-const FREQUENCIES: { id: Frequency; label: string; per: string }[] = [
-  { id: "semanal", label: "Semanal", per: "a la semana" },
-  { id: "quincenal", label: "Quincenal", per: "a la quincena" },
-  { id: "mensual", label: "Mensual", per: "al mes" },
-];
-// Round amounts to start from, scaled to how long the purchase lasts. Shortcuts, not a judgment of what's enough.
-const SUGGESTED: Record<Frequency, number[]> = {
-  semanal: [100_000, 150_000, 200_000, 300_000],
-  quincenal: [200_000, 300_000, 400_000, 500_000],
-  mensual: [400_000, 600_000, 800_000, 1_000_000],
-};
 const short = (n: number) => (n >= 1_000_000 ? `$${String(n / 1_000_000).replace(".", ",")} M` : `$${n / 1000} mil`);
 
 /** Phase 2, "Ajusta tu presupuesto": how often, how much (optional), for how many, and a few preferences. */

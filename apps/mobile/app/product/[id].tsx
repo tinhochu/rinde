@@ -26,7 +26,7 @@ import { colors, fontSize, radius, spacing } from "@/lib/theme";
 export default function ProductScreen() {
   const { id: raw } = useLocalSearchParams<{ id: string }>();
   const id = decodeURIComponent(String(raw ?? ""));
-  const { cart, favorites, addProduct, removeProduct, favoriteProduct } = useAppState();
+  const { cart, favorites, stores: preferredStores, addProduct, removeProduct, favoriteProduct } = useAppState();
   const [product, setProduct] = useState<ShopProduct | undefined>(() => recallProduct(id));
   const [error, setError] = useState("");
   const [history, setHistory] = useState<HistoryPoint[] | null>();
@@ -167,7 +167,7 @@ export default function ProductScreen() {
               <PriceHistory points={history} />
             </View>
 
-            <PressScale accessibilityRole="link" onPress={() => router.push(searchHref(product.term))} style={styles.similar}>
+            <PressScale accessibilityRole="link" onPress={() => router.push(searchHref(product.term, { stores: preferredStores }))} style={styles.similar}>
               <Search size={16} color={colors.primary} />
               <Text style={styles.similarText}>Buscar productos similares a “{product.term}”</Text>
             </PressScale>
