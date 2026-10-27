@@ -5,6 +5,7 @@ import {
 } from "@rinde/core";
 import { db, type RetailerSlug } from "@rinde/db";
 import { candidatesFor, type ItemRequest } from "./candidates";
+import { judgeKinds } from "./kind-judge";
 import { listItemSchema } from "./contract";
 import { liveDeps } from "./live";
 import { enabledRetailers } from "./offers";
@@ -83,7 +84,9 @@ async function loadList(listId: string) {
 /** Candidates → optimize → live verify → trade-offs → persist. Emits progress as it goes. */
 export async function runPlan(listId: string, emit: (event: PlanEvent) => void) {
   const { requests, options, rejected } = await loadList(listId);
-  const items: PlanItem[] = await Promise.all(requests.map((r) => candidatesFor(r, options.retailers as RetailerSlug[])));
+  const found: PlanItem[] = await Promise.all(requests.map((r) => candidatesFor(r, options.retailers as RetailerSlug[])));
+  // Meta Muse keeps what each item really asks for, any brand or size, so the optimizer buys the most per peso.
+  const items = await judgeKinds(found);
   const verified = await planAndVerify(items, options, liveDeps, { onProgress: emit });
   const tradeoffs = proposeTradeoffs(verified.items, options, verified.plan, rejected);
   const basketId = await saveBasket(listId, verified.plan, tradeoffs);
