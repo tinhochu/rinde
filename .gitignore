@@ -13,3 +13,4 @@ next-env.d.ts
 .claude/worktrees
 packages/db/src/generated
 generated_images/
+.data/

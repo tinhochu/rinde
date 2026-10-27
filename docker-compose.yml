@@ -39,7 +39,12 @@ services:
     environment:
       DATABASE_URL: postgresql://rinde:${POSTGRES_PASSWORD:-rinde}@db:5432/rinde
       META_API_KEY: ${META_API_KEY:-}
-      META_API_BASE_URL: ${META_API_BASE_URL:-}
+      META_API_BASE_URL: ${META_API_BASE_URL:-https://api.meta.ai/v1}
+      META_VISION_MODEL: ${META_VISION_MODEL:-muse-spark-1.3}
+      DEMO_RECEIPTS: ${DEMO_RECEIPTS:-1}
+      RECEIPTS_DIR: /data/receipts
+    volumes:
+      - receipts:/data/receipts
     ports:
       - "3000"
     depends_on:
@@ -56,9 +61,14 @@ services:
       INGEST_CRON: ${INGEST_CRON:-0 5 * * *}
       INGEST_ON_START: ${INGEST_ON_START:-0}
       INGEST_EXITO: ${INGEST_EXITO:-1}
+      RECEIPTS_DIR: /data/receipts
+    volumes:
+      # Receipt photos; the worker deletes them after 30 days.
+      - receipts:/data/receipts
     depends_on:
       migrate:
         condition: service_completed_successfully
 
 volumes:
   pgdata:
+  receipts:

@@ -79,8 +79,12 @@ model PriceObservation {
   observedAt        DateTime
   ingestRunId       String?
   ingestRun         IngestRun?      @relation(fields: [ingestRunId], references: [id])
+  /// Set when the price was read from a receipt (source "community:receipt")
+  receiptLineId     String?         @unique
+  receiptLine       ReceiptLine?    @relation(fields: [receiptLineId], references: [id], onDelete: Cascade)
 
   @@index([retailerProductId, observedAt(sort: Desc)])
+  @@index([source, observedAt])
 }
 
 model IngestRun {
@@ -97,6 +101,8 @@ model IngestRun {
 enum PriceStatus {
   live
   snapshot
+  /// Read from a contributor's receipt; never re-checked live
+  reported
 }
 
 model ShoppingList {
@@ -189,4 +195,151 @@ model TradeoffDecision {
   createdAt   DateTime     @default(now())
 
   @@unique([listId, proposalKey])
+}
+
+/// A photographed receipt. Uniqueness of accepted receipts (image, invoice number, CUFE, header)
+/// is enforced by partial unique indexes WHERE status = 'confirmed', created in raw SQL in the migration.
+model Receipt {
+  id                String        @id @default(cuid())
+  contributorId     String
+  contributor       Contributor   @relation(fields: [contributorId], references: [id])
+  /// draft | confirmed | revoked
+  status            String        @default("draft")
+  store             RetailerSlug
+  branch            String        @default("")
+  purchasedAt       DateTime
+  /// Printed total, COP
+  total             Int?
+  /// Normalized prefix + consecutive, e.g. "POS1234567890"
+  invoiceNumber     String
+  cufe              String?
+  /// sha256 of store | branch | purchase minute | total
+  headerFingerprint String
+  /// sha256 of the uploaded file
+  imageHash         String
+  /// Deleted after 30 days; the hash is kept
+  imagePath         String?
+  /// Extraction came from a recorded demo fixture
+  demo              Boolean       @default(false)
+  lines             ReceiptLine[]
+  rewards           RewardEvent[]
+  createdAt         DateTime      @default(now())
+  confirmedAt       DateTime?
+
+  @@index([contributorId, createdAt])
+  @@index([status, createdAt])
+}
+
+model ReceiptLine {
+  id                String            @id @default(cuid())
+  receiptId         String
+  receipt           Receipt           @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+  position          Int
+  /// "item" | "discount"
+  kind              String            @default("item")
+  /// As printed
+  text              String
+  code              String?
+  /// Quantity in the receipt's sale unit (e.g. 0.845 kg)
+  quantity          Decimal?          @db.Decimal(12, 3)
+  /// unit | kg | g | l | ml
+  saleUnit          String?
+  unitPrice         Int?
+  total             Int?
+  /// unitPrice was computed as total ÷ quantity because the receipt printed only the total
+  priceDerived      Boolean           @default(false)
+  /// ok | illegible | mismatch
+  check             String
+  /// Proposed or confirmed catalog listing
+  retailerProductId String?
+  /// ean | code | alias | search | produce | user
+  matchedBy         String?
+  produceSlug       String?
+  editedByUser      Boolean           @default(false)
+  excluded          Boolean           @default(false)
+  accepted          Boolean           @default(false)
+  observation       PriceObservation?
+  rewards           RewardEvent[]
+
+  @@index([receiptId])
+}
+
+/// Store + normalized line text → listing, learned from confirmations so repeat receipts skip the model.
+model ReceiptAlias {
+  id                String       @id @default(cuid())
+  store             RetailerSlug
+  text              String
+  retailerProductId String
+  hits              Int          @default(1)
+  updatedAt         DateTime     @updatedAt
+
+  @@unique([store, text])
+}
+
+/// Canonical produce items ("Banano"): the shared key stores' internal produce codes lack.
+model ProduceItem {
+  slug        String   @id
+  name        String
+  /// Normalized words a receipt line may use: "banano", "bananito", "guineo"
+  aliases     String[]
+  /// kg | unit
+  defaultUnit String
+}
+
+model Contributor {
+  id             String             @id @default(cuid())
+  sessionId      String             @unique
+  /// Set when the person signs in (Appwrite user id)
+  accountId      String?
+  displayName    String?
+  zone           String             @default("Medellín, Antioquia")
+  /// Receipt scanning paused after repeated duplicate attempts
+  suspendedUntil DateTime?
+  receipts       Receipt[]
+  rewards        RewardEvent[]
+  badges         ContributorBadge[]
+  duplicates     DuplicateAttempt[]
+  createdAt      DateTime           @default(now())
+
+  @@index([accountId])
+}
+
+/// Append-only points ledger; balances and rankings are sums over it.
+model RewardEvent {
+  id            String       @id @default(cuid())
+  contributorId String
+  contributor   Contributor  @relation(fields: [contributorId], references: [id])
+  /// line | gap_bonus | produce_bonus | revoked
+  kind          String
+  points        Int
+  label         String
+  receiptId     String?
+  receipt       Receipt?     @relation(fields: [receiptId], references: [id])
+  receiptLineId String?
+  receiptLine   ReceiptLine? @relation(fields: [receiptLineId], references: [id])
+  createdAt     DateTime     @default(now())
+
+  @@index([contributorId, createdAt])
+}
+
+model ContributorBadge {
+  contributorId String
+  contributor   Contributor @relation(fields: [contributorId], references: [id])
+  /// primera-factura | cazador-de-frutas | pionero | constante
+  badge         String
+  earnedAt      DateTime    @default(now())
+
+  @@id([contributorId, badge])
+}
+
+model DuplicateAttempt {
+  id                String      @id @default(cuid())
+  contributorId     String
+  contributor       Contributor @relation(fields: [contributorId], references: [id])
+  /// image | invoice | cufe | header
+  layer             String
+  matchedReceiptId  String
+  createdAt         DateTime    @default(now())
+
+  @@index([contributorId, createdAt])
 }

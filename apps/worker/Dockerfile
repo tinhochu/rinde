@@ -16,5 +16,7 @@ COPY --from=pruner /repo/out/json/ .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY --from=pruner /repo/out/full/ .
 RUN DATABASE_URL=postgresql://build:build@localhost:5432/build pnpm --filter @rinde/db generate
+# Receipt photos volume: web (nextjs) writes, worker (node) deletes.
+RUN mkdir -p /data/receipts && chmod 777 /data/receipts
 USER node
 CMD ["pnpm", "--filter", "@rinde/worker", "start"]
