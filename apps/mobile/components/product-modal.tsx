@@ -36,9 +36,11 @@ export function ProductModal() {
           {product.compare && product.compare.offers.length > 0 ? (
             <View style={styles.compare}>
               <Verdict offers={product.compare.offers} />
-              <StorePrices offers={product.compare.offers} missing={product.compare.missing} />
+              <StorePrices offers={product.compare.offers} inStore={product.compare.inStore} missing={product.compare.missing} />
               <Text style={styles.offerMeta}>
-                Mismo código de barras (EAN {product.offer?.ean || "no informado"}) en cada tienda. Toca una tienda para verificar el precio.
+                {product.compare.produce
+                  ? `Precios ${product.compare.produce.per === "kg" ? "por kilo" : "por unidad"} reportados en facturas de compradores; no verificados en línea.`
+                  : `Mismo código de barras (EAN ${product.offer?.ean || "no informado"}) en cada tienda. Toca una tienda para verificar el precio.`}
               </Text>
             </View>
           ) : product.offer ? (

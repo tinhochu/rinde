@@ -121,7 +121,7 @@ export default function ShopScreen() {
 
   const toShop = (p: ComparedProduct, offer = p.offers[0]!) => ({
     ...fromOffer(offer, request?.term || "mercado", category),
-    compare: { offers: p.offers, missing: p.missing },
+    compare: { offers: p.offers, inStore: p.inStore, missing: p.missing, produce: p.produce },
   });
   const ideas = category === "all" ? IDEAS.slice(0, 6) : IDEAS.filter(p => p.category === category);
   const count = (id: string) => cart.find(line => line.product.id === id)?.count || 0;

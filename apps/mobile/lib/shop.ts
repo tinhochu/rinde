@@ -12,7 +12,7 @@ export type ShopProduct = {
   category: string;
   offer?: Offer;
   /** Every store's offer for the same EAN, cheapest first, when it came from a search comparison. Not persisted. */
-  compare?: { offers: Offer[]; missing: Store[] };
+  compare?: Pick<ComparedProduct, "offers" | "inStore" | "missing" | "produce">;
 };
 export type CartLine = { product: ShopProduct; count: number };
 /** One product across stores, matched by EAN or produce item and unit (see apps/web/src/server/contract.ts). */

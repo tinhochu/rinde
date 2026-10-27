@@ -36,7 +36,7 @@ export function CompareCard({ product, count, favorite, onAdd, onRemove, onFavor
         </Pressable>
       </View>
 
-      <StorePrices offers={product.offers} missing={product.missing} />
+      <StorePrices offers={product.offers} inStore={product.inStore} missing={product.missing} />
 
       {count === 0 ? (
         <Pressable accessibilityLabel={`Agregar ${product.name} a mi canasta`} onPress={onAdd} style={styles.add}>
@@ -71,42 +71,78 @@ export function Verdict({ offers }: { offers: Offer[] }) {
   );
 }
 
-/** One line per store: price, age and the difference from the cheapest. Each line opens the store's page. */
-export function StorePrices({ offers, missing }: { offers: Offer[]; missing: Store[] }) {
+/**
+ * One line per store: price, age and the difference from the cheapest. Online lines open the store's page.
+ * A price read from a shopper's receipt says so; under an online line it shows as "En tienda: …".
+ */
+export function StorePrices({ offers, inStore = [], missing }: { offers: Offer[]; inStore?: Offer[]; missing: Store[] }) {
   const [best] = offers;
   const many = offers.length > 1;
   const spread = offers.at(-1)!.price - best!.price;
   return (
     <View style={styles.rowsWrap}>
       <View style={styles.rows}>
-      {offers.map((offer, i) => (
-        <Pressable
-          key={offer.id}
-          accessibilityRole="link"
-          accessibilityLabel={`${offer.store}: ${cop(offer.price)}. Ver en la tienda`}
-          onPress={() => Linking.openURL(offer.url)}
-          style={[styles.row, i > 0 && styles.rowDivider, i === 0 && many && spread > 0 && styles.rowBest]}
-        >
-          <View style={styles.logoSlot}><StoreLogo store={offer.store} /></View>
-          <Text style={[styles.price, (i > 0 || !many || spread === 0) && styles.priceOther]}>{cop(offer.price)}</Text>
-          <Text numberOfLines={1} style={styles.meta}>
-            {offer.pack > 0 && offer.pack !== best!.pack ? `${quantityLabel(offer.pack, offer.unit)} · ` : ""}
-            {ageLabel(offer)}
-          </Text>
-          {i > 0 && offer.price === best!.price ? (
-            <Text style={styles.same}>Igual</Text>
-          ) : i > 0 ? (
-            <Text style={styles.diff}>+{cop(offer.price - best!.price)}</Text>
-          ) : null}
-          <ExternalLink size={12} color={colors.mutedForeground} />
-        </Pressable>
-      ))}
+      {offers.map((offer, i) => {
+        const reported = offer.source === "receipt";
+        const below = inStore.find(r => r.store === offer.store);
+        const content = (
+          <>
+            <View style={styles.row}>
+              <View style={styles.logoSlot}><StoreLogo store={offer.store} /></View>
+              <Text style={[styles.price, (i > 0 || !many || spread === 0) && styles.priceOther]}>{cop(offer.price)}{perLabel(offer)}</Text>
+              <Text numberOfLines={1} style={styles.meta}>
+                {offer.pack > 0 && offer.pack !== best!.pack ? `${quantityLabel(offer.pack, offer.unit)} · ` : ""}
+                {reported ? "" : ageLabel(offer)}
+              </Text>
+              {i > 0 && offer.price === best!.price ? (
+                <Text style={styles.same}>Igual</Text>
+              ) : i > 0 ? (
+                <Text style={styles.diff}>+{cop(offer.price - best!.price)}</Text>
+              ) : null}
+              {!reported && <ExternalLink size={12} color={colors.mutedForeground} />}
+            </View>
+            {reported && <Text style={styles.inStore}>{reportedLabel(offer)}</Text>}
+            {below && (
+              <Text style={styles.inStore}>
+                En tienda: {cop(below.price)}{perLabel(below)} · factura · {ageLabel(below)}{below.branch ? ` · ${below.branch}` : ""}
+              </Text>
+            )}
+          </>
+        );
+        const rowStyle = [i > 0 && styles.rowDivider, i === 0 && many && spread > 0 && styles.rowBest];
+        // Receipt prices have no store page to open.
+        return reported ? (
+          <View key={`${offer.id}:receipt`} accessibilityLabel={`${offer.store}: ${cop(offer.price)}, reportado en factura ${ageLabel(offer)}`} style={rowStyle}>
+            {content}
+          </View>
+        ) : (
+          <Pressable
+            key={offer.id}
+            accessibilityRole="link"
+            accessibilityLabel={`${offer.store}: ${cop(offer.price)}. Ver en la tienda`}
+            onPress={() => Linking.openURL(offer.url)}
+            style={rowStyle}
+          >
+            {content}
+          </Pressable>
+        );
+      })}
       </View>
       {missing.length > 0 && (
         <Text style={styles.missing}>No está en {missing.join(" ni ")}, según su catálogo online.</Text>
       )}
     </View>
   );
+}
+
+/** "/kg" or "/und" after a produce price, so per-kg and per-unit prices are never read as the same thing. */
+function perLabel(offer: Offer) {
+  return offer.produce ? (offer.produce.per === "kg" ? "/kg" : "/und") : "";
+}
+
+/** "Reportado en tienda · factura · hace 2 h · Jumbo Calle 80" */
+function reportedLabel(offer: Offer) {
+  return `Reportado en tienda · factura · ${ageLabel(offer)}${offer.branch ? ` · ${offer.branch}` : ""}`;
 }
 
 /** "hace 5 min" / "hace 2 h": how old the observed price is, short enough for one line. */
@@ -170,6 +206,7 @@ const styles = StyleSheet.create({
   same: { fontSize: fontSize.small, fontWeight: "600", color: colors.mutedForeground },
   diff: { fontSize: fontSize.small, fontWeight: "600", color: colors.savingsInk, fontVariant: ["tabular-nums"] },
   missing: { fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
+  inStore: { fontSize: fontSize.tiny, color: colors.mutedForeground, paddingLeft: spacing.md + 64 + spacing.sm, paddingRight: spacing.md, paddingBottom: 7, marginTop: -3 },
   add: {
     flexDirection: "row", alignItems: "center", justifyContent: "center", gap: spacing.sm,
     borderRadius: radius.pill, backgroundColor: colors.primary, minHeight: 40,
