@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import type { ListItem, LookupResult, Store } from "./market";
 import type { CatalogResult } from "./shop";
 
@@ -32,9 +33,11 @@ export function fetchCatalog(term: string, store?: Store | "all", signal?: Abort
   return fetch(`${BASE}/api/catalog?${params}`, { signal }).then(parse) as Promise<CatalogResult>;
 }
 
-export function extractPhoto(uri: string, mimeType: string): Promise<{ items: ListItem[] }> {
+/** A photographed shopping list → list items (Meta Muse vision; never prices). On web the picker gives a File. */
+export function extractPhoto(photo: { uri: string; mimeType: string; file?: File | null }): Promise<{ items: ListItem[] }> {
   const data = new FormData();
-  data.append("photo", { uri, type: mimeType, name: "lista.jpg" } as unknown as Blob);
+  if (Platform.OS === "web" && photo.file) data.append("photo", photo.file, "lista.jpg");
+  else data.append("photo", { uri: photo.uri, type: photo.mimeType, name: "lista.jpg" } as unknown as Blob);
   return fetch(`${BASE}/api/extract`, { method: "POST", body: data }).then(parse) as Promise<{ items: ListItem[] }>;
 }
 

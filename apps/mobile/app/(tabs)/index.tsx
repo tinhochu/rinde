@@ -25,7 +25,7 @@ const FEATURED_TERM = "leche entera";
 
 /** Home: discovery only. Every search, category and "ver similares" opens /search; nothing here turns into results. */
 export default function HomeScreen() {
-  const { cart, favorites, area, budget, addProduct, removeProduct, favoriteProduct, openProduct, openPlanner, openModal } = useAppState();
+  const { cart, favorites, area, budget, hasBudget, addProduct, removeProduct, favoriteProduct, openProduct, openPlanner, openModal } = useAppState();
   // Which stores to compare. Carried into /search, so results start with the same choice.
   const [stores, setStores] = useState<StoreFilter>([]);
   // The person's own staples (receipts, then picks from search); generic ideas until there are any.
@@ -205,7 +205,7 @@ export default function HomeScreen() {
         <View style={styles.footerBlock}>
           <PressScale
             accessibilityRole="button"
-            accessibilityLabel={totalCount ? "Comparar mi lista en cada tienda" : "Crear mi lista para comparar"}
+            accessibilityLabel={totalCount ? "Comparar mi lista en cada tienda" : "Planear mi mercado"}
             onPress={() => (totalCount ? router.push("/cart") : openPlanner())}
             scaleTo={0.985}
             style={styles.basket}
@@ -221,7 +221,7 @@ export default function HomeScreen() {
                   : "Arma tu lista y sumamos el total en Éxito, Jumbo y D1, contando los productos que le faltan a cada una."}
               </Text>
               <View style={styles.basketGo}>
-                <Text style={styles.basketGoText}>{totalCount ? "Comparar mi lista" : "Crear mi lista"}</Text>
+                <Text style={styles.basketGoText}>{totalCount ? "Comparar mi lista" : "Planear mi mercado"}</Text>
                 <ArrowRight size={15} color={colors.primary} />
               </View>
             </View>
@@ -229,7 +229,7 @@ export default function HomeScreen() {
           <View style={styles.footer}>
             <View style={styles.trust}>
               <ShieldCheck size={13} color={colors.mutedForeground} />
-              <Text style={styles.footerText}>Solo precios vistos en las tiendas, con hora y enlace. Presupuesto: {cop(budget)}.</Text>
+              <Text style={styles.footerText}>Solo precios vistos en las tiendas, con hora y enlace.{hasBudget ? ` Presupuesto: ${cop(budget)}.` : ""}</Text>
             </View>
             <View style={styles.footerLinks}>
               <Pressable onPress={() => openModal("help")} hitSlop={8}><Text style={styles.footerLink}>Cómo funciona</Text></Pressable>

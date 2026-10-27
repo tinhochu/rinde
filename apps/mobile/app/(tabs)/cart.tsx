@@ -13,7 +13,7 @@ import { IDEAS, type CartLine } from "@/lib/shop";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 export default function CartScreen() {
-  const { cart, favorites, budget, addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, openProduct, openPlanner, explore } = useAppState();
+  const { cart, favorites, budget, hasBudget, addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, openProduct, openPlanner, explore } = useAppState();
   const [prices, setPrices] = useState<BasketPrices | null>(null);
   const [error, setError] = useState("");
   const [refresh, setRefresh] = useState(0);
@@ -96,7 +96,7 @@ export default function CartScreen() {
       {cart.length ? (
         <>
           <ScrollView contentContainerStyle={styles.lines} showsVerticalScrollIndicator={false} contentInsetAdjustmentBehavior="automatic">
-            {stops.length > 0 && <Summary total={total} stops={stops} budget={budget} alone={alone} pricedCount={priced.length} />}
+            {stops.length > 0 && <Summary total={total} stops={stops} budget={hasBudget ? budget : null} alone={alone} pricedCount={priced.length} />}
             {error ? (
               <View style={styles.notice}>
                 <Text style={styles.noticeText}>{error}</Text>
@@ -139,8 +139,8 @@ export default function CartScreen() {
               </Text>
               <Text style={styles.subtotalValue} selectable>{stops.length ? cop(total) : loading ? "…" : "Por cotizar"}</Text>
             </View>
-            {total > budget && <Text style={styles.over}>Te pasas de tu presupuesto por {cop(total - budget)}. Tu plan propone cambios.</Text>}
-            <Button title="Armar mi plan" onPress={() => openPlanner()} icon={<Sparkles size={16} color="#FFFFFF" />} />
+            {hasBudget && total > budget && <Text style={styles.over}>Te pasas de tu presupuesto por {cop(total - budget)}. Tu plan propone cambios.</Text>}
+            <Button title="Planear mi mercado" onPress={() => openPlanner()} icon={<Sparkles size={16} color="#FFFFFF" />} />
             <View style={styles.fine}>
               <ShieldCheck size={12} color={colors.mutedForeground} />
               <Text style={styles.fineText}>El plan suma el costo de cada parada y verifica los precios de nuevo.</Text>
@@ -159,10 +159,12 @@ export default function CartScreen() {
               <Button title="Explorar productos" onPress={explore} icon={<ArrowRight size={15} color="#FFFFFF" />} />
               <Button title="Escribir productos" variant="outline" onPress={() => openPlanner(false)} icon={<ListPlus size={15} color={colors.primary} />} />
             </View>
-            <View style={styles.budgetRow}>
-              <Wallet size={14} color={colors.primary} />
-              <Text style={styles.budgetRowText}>Tu presupuesto: <Text style={styles.budgetRowStrong}>{cop(budget)}</Text></Text>
-            </View>
+            {hasBudget && (
+              <View style={styles.budgetRow}>
+                <Wallet size={14} color={colors.primary} />
+                <Text style={styles.budgetRowText}>Tu presupuesto: <Text style={styles.budgetRowStrong}>{cop(budget)}</Text></Text>
+              </View>
+            )}
           </View>
 
           <Text style={styles.ideasTitle}>Básicos para empezar</Text>
@@ -189,8 +191,7 @@ export default function CartScreen() {
 }
 
 /** The split against buying everything at one store, and how much of the budget it uses. */
-function Summary({ total, stops, budget, alone, pricedCount }: { total: number; stops: Stop[]; budget: number; alone: SingleStore[]; pricedCount: number }) {
-  const share = Math.min(1, total / budget);
+function Summary({ total, stops, budget, alone, pricedCount }: { total: number; stops: Stop[]; budget: number | null; alone: SingleStore[]; pricedCount: number }) {
   // With one stop, that store is the answer; the others are what it beats.
   const others = stops.length === 1 ? alone.filter(a => a.store !== stops[0]!.store) : alone;
   return (
@@ -202,10 +203,14 @@ function Summary({ total, stops, budget, alone, pricedCount }: { total: number; 
         <Text style={styles.summaryTotal} selectable>{cop(total)}</Text>
         <Text style={styles.summaryStops}>{stops.length === 1 ? `en ${stops[0]!.store}` : `en ${stops.length} tiendas`}</Text>
       </View>
-      <View style={styles.meter}><View style={[styles.meterFill, { width: `${share * 100}%` }, total > budget && styles.meterOver]} /></View>
-      <Text style={styles.summaryBudget}>
-        {total > budget ? `${cop(total - budget)} por encima` : `Te quedan ${cop(budget - total)}`} de tu presupuesto de {cop(budget)}
-      </Text>
+      {budget !== null && (
+        <>
+          <View style={styles.meter}><View style={[styles.meterFill, { width: `${Math.min(1, total / budget) * 100}%` }, total > budget && styles.meterOver]} /></View>
+          <Text style={styles.summaryBudget}>
+            {total > budget ? `${cop(total - budget)} por encima` : `Te quedan ${cop(budget - total)}`} de tu presupuesto de {cop(budget)}
+          </Text>
+        </>
+      )}
       {others.length > 0 && (
         <View style={styles.alone}>
           {others.map(a => (

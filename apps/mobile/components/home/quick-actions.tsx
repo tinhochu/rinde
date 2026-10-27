@@ -3,16 +3,16 @@ import { ListChecks, ScanLine } from "lucide-react-native";
 import { PressScale } from "@/components/motion";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
-/** The two ways in besides search: a whole list, or a receipt. */
+/** Beside search ("Comparar precios"): plan a whole list, or scan a receipt. */
 export function QuickActions({ onList, onReceipt }: { onList: () => void; onReceipt: () => void }) {
   return (
     <View style={styles.row}>
-      <PressScale accessibilityRole="button" accessibilityLabel="Crear mi lista. Compara todo tu mercado." onPress={onList} style={[styles.card, styles.primary]}>
+      <PressScale accessibilityRole="button" accessibilityLabel="Planear mi mercado. Arma tu lista y mira dónde rinde más." onPress={onList} style={[styles.card, styles.primary]}>
         <View style={[styles.icon, styles.iconPrimary]}>
           <ListChecks size={20} color="#FFFFFF" />
         </View>
-        <Text style={[styles.title, styles.titlePrimary]}>Crear mi lista</Text>
-        <Text style={[styles.text, styles.textPrimary]}>Compara todo tu mercado</Text>
+        <Text style={[styles.title, styles.titlePrimary]}>Planear mi mercado</Text>
+        <Text style={[styles.text, styles.textPrimary]}>Tu lista completa, donde más rinde</Text>
       </PressScale>
       <PressScale accessibilityRole="button" accessibilityLabel="Escanear factura. Gana puntos por tus precios." onPress={onReceipt} style={styles.card}>
         <View style={styles.icon}>

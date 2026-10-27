@@ -35,6 +35,30 @@ type PlanEvent =
   | { type: "error"; error: string };
 
 
+/** What one more store stop costs the person (transport, time), in COP: the planner only adds a stop that saves more. */
+export const TRIP_COSTS = [0, 5000, 10000, 15000, 20000];
+
+/** Sent as the budget when the person has none: the API's ceiling. Screens never show it. */
+export const NO_BUDGET = 10_000_000;
+
+/** What the last plan found for one list item, by item name (the plan labels lines with it). */
+export type ItemStatus =
+  | { kind: "priced"; lineTotal: number; store: RetailerSlug; live: boolean; substitute: boolean }
+  | { kind: "missing"; reason: string };
+
+export const statusKey = (name: string) => name.trim().toLowerCase();
+
+export function itemStatuses(plan: Plan): Record<string, ItemStatus> {
+  const out: Record<string, ItemStatus> = {};
+  for (const s of plan.stores) {
+    for (const l of s.lines) {
+      out[statusKey(l.label)] = { kind: "priced", lineTotal: l.lineTotal, store: s.retailer, live: l.candidate.priceStatus === "live", substitute: l.isSubstitute };
+    }
+  }
+  for (const u of plan.unavailable) out[statusKey(u.label)] = { kind: "missing", reason: u.reason };
+  return out;
+}
+
 export type PlanRequest =
   | { listId: string }
   | { budget: number; area?: string; tripCost?: number; items: ListItem[] };

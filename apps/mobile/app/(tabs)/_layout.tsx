@@ -1,7 +1,8 @@
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Tabs } from "expo-router";
 import { Heart, ListChecks, Sparkles, Store, UserRound, type LucideIcon } from "lucide-react-native";
 import { useAppState } from "@/lib/app-state";
+import { tabBarStyle } from "@/lib/navigation";
 import { colors } from "@/lib/theme";
 
 // Classic JS tabs (not NativeTabs): this one codebase also ships as a web PWA,
@@ -14,11 +15,7 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.mutedForeground,
-        // Web has no safe-area inset under the bar, so give the labels their own room.
-        tabBarStyle: {
-          backgroundColor: colors.card, borderTopColor: colors.border,
-          ...(Platform.OS === "web" && { height: 68, paddingTop: 8, paddingBottom: 10 }),
-        },
+        tabBarStyle,
       }}
     >
       <Tabs.Screen

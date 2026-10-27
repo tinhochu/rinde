@@ -3,9 +3,9 @@ import { AppState } from "react-native";
 import { usePathname, useRouter } from "expo-router";
 import NetInfo from "@react-native-community/netinfo";
 import type { ListItem } from "./market";
-import { createPlan, decideTradeoff, type PlanRequest, type PlanResult, type VerifyProgress } from "./planner";
+import { createPlan, decideTradeoff, itemStatuses, NO_BUDGET, type ItemStatus, type PlanRequest, type PlanResult, type VerifyProgress } from "./planner";
 import { deleteDraft, loadSaved, saveCart, saveDraft, saveFavorites, savePrefs } from "./storage";
-import { isFresh, toListItems, type CartLine, type SavedDraft, type ShopProduct } from "./shop";
+import { isFresh, toListItems, type CartLine, type Frequency, type SavedDraft, type ShopProduct } from "./shop";
 import { recordPick } from "./history";
 import { rememberProduct } from "./product-cache";
 import { searchHref } from "./search";
@@ -13,9 +13,14 @@ import { toast } from "./toast";
 
 export type AppModal = "area" | "saved" | "help" | "privacy" | null;
 
+/** The planner's phases: build the list, set the budget, wait for prices, see where it goes further. */
+export const PHASE = { list: 0, budget: 1, checking: 2, results: 3 } as const;
+
 type AppStateValue = {
-  step: number; budget: number; people: number; zone: string; area: string; tripCost: number;
-  items: ListItem[]; result?: PlanResult; progress: VerifyProgress[]; refreshing: boolean; deciding: string | null; fromCart: boolean;
+  step: number; budget: number; hasBudget: boolean; frequency?: Frequency; people: number; knowsPeople: boolean;
+  zone: string; area: string; tripCost: number;
+  items: ListItem[]; result?: PlanResult; itemStatus: Record<string, ItemStatus>;
+  progress: VerifyProgress[]; refreshing: boolean; deciding: string | null; fromCart: boolean;
   cart: CartLine[]; cartCount: number; favorites: ShopProduct[];
   product: ShopProduct | null; modal: AppModal; saved?: SavedDraft;
   hydrated: boolean; offline: boolean;
@@ -27,10 +32,9 @@ type AppStateValue = {
   openModal: (next: AppModal) => void;
   closeModal: () => void;
   setZone: (next: string) => void;
-  setBudgetPeople: (nextBudget: number, nextPeople: number) => void;
-  setPrefs: (next: { budget?: number; people?: number; tripCost?: number }) => void;
+  setPrefs: (next: Partial<{ budget: number; hasBudget: boolean; frequency: Frequency; people: number; tripCost: number }>) => void;
   setItems: (list: ListItem[]) => void;
-  compare: (list: ListItem[]) => void;
+  compare: (opts?: { hasBudget?: boolean }) => void;
   refresh: () => void;
   decide: (key: string, decision: "accept" | "reject") => void;
   resume: () => void;
@@ -56,12 +60,18 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [step, setStep] = useState(0);
   const [budget, setBudget] = useState(200000);
+  const [hasBudget, setHasBudget] = useState(true);
+  const [frequency, setFrequency] = useState<Frequency>();
   const [people, setPeople] = useState(4);
+  // Household size is only shown as chosen once the person has chosen it (or saved it before).
+  const [knowsPeople, setKnowsPeople] = useState(false);
   // COP an extra store stop is worth to the user; the planner only adds a stop when it saves more.
   const [tripCost, setTripCost] = useState(10000);
   const [zone, setZoneState] = useState("");
   const [items, setItemsState] = useState<ListItem[]>([]);
   const [result, setResult] = useState<PlanResult>();
+  // What the last real plan found for each list item, kept while the list is edited afterwards.
+  const [itemStatus, setItemStatus] = useState<Record<string, ItemStatus>>({});
   const [progress, setProgress] = useState<VerifyProgress[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [deciding, setDeciding] = useState<string | null>(null);
@@ -83,6 +93,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       if (loaded.prefs) {
         setBudget(loaded.prefs.budget);
         setPeople(loaded.prefs.people);
+        setKnowsPeople(true);
+        if (loaded.prefs.hasBudget !== undefined) setHasBudget(loaded.prefs.hasBudget);
+        if (loaded.prefs.frequency) setFrequency(loaded.prefs.frequency);
         setZoneState(loaded.prefs.zone);
         if (loaded.prefs.tripCost !== undefined) setTripCost(loaded.prefs.tripCost);
       }
@@ -107,15 +120,15 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     if (!hydrated) return;
     saveCart(cart);
     saveFavorites(favorites);
-    savePrefs({ budget, people, zone, tripCost });
-  }, [cart, favorites, budget, people, zone, tripCost, hydrated]);
+    savePrefs({ budget, people, zone, tripCost, hasBudget, frequency });
+  }, [cart, favorites, budget, people, zone, tripCost, hasBudget, frequency, hydrated]);
 
   useEffect(() => {
     if (!hydrated || !items.length) return;
-    const draft = { budget, people, zone, items };
+    const draft = { budget, people, zone, items, hasBudget, frequency };
     setSaved(draft);
     saveDraft(draft);
-  }, [budget, people, zone, items, hydrated]);
+  }, [budget, people, zone, items, hasBudget, frequency, hydrated]);
 
   function go(next: number) {
     setStep(next);
@@ -139,19 +152,20 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setProgress([]);
       if (mode === "background") setRefreshing(true);
       else if (mode === "decide") setDeciding(key ?? null);
-      else setStep(3);
+      else setStep(PHASE.checking);
       try {
         const data = await request(p => {
           if (!controller.signal.aborted) setProgress(previous => [...previous.filter(x => x.store !== p.store), p]);
         }, controller.signal);
         if (!controller.signal.aborted) {
           setResult(data);
-          if (mode === "new") setStep(4);
+          setItemStatus(itemStatuses(data.plan));
+          if (mode === "new") setStep(PHASE.results);
         }
       } catch (error) {
         if (!controller.signal.aborted) {
           toast.error(error instanceof Error ? error.message : "No hay conexión. Tu lista sigue guardada.");
-          if (mode === "new") setStep(2);
+          if (mode === "new") setStep(PHASE.budget);
         }
       } finally {
         if (activeRequest.current === controller) {
@@ -170,7 +184,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   );
 
   useEffect(() => {
-    if (!pathname.startsWith("/plan") || step !== 4 || !result) return;
+    if (!pathname.startsWith("/plan") || step !== PHASE.results || !result) return;
     const timer = setInterval(() => {
       if (!offline && AppState.currentState === "active") void plan({ listId: result.listId }, "background");
     }, 5 * 60000);
@@ -183,8 +197,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setModal(null);
     const hasCart = useCart && cart.length > 0;
     setFromCart(hasCart);
-    if (hasCart) setItemsState(toListItems(cart));
-    setStep(0);
+    if (hasCart) setItemsState(mergeItems(items, toListItems(cart)));
+    setStep(PHASE.list);
     router.push("/plan");
   }
 
@@ -244,11 +258,13 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     invalidate();
     setBudget(saved.budget);
     setPeople(saved.people);
+    if (saved.hasBudget !== undefined) setHasBudget(saved.hasBudget);
+    if (saved.frequency) setFrequency(saved.frequency);
     setZoneState(saved.zone);
     setItemsState(saved.items);
     setFromCart(false);
     setModal(null);
-    setStep(saved.items.length ? 2 : 0);
+    setStep(PHASE.list);
     router.push("/plan");
   }
 
@@ -274,32 +290,35 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     invalidate();
     setZoneState(next);
     setModal(null);
-    if (step === 3 || step === 4) setStep(2);
+    if (step >= PHASE.checking) setStep(PHASE.budget);
   }
 
-  function setBudgetPeople(nextBudget: number, nextPeople: number) {
-    setBudget(nextBudget);
-    setPeople(nextPeople);
-    setStep(fromCart ? 2 : 1);
-  }
-
-  function setPrefs(next: { budget?: number; people?: number; tripCost?: number }) {
+  function setPrefs(next: Partial<{ budget: number; hasBudget: boolean; frequency: Frequency; people: number; tripCost: number }>) {
     if (next.budget !== undefined) setBudget(next.budget);
-    if (next.people !== undefined) setPeople(next.people);
+    if (next.hasBudget !== undefined) setHasBudget(next.hasBudget);
+    if (next.frequency !== undefined) setFrequency(next.frequency);
+    if (next.people !== undefined) {
+      setPeople(next.people);
+      setKnowsPeople(true);
+    }
     if (next.tripCost !== undefined) setTripCost(next.tripCost);
   }
 
+  // Edits the list in place, on any phase. A plan for the old list no longer applies, but what it found
+  // for each item (itemStatus) stays visible until the next comparison.
   function setItems(list: ListItem[]) {
-    invalidate();
+    if (result) invalidate();
     setItemsState(list);
     setFromCart(false);
-    setStep(2);
   }
 
-  function compare(list: ListItem[]) {
-    setItemsState(list);
+  function compare(opts: { hasBudget?: boolean } = {}) {
+    if (!items.length) return;
+    const withBudget = opts.hasBudget ?? hasBudget;
+    if (opts.hasBudget !== undefined) setHasBudget(opts.hasBudget);
     setResult(undefined);
-    void plan({ budget, area, tripCost, items: list }, "new");
+    // The API needs a budget; without one we send its ceiling and the screens never show a budget figure.
+    void plan({ budget: withBudget ? budget : NO_BUDGET, area, tripCost, items }, "new");
   }
 
   function refresh() {
@@ -318,21 +337,27 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setItemsState([]);
     setModal(null);
     deleteDraft();
-    if (pathname.startsWith("/plan")) setStep(0);
+    if (pathname.startsWith("/plan")) setStep(PHASE.list);
     toast.success("Plan eliminado. Tu lista no ha cambiado.");
   }
 
   const cartCount = useMemo(() => cart.reduce((sum, line) => sum + line.count, 0), [cart]);
 
   const value: AppStateValue = {
-    step, budget, people, zone, area, tripCost, items, result, progress, refreshing, deciding, fromCart,
+    step, budget, hasBudget, frequency, people, knowsPeople, zone, area, tripCost, items, result, itemStatus, progress, refreshing, deciding, fromCart,
     cart, cartCount, favorites, product, modal, saved, hydrated, offline,
     go, openPlanner, explore,
     openProduct, closeProduct: () => setProduct(null),
     openModal: setModal, closeModal: () => setModal(null),
-    setZone, setBudgetPeople, setPrefs, setItems, compare, refresh, decide, resume, deleteSaved,
+    setZone, setPrefs, setItems, compare, refresh, decide, resume, deleteSaved,
     addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, searchProduct,
   };
 
   return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>;
+}
+
+/** Adds list items not already there (same name), keeping what the person had. */
+export function mergeItems(current: ListItem[], incoming: ListItem[]): ListItem[] {
+  const names = new Set(current.map(i => i.name.trim().toLowerCase()));
+  return [...current, ...incoming.filter(i => !names.has(i.name.trim().toLowerCase()))].slice(0, 20);
 }

@@ -76,7 +76,7 @@ export function DialogsHost() {
                   {saved.items.length > 5 && "…"}
                 </Text>
                 <Text style={styles.savedBudget}>
-                  {cop(saved.budget)} <Text style={styles.savedPeople}>· {saved.people} personas</Text>
+                  {saved.hasBudget === false ? "Sin presupuesto" : cop(saved.budget)} <Text style={styles.savedPeople}>· {saved.people} personas</Text>
                 </Text>
                 <Button title="Continuar mi plan" onPress={resume} icon={<ArrowRight size={15} color="#FFFFFF" />} />
               </View>

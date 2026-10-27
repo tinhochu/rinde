@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { cartSchema, draftSchema, favoritesSchema, type CartLine, type SavedDraft, type ShopProduct } from "./shop";
+import { cartSchema, draftSchema, favoritesSchema, type CartLine, type Frequency, type SavedDraft, type ShopProduct } from "./shop";
 
 const KEYS = { cart: "rinde-cart", favorites: "rinde-favorites", prefs: "rinde-preferences", draft: "rinde-draft" } as const;
 
-type Prefs = { budget: number; people: number; zone: string; tripCost?: number };
+type Prefs = { budget: number; people: number; zone: string; tripCost?: number; hasBudget?: boolean; frequency?: Frequency };
 
 async function read(key: string): Promise<unknown> {
   try {

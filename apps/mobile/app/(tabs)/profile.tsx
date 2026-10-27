@@ -8,12 +8,12 @@ import { Button, Chip, Stepper } from "@/components/ui";
 import { useAccount } from "@/lib/auth";
 import { useAppState } from "@/lib/app-state";
 import { cop } from "@/lib/market";
+import { TRIP_COSTS } from "@/lib/planner";
 import { colors, fontSize, radius, spacing, themePref } from "@/lib/theme";
 import { saveThemePref, type ThemePref } from "@/lib/theme-pref";
 import { toast } from "@/lib/toast";
 
 const BUDGETS = [100000, 150000, 200000, 300000, 400000];
-const TRIP_COSTS = [0, 5000, 10000, 15000, 20000];
 const THEMES: { id: ThemePref; label: string }[] = [
   { id: "system", label: "Como tu celular" },
   { id: "light", label: "Claro" },
