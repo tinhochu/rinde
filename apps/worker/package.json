@@ -9,7 +9,8 @@
     "ingest": "tsx src/ingest.ts",
     "seed:produce": "tsx src/seed-produce.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "repair:sizes": "tsx src/repair-sizes.ts"
   },
   "dependencies": {
     "@rinde/core": "workspace:*",

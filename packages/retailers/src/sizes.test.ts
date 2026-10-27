@@ -24,6 +24,15 @@ describe("resolvePackageSize (real responses, 2026-10-26)", () => {
     expect(resolvePackageSize(byName(jumbo, "Arroz Casanare Blanco"))).toEqual({ amount: 1000, unit: "g" });
   });
 
+  it("reads D1's '1.000' as a thousand grams, not one", () => {
+    expect(resolvePackageSize({ productName: "Arroz Integral Diana 1.000 G", "Unidad De Medida": ["Gr"], "Valor de Medida": ["1.000"] }))
+      .toEqual({ amount: 1000, unit: "g" });
+  });
+
+  it("drops a placeholder size instead of storing 1 g", () => {
+    expect(resolvePackageSize({ productName: "Yogurt RECREO sabor natural (1  gr)" })).toBeNull();
+  });
+
   it("falls back to the name when metadata is missing", () => {
     expect(resolvePackageSize(byName(jumbo, "Leche Alquería Original 1000ml"))).toEqual({ amount: 1000, unit: "ml" });
   });

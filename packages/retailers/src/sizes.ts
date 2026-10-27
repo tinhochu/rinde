@@ -1,4 +1,4 @@
-import { parsePackageSize, type BaseUnit, type PackageSize } from "@rinde/core";
+import { parseAmount, parsePackageSize, plausibleSize, type BaseUnit, type PackageSize } from "@rinde/core";
 
 /** The subset of a VTEX product we read package sizes from. */
 export interface VtexSizeSource {
@@ -26,9 +26,10 @@ export function resolvePackageSize(p: VtexSizeSource): PackageSize | null {
 
 function d1Size(p: VtexSizeSource): PackageSize | null {
   const unit = D1_UNITS[p["Unidad De Medida"]?.[0]?.trim().toLowerCase() ?? ""];
-  const value = Number(p["Valor de Medida"]?.[0]?.replace(",", "."));
-  if (!unit || !(value > 0)) return null;
-  return { amount: round(value * unit[1]), unit: unit[0] };
+  const raw = p["Valor de Medida"]?.[0]?.trim();
+  if (!unit || !raw) return null;
+  const size = { amount: round(parseAmount(raw, unit[1]) * unit[1]), unit: unit[0] };
+  return plausibleSize(size) ? size : null;
 }
 
 // Jumbo's `unit_multiplier_un` is the net content in kg or L ("Arroz Roa x1kg" → 1,
@@ -50,7 +51,8 @@ function jumboSize(p: VtexSizeSource): PackageSize | null {
     : data.measurement_unit_un === "gr" ? "g"
     : data.measurement_unit_un === "ml" ? "ml"
     : null;
-  return unit ? { amount: round(kiloAmount * 1000), unit } : null;
+  const size = unit ? { amount: round(kiloAmount * 1000), unit } : null;
+  return size && plausibleSize(size) ? size : null;
 }
 
 function round(n: number) {

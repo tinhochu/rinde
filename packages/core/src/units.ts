@@ -26,10 +26,10 @@ const MULTIPACK_RE = /(?:\bx\s*(\d+)\s*(?:und|un|ud)?\b|\b(\d+)\s*x\s*(?=\d))/i;
  * applies multipack multipliers ("6 x 200 ml" → 1200 ml).
  */
 export function parsePackageSize(name: string): PackageSize | null {
-  const matches = [...name.matchAll(SIZE_RE)].map((m) => {
-    const value = Number(m[1]!.replace(",", "."));
+  const matches = [...name.matchAll(SIZE_RE)].flatMap((m) => {
     const [unit, factor] = UNIT_FACTORS[m[2]!.toLowerCase()]!;
-    return { amount: value * factor, unit };
+    const size = { amount: parseAmount(m[1]!, factor) * factor, unit };
+    return plausibleSize(size) ? [size] : [];
   });
   if (matches.length === 0) return null;
 
@@ -44,6 +44,23 @@ export function parsePackageSize(name: string): PackageSize | null {
       return { amount: round(best.amount * count), unit: best.unit };
   }
   return { amount: round(best.amount), unit: best.unit };
+}
+
+/**
+ * Read a size number in Colombian notation. For grams and millilitres "1.000" and "1.750" are
+ * thousands ("Arroz Diana 1.000 G"); for kg and litres "1.5" and "1,5" are decimals.
+ */
+export function parseAmount(raw: string, factor: number): number {
+  if (factor === 1 && /^\d{1,3}[.,]\d{3}$/.test(raw)) return Number(raw.replace(/[.,]/, ""));
+  return Number(raw.replace(",", "."));
+}
+
+/**
+ * Under 2 g or 2 ml is never a grocery pack: it is a placeholder ("Yogurt (1 gr)") or a mislabeled
+ * litre ("Gaseosa x 1.5 ml"). An unknown size is better than a unit price that is off by 1000×.
+ */
+export function plausibleSize(size: PackageSize): boolean {
+  return size.amount > 0 && (size.unit === "unit" || size.amount >= 2);
 }
 
 /** Price per 1 base unit (COP per g, ml or unit). */

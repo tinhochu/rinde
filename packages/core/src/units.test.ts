@@ -15,12 +15,25 @@ describe("parsePackageSize", () => {
     ["Avena Alpina Vaso 250 Ml", 250, "ml"],
     ["Aceite 1,5 L", 1500, "ml"],
     ["Leche Colanta 6 x 200 ml", 1200, "ml"],
+    // Colombian thousands separator on g / ml
+    ["Arroz Integral Diana 1.000 G", 1000, "g"],
+    ["Aceite Vegetal Imatá 3.000 Ml", 3000, "ml"],
+    ["Gaseosa Manzana Postobon 1.750 Ml", 1750, "ml"],
+    ["Arroz 2.500 kg", 2500, "g"],
   ])("%s → %d %s", (name, amount, unit) => {
     expect(parsePackageSize(name)).toEqual({ amount, unit });
   });
 
   it("returns null when no size is present", () => {
     expect(parsePackageSize("Kit #3 Donación - Alimentos")).toBeNull();
+  });
+
+  it.each([
+    "Yogurt RECREO sabor natural (1  gr)",
+    "Gaseosa Soda Schweppes x 1.5 ml",
+    "Pasta Tomate Rustica POMI 0.7  gr",
+  ])("rejects an implausible size: %s", (name) => {
+    expect(parsePackageSize(name)).toBeNull();
   });
 });
 
