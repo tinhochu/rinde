@@ -13,14 +13,22 @@ export function Brand({ small = false }: { small?: boolean }) {
   );
 }
 
+/** Store marks as images, square; `round` ones are clipped to their circle. Others fall back to a text badge. */
+const LOGOS: Record<string, { source: number; round?: boolean }> = {
+  D1: { source: require("@/assets/stores/d1.png") },
+  Jumbo: { source: require("@/assets/stores/jumbo.png"), round: true },
+  "Éxito": { source: require("@/assets/stores/exito.png"), round: true },
+};
+
 export function StoreLogo({ store, large = false }: { store: string; large?: boolean }) {
-  if (store === "D1") {
+  const logo = LOGOS[store];
+  if (logo) {
     return (
       <Image
-        source={require("@/assets/stores/d1.png")}
-        accessibilityLabel="D1"
+        source={logo.source}
+        accessibilityLabel={store}
         accessibilityIgnoresInvertColors
-        style={[styles.logoImage, large && styles.logoImageLarge]}
+        style={[styles.logoImage, large && styles.logoImageLarge, logo.round && (large ? styles.roundLarge : styles.round)]}
       />
     );
   }
@@ -50,6 +58,8 @@ const styles = StyleSheet.create({
   storeLarge: { height: 36, minWidth: 64 },
   logoImage: { width: 28, height: 28, borderRadius: 6 },
   logoImageLarge: { width: 36, height: 36, borderRadius: 7 },
+  round: { borderRadius: 14 },
+  roundLarge: { borderRadius: 18 },
   storeText: { fontSize: fontSize.subhead, fontWeight: "800", letterSpacing: -0.5 },
   storeTextLarge: { fontSize: 18 },
   italic: { fontStyle: "italic" },

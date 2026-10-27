@@ -76,7 +76,7 @@ export function ProductModal() {
             )}
             <Pressable onPress={() => addProduct(product)} style={styles.add}>
               <Plus size={17} color="#FFFFFF" />
-              <Text style={styles.addText}>{count > 0 ? "Añadir otra cantidad" : "Agregar a mi canasta"}</Text>
+              <Text style={styles.addText}>{count > 0 ? "Añadir otra cantidad" : "Agregar a mi carrito"}</Text>
             </Pressable>
           </View>
           <Pressable onPress={searchProduct} style={styles.search}>

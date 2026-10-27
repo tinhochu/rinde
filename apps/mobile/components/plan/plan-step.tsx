@@ -171,7 +171,7 @@ export function PlanStep({ result, area, progress, onRefresh, refreshing, decidi
               ) : plan.baseline ? (
                 <Text style={styles.muted}>{plan.baseline.description}, cuesta lo mismo: {cop(plan.baseline.total)}. Ya estás en la opción más barata.</Text>
               ) : (
-                <Text style={styles.muted}>No calculamos ahorro sin una canasta de comparación. Nada de porcentajes inventados.</Text>
+                <Text style={styles.muted}>No calculamos ahorro sin un carrito de comparación. Nada de porcentajes inventados.</Text>
               )}
             </View>
             <Button title={sharing ? "Preparando comprobante…" : "Compartir mi plan"} disabled={sharing} loading={sharing} onPress={() => void share()} icon={!sharing ? <Share2 size={16} color="#FFFFFF" /> : undefined} />

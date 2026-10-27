@@ -88,7 +88,7 @@ export function DialogsHost() {
           ) : (
             <View style={styles.savedEmpty}>
               <Bookmark size={30} color={colors.primary} />
-              <Text style={styles.savedEmptyText}>Aquí estará la lista de tu plan.{"\n"}Tu canasta y tus favoritos se guardan por separado.</Text>
+              <Text style={styles.savedEmptyText}>Aquí estará la lista de tu plan.{"\n"}Tu carrito y tus favoritos se guardan por separado.</Text>
               <Button title="Preparar mi mercado" onPress={() => openPlanner(false)} />
             </View>
           )}
@@ -99,8 +99,8 @@ export function DialogsHost() {
       {modal === "help" && (
         <>
           {[
-            { title: "Explora tu mercado", text: "Elige una tienda o un pasillo, busca productos y usa el + para añadirlos a la canasta. Las ideas sin precio son referencias para tu lista, no inventario verificado." },
-            { title: "Ponle un límite", text: "Abre tu canasta y toca Comparar mi canasta. Confirma tu presupuesto, productos, cantidades y marcas. También puedes empezar un plan con una foto, texto o ingreso manual." },
+            { title: "Explora tu mercado", text: "Elige una tienda o un pasillo, busca productos y usa el + para añadirlos al carrito. Las ideas sin precio son referencias para tu lista, no inventario verificado." },
+            { title: "Ponle un límite", text: "Abre tu carrito y toca Armar mi plan. Confirma tu presupuesto, productos, cantidades y marcas. También puedes empezar un plan con una foto, texto o ingreso manual." },
             { title: "Comparamos, sin inventar", text: "Consultamos Éxito, Jumbo y D1 desde el servidor. Mostramos solo los precios que recibimos, con enlace, canal y hora. Si una tienda falla o falta un precio, te lo decimos." },
             { title: "Tú decides dónde comprar", text: "Compara la compra dividida y una sola tienda. Revisa paradas, saldo y faltantes, y comparte tu comprobante. Rinde no cobra, reserva ni compra por ti." },
           ].map((item, index) => (
@@ -124,10 +124,10 @@ export function DialogsHost() {
       {modal === "privacy" && (
         <View style={styles.privacy}>
           <ShieldCheck size={35} color={colors.primary} />
-          <Text style={styles.privacyText}>Tu canasta, tus favoritos, tu zona y tu lista se guardan en este dispositivo. No pedimos nombre, correo ni dirección exacta.</Text>
+          <Text style={styles.privacyText}>Tu carrito, tus favoritos, tu zona y tu lista se guardan en este dispositivo. No pedimos nombre, correo ni dirección exacta.</Text>
           <Text style={styles.privacyText}>Los precios no se conservan como vigentes al volver a abrir la app. Para comparar, nuestro servidor consulta los nombres de los productos en los catálogos de las tiendas.</Text>
           <Text style={styles.privacyText}>Si usas la lectura de fotos con un modelo conectado, la foto se envía al proveedor para extraer la lista. No se guarda en tu historial local.</Text>
-          <Text style={styles.privacyText}>Puedes vaciar la canasta, quitar favoritos o eliminar tu lista desde sus respectivas secciones.</Text>
+          <Text style={styles.privacyText}>Puedes vaciar el carrito, quitar favoritos o eliminar tu lista desde sus respectivas secciones.</Text>
           <Text style={styles.note}>No hay cuentas ni sincronización. Compartir un comprobante siempre es una acción tuya. Rinde no hace compras ni entregas.</Text>
         </View>
       )}

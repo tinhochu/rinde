@@ -195,7 +195,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     const existing = cart.find(line => line.product.id === next.id);
     const quantity = (existing?.count || 0) + 1;
     if (!existing && cart.length >= 20) {
-      toast.error("Puedes comparar hasta 20 productos por canasta.");
+      toast.error("Puedes comparar hasta 20 productos por carrito.");
       return;
     }
     if (quantity > 99 || next.pack * quantity > 1000000) {
@@ -212,7 +212,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         ? previous.map(item => (item.product.id === next.id ? { product: next, count: item.count + 1 } : item))
         : [...previous, { product: next, count: 1 }];
     });
-    if (!existing) toast.success(`${next.name} en tu canasta.`, { duration: 1800 });
+    if (!existing) toast.success(`${next.name} en tu carrito.`, { duration: 1800 });
   }
 
   function removeProduct(id: string) {
@@ -225,7 +225,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   function clearCart() {
     setCart([]);
-    toast.success("Canasta vacía. Tus listas y favoritos siguen guardados.");
+    toast.success("Carrito vacío. Tus listas y favoritos siguen guardados.");
   }
 
   function favoriteProduct(next: ShopProduct) {
@@ -305,7 +305,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setModal(null);
     deleteDraft();
     if (pathname.startsWith("/plan")) setStep(0);
-    toast.success("Lista eliminada. Tu canasta no ha cambiado.");
+    toast.success("Lista eliminada. Tu carrito no ha cambiado.");
   }
 
   const cartCount = useMemo(() => cart.reduce((sum, line) => sum + line.count, 0), [cart]);

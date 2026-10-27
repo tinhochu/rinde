@@ -39,16 +39,16 @@ export function CompareCard({ product, count, favorite, onAdd, onRemove, onFavor
       <StorePrices offers={product.offers} inStore={product.inStore} missing={product.missing} />
 
       {count === 0 ? (
-        <Pressable accessibilityLabel={`Agregar ${product.name} a mi canasta`} onPress={onAdd} style={styles.add}>
+        <Pressable accessibilityLabel={`Agregar ${product.name} a mi carrito`} onPress={onAdd} style={styles.add}>
           <Plus size={16} strokeWidth={2.5} color="#FFFFFF" />
-          <Text style={styles.addText}>Agregar a mi canasta</Text>
+          <Text style={styles.addText}>Agregar a mi carrito</Text>
         </Pressable>
       ) : (
         <View style={styles.stepper}>
           <Pressable accessibilityLabel={`Quitar una cantidad de ${product.name}`} onPress={onRemove} style={styles.stepperButton}>
             <Minus size={16} color={colors.primary} />
           </Pressable>
-          <Text style={styles.stepperCount}>{count} en tu canasta</Text>
+          <Text style={styles.stepperCount}>{count} en tu carrito</Text>
           <Pressable accessibilityLabel={`Agregar otra cantidad de ${product.name}`} onPress={onAdd} style={styles.stepperButton}>
             <Plus size={16} color={colors.primary} />
           </Pressable>

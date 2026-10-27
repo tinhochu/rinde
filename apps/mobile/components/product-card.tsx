@@ -24,7 +24,7 @@ export function ProductCard({ product, count, favorite, onAdd, onRemove, onFavor
           <Heart size={16} color={favorite ? colors.primary : colors.foreground} fill={favorite ? colors.primary : "transparent"} />
         </Pressable>
         {count === 0 ? (
-          <Pressable accessibilityLabel={`Agregar ${product.name} a mi canasta`} onPress={onAdd} style={styles.add}>
+          <Pressable accessibilityLabel={`Agregar ${product.name} a mi carrito`} onPress={onAdd} style={styles.add}>
             <Plus size={22} strokeWidth={2.5} color="#FFFFFF" />
           </Pressable>
         ) : (

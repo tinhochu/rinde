@@ -431,7 +431,7 @@ export default function ShopScreen() {
           <View style={styles.budgetHint}>
             <ShoppingBag size={14} color={colors.primary} />
             <Text style={styles.budgetHintText}>
-              {totalCount} en canasta · Presupuesto {cop(budget)}
+              {totalCount} en el carrito · Presupuesto {cop(budget)}
             </Text>
           </View>
         </View>
