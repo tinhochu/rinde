@@ -7,7 +7,7 @@ import type { CatalogResult } from "./shop";
 /** Searches people run most. Words only: prices appear once a search runs. */
 export const POPULAR = ["leche", "arroz", "huevos", "aceite", "café", "pollo", "papa", "azúcar", "pan", "atún"];
 
-export type SearchSort = "relevant" | "price" | "stores";
+export type SearchSort = "relevant" | "price" | "unit" | "stores";
 
 /** Everything about a search lives in the URL, so Back, Forward and a reload all land on the same results. */
 export type SearchState = {
@@ -24,7 +24,7 @@ export function readSearch(params: RawParams): SearchState {
     q: one(params.q).trim().slice(0, 100),
     stores: list(params.stores).filter((s): s is Store => (STORES as string[]).includes(s)),
     aisle: (one(params.aisle) || "all") as Aisle | "all",
-    sort: sort === "price" || sort === "stores" ? sort : "relevant",
+    sort: sort === "price" || sort === "unit" || sort === "stores" ? sort : "relevant",
     brands: list(params.brands),
     multi: one(params.multi) === "1",
   };

@@ -36,7 +36,7 @@ export async function museJson<T>(
   instruction: string,
   format: { name: string; schema: Record<string, unknown> },
   validate: z.ZodType<T>,
-  opts: { image?: Image } = {},
+  opts: { image?: Image; effort?: "low" | "medium" | "high" } = {},
   cfg: MuseConfig = museConfig(),
 ): Promise<T> {
   if (!cfg.apiKey) throw new MuseUnavailable("META_API_KEY is not set");
@@ -49,6 +49,8 @@ export async function museJson<T>(
     model: cfg.model,
     input: [{ type: "message", role: "user", content }],
     text: { format: { type: "json_schema", name: format.name, strict: true, schema: format.schema } },
+    // The API reasons at "high" effort by default; quick sorting tasks ask for less to stay fast.
+    ...(opts.effort ? { reasoning: { effort: opts.effort } } : {}),
   });
 
   let lastError = "";

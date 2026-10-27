@@ -9,12 +9,14 @@ import { SearchHeader, type SearchInput } from "@/components/search/search-heade
 import { SearchSuggestions } from "@/components/search/search-suggestions";
 import { ReceiptPrompt } from "@/components/search/receipt-prompt";
 import { ResultCard, ResultCardSkeleton } from "@/components/search/result-card";
+import { ValuePicks } from "@/components/search/value-picks";
 import { Button } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
 import { withinStores } from "@/lib/compare";
 import { normalized } from "@/lib/market";
 import { forgetSearch, POPULAR, readSearch, recentSearches, rememberSearch, searchParams, useCatalog, type SearchState } from "@/lib/search";
 import { fromOffer, type ComparedProduct, type ShopProduct } from "@/lib/shop";
+import { bestPerBase, useValueGroups, valuePicks } from "@/lib/value";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 import { toast } from "@/lib/toast";
 
@@ -31,6 +33,7 @@ export default function SearchScreen() {
   const [recent, setRecent] = useState<string[]>([]);
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const { data, error, loading, retry } = useCatalog(state.q);
+  const groups = useValueGroups(state.q, data?.products);
 
   // Browser Back/Forward changes the query under us: follow it.
   useEffect(() => { setText(state.q); setExpanded(new Set()); }, [state.q]);
@@ -75,7 +78,9 @@ export default function SearchScreen() {
     .sort((a, b) =>
       state.sort === "stores" ? b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price
         : state.sort === "price" ? a.offers[0]!.price - b.offers[0]!.price
-          : 0);
+          : state.sort === "unit" ? perBaseOrLast(a) - perBaseOrLast(b)
+            : 0);
+  const picks = valuePicks(groups, results);
   const filtered = results.length !== all.length;
 
   const toShop = (p: ComparedProduct): ShopProduct => ({
@@ -150,6 +155,11 @@ export default function SearchScreen() {
                 </View>
                 {!loading && !error && all.length > 0 && (
                   <SearchFilterBar state={state} products={all} shown={results.length} onChange={update} />
+                )}
+                {!loading && !error && (
+                  <FadeIn>
+                    <ValuePicks picks={picks} onOpen={pick => openProduct(toShop(pick.best.product))} />
+                  </FadeIn>
                 )}
               </View>
             ) : undefined
@@ -251,3 +261,8 @@ const styles = StyleSheet.create({
   coverage: { flexDirection: "row", gap: spacing.sm, alignItems: "flex-start", marginTop: spacing.sm },
   coverageText: { flex: 1, fontSize: fontSize.small, lineHeight: 16, color: colors.mutedForeground },
 });
+
+/** Products without a known pack size sort after every one that has a price per kg. */
+function perBaseOrLast(p: ComparedProduct) {
+  return bestPerBase(p)?.perBase ?? Number.MAX_SAFE_INTEGER;
+}

@@ -13,6 +13,7 @@ import { colors, fontSize, radius, spacing } from "@/lib/theme";
 const SORTS: { id: SearchSort; label: string; hint: string }[] = [
   { id: "relevant", label: "Relevancia", hint: "Lo que buscaste primero, luego lo que está en más tiendas" },
   { id: "price", label: "Menor precio", hint: "El precio más bajo de cada producto, de menor a mayor" },
+  { id: "unit", label: "Precio por kilo", hint: "Lo que más rinde primero: precio por kilo, litro o unidad, sin importar la marca" },
   { id: "stores", label: "En más tiendas", hint: "Primero lo que puedes comparar en más supermercados" },
 ];
 
