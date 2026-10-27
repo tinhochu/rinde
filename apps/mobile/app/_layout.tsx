@@ -16,6 +16,7 @@ export default function RootLayout() {
         <View style={styles.column}>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="account" options={{ presentation: "modal" }} />
           </Stack>
           <OfflineBanner />
           <ProductModal />

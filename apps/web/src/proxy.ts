@@ -1,14 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { allowedOrigins } from "@/server/origins";
 
-// The Expo client (web PWA + native) calls this API cross-origin.
-// CORS_ORIGINS: comma-separated allowlist; defaults cover local Expo dev servers.
-const allowedOrigins = (process.env["CORS_ORIGINS"] ?? "http://localhost:8081,http://localhost:19006")
-  .split(",")
-  .map((o) => o.trim())
-  .filter(Boolean);
 
 const corsHeaders = {
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  // The web app's sign-in cookie rides along on API calls.
+  "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Headers": "Content-Type, X-Rinde-Session",
   "Access-Control-Max-Age": "86400",
 };

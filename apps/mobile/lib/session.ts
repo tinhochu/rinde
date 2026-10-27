@@ -22,3 +22,14 @@ export function sessionId(): Promise<string> {
   })();
   return pending;
 }
+
+/** Switches this install to another id: the account's, after signing in. */
+export async function setSessionId(id: string) {
+  pending = Promise.resolve(id);
+  await AsyncStorage.setItem(KEY, id).catch(() => undefined);
+}
+
+/** After signing out: a fresh anonymous id, so the account's receipts and points stay with the account. */
+export async function resetSession() {
+  await setSessionId(Crypto.randomUUID());
+}

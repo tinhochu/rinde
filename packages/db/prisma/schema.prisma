@@ -289,8 +289,8 @@ model ProduceItem {
 model Contributor {
   id             String             @id @default(cuid())
   sessionId      String             @unique
-  /// Set when the person signs in (Appwrite user id)
-  accountId      String?
+  /// Set when the person signs in (Better Auth user id); all their devices share this contributor
+  accountId      String?            @unique
   displayName    String?
   zone           String             @default("Medellín, Antioquia")
   /// Receipt scanning paused after repeated duplicate attempts
@@ -301,7 +301,6 @@ model Contributor {
   duplicates     DuplicateAttempt[]
   createdAt      DateTime           @default(now())
 
-  @@index([accountId])
 }
 
 /// Append-only points ledger; balances and rankings are sums over it.
@@ -342,4 +341,68 @@ model DuplicateAttempt {
   createdAt         DateTime    @default(now())
 
   @@index([contributorId, createdAt])
+}
+
+// ── Sign-in (Better Auth core tables; field names are the library's) ──
+
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+/// One row per way of signing in (email + password, Google, …)
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }

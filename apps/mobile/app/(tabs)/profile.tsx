@@ -1,8 +1,10 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Bookmark, Car, ChevronRight, CircleHelp, Lock, MapPin, Palette, ShieldCheck, UserRound, Users, Wallet } from "lucide-react-native";
+import { router } from "expo-router";
 import { Brand } from "@/components/brand";
-import { Chip, Stepper } from "@/components/ui";
+import { Button, Chip, Stepper } from "@/components/ui";
+import { useAccount } from "@/lib/auth";
 import { useAppState } from "@/lib/app-state";
 import { cop } from "@/lib/market";
 import { colors, fontSize, radius, spacing, themePref } from "@/lib/theme";
@@ -31,17 +33,7 @@ export default function ProfileScreen() {
         <Brand small />
       </View>
 
-      <View style={styles.account}>
-        <View style={styles.avatar}>
-          <UserRound size={26} color={colors.primary} />
-        </View>
-        <View style={styles.accountBody}>
-          <Text style={styles.accountTitle}>Estás usando Rinde sin cuenta</Text>
-          <Text style={styles.accountText}>
-            Tus listas, favoritos y preferencias se guardan solo en este dispositivo. Muy pronto podrás crear tu cuenta para tenerlos en tu celular y en la web, con tu historial de planes.
-          </Text>
-        </View>
-      </View>
+      <AccountCard />
 
       <Section title="Tu mercado">
         <Row icon={<MapPin size={18} color={colors.primary} />} label="Tu zona" value={area} onPress={() => openModal("area")} />
@@ -102,6 +94,55 @@ export default function ProfileScreen() {
         <Text style={styles.footerText}>Sin registro obligatorio. Solo precios observados en las tiendas.</Text>
       </View>
     </ScrollView>
+  );
+}
+
+/** Signed out: what an account adds and the way in. Signed in: who you are and the way out. */
+function AccountCard() {
+  const { user, loading, signOut } = useAccount();
+  const [leaving, setLeaving] = useState(false);
+
+  async function leave() {
+    setLeaving(true);
+    try {
+      await signOut();
+      toast.success("Cerraste sesión. Tus puntos siguen en tu cuenta.");
+    } catch {
+      toast.error("No pudimos cerrar sesión. Inténtalo de nuevo.");
+    } finally {
+      setLeaving(false);
+    }
+  }
+
+  return (
+    <View style={styles.account}>
+      <View style={styles.accountTop}>
+        <View style={styles.avatar}>
+          <UserRound size={26} color={colors.primary} />
+        </View>
+        <View style={styles.accountBody}>
+          {user ? (
+            <>
+              <Text style={styles.accountTitle}>{user.name || "Tu cuenta"}</Text>
+              <Text style={styles.accountText}>{user.email}</Text>
+              <Text style={styles.accountText}>Tus puntos y facturas quedan guardados en tu cuenta.</Text>
+            </>
+          ) : (
+            <>
+              <Text style={styles.accountTitle}>Estás usando Rinde sin cuenta</Text>
+              <Text style={styles.accountText}>
+                Todo funciona igual. Con una cuenta, tus puntos y facturas no se pierden si cambias de celular y los ves también en la web.
+              </Text>
+            </>
+          )}
+        </View>
+      </View>
+      {user ? (
+        <Button title="Cerrar sesión" variant="outline" loading={leaving} onPress={leave} />
+      ) : (
+        <Button title="Crear cuenta o entrar" disabled={loading} onPress={() => router.push("/account")} />
+      )}
+    </View>
   );
 }
 
@@ -182,10 +223,8 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.background },
   page: { padding: spacing.lg, gap: spacing.xl, paddingBottom: spacing.xxl, backgroundColor: colors.background },
   header: { flexDirection: "row", alignItems: "center" },
-  account: {
-    flexDirection: "row", gap: spacing.md, alignItems: "flex-start",
-    borderRadius: radius.lg, backgroundColor: colors.secondary, padding: spacing.lg,
-  },
+  account: { gap: spacing.lg, borderRadius: radius.lg, backgroundColor: colors.secondary, padding: spacing.lg },
+  accountTop: { flexDirection: "row", gap: spacing.md, alignItems: "flex-start" },
   avatar: { width: 48, height: 48, borderRadius: 24, backgroundColor: colors.card, alignItems: "center", justifyContent: "center" },
   accountBody: { flex: 1, gap: 4 },
   accountTitle: { fontSize: fontSize.subhead, fontWeight: "700", color: colors.primary },
