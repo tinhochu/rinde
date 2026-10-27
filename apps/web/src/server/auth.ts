@@ -1,9 +1,13 @@
 import "server-only";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { emailOTP } from "better-auth/plugins";
 import { expo } from "@better-auth/expo";
 import { db } from "@rinde/db";
+import { emailDelivery, sendCode } from "@/server/email";
 import { allowedOrigins } from "@/server/origins";
+
+const CODE_MINUTES = 10;
 
 const google = process.env["GOOGLE_CLIENT_ID"] && process.env["GOOGLE_CLIENT_SECRET"]
   ? { clientId: process.env["GOOGLE_CLIENT_ID"], clientSecret: process.env["GOOGLE_CLIENT_SECRET"] }
@@ -32,11 +36,22 @@ export const auth = betterAuth({
     "rinde://",
     ...(process.env.NODE_ENV === "development" ? ["exp://", "exp://**"] : []),
   ],
-  plugins: [expo()],
+  plugins: [
+    expo(),
+    // One-time codes by email: sign in or create an account without a password, and reset a forgotten one.
+    // Unknown addresses asking for a reset get the same answer and no email, so accounts can't be probed.
+    ...(emailDelivery ? [emailOTP({
+      otpLength: 6,
+      expiresIn: CODE_MINUTES * 60,
+      allowedAttempts: 5,
+      storeOTP: "hashed",
+      sendVerificationOTP: ({ email, otp, type }) => sendCode(email, otp, type, CODE_MINUTES),
+    })] : []),
+  ],
 });
 
 /** Which sign-in methods the server has configured, so the app shows only working buttons. */
-export const authMethods = { email: true, google: Boolean(google) };
+export const authMethods = { email: true, code: emailDelivery !== null, google: Boolean(google) };
 
 export async function currentUser(headers: Headers) {
   const session = await auth.api.getSession({ headers });

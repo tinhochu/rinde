@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Platform, StyleSheet, Text, TextInput, View } from "react-native";
-import { Bookmark, CircleHelp, ListChecks, Lock, LogOut, UserCog } from "lucide-react-native";
+import { Bookmark, CircleHelp, KeyRound, ListChecks, Lock, LogOut, UserCog } from "lucide-react-native";
 import { router } from "expo-router";
 import { Button, Dialog } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
@@ -41,18 +41,33 @@ export function DataSection() {
   );
 }
 
-/** Sign out, or delete the account after an explicit second step. */
+/** Sign out, change the password (when the account has one), or delete the account after an explicit second step. */
 function ManageAccountDialog({ visible, onClose }: { visible: boolean; onClose: () => void }) {
-  const { user, signOut, deleteAccount } = useAccount();
-  const [busy, setBusy] = useState<"out" | "delete" | null>(null);
-  const [confirming, setConfirming] = useState(false);
+  const { user, signOut, deleteAccount, hasPassword, changePassword } = useAccount();
+  const [busy, setBusy] = useState<"out" | "delete" | "password" | null>(null);
+  const [mode, setMode] = useState<"menu" | "password" | "delete">("menu");
+  // Accounts made with a code or Google have no password, so there is none to change or ask for.
+  const [withPassword, setWithPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [next, setNext] = useState("");
   const [error, setError] = useState("");
 
-  function close() {
-    setConfirming(false);
+  useEffect(() => {
+    if (!visible) return;
+    let live = true;
+    hasPassword().then(has => live && setWithPassword(has)).catch(() => undefined);
+    return () => { live = false; };
+  }, [visible]);
+
+  function back() {
+    setMode("menu");
     setPassword("");
+    setNext("");
     setError("");
+  }
+
+  function close() {
+    back();
     onClose();
   }
 
@@ -69,11 +84,26 @@ function ManageAccountDialog({ visible, onClose }: { visible: boolean; onClose: 
     }
   }
 
+  async function savePassword() {
+    if (next.length < 8) return setError("La nueva contraseña debe tener al menos 8 caracteres.");
+    setBusy("password");
+    setError("");
+    try {
+      await changePassword(password, next);
+      toast.success("Cambiamos tu contraseña. Cerramos tu sesión en los demás dispositivos.");
+      close();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "No pudimos cambiar tu contraseña.");
+    } finally {
+      setBusy(null);
+    }
+  }
+
   async function remove() {
     setBusy("delete");
     setError("");
     try {
-      await deleteAccount(password || undefined);
+      await deleteAccount(withPassword ? password : undefined);
       toast.success("Eliminamos tu cuenta. Puedes seguir usando Rinde como invitado.");
       close();
     } catch (e) {
@@ -83,37 +113,59 @@ function ManageAccountDialog({ visible, onClose }: { visible: boolean; onClose: 
     }
   }
 
+  const passwordInput = (placeholder: string, value: string, onChange: (v: string) => void, autoComplete: "current-password" | "new-password") => (
+    <TextInput
+      value={value}
+      onChangeText={onChange}
+      secureTextEntry
+      autoComplete={autoComplete}
+      placeholder={placeholder}
+      placeholderTextColor={colors.mutedForeground}
+      style={styles.input}
+    />
+  );
+
   return (
     <Dialog visible={visible} onClose={close}>
       <Text style={styles.title}>Gestionar cuenta</Text>
       {user?.email ? <Text style={styles.text}>Entraste como {user.email}.</Text> : null}
-      {!confirming ? (
+      {mode === "menu" ? (
         <>
           <Button title="Cerrar sesión" variant="outline" icon={<LogOut size={16} color={colors.primary} />} loading={busy === "out"} onPress={leave} />
+          {withPassword ? (
+            <Button title="Cambiar contraseña" variant="outline" icon={<KeyRound size={16} color={colors.primary} />} onPress={() => setMode("password")} />
+          ) : null}
           <View style={styles.danger}>
             <Text style={styles.dangerTitle}>Eliminar cuenta</Text>
             <Text style={styles.text}>
               Borramos tu cuenta, tu correo y tu nombre. Las facturas y precios que ya aportaste se quedan sin tu nombre, como aportes anónimos, y tus puntos dejan de estar en tu cuenta.
             </Text>
-            <Button title="Quiero eliminar mi cuenta" variant="outline" onPress={() => setConfirming(true)} />
+            <Button title="Quiero eliminar mi cuenta" variant="outline" onPress={() => setMode("delete")} />
           </View>
         </>
+      ) : mode === "password" ? (
+        <View style={styles.box}>
+          <Text style={styles.boxTitle}>Cambiar contraseña</Text>
+          {passwordInput("Contraseña actual", password, setPassword, "current-password")}
+          {passwordInput("Nueva contraseña", next, setNext, "new-password")}
+          <Text style={styles.text}>Mínimo 8 caracteres. Al cambiarla cerramos tu sesión en los demás dispositivos.</Text>
+          <View style={styles.actions}>
+            <View style={styles.flex}><Button title="Cancelar" variant="outline" onPress={back} /></View>
+            <View style={styles.flex}><Button title="Guardar" loading={busy === "password"} disabled={!password || !next} onPress={savePassword} /></View>
+          </View>
+        </View>
       ) : (
         <View style={styles.danger}>
           <Text style={styles.dangerTitle}>¿Seguro? Esto no se puede deshacer.</Text>
-          <Text style={styles.text}>Si entraste con correo, escribe tu contraseña. Si entraste con Google, déjalo vacío.</Text>
-          <TextInput
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            autoComplete="current-password"
-            placeholder="Contraseña"
-            placeholderTextColor={colors.mutedForeground}
-            style={styles.input}
-          />
+          {withPassword ? (
+            <>
+              <Text style={styles.text}>Escribe tu contraseña para confirmar.</Text>
+              {passwordInput("Contraseña", password, setPassword, "current-password")}
+            </>
+          ) : null}
           <View style={styles.actions}>
-            <View style={styles.flex}><Button title="Cancelar" variant="outline" onPress={() => { setConfirming(false); setError(""); }} /></View>
-            <View style={styles.flex}><Button title="Eliminar" variant="danger" loading={busy === "delete"} onPress={remove} /></View>
+            <View style={styles.flex}><Button title="Cancelar" variant="outline" onPress={back} /></View>
+            <View style={styles.flex}><Button title="Eliminar" variant="danger" loading={busy === "delete"} disabled={withPassword && !password} onPress={remove} /></View>
           </View>
         </View>
       )}
@@ -127,6 +179,8 @@ const styles = StyleSheet.create({
   title: { fontSize: fontSize.title, fontWeight: "800", color: colors.foreground },
   text: { fontSize: fontSize.caption, lineHeight: 18, color: colors.mutedForeground },
   danger: { gap: spacing.sm, padding: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
+  box: { gap: spacing.sm, padding: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
+  boxTitle: { fontSize: fontSize.subhead, fontWeight: "800", color: colors.foreground },
   dangerTitle: { fontSize: fontSize.subhead, fontWeight: "800", color: colors.destructive },
   input: {
     height: 46, paddingHorizontal: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: colors.input,
