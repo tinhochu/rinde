@@ -11,6 +11,8 @@ import { saveReceiptImage } from "./receipt-storage";
 import { awardLines, isGap, syncBadges, BADGES, type BadgeId } from "./rewards";
 
 export const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+/** Photos of one long receipt, top to bottom */
+export const MAX_PARTS = 4;
 export const IMAGE_TYPES = ["image/jpeg", "image/png", "image/heic", "image/heif", "image/webp"];
 const MAX_AGE_MS = 72 * 3_600_000;
 const FUTURE_SLACK_MS = 15 * 60_000;
@@ -27,8 +29,11 @@ export const MESSAGES = {
   paused: "Pausamos el escaneo de facturas por 24 horas por intentos repetidos.",
   duplicate: "Esta factura ya fue registrada.",
   store: "Por ahora leemos facturas de D1, Jumbo y Éxito.",
-  invoice: "No pudimos leer el número de la factura. Toma la foto incluyendo la parte de abajo.",
-  date: "No pudimos leer la fecha de la factura. Toma la foto de nuevo con la fecha visible.",
+  top: "No vemos el nombre de la tienda. Incluye la parte de arriba de la factura; si es larga, tómala en varias fotos.",
+  invoice: "No pudimos leer el número de la factura. Incluye la parte de abajo; si la factura es larga, agrégala como otra foto.",
+  date: "No pudimos leer la fecha de la factura. Toma la foto de nuevo con la fecha visible; si la factura es larga, tómala en varias fotos.",
+  long: "La factura tardó demasiado en leerse. Si es larga, tómala en 2 o 3 fotos, de arriba a abajo.",
+  slow: "No alcanzamos a leer las fotos a tiempo. Inténtalo de nuevo.",
   old: "Esta factura tiene más de 3 días; sus precios ya no sirven para comparar.",
   future: "La fecha de la factura es posterior a hoy. Revisa la foto.",
   cap: "Llegaste al máximo de 5 facturas por hoy.",
@@ -144,13 +149,22 @@ function draftLine(line: ParsedLine, match: LineMatch | null, options: ListingOp
  * Upload → checks → extraction → matching → draft. Every rejection happens before the photo is
  * stored; an identical photo is turned away before the model is called.
  */
-export async function createDraft(input: { sessionId: string; zone?: string; image: Uint8Array; mime: string; now?: Date }): Promise<ReceiptDraft> {
+export async function createDraft(input: {
+  sessionId: string; zone?: string;
+  /** The photo, or the top part of a long receipt */
+  image: Uint8Array; mime: string;
+  /** The rest of a long receipt, in order down the paper */
+  more?: { data: Uint8Array; mime: string }[];
+  now?: Date;
+}): Promise<ReceiptDraft> {
   const now = input.now ?? new Date();
   const prisma = db();
   const contributor = await contributorFor(input.sessionId, input.zone);
   if (contributor.suspendedUntil && contributor.suspendedUntil > now) throw new ReceiptRejected("paused", MESSAGES.paused, 429);
 
-  const imageHash = sha256(input.image);
+  const photos = [{ data: input.image, mime: input.mime }, ...(input.more ?? [])];
+  // One photo keeps its own hash (recorded demo receipts match on it); parts hash as an ordered set.
+  const imageHash = photos.length === 1 ? sha256(input.image) : sha256(photos.map((p) => sha256(p.data)).join(","));
   const sameFile = await findDuplicate(prisma, { imageHash });
   if (sameFile) {
     await recordDuplicate(contributor.id, sameFile.layer, sameFile.receiptId, now);
@@ -162,14 +176,19 @@ export async function createDraft(input: { sessionId: string; zone?: string; ima
 
   let read;
   try {
-    read = await extractReceipt({ data: input.image, mime: input.mime });
+    read = await extractReceipt(photos);
   } catch (e) {
+    if (e instanceof MuseUnavailable && e.timedOut) {
+      throw photos.length === 1 ? new ReceiptRejected("long", MESSAGES.long, 503) : new ReceiptRejected("slow", MESSAGES.slow, 503);
+    }
     if (e instanceof MuseUnavailable) throw new ReceiptRejected("unavailable", MESSAGES.unavailable, 503);
     throw e;
   }
   const extraction = scrubPersonalData(read.extraction);
 
   const store = detectStore(`${extraction.store} ${extraction.branch}`);
+  // Nothing printed at the top was read: the photo most likely starts below the store's name.
+  if (!store && !`${extraction.store}${extraction.branch}`.trim()) throw new ReceiptRejected("top", MESSAGES.top);
   if (!store) throw new ReceiptRejected("store", MESSAGES.store);
   const invoiceNumber = normalizeInvoiceNumber(extraction.invoice_number);
   if (!invoiceNumber) throw new ReceiptRejected("invoice", MESSAGES.invoice);
@@ -211,7 +230,8 @@ export async function createDraft(input: { sessionId: string; zone?: string; ima
       },
     },
   });
-  await prisma.receipt.update({ where: { id: receipt.id }, data: { imagePath: await saveReceiptImage(receipt.id, input.image) } });
+  const [imagePath] = await Promise.all(photos.map((p, part) => saveReceiptImage(receipt.id, p.data, part)));
+  await prisma.receipt.update({ where: { id: receipt.id }, data: { imagePath } });
 
   return {
     id: receipt.id, store: STORE_BY_SLUG[store], branch: extraction.branch, purchasedAt: purchasedAt.toISOString(), total, invoiceNumber,

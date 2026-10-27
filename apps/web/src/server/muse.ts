@@ -9,7 +9,12 @@ import type { Extraction } from "@rinde/core";
  * Meta Model API adapter (Muse). Uses the OpenAI-compatible Responses API at META_API_BASE_URL.
  * The model only transcribes and chooses among given options; it never supplies a price.
  */
-export class MuseUnavailable extends Error {}
+export class MuseUnavailable extends Error {
+  /** The model ran out of time, as a very long receipt can make it; other failures are outages. */
+  constructor(message: string, readonly timedOut = false) {
+    super(message);
+  }
+}
 
 export interface MuseConfig {
   apiKey: string | undefined;
@@ -36,14 +41,13 @@ export async function museJson<T>(
   instruction: string,
   format: { name: string; schema: Record<string, unknown> },
   validate: z.ZodType<T>,
-  opts: { image?: Image; effort?: "low" | "medium" | "high" } = {},
+  opts: { images?: Image[]; effort?: "low" | "medium" | "high" } = {},
   cfg: MuseConfig = museConfig(),
 ): Promise<T> {
   if (!cfg.apiKey) throw new MuseUnavailable("META_API_KEY is not set");
   const content: unknown[] = [{ type: "input_text", text: instruction }];
-  if (opts.image) {
-    const b64 = Buffer.from(opts.image.data).toString("base64");
-    content.push({ type: "input_image", image_url: `data:${opts.image.mime};base64,${b64}` });
+  for (const image of opts.images ?? []) {
+    content.push({ type: "input_image", image_url: `data:${image.mime};base64,${Buffer.from(image.data).toString("base64")}` });
   }
   const body = JSON.stringify({
     model: cfg.model,
@@ -56,16 +60,17 @@ export async function museJson<T>(
   let lastError = "";
   for (let attempt = 0; attempt < 2; attempt++) {
     let response: Response;
+    const signal = AbortSignal.timeout(cfg.timeoutMs);
     try {
       response = await cfg.fetch(`${cfg.baseUrl}/responses`, {
         method: "POST",
         headers: { Authorization: `Bearer ${cfg.apiKey}`, "Content-Type": "application/json" },
         body,
-        signal: AbortSignal.timeout(cfg.timeoutMs),
+        signal,
       });
     } catch (e) {
       // Timeouts spend the whole budget; don't retry them.
-      throw new MuseUnavailable(e instanceof Error ? e.message : "request failed");
+      throw new MuseUnavailable(e instanceof Error ? e.message : "request failed", signal.aborted);
     }
     if (response.status >= 500) { lastError = `HTTP ${response.status}`; continue; }
     if (!response.ok) throw new MuseUnavailable(`HTTP ${response.status}`);
@@ -134,20 +139,30 @@ Do NOT include the customer's name, the customer's ID (CC, cédula or the custom
   unit_price: the unit or per-kg price as printed, empty if not printed. total: the line total as printed.
 Do not include subtotal, tax (IVA), payment, change or bag-tax summary lines as products.`;
 
+/** Added when a long receipt comes in several photos. */
+const PARTS_INSTRUCTION = (n: number) => `
+The receipt was photographed in ${n} parts, in order from the top of the receipt to the bottom, and consecutive photos may overlap.
+They are all the same receipt: transcribe it once. A product line visible in two photos is ONE line; list it once, in its place.
+Two identical lines are separate purchases only when they are printed twice on the paper itself.`;
+
+/** Reading a long receipt, or several photos of one, takes the model longer than a sorting task. */
+export const RECEIPT_TIMEOUT_MS = 90_000;
+
 export type ReceiptExtraction = { extraction: Extraction; demo: boolean };
 
 /**
  * Reads a receipt photo. When the API is unavailable and DEMO_RECEIPTS=1, a recorded extraction
  * for a known sample photo (matched by SHA-256) is returned instead, flagged demo.
  */
-export async function extractReceipt(image: Image, cfg: MuseConfig = museConfig()): Promise<ReceiptExtraction> {
+export async function extractReceipt(images: Image[], cfg: MuseConfig = { ...museConfig(), timeoutMs: RECEIPT_TIMEOUT_MS }): Promise<ReceiptExtraction> {
   try {
-    const extraction = await museJson(RECEIPT_INSTRUCTION, { name: "receipt", schema: EXTRACTION_SCHEMA }, extractionSchema, { image }, cfg);
+    const instruction = images.length > 1 ? RECEIPT_INSTRUCTION + PARTS_INSTRUCTION(images.length) : RECEIPT_INSTRUCTION;
+    const extraction = await museJson(instruction, { name: "receipt", schema: EXTRACTION_SCHEMA }, extractionSchema, { images }, cfg);
     return { extraction, demo: false };
   } catch (e) {
     if (!(e instanceof MuseUnavailable)) throw e;
     if (process.env["DEMO_RECEIPTS"] === "1") {
-      const fixture = await demoFixture(sha256(image.data));
+      const fixture = images.length === 1 ? await demoFixture(sha256(images[0]!.data)) : null;
       if (fixture) return { extraction: fixture, demo: true };
     }
     throw e;

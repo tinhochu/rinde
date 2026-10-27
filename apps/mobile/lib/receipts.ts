@@ -54,6 +54,8 @@ export type Leaderboard = { zone: string; weekStart: string; top: RankRow[]; you
 
 /** A photo to upload: a web `File`, or a native file uri. */
 export type ReceiptPhoto = { file?: Blob; uri: string; mimeType: string };
+/** Photos of one long receipt, top to bottom (the API's MAX_PARTS). */
+export const MAX_PARTS = 4;
 
 const BASE = apiBase();
 
@@ -89,14 +91,20 @@ export async function fetchSamples(): Promise<string[]> {
  * starts reading the receipt.
  */
 export async function uploadReceipt(
-  source: { photo: ReceiptPhoto } | { sample: string },
+  source: { photos: ReceiptPhoto[] } | { sample: string },
   zone: string,
   onProgress: (fraction: number) => void,
 ): Promise<ReceiptDraft> {
   const form = new FormData();
   if ("sample" in source) form.append("sample", source.sample);
-  else if (Platform.OS === "web" && source.photo.file) form.append("image", source.photo.file, "factura.jpg");
-  else form.append("image", { uri: source.photo.uri, type: source.photo.mimeType, name: "factura.jpg" } as unknown as Blob);
+  else {
+    // In order down the paper: the API reads them as one receipt.
+    source.photos.forEach((photo, i) => {
+      const name = `factura-${i + 1}.jpg`;
+      if (Platform.OS === "web" && photo.file) form.append("image", photo.file, name);
+      else form.append("image", { uri: photo.uri, type: photo.mimeType, name } as unknown as Blob);
+    });
+  }
   if (zone) form.append("zone", zone);
   const head = await headers();
 

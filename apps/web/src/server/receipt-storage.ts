@@ -9,9 +9,10 @@ import path from "node:path";
  */
 const dir = () => process.env["RECEIPTS_DIR"] || path.join(process.cwd(), ".data", "receipts");
 
-export async function saveReceiptImage(receiptId: string, data: Uint8Array): Promise<string> {
+/** Saves one photo; the parts of a long receipt after the first are `<id>-<part>.img` beside it. */
+export async function saveReceiptImage(receiptId: string, data: Uint8Array, part = 0): Promise<string> {
   await mkdir(dir(), { recursive: true });
-  const file = path.join(dir(), `${receiptId}.img`);
+  const file = path.join(dir(), part ? `${receiptId}-${part}.img` : `${receiptId}.img`);
   await writeFile(file, data);
   return file;
 }

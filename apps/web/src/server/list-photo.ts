@@ -31,7 +31,7 @@ const result = z.object({
 
 /** Reads a photographed shopping list into list items with Meta Muse vision. Items only: never prices. */
 export async function readListPhoto(image: { data: Uint8Array; mime: string }, cfg: MuseConfig = museConfig()): Promise<PhotoListItem[]> {
-  const out = await museJson(INSTRUCTION, { name: "shopping_list", schema: SCHEMA }, result, { image, effort: "low" }, cfg);
+  const out = await museJson(INSTRUCTION, { name: "shopping_list", schema: SCHEMA }, result, { images: [image], effort: "low" }, cfg);
   return out.items
     .map((i) => ({ name: i.name.trim().slice(0, 100), quantity: i.quantity, unit: i.unit, brand: i.brand.trim().slice(0, 80) }))
     .filter((i) => i.name.length >= 2 && i.quantity > 0 && i.quantity <= 1_000_000)

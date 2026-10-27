@@ -3,14 +3,16 @@ import type { Extraction, ExtractedLine } from "@rinde/core";
 import { db } from "@rinde/db";
 
 // The model is mocked: these tests cover our checks, matching and guardrail, not Muse.
-const muse = vi.hoisted(() => ({ extraction: null as Extraction | null, calls: 0, down: false }));
+const muse = vi.hoisted(() => ({ extraction: null as Extraction | null, calls: 0, down: false, slow: false, photos: 0 }));
 vi.mock("./muse", async (orig) => {
   const actual = await orig<typeof import("./muse")>();
   return {
     ...actual,
-    extractReceipt: async () => {
+    extractReceipt: async (images: unknown[]) => {
       muse.calls++;
+      muse.photos = images.length;
       if (muse.down) throw new actual.MuseUnavailable("mocked outage");
+      if (muse.slow) throw new actual.MuseUnavailable("mocked timeout", true);
       return { extraction: structuredClone(muse.extraction!), demo: false };
     },
     chooseCandidates: async () => { throw new actual.MuseUnavailable("mocked"); },
@@ -58,7 +60,7 @@ describe.skipIf(!process.env["INTEGRATION"])("receipts (dev DB)", () => {
     expect(jumbo).toHaveLength(9);
     second = receipt(`POS ${RUN}-2`);
   });
-  beforeEach(() => { muse.calls = 0; muse.down = false; });
+  beforeEach(() => { muse.calls = 0; muse.down = false; muse.slow = false; });
 
   afterAll(() => cleanupContributors(RUN));
 
@@ -167,6 +169,26 @@ describe.skipIf(!process.env["INTEGRATION"])("receipts (dev DB)", () => {
     muse.down = true;
     await expect(createDraft({ sessionId: session("j"), image: image(), mime: "image/jpeg" })).rejects.toThrow(MESSAGES.unavailable);
     expect(await db().receipt.count({ where: { contributor: { sessionId: session("j") } } })).toBe(0);
+  });
+
+  it("reads a long receipt's parts together, as one receipt", async () => {
+    muse.extraction = receipt(`POS ${RUN}-parts`);
+    const draft = await createDraft({ sessionId: session("l"), image: image(), mime: "image/jpeg", more: [{ data: image(), mime: "image/jpeg" }, { data: image(), mime: "image/png" }] });
+    expect(muse.photos).toBe(3);
+    expect(draft.lines).toHaveLength(12);
+    await confirmDraft({ sessionId: session("l"), receiptId: draft.id, edits: [] });
+    // Once sent, the same receipt in other photos is a duplicate.
+    muse.extraction = receipt(`POS ${RUN}-parts`);
+    await expect(createDraft({ sessionId: session("l"), image: image(), mime: "image/jpeg", more: [{ data: image(), mime: "image/jpeg" }] })).rejects.toThrow(MESSAGES.duplicate);
+  });
+
+  it("asks for a long receipt in parts when one photo takes too long, and says when the top is missing", async () => {
+    muse.slow = true;
+    await expect(createDraft({ sessionId: session("m2"), image: image(), mime: "image/jpeg" })).rejects.toThrow(MESSAGES.long);
+    await expect(createDraft({ sessionId: session("m2"), image: image(), mime: "image/jpeg", more: [{ data: image(), mime: "image/jpeg" }] })).rejects.toThrow(MESSAGES.slow);
+    muse.slow = false;
+    muse.extraction = receipt(`POS ${RUN}-top`, { store: "", branch: "" });
+    await expect(createDraft({ sessionId: session("m2"), image: image(), mime: "image/jpeg" })).rejects.toThrow(MESSAGES.top);
   });
 
   it("accepts at most 5 receipts per contributor per day", async () => {

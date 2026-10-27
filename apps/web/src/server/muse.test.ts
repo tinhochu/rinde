@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { z } from "zod";
-import { chooseCandidate, chooseCandidates, demoFixture, museJson, MuseUnavailable, sha256, type MuseConfig } from "./muse";
+import { chooseCandidate, chooseCandidates, demoFixture, extractReceipt, museJson, MuseUnavailable, sha256, type MuseConfig } from "./muse";
 
 const reply = (text: string, status = 200) =>
   new Response(JSON.stringify({ output: [{ type: "reasoning" }, { type: "message", content: [{ type: "output_text", text }] }] }), { status });
@@ -26,7 +26,7 @@ const shape = z.object({ a: z.string() });
 describe("museJson", () => {
   it("sends the image as a data URL with a strict schema and parses the message text", async () => {
     const calls: { url: string; body: { input: { content: { type: string; image_url?: string }[] }[]; text: unknown } }[] = [];
-    const out = await museJson("x", schema, shape, { image: { data: new Uint8Array([1, 2]), mime: "image/jpeg" } }, cfg([reply('{"a":"ok"}')], calls));
+    const out = await museJson("x", schema, shape, { images: [{ data: new Uint8Array([1, 2]), mime: "image/jpeg" }] }, cfg([reply('{"a":"ok"}')], calls));
     expect(out).toEqual({ a: "ok" });
     expect(calls[0]!.url).toBe("https://api.example/v1/responses");
     expect(calls[0]!.body.input[0]!.content[1]).toEqual({ type: "input_image", image_url: "data:image/jpeg;base64,AQI=" });
@@ -43,12 +43,39 @@ describe("museJson", () => {
 
   it("fails as unavailable on timeout without retrying", async () => {
     const calls: unknown[] = [];
-    await expect(museJson("x", schema, shape, {}, cfg(["hang", reply('{"a":"b"}')], calls))).rejects.toBeInstanceOf(MuseUnavailable);
+    const failure = await museJson("x", schema, shape, {}, cfg(["hang", reply('{"a":"b"}')], calls)).catch((e: unknown) => e);
+    expect(failure).toBeInstanceOf(MuseUnavailable);
+    expect((failure as MuseUnavailable).timedOut).toBe(true);
     expect(calls).toHaveLength(1);
+  });
+
+  it("tells an outage apart from running out of time", async () => {
+    const failure = await museJson("x", schema, shape, {}, cfg([new Response("", { status: 401 })])).catch((e: unknown) => e);
+    expect((failure as MuseUnavailable).timedOut).toBe(false);
   });
 
   it("is unavailable without a key", async () => {
     await expect(museJson("x", schema, shape, {}, { ...cfg([]), apiKey: undefined })).rejects.toBeInstanceOf(MuseUnavailable);
+  });
+});
+
+describe("extractReceipt", () => {
+  const empty = '{"store":"","branch":"","purchased_at":"","total":"","invoice_number":"","cufe":"","lines":[]}';
+  type Call = { body: { input: { content: { type: string; text?: string }[] }[] } };
+
+  it("sends every part of a long receipt in order, as one receipt", async () => {
+    const calls: Call[] = [];
+    const parts = [1, 2, 3].map((n) => ({ data: new Uint8Array([n]), mime: "image/jpeg" }));
+    await extractReceipt(parts, cfg([reply(empty)], calls));
+    const content = calls[0]!.body.input[0]!.content;
+    expect(content.map((c) => c.type)).toEqual(["input_text", "input_image", "input_image", "input_image"]);
+    expect(content[0]!.text).toMatch(/3 parts, in order from the top/);
+  });
+
+  it("says nothing about parts for a single photo", async () => {
+    const calls: Call[] = [];
+    await extractReceipt([{ data: new Uint8Array([1]), mime: "image/jpeg" }], cfg([reply(empty)], calls));
+    expect(calls[0]!.body.input[0]!.content[0]!.text).not.toMatch(/parts/);
   });
 });
 
