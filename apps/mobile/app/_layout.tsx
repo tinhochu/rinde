@@ -17,6 +17,9 @@ export default function RootLayout() {
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(tabs)" />
             <Stack.Screen name="account" options={{ presentation: "modal" }} />
+            {/* Search and product pages sit over the tabs: their own Back, no tab bar competing with the results. */}
+            <Stack.Screen name="search" />
+            <Stack.Screen name="product/[id]" />
           </Stack>
           <OfflineBanner />
           <ProductModal />

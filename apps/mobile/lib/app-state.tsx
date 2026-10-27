@@ -7,6 +7,8 @@ import { createPlan, decideTradeoff, type PlanRequest, type PlanResult, type Ver
 import { deleteDraft, loadSaved, saveCart, saveDraft, saveFavorites, savePrefs } from "./storage";
 import { isFresh, toListItems, type CartLine, type SavedDraft, type ShopProduct } from "./shop";
 import { recordPick } from "./history";
+import { rememberProduct } from "./product-cache";
+import { searchHref } from "./search";
 import { toast } from "./toast";
 
 export type AppModal = "area" | "saved" | "help" | "privacy" | null;
@@ -16,7 +18,7 @@ type AppStateValue = {
   items: ListItem[]; result?: PlanResult; progress: VerifyProgress[]; refreshing: boolean; deciding: string | null; fromCart: boolean;
   cart: CartLine[]; cartCount: number; favorites: ShopProduct[];
   product: ShopProduct | null; modal: AppModal; saved?: SavedDraft;
-  hydrated: boolean; offline: boolean; externalSearch?: { term: string; nonce: number };
+  hydrated: boolean; offline: boolean;
   go: (next: number) => void;
   openPlanner: (useCart?: boolean) => void;
   explore: () => void;
@@ -71,7 +73,6 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [saved, setSaved] = useState<SavedDraft>();
   const [hydrated, setHydrated] = useState(false);
   const [offline, setOffline] = useState(false);
-  const [externalSearch, setExternalSearch] = useState<{ term: string; nonce: number }>();
   const activeRequest = useRef<AbortController | null>(null);
   const area = zone ? `Medellín, ${zone}` : "Medellín, Antioquia";
 
@@ -251,11 +252,22 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     router.push("/plan");
   }
 
+  // A product with a real offer gets its own page (/product/:id); a list idea without a price keeps the dialog.
+  function openProduct(next: ShopProduct) {
+    if (!next.offer) {
+      setProduct(next);
+      return;
+    }
+    void recordPick(next.id);
+    rememberProduct(next);
+    setProduct(null);
+    router.push(`/product/${encodeURIComponent(next.id)}`);
+  }
+
   function searchProduct() {
     if (!product) return;
-    setExternalSearch({ term: product.term, nonce: Date.now() });
     setProduct(null);
-    router.push("/");
+    router.push(searchHref(product.term));
   }
 
   function setZone(next: string) {
@@ -314,9 +326,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const value: AppStateValue = {
     step, budget, people, zone, area, tripCost, items, result, progress, refreshing, deciding, fromCart,
-    cart, cartCount, favorites, product, modal, saved, hydrated, offline, externalSearch,
+    cart, cartCount, favorites, product, modal, saved, hydrated, offline,
     go, openPlanner, explore,
-    openProduct: (next: ShopProduct) => { if (next.offer) void recordPick(next.id); setProduct(next); }, closeProduct: () => setProduct(null),
+    openProduct, closeProduct: () => setProduct(null),
     openModal: setModal, closeModal: () => setModal(null),
     setZone, setBudgetPeople, setPrefs, setItems, compare, refresh, decide, resume, deleteSaved,
     addProduct, removeProduct, deleteLine, clearCart, favoriteProduct, searchProduct,

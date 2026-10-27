@@ -37,3 +37,11 @@ export function extractPhoto(uri: string, mimeType: string): Promise<{ items: Li
   data.append("photo", { uri, type: mimeType, name: "lista.jpg" } as unknown as Blob);
   return fetch(`${BASE}/api/extract`, { method: "POST", body: data }).then(parse) as Promise<{ items: ListItem[] }>;
 }
+
+/** One store's observed price for a listing on one day (see apps/web/src/server/history.ts). */
+export type HistoryPoint = { listingId: string; store: Store; day: string; price: number; source: "online" | "receipt" };
+
+export function fetchHistory(listingIds: string[], signal?: AbortSignal): Promise<{ days: number; points: HistoryPoint[] }> {
+  const ids = encodeURIComponent(listingIds.slice(0, 6).join(","));
+  return fetch(`${BASE}/api/history?ids=${ids}`, { signal }).then(parse) as Promise<{ days: number; points: HistoryPoint[] }>;
+}
