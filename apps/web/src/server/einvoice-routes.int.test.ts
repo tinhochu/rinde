@@ -32,7 +32,9 @@ const FIXTURES = path.join(import.meta.dirname, "../../../../packages/core/src/e
 /** The Éxito fixture issued two hours ago with its own CUFE and number. */
 function exitoZip() {
   const cufe = createHash("sha384").update(RUN).digest("hex");
-  const local = new Date(Date.now() - 2 * 3_600_000 - 5 * 3_600_000).toISOString();
+  // Each test file issues its invoices at its own hour: files run in parallel on one database, and two
+  // invoices from the same branch, minute and total would be taken for the same purchase.
+  const local = new Date(Date.now() - 3 * 3_600_000 - 5 * 3_600_000).toISOString();
   const xml = readFileSync(path.join(FIXTURES, "exito.xml"), "utf8")
     .replace(/0d87f960718cc4c279feec708b35a4d298d8bbc88b339cc9d6d23327b73c9c81731ecca8117f49e60ad9116aca3eecf4/g, cufe)
     .replaceAll("QZ9667377", `QZ96${RUN.slice(-8)}`)

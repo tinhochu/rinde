@@ -5,7 +5,7 @@ const { linkDevice } = await import("./account");
 const { activeAddress, resolveRecipient } = await import("./forwarding");
 const { cleanupContributors } = await import("./receipt-fixture");
 
-const RUN = `test-${Date.now()}`;
+const RUN = `test-account-${Date.now()}`;
 const user = (n: string) => `${RUN}-user-${n}`;
 const device = (n: string) => `${RUN}-device-${n}`;
 

@@ -23,7 +23,7 @@ vi.stubEnv("RECEIPTS_DIR", "/tmp/rinde-receipts-test");
 const { createDraft, confirmDraft, MESSAGES } = await import("./receipts");
 const { cleanupContributors } = await import("./receipt-fixture");
 
-const RUN = `test-${Date.now()}`;
+const RUN = `test-receipts-${Date.now()}`;
 const session = (n: string) => `${RUN}-${n}`;
 let seq = 0;
 let minute = 0;
