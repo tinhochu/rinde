@@ -1,4 +1,5 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef } from "react";
+import { AccessibilityInfo, Animated, Image, Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { ChevronRight, Scale } from "lucide-react-native";
 import { StoreLogo } from "@/components/brand";
 import { cop, quantityLabel } from "@/lib/market";
@@ -27,7 +28,7 @@ export function ValuePicks({ picks, onOpen }: { picks: ValuePick[]; onOpen: (pic
         <Scale size={16} color={colors.primary} />
         <Text accessibilityRole="header" style={styles.title}>La que más rinde</Text>
       </View>
-      <Text style={styles.lede}>Sin importar la marca: el menor precio por {picks[0]!.unit === "und" ? "unidad" : picks[0]!.unit === "ml" ? "litro" : "kilo"} de cada tipo.</Text>
+      <Text style={styles.lede}>Sin importar la marca: el menor precio por {unitWord(picks[0]!.unit)} de cada tipo.</Text>
       {picks.slice(0, 3).map(pick => {
         const per = perLabel(pick.best.perBase, pick.unit);
         const more = Math.round((pick.typical / pick.best.perBase - 1) * 100);
@@ -57,13 +58,56 @@ export function ValuePicks({ picks, onOpen }: { picks: ValuePick[]; onOpen: (pic
         );
       })}
       <Text style={styles.note}>
-        Meta Muse agrupa los productos del mismo tipo; el precio por {picks[0]!.unit === "und" ? "unidad" : "kilo"} sale del precio y el tamaño que publica cada tienda.
+        Meta Muse agrupa los productos del mismo tipo; el precio por {unitWord(picks[0]!.unit)} sale del precio y el tamaño que publica cada tienda.
       </Text>
     </View>
   );
 }
 
+const unitWord = (unit: ValuePick["unit"]) => (unit === "und" ? "unidad" : unit === "ml" ? "litro" : "kilo");
+
+/**
+ * Holds the panel's place while Meta Muse groups the results, so it doesn't push the list down
+ * when it arrives. Pulses unless the person reduces motion.
+ */
+export function ValuePicksSkeleton() {
+  const pulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    let loop: Animated.CompositeAnimation | undefined;
+    AccessibilityInfo.isReduceMotionEnabled().then(reduced => {
+      if (reduced) return;
+      const step = (toValue: number) => Animated.timing(pulse, { toValue, duration: 700, useNativeDriver: Platform.OS !== "web" });
+      loop = Animated.loop(Animated.sequence([step(0.45), step(1)]));
+      loop.start();
+    }).catch(() => undefined);
+    return () => loop?.stop();
+  }, [pulse]);
+  return (
+    <View accessibilityLabel="Buscando la que más rinde" accessibilityLiveRegion="polite" style={styles.wrap}>
+      <View style={styles.head}>
+        <Scale size={16} color={colors.primary} />
+        <Text style={styles.title}>La que más rinde</Text>
+      </View>
+      <Text style={styles.lede}>Comparando precio por kilo, litro o unidad…</Text>
+      <Animated.View importantForAccessibility="no-hide-descendants" style={{ gap: spacing.sm, opacity: pulse }}>
+        {[0, 1].map(i => (
+          <View key={i} style={styles.row}>
+            <View style={[styles.image, styles.bone]} />
+            <View style={styles.body}>
+              <View style={[styles.boneLine, { width: "45%" }]} />
+              <View style={[styles.boneLine, { width: "85%", height: 14 }]} />
+              <View style={[styles.boneLine, { width: "60%" }]} />
+            </View>
+          </View>
+        ))}
+      </Animated.View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  bone: { backgroundColor: colors.muted },
+  boneLine: { height: 10, borderRadius: 5, backgroundColor: colors.muted },
   wrap: { gap: spacing.sm, padding: spacing.md, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.secondaryBorder, backgroundColor: colors.secondary },
   head: { flexDirection: "row", alignItems: "center", gap: 6 },
   title: { fontSize: fontSize.title, fontWeight: "800", color: colors.secondaryForeground },

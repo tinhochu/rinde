@@ -9,7 +9,7 @@ import { SearchHeader, type SearchInput } from "@/components/search/search-heade
 import { SearchSuggestions } from "@/components/search/search-suggestions";
 import { ReceiptPrompt } from "@/components/search/receipt-prompt";
 import { ResultCard, ResultCardSkeleton } from "@/components/search/result-card";
-import { ValuePicks } from "@/components/search/value-picks";
+import { ValuePicks, ValuePicksSkeleton } from "@/components/search/value-picks";
 import { Button } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
 import { withinStores } from "@/lib/compare";
@@ -33,7 +33,7 @@ export default function SearchScreen() {
   const [recent, setRecent] = useState<string[]>([]);
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const { data, error, loading, retry } = useCatalog(state.q);
-  const groups = useValueGroups(state.q, data?.products);
+  const { groups, loading: grouping } = useValueGroups(state.q, data?.products);
 
   // Browser Back/Forward changes the query under us: follow it.
   useEffect(() => { setText(state.q); setExpanded(new Set()); }, [state.q]);
@@ -156,7 +156,8 @@ export default function SearchScreen() {
                 {!loading && !error && all.length > 0 && (
                   <SearchFilterBar state={state} products={all} shown={results.length} onChange={update} />
                 )}
-                {!loading && !error && (
+                {!loading && !error && grouping && results.filter(p => p.pack > 0).length > 1 ? <ValuePicksSkeleton /> : null}
+                {!loading && !error && !grouping && (
                   <FadeIn>
                     <ValuePicks picks={picks} onOpen={pick => openProduct(toShop(pick.best.product))} />
                   </FadeIn>

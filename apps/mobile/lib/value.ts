@@ -75,15 +75,25 @@ export function valuePicks(groups: ValueGroup[], products: ComparedProduct[]): V
 
 const cache = new Map<string, ValueGroup[]>();
 
-/** Which results are the same kind of product, brand aside. Arrives after the results; empty on failure. */
-export function useValueGroups(query: string, products: ComparedProduct[] | undefined): ValueGroup[] {
+/**
+ * Which results are the same kind of product, brand aside. Arrives after the results (`loading` until
+ * then, so the screen can hold its place); empty on failure.
+ */
+export function useValueGroups(query: string, products: ComparedProduct[] | undefined): { groups: ValueGroup[]; loading: boolean } {
   const [groups, setGroups] = useState<ValueGroup[]>([]);
+  const [loadedKey, setLoadedKey] = useState("");
   const key = products ? `${query.toLowerCase()}|${products.map(p => p.key).join(",")}` : "";
 
   useEffect(() => {
-    if (!products?.length || !query) return setGroups([]);
+    if (!products?.length || !query) {
+      setGroups([]);
+      return setLoadedKey(key);
+    }
     const hit = cache.get(key);
-    if (hit) return setGroups(hit);
+    if (hit) {
+      setGroups(hit);
+      return setLoadedKey(key);
+    }
     setGroups([]);
     const controller = new AbortController();
     fetch(`${apiBase()}/api/value`, {
@@ -99,11 +109,14 @@ export function useValueGroups(query: string, products: ComparedProduct[] | unde
       .then((data: { groups?: ValueGroup[] }) => {
         cache.set(key, data.groups ?? []);
         setGroups(data.groups ?? []);
+        setLoadedKey(key);
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (!controller.signal.aborted) setLoadedKey(key);
+      });
     return () => controller.abort();
     // `key` stands for query + products
   }, [key]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return groups;
+  return { groups, loading: loadedKey !== key };
 }
