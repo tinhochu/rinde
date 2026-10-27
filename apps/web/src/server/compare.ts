@@ -1,8 +1,7 @@
 import "server-only";
-import { db, ensureRetailer, recordOffer, type RetailerSlug } from "@rinde/db";
-import { retailerBySlug } from "@rinde/retailers";
+import type { RetailerSlug } from "@rinde/db";
 import { STORE_BY_SLUG, type ComparedProduct, type Offer, type Store } from "./contract";
-import { findOffers, isThingFor, LIVE_TIMEOUT_MS, listingsByEan, searchListings, toOffer, withTimeout } from "./offers";
+import { findOffers, isThingFor, listingsByEan, lookupMissingEans, searchListings, toOffer } from "./offers";
 
 const MAX_PRODUCTS = 24;
 /** Products known only from receipts (mostly produce) shown on top of the online ones */
@@ -14,6 +13,20 @@ const groupKey = (o: Offer) => (o.produce ? `produce:${o.produce.slug}:${o.produ
 /** Cheapest offer per store, cheapest store first. */
 const cheapestPerStore = (list: Offer[]) =>
   [...new Map([...list].sort((a, b) => b.price - a.price).map((o) => [o.store, o])).values()].sort((a, b) => a.price - b.price);
+
+/**
+ * One price per store for one product, cheapest store first: its online price when it has one, a receipt
+ * price only where it doesn't. Receipt prices for stores with an online price come back as `inStore`.
+ */
+export function storePrices(all: Offer[]) {
+  const online = cheapestPerStore(all.filter((o) => o.source === "online"));
+  const reported = cheapestPerStore(all.filter((o) => o.source === "receipt"));
+  const hasOnline = (o: Offer) => online.some((x) => x.store === o.store);
+  return {
+    offers: [...online, ...reported.filter((r) => !hasOnline(r))].sort((a, b) => a.price - b.price),
+    inStore: reported.filter(hasOnline),
+  };
+}
 
 /**
  * Search, then line up each product across stores by EAN: the stored snapshot first,
@@ -49,31 +62,14 @@ export async function compareProducts(term: string, stores: RetailerSlug[]) {
   add((await listingsByEan(eans, stores, "receipt")).map(toOffer));
 
   // Stores we could check for a given EAN; a failed live lookup leaves the answer unknown.
-  const checked = new Set<RetailerSlug>(stores);
-  const prisma = db();
-  await Promise.all(
-    stores.map(async (slug) => {
-      const store = STORE_BY_SLUG[slug];
-      const wanted = eans.filter((ean) => !groups.get(`ean:${ean}`)!.some((o) => o.store === store && o.source === "online"));
-      if (wanted.length === 0) return;
-      try {
-        const found = await withTimeout(retailerBySlug[slug].byEans(wanted), LIVE_TIMEOUT_MS);
-        const retailer = await ensureRetailer(prisma, slug);
-        for (const o of found) await recordOffer(prisma, retailer.id, { ...o, source: `${slug}:live-ean` });
-        if (found.length) add((await listingsByEan(found.map((o) => o.ean!), [slug])).map(toOffer));
-      } catch {
-        checked.delete(slug);
-        reasons.push(`${store}: no pudimos confirmar qué productos tiene; puede tenerlos.`);
-      }
-    }),
-  );
+  const live = await lookupMissingEans(eans, stores, (ean, slug) =>
+    groups.get(`ean:${ean}`)!.some((o) => o.store === STORE_BY_SLUG[slug] && o.source === "online"));
+  add(live.found.map(toOffer));
+  reasons.push(...live.reasons);
+  const checked = live.answered;
 
   const products = keys.map((key): ComparedProduct => {
-    const all = groups.get(key)!;
-    const onlineBest = cheapestPerStore(all.filter((o) => o.source === "online"));
-    const reported = cheapestPerStore(all.filter((o) => o.source === "receipt"));
-    // A store's price is its online one when it has it; a receipt price stands in only where it doesn't.
-    const best = [...onlineBest, ...reported.filter((r) => !onlineBest.some((o) => o.store === r.store))].sort((a, b) => a.price - b.price);
+    const { offers: best, inStore } = storePrices(groups.get(key)!);
     const lead = best[0]!;
     const byEan = key.startsWith("ean:");
     const missing: Store[] = byEan
@@ -89,7 +85,7 @@ export async function compareProducts(term: string, stores: RetailerSlug[]) {
       unit: sized.unit,
       image: best.find((o) => o.image)?.image ?? "",
       offers: best,
-      inStore: reported.filter((r) => onlineBest.some((o) => o.store === r.store)),
+      inStore,
       missing,
       // Any store's specific category beats a generic one.
       aisle: best.find((o) => o.aisle !== "other")?.aisle ?? "other",

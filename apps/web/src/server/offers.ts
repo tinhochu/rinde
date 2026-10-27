@@ -59,6 +59,7 @@ export type ReadOptions = { stores?: RetailerSlug[]; perStore?: number; source?:
 
 export type ListingRow = {
   listingId: string;
+  productId: string;
   observationId: string;
   slug: RetailerSlug;
   name: string;
@@ -99,7 +100,7 @@ export async function searchListings(term: string, opts: ReadOptions = {}): Prom
 
   return db().$queryRaw<ListingRow[]>`
     WITH latest AS (${latestObservations(opts.source ?? "online")}), ranked AS (
-      SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
+      SELECT rp.id AS "listingId", rp."productId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
              rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch,
              row_number() OVER (
                PARTITION BY r.slug
@@ -117,18 +118,58 @@ export async function searchListings(term: string, opts: ReadOptions = {}): Prom
 
 /** Latest available observation for each listing whose product has one of these EANs. */
 export async function listingsByEan(eans: string[], stores: RetailerSlug[], source: PriceSource = "online"): Promise<ListingRow[]> {
-  if (eans.length === 0 || stores.length === 0) return [];
-  const byEan = Prisma.sql`AND po."retailerProductId" IN (
-    SELECT rp.id FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId" WHERE p.ean = ANY(${eans}))`;
+  if (eans.length === 0) return [];
+  return listingsWhere(Prisma.sql`AND po."retailerProductId" IN (
+    SELECT rp.id FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId" WHERE p.ean = ANY(${eans}))`, stores, source);
+}
+
+/**
+ * Latest available observation for every store's listing of these products. A product is one EAN,
+ * or one produce item and selling unit, so this is "the same thing at each store".
+ */
+export async function listingsForProducts(productIds: string[], stores: RetailerSlug[], source: PriceSource = "online"): Promise<ListingRow[]> {
+  if (productIds.length === 0) return [];
+  return listingsWhere(Prisma.sql`AND po."retailerProductId" IN (SELECT id FROM "RetailerProduct" WHERE "productId" = ANY(${productIds}))`, stores, source);
+}
+
+function listingsWhere(filter: Prisma.Sql, stores: RetailerSlug[], source: PriceSource): Promise<ListingRow[]> {
+  if (stores.length === 0) return Promise.resolve([]);
   return db().$queryRaw<ListingRow[]>`
-    WITH latest AS (${latestObservations(source, byEan)})
-    SELECT rp.id AS "listingId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
+    WITH latest AS (${latestObservations(source, filter)})
+    SELECT rp.id AS "listingId", rp."productId", l."observationId", r.slug, rp.name, p.brand, p.ean, p.size::text AS size, p.unit, p.category,
            rp."imageUrl", rp.url, rp."externalId", l.price, l.stock, l."observedAt", l.source, l.branch
     FROM latest l
     JOIN "RetailerProduct" rp ON rp.id = l."retailerProductId"
     JOIN "Product" p ON p.id = rp."productId"
     JOIN "Retailer" r ON r.id = rp."retailerId"
     WHERE r.slug::text = ANY(${stores})`;
+}
+
+/**
+ * Asks each store live for the EANs its snapshot lacks (`has` says what it already has), recording what
+ * it finds. Returns the found listings and the stores that answered; a store that fails stays unknown.
+ */
+export async function lookupMissingEans(eans: string[], stores: RetailerSlug[], has: (ean: string, store: RetailerSlug) => boolean) {
+  const answered = new Set<RetailerSlug>(stores);
+  const reasons: string[] = [];
+  const found: ListingRow[] = [];
+  const prisma = db();
+  await Promise.all(
+    stores.map(async (slug) => {
+      const wanted = eans.filter((ean) => !has(ean, slug));
+      if (wanted.length === 0) return;
+      try {
+        const offers = await withTimeout(retailerBySlug[slug].byEans(wanted), LIVE_TIMEOUT_MS);
+        const retailer = await ensureRetailer(prisma, slug);
+        for (const o of offers) await recordOffer(prisma, retailer.id, { ...o, source: `${slug}:live-ean` });
+        if (offers.length) found.push(...(await listingsByEan(offers.map((o) => o.ean!), [slug])));
+      } catch {
+        answered.delete(slug);
+        reasons.push(`${STORE_BY_SLUG[slug]}: no pudimos confirmar qué productos tiene; puede tenerlos.`);
+      }
+    }),
+  );
+  return { found, answered, reasons };
 }
 
 export function toOffer(r: ListingRow): Offer {
