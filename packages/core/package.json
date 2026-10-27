@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./einvoice": "./src/einvoice/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
@@ -15,5 +16,10 @@
     "@types/node": "^22",
     "typescript": "^5",
     "vitest": "^4"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.11.2",
+    "fflate": "^0.8.3",
+    "zod": "^4.6.7"
   }
 }
