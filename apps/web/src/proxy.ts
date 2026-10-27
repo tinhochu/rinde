@@ -25,6 +25,7 @@ export function proxy(request: NextRequest) {
   return response;
 }
 
+// The inbound email webhook is left out: it needs no CORS, and its signature is checked over the raw body.
 export const config = {
-  matcher: "/api/:path*",
+  matcher: "/api/((?!inbound/).*)",
 };
