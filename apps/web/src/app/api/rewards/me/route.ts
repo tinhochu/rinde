@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { db } from "@rinde/db";
-import { rewardsFor } from "@/server/rewards";
+import { emptyRewards, rewardsFor } from "@/server/rewards";
 
 const nameSchema = z.object({
   // Shown on the neighborhood ranking: letters, numbers, spaces and a few marks; empty goes back to "Vecino #…".
@@ -12,7 +12,7 @@ export async function GET(request: Request) {
   const sessionId = request.headers.get("x-rinde-session")?.slice(0, 64);
   if (!sessionId) return Response.json({ error: "Falta la sesión. Cierra y abre la app." }, { status: 400 });
   const mine = await rewardsFor(db(), sessionId);
-  return Response.json(mine ?? { points: 0, name: "", zone: "", badges: [], history: [], rank: null }, { headers: { "Cache-Control": "no-store" } });
+  return Response.json(mine ?? emptyRewards(), { headers: { "Cache-Control": "no-store" } });
 }
 
 // Sets the name shown on the ranking.

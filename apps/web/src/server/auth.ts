@@ -18,6 +18,15 @@ export const auth = betterAuth({
   database: prismaAdapter(db(), { provider: "postgresql" }),
   emailAndPassword: { enabled: true, minPasswordLength: 8 },
   socialProviders: google ? { google } : {},
+  user: {
+    deleteUser: {
+      enabled: true,
+      // Receipts and points stay with the device's anonymous contributor; the link and public name go.
+      beforeDelete: async (user) => {
+        await db().contributor.updateMany({ where: { accountId: user.id }, data: { accountId: null, displayName: null } });
+      },
+    },
+  },
   trustedOrigins: [
     ...allowedOrigins,
     "rinde://",

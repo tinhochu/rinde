@@ -8,11 +8,11 @@ type Tx = Prisma.TransactionClient | PrismaClient;
 export const POINTS = { line: 10, bonus: 15 } as const;
 
 export type BadgeId = "primera-factura" | "cazador-de-frutas" | "pionero" | "constante";
-export const BADGES: Record<BadgeId, { name: string; description: string }> = {
-  "primera-factura": { name: "Primera factura", description: "Tu primera factura aceptada" },
-  "cazador-de-frutas": { name: "Cazador de frutas", description: "10 frutas o verduras con precio" },
-  pionero: { name: "Pionero", description: "5 primeros precios en una tienda" },
-  constante: { name: "Constante", description: "Facturas en 4 semanas distintas" },
+export const BADGES: Record<BadgeId, { name: string; description: string; target: number }> = {
+  "primera-factura": { name: "Primera factura", description: "Tu primera factura aceptada", target: 1 },
+  "cazador-de-frutas": { name: "Cazador de frutas", description: "10 frutas o verduras con precio", target: 10 },
+  pionero: { name: "Pionero", description: "5 primeros precios en una tienda", target: 5 },
+  constante: { name: "Constante", description: "Facturas en 4 semanas distintas", target: 4 },
 };
 
 /** True when the listing has no current online price and no current receipt price (excluding this receipt). */
@@ -56,18 +56,19 @@ export function weekStart(at: Date): Date {
   return new Date(monday + 5 * 3_600_000);
 }
 
-/** Which badges the contributor qualifies for now, from ledger and receipt counts. */
-export async function qualifyingBadges(tx: Tx, contributorId: string): Promise<BadgeId[]> {
+/** How far the contributor is toward each badge, from ledger and receipt counts (confirmed receipts only). */
+export async function badgeProgress(tx: Tx, contributorId: string): Promise<Record<BadgeId, number>> {
   const accepted = await tx.receipt.findMany({ where: { contributorId, status: "confirmed" }, select: { purchasedAt: true } });
   const produce = await tx.receiptLine.count({ where: { accepted: true, produceSlug: { not: null }, receipt: { contributorId, status: "confirmed" } } });
   const gaps = await tx.rewardEvent.count({ where: { contributorId, kind: "gap_bonus", receipt: { status: "confirmed" } } });
   const weeks = new Set(accepted.map((r) => weekStart(r.purchasedAt).getTime())).size;
-  const out: BadgeId[] = [];
-  if (accepted.length >= 1) out.push("primera-factura");
-  if (produce >= 10) out.push("cazador-de-frutas");
-  if (gaps >= 5) out.push("pionero");
-  if (weeks >= 4) out.push("constante");
-  return out;
+  return { "primera-factura": accepted.length, "cazador-de-frutas": produce, pionero: gaps, constante: weeks };
+}
+
+/** Which badges the contributor qualifies for now. */
+export async function qualifyingBadges(tx: Tx, contributorId: string): Promise<BadgeId[]> {
+  const progress = await badgeProgress(tx, contributorId);
+  return (Object.keys(BADGES) as BadgeId[]).filter((id) => progress[id] >= BADGES[id].target);
 }
 
 /** Grants newly earned badges (each once) and removes ones that no longer qualify. Returns the new ones. */
@@ -125,14 +126,31 @@ export async function leaderboard(tx: Tx, zone: string, opts: { contributorId?: 
   return { zone, weekStart: start.toISOString(), top: rows.slice(0, 10), you: rows.find((r) => r.you) ?? null };
 }
 
+/** draft: read but never sent; confirmed: its accepted prices count; revoked: annulled later (reason from the ledger). */
+export type ReceiptSummary = {
+  id: string; store: string; purchasedAt: string; status: "draft" | "confirmed" | "revoked";
+  acceptedLines: number; points: number; reason: string | null;
+};
+
 export type MyRewards = {
   points: number;
   name: string;
   zone: string;
   badges: { id: BadgeId; name: string; description: string; earnedAt: string }[];
+  /** Every badge with its rule and progress, earned or not */
+  achievements: { id: BadgeId; name: string; description: string; target: number; progress: number; earnedAt: string | null }[];
+  /** Counts from receipt records: confirmed receipts and the prices accepted on them */
+  receipts: { confirmed: number; revoked: number; prices: number };
+  recentReceipts: ReceiptSummary[];
   history: { label: string; points: number; at: string }[];
   rank: LeaderboardRow | null;
 };
+
+export const emptyRewards = (): MyRewards => ({
+  points: 0, name: "", zone: "", badges: [],
+  achievements: (Object.keys(BADGES) as BadgeId[]).map((id) => ({ id, ...BADGES[id], progress: 0, earnedAt: null })),
+  receipts: { confirmed: 0, revoked: 0, prices: 0 }, recentReceipts: [], history: [], rank: null,
+});
 
 /** Balance, badges, recent ledger entries and this week's rank for a session; empty before the first receipt. */
 export async function rewardsFor(tx: Tx, sessionId: string, now = new Date()): Promise<MyRewards | null> {
@@ -141,11 +159,38 @@ export async function rewardsFor(tx: Tx, sessionId: string, now = new Date()): P
   const points = (await tx.rewardEvent.aggregate({ where: { contributorId: c.id }, _sum: { points: true } }))._sum.points ?? 0;
   const events = await tx.rewardEvent.findMany({ where: { contributorId: c.id }, orderBy: { createdAt: "desc" }, take: 30, select: { label: true, points: true, createdAt: true } });
   const board = await leaderboard(tx, c.zone, { contributorId: c.id, now });
+  const progress = await badgeProgress(tx, c.id);
+  const earned = new Map(c.badges.map((b) => [b.badge, b.earnedAt.toISOString()]));
+  const counts = await tx.receipt.groupBy({ by: ["status"], where: { contributorId: c.id }, _count: true });
+  const count = (status: string) => counts.find((r) => r.status === status)?._count ?? 0;
+  const prices = await tx.receiptLine.count({ where: { accepted: true, receipt: { contributorId: c.id, status: "confirmed" } } });
+  const recent = await tx.receipt.findMany({
+    where: { contributorId: c.id }, orderBy: { createdAt: "desc" }, take: 10,
+    select: {
+      id: true, store: true, purchasedAt: true, status: true,
+      _count: { select: { lines: { where: { accepted: true } } } },
+      rewards: { select: { points: true, kind: true, label: true } },
+    },
+  });
   return {
     points,
     name: publicName(c),
     zone: c.zone,
-    badges: c.badges.map((b) => ({ id: b.badge as BadgeId, ...BADGES[b.badge as BadgeId], earnedAt: b.earnedAt.toISOString() })),
+    badges: c.badges.map((b) => ({ id: b.badge as BadgeId, name: BADGES[b.badge as BadgeId].name, description: BADGES[b.badge as BadgeId].description, earnedAt: b.earnedAt.toISOString() })),
+    achievements: (Object.keys(BADGES) as BadgeId[]).map((id) => ({
+      id, ...BADGES[id], progress: Math.min(progress[id], BADGES[id].target), earnedAt: earned.get(id) ?? null,
+    })),
+    receipts: { confirmed: count("confirmed"), revoked: count("revoked"), prices },
+    recentReceipts: recent.map((r) => ({
+      id: r.id,
+      store: STORE_BY_SLUG[r.store],
+      purchasedAt: r.purchasedAt.toISOString(),
+      status: r.status as ReceiptSummary["status"],
+      acceptedLines: r.status === "draft" ? 0 : r._count.lines,
+      points: r.rewards.reduce((sum, e) => sum + e.points, 0),
+      // revokeReceipt labels its entry "<reason>: −N"; the reason is all a person needs.
+      reason: r.rewards.find((e) => e.kind === "revoked")?.label.replace(/:\s*−\d+$/, "") ?? null,
+    })),
     history: events.map((e) => ({ label: e.label, points: e.points, at: e.createdAt.toISOString() })),
     rank: board.you,
   };

@@ -111,6 +111,9 @@ describe.skipIf(!process.env["INTEGRATION"])("rewards (dev DB)", () => {
     const after = await rewardsFor(prisma, device.sessionId);
     expect(after).toMatchObject({ points: 0, badges: [] });
     expect(after!.history[0]).toMatchObject({ label: "Factura duplicada: −120", points: -120 });
+    expect(after!.receipts).toEqual({ confirmed: 0, revoked: 1, prices: 0 });
+    expect(after!.recentReceipts[0]).toMatchObject({ status: "revoked", store: "Éxito", points: 0, reason: "Factura duplicada" });
+    expect(after!.achievements.find((a) => a.id === "primera-factura")).toMatchObject({ target: 1, progress: 0, earnedAt: null });
 
     const kept = await seedConfirmedReceipt({ sessionId: device.sessionId, store: "exito", hoursAgo: 2, lines: [{ listingId: listing.id, price: 1000 }] });
     await prisma.rewardEvent.create({ data: { contributorId: device.id, receiptId: kept.id, kind: "line", points: 340, label: "Precio confirmado" } });
@@ -120,6 +123,8 @@ describe.skipIf(!process.env["INTEGRATION"])("rewards (dev DB)", () => {
     const merged = await rewardsFor(prisma, account.sessionId);
     expect(merged!.points).toBe(340);
     expect(merged!.badges.map((b) => b.id)).toEqual(["primera-factura"]);
+    expect(merged!.receipts).toMatchObject({ confirmed: 1, revoked: 1 });
+    expect(merged!.achievements.find((a) => a.id === "primera-factura")).toMatchObject({ progress: 1, earnedAt: expect.any(String) });
     expect(await prisma.contributor.findUnique({ where: { id: device.id } })).toBeNull();
   });
 });
