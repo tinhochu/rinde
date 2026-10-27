@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState, type ReactNode } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Bookmark, Car, ChevronRight, CircleHelp, Lock, MapPin, Palette, ShieldCheck, UserRound, Users, Wallet } from "lucide-react-native";
 import { Brand } from "@/components/brand";
 import { Chip, Stepper } from "@/components/ui";
@@ -46,7 +46,8 @@ export default function ProfileScreen() {
       <Section title="Tu mercado">
         <Row icon={<MapPin size={18} color={colors.primary} />} label="Tu zona" value={area} onPress={() => openModal("area")} />
         <View style={styles.setting}>
-          <SettingTitle icon={<Wallet size={18} color={colors.primary} />} label="Presupuesto habitual" value={cop(budget)} />
+          <SettingTitle icon={<Wallet size={18} color={colors.primary} />} label="Presupuesto habitual" />
+          <BudgetInput value={budget} onChange={n => setPrefs({ budget: n })} />
           <View style={styles.chips}>
             {BUDGETS.map(n => (
               <Chip key={n} selected={budget === n} onPress={() => setPrefs({ budget: n })}>{cop(n)}</Chip>
@@ -104,6 +105,49 @@ export default function ProfileScreen() {
   );
 }
 
+const MIN_BUDGET = 10000;
+const MAX_BUDGET = 10000000;
+
+/** Any amount, typed; the chips below are shortcuts. Saved when the field loses focus or on "listo". */
+function BudgetInput({ value, onChange }: { value: number; onChange: (n: number) => void }) {
+  const [text, setText] = useState(value.toLocaleString("es-CO"));
+  const [error, setError] = useState("");
+  useEffect(() => setText(value.toLocaleString("es-CO")), [value]);
+
+  function commit() {
+    const n = Number(text.replace(/\D/g, ""));
+    if (n < MIN_BUDGET || n > MAX_BUDGET) {
+      setError(n < MIN_BUDGET ? `Escribe al menos ${cop(MIN_BUDGET)}.` : `El máximo es ${cop(MAX_BUDGET)}.`);
+      setText(value.toLocaleString("es-CO"));
+      return;
+    }
+    setError("");
+    if (n !== value) onChange(n);
+    else setText(n.toLocaleString("es-CO"));
+  }
+
+  return (
+    <View style={styles.budgetWrap}>
+      <View style={styles.budgetBox}>
+        <Text style={styles.budgetCurrency}>$</Text>
+        <TextInput
+          accessibilityLabel="Presupuesto habitual en pesos"
+          keyboardType="number-pad"
+          returnKeyType="done"
+          selectTextOnFocus
+          value={text}
+          onChangeText={t => { setError(""); setText(Number(t.replace(/\D/g, "") || 0).toLocaleString("es-CO")); }}
+          onBlur={commit}
+          onSubmitEditing={commit}
+          style={styles.budgetInput}
+        />
+        <Text style={styles.budgetCop}>COP</Text>
+      </View>
+      {error ? <Text style={styles.budgetError}>{error}</Text> : <Text style={styles.help}>Escribe cualquier valor o elige uno rápido.</Text>}
+    </View>
+  );
+}
+
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <View style={styles.section}>
@@ -156,6 +200,15 @@ const styles = StyleSheet.create({
   value: { marginLeft: "auto", fontSize: fontSize.subhead, fontWeight: "700", color: colors.primary, fontVariant: ["tabular-nums"] },
   help: { fontSize: fontSize.caption, lineHeight: 18, color: colors.mutedForeground },
   chips: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
+  budgetWrap: { gap: 6 },
+  budgetBox: {
+    flexDirection: "row", alignItems: "center", gap: spacing.sm, borderRadius: radius.md,
+    borderWidth: 1, borderColor: colors.border, backgroundColor: colors.background, paddingHorizontal: spacing.md, minHeight: 52,
+  },
+  budgetCurrency: { fontSize: 22, fontWeight: "600", color: colors.primary },
+  budgetInput: { flex: 1, minWidth: 0, fontSize: 24, fontWeight: "800", color: colors.primary, fontVariant: ["tabular-nums"], paddingVertical: spacing.sm },
+  budgetCop: { fontSize: fontSize.caption, fontWeight: "600", color: colors.mutedForeground },
+  budgetError: { fontSize: fontSize.small, color: colors.destructive },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.md, padding: spacing.lg },
   divider: { borderBottomWidth: 1, borderBottomColor: colors.border },
   pressed: { backgroundColor: colors.muted },
