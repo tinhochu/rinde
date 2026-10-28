@@ -1,0 +1,108 @@
+[
+ {
+  "productId": "627374",
+  "productName": "Leche COLANTA semidescremada (1100  ml)",
+  "brand": "COLANTA",
+  "linkText": "leche-semidescremada-bolsa-colanta-1100-ml-627374",
+  "categories": [
+   "/Lácteos, huevos y refrigerados/Leche/Leche descremada y semidescremada/"
+  ],
+  "items": [
+   {
+    "itemId": "64993",
+    "ean": "7702129006132",
+    "images": [
+     {
+      "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25732925/Leche-Semidescremada-Bolsa-COLANTA-1100-ml-64993_a.jpg?v=639213823905800000"
+     }
+    ],
+    "sellers": [
+     {
+      "sellerId": "1",
+      "sellerName": "carulla",
+      "commertialOffer": {
+       "Price": 6100.0,
+       "ListPrice": 6100.0,
+       "IsAvailable": true,
+       "AvailableQuantity": 100
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "productId": "3218712",
+  "productName": "Leche GRANJERA fresca (1000  ml)",
+  "brand": "GRANJERA",
+  "linkText": "leche-primma-leche-fresca-granjera-bolsa-1000-ml-3218712",
+  "categories": [
+   "/Lácteos, huevos y refrigerados/Leche/Leche entera/"
+  ],
+  "items": [
+   {
+    "itemId": "3725700",
+    "ean": "7703043110516",
+    "images": [
+     {
+      "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25348677/Leche-PRIMMA-Leche-fresca-granjera-bolsa-1000-ml-3725700_a.jpg?v=639174826412470000"
+     }
+    ],
+    "sellers": [
+     {
+      "sellerId": "1",
+      "sellerName": "carulla",
+      "commertialOffer": {
+       "Price": 4500.0,
+       "ListPrice": 4700.0,
+       "IsAvailable": true,
+       "AvailableQuantity": 100
+      }
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "productId": "101918132",
+  "productName": "Recolector De Leche Materna",
+  "brand": "LANSINOH",
+  "linkText": "recolector-de-leche-materna-101918132-mp",
+  "categories": [
+   "/Bebés/Alimentación del bebé/Extractor y protector de lactancia/"
+  ],
+  "items": [
+   {
+    "itemId": "101918132",
+    "ean": "2210000294189",
+    "images": [
+     {
+      "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/19300333/recolector-de-leche-materna.jpg?v=638730739554570000"
+     }
+    ],
+    "sellers": [
+     {
+      "sellerId": "11539",
+      "sellerName": "natural sense",
+      "commertialOffer": {
+       "Price": 119900.0,
+       "ListPrice": 119900.0,
+       "IsAvailable": true,
+       "AvailableQuantity": 10
+      }
+     },
+     {
+      "sellerId": "1",
+      "sellerName": "carulla",
+      "commertialOffer": {
+       "Price": 0.0,
+       "ListPrice": 0.0,
+       "IsAvailable": false,
+       "AvailableQuantity": 0
+      }
+     }
+    ]
+   }
+  ]
+ }
+]

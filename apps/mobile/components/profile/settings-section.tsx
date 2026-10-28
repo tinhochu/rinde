@@ -44,7 +44,7 @@ export function SettingsSection() {
           }}
         />
         <Text style={styles.help}>
-          Explorar y la búsqueda arrancan con estas tiendas; puedes cambiarlas allí en cualquier momento. Mi plan de ahorro compara siempre las tres para encontrar el total más bajo.
+          Explorar y la búsqueda arrancan con estas tiendas; puedes cambiarlas allí en cualquier momento. Mi plan de ahorro compara siempre las cuatro para encontrar el total más bajo.
         </Text>
       </PreferenceRow>
 

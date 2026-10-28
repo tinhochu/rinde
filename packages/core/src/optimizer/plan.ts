@@ -4,8 +4,8 @@ import type {
 } from "./types";
 
 export const DEFAULT_TRIP_COST = 10_000;
-export const STORE_ORDER: RetailerSlug[] = ["d1", "jumbo", "exito"];
-export const STORE_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito" };
+export const STORE_ORDER: RetailerSlug[] = ["d1", "jumbo", "exito", "carulla"];
+export const STORE_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla" };
 
 const cop = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
 export const formatCop = (n: number) => `$${cop.format(Math.round(n))}`;
@@ -78,7 +78,7 @@ function storeKey(stores: RetailerSlug[]) {
  * Turn a shopping list into a multi-store purchase plan.
  *
  * Exact for this problem: once a set of stores is fixed, items are independent, so the
- * per-item minimum is optimal; every non-empty store set is tried (≤ 7 for 3 stores).
+ * per-item minimum is optimal; every non-empty store set is tried (≤ 15 for 4 stores).
  * The recommended plan minimizes goods total + tripCost × (stores used − 1).
  */
 export function optimize(items: PlanItem[], options: PlanOptions): Plan {

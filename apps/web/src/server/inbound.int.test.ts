@@ -57,6 +57,8 @@ function fresh(name: string, n: number) {
     .replaceAll("<cbc:IssueDate>2026-10-26</cbc:IssueDate><cbc:IssueTime>18:19:19-05:00</cbc:IssueTime>",
       `<cbc:IssueDate>${local.slice(0, 10)}</cbc:IssueDate><cbc:IssueTime>${local.slice(11, 19)}-05:00</cbc:IssueTime>`);
 }
+/** The Carulla fixture as a Surtimax invoice: same company, a chain Rinde doesn't compare. */
+const surtimax = (n: number) => fresh("carulla.xml", n).replaceAll("CARULLA EXPRESS EDS EL RETIRO", "SURTIMAX CALDAS");
 
 function webhook(emailId: string, to: string, opts: { sign?: boolean; from?: string } = {}) {
   const body = JSON.stringify({
@@ -122,7 +124,7 @@ describe.skipIf(!process.env["INTEGRATION"])("inbound email (dev DB)", () => {
   });
 
   it("records a rejection and lists it on the receipt screen", async () => {
-    resend.attachments.set(`${RUN}-2`, [{ filename: "carulla.zip", data: zipSync({ "ad2.xml": strToU8(fresh("carulla.xml", 2)) }) }]);
+    resend.attachments.set(`${RUN}-2`, [{ filename: "surtimax.zip", data: zipSync({ "ad2.xml": strToU8(surtimax(2)) }) }]);
     await deliver(webhook(`${RUN}-2`, address));
     const intake = await db().invoiceIntake.findUniqueOrThrow({ where: { resendEmailId: `${RUN}-2` } });
     expect(intake).toMatchObject({ status: "rejected", message: MESSAGES.store });
@@ -147,7 +149,7 @@ describe.skipIf(!process.env["INTEGRATION"])("inbound email (dev DB)", () => {
 
   it("drops the 21st email of the day with a single limit message", async () => {
     await db().forwardingAddress.update({ where: { id: addressId }, data: { emailsToday: 19, countedOn: new Date() } });
-    resend.attachments.set(`${RUN}-5`, [{ filename: "carulla.zip", data: zipSync({ "ad5.xml": strToU8(fresh("carulla.xml", 5)) }) }]);
+    resend.attachments.set(`${RUN}-5`, [{ filename: "surtimax.zip", data: zipSync({ "ad5.xml": strToU8(surtimax(5)) }) }]);
     await deliver(webhook(`${RUN}-5`, address)); // 20th: processed
     resend.calls.length = 0; resend.sent.length = 0;
     await deliver(webhook(`${RUN}-6`, address)); // 21st
@@ -171,8 +173,8 @@ describe("intake reply", () => {
   });
 
   it("carries the rejection message", () => {
-    const reply = intakeReply({ status: "rejected", message: "Por ahora leemos facturas de D1, Jumbo y Éxito.", receiptId: null });
-    expect(reply.text.startsWith("Por ahora leemos facturas de D1, Jumbo y Éxito.")).toBe(true);
+    const reply = intakeReply({ status: "rejected", message: "Por ahora leemos facturas de D1, Jumbo, Éxito y Carulla.", receiptId: null });
+    expect(reply.text.startsWith("Por ahora leemos facturas de D1, Jumbo, Éxito y Carulla.")).toBe(true);
     expect(reply.subject).toBe("No pudimos usar tu factura en Rinde");
   });
 });

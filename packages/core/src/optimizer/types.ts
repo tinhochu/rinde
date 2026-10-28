@@ -1,6 +1,6 @@
 import type { BaseUnit, PackageSize } from "../units";
 
-export type RetailerSlug = "d1" | "jumbo" | "exito";
+export type RetailerSlug = "d1" | "jumbo" | "exito" | "carulla";
 
 /** A priced listing that could satisfy a list item. Prices are integer COP, always observed. */
 export interface Candidate {

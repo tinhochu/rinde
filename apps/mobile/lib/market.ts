@@ -1,5 +1,5 @@
-export type Store = "Éxito" | "Jumbo" | "D1";
-export const STORES: Store[] = ["Éxito", "Jumbo", "D1"];
+export type Store = "Éxito" | "Jumbo" | "D1" | "Carulla";
+export const STORES: Store[] = ["Éxito", "Jumbo", "D1", "Carulla"];
 export type Unit = "g" | "ml" | "und";
 export type ListItem = { id: string; name: string; quantity: number; unit: Unit; brand: string; allowSubstitution: boolean; essential?: boolean };
 export type Offer = { id: string; store: Store; name: string; brand: string; ean: string; price: number; stock: number; pack: number; unit: Unit; image: string; url: string; observedAt: string; channel: "Tienda online" | "Tienda física"; aisle?: Aisle; source?: "online" | "receipt"; branch?: string; /** A receipt price read from a DIAN e-invoice */ einvoice?: true; produce?: { slug: string; per: "kg" | "unit" }; egg?: { grade: string; count: number } };

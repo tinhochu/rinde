@@ -28,7 +28,7 @@ export class ReceiptRejected extends Error {
 export const MESSAGES = {
   paused: "Pausamos el escaneo de facturas por 24 horas por intentos repetidos.",
   duplicate: "Esta factura ya fue registrada.",
-  store: "Por ahora leemos facturas de D1, Jumbo y Éxito.",
+  store: "Por ahora leemos facturas de D1, Jumbo, Éxito y Carulla.",
   top: "No vemos el nombre de la tienda. Incluye la parte de arriba de la factura; si es larga, tómala en varias fotos.",
   invoice: "No pudimos leer el número de la factura. Incluye la parte de abajo; si la factura es larga, agrégala como otra foto.",
   date: "No pudimos leer la fecha de la factura. Toma la foto de nuevo con la fecha visible; si la factura es larga, tómala en varias fotos.",

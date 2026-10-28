@@ -45,8 +45,7 @@ export async function ingestRetailer(client: RetailerClient, terms = STAPLE_TERM
 }
 
 export async function ingestAll() {
-  const includeExito = process.env["INGEST_EXITO"] === "1";
-  for (const client of retailers({ includeExito })) {
+  for (const client of retailers()) {
     const started = Date.now();
     try {
       const n = await ingestRetailer(client);

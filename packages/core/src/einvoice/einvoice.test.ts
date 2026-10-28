@@ -183,8 +183,14 @@ describe("invoiceStore", () => {
     expect(invoiceStore("890.900.608-9", "Exito Express Envigado")).toBe("exito");
   });
 
+  it("accepts the Carulla banner of Almacenes Éxito, even when it also says Éxito", () => {
+    expect(invoiceStore("890900608", "CARULLA EXPRESS EDS EL RETIRO")).toBe("carulla");
+    expect(invoiceStore("890900608", "CARULLA EXITO")).toBe("carulla");
+    expect(invoiceStore("8909006089", "", "Carulla Oviedo")).toBe("carulla");
+  });
+
   it("rejects the company's other banners", () => {
-    for (const banner of ["CARULLA EXPRESS EDS EL RETIRO", "SURTIMAX CALDAS", "SUPER INTER PALMIRA", "SURTIMAYORISTA ITAGUI", "CARULLA EXITO"]) {
+    for (const banner of ["SURTIMAX CALDAS", "SUPER INTER PALMIRA", "SURTIMAYORISTA ITAGUI", "SURTIMAX CARULLA"]) {
       expect(invoiceStore("890900608", banner)).toBeNull();
     }
     expect(invoiceStore("890900608", "ALMACEN 4877")).toBeNull();

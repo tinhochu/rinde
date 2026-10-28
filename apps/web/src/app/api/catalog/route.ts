@@ -5,7 +5,7 @@ import { SLUG_BY_STORE, type CatalogResult } from "@/server/contract";
 
 const querySchema = z.object({
   query: z.string().trim().min(2).max(100),
-  store: z.enum(["Éxito", "Jumbo", "D1"]).optional(),
+  store: z.enum(["Éxito", "Jumbo", "D1", "Carulla"]).optional(),
 });
 
 // Browse observed offers for a search term, grouped into products compared across stores by EAN (or canonical produce item).

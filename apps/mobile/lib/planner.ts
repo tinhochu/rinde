@@ -4,8 +4,8 @@ import type { ListItem, Store } from "./market";
 import type { Frequency } from "./shop";
 
 // Wire types for POST /api/plan (see packages/core/src/optimizer/types.ts). Keep in sync.
-export type RetailerSlug = "d1" | "jumbo" | "exito";
-export const STORE_NAME: Record<RetailerSlug, Store> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito" };
+export type RetailerSlug = "d1" | "jumbo" | "exito" | "carulla";
+export const STORE_NAME: Record<RetailerSlug, Store> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla" };
 
 export type Candidate = {
   listingId: string; retailer: RetailerSlug; name: string; brand: string | null; price: number;

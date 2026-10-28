@@ -221,7 +221,7 @@ export default function HomeScreen() {
               <Text style={styles.basketText}>
                 {totalCount
                   ? `Tienes ${totalCount} ${totalCount === 1 ? "producto" : "productos"}. Mira el total en cada tienda, contando los que le faltan a cada una.`
-                  : "Arma tu lista y sumamos el total en Éxito, Jumbo y D1, contando los productos que le faltan a cada una."}
+                  : "Arma tu lista y sumamos el total en Éxito, Jumbo, D1 y Carulla, contando los productos que le faltan a cada una."}
               </Text>
               <View style={styles.basketGo}>
                 <Text style={styles.basketGoText}>{totalCount ? "Comparar mi lista" : "Planear mi mercado"}</Text>

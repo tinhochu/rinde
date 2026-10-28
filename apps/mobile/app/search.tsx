@@ -148,7 +148,7 @@ export default function SearchScreen() {
                   <Text accessibilityRole="header" style={styles.title}>Resultados para “{state.q}”</Text>
                   <Text accessibilityLiveRegion="polite" style={styles.count}>
                     {loading
-                      ? "Buscando precios reales en Éxito, Jumbo y D1…"
+                      ? "Buscando precios reales en Éxito, Jumbo, D1 y Carulla…"
                       : error ? " "
                         : filtered ? `${results.length} de ${all.length} productos` : `${all.length} ${all.length === 1 ? "producto encontrado" : "productos encontrados"}`}
                   </Text>

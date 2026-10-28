@@ -11,7 +11,7 @@ import { colors, fontSize, radius, spacing } from "@/lib/theme";
  */
 export function SearchEntry({ onPress }: { onPress: () => void }) {
   return (
-    <PressScale accessibilityRole="search" accessibilityLabel="Buscar y comparar productos en Éxito, Jumbo y D1" onPress={onPress} scaleTo={0.985} style={styles.field}>
+    <PressScale accessibilityRole="search" accessibilityLabel="Buscar y comparar productos en Éxito, Jumbo, D1 y Carulla" onPress={onPress} scaleTo={0.985} style={styles.field}>
       <Search size={20} color={colors.primary} />
       <Text numberOfLines={1} style={styles.placeholder}>Busca leche, arroz, huevos...</Text>
       <View style={styles.logos}>

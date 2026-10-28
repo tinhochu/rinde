@@ -1,6 +1,6 @@
 import type { PackageSize } from "@rinde/core";
 
-export type RetailerSlug = "exito" | "jumbo" | "d1";
+export type RetailerSlug = "exito" | "jumbo" | "d1" | "carulla";
 
 /** One priced listing as observed on a retailer's public site. Never synthesized. */
 export interface Offer {

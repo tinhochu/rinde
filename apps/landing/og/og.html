@@ -17,7 +17,7 @@
   .stores { margin-top: 34px; font-size: 22px; font-weight: 500; color: #536153; }
   .receipt { position: relative; transform: rotate(5deg); background: #fffdf5; color: #294332; padding: 34px 32px 40px; box-shadow: 0 24px 40px rgba(36, 84, 60, .18); font-family: ui-monospace, Menlo, monospace; }
   .receipt .head { font-size: 15px; letter-spacing: .08em; padding-bottom: 18px; border-bottom: 2px dashed rgba(36, 84, 60, .3); margin-bottom: 14px; }
-  .row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; font-size: 26px; font-weight: 700; }
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; font-size: 24px; font-weight: 700; }
   .bar { height: 14px; width: 92px; background: #294332; opacity: .2; border-radius: 3px; }
   .badge { position: absolute; left: -46px; top: -46px; width: 96px; height: 96px; border-radius: 50%; background: #edce70; color: #24543c; display: grid; place-items: center; text-align: center; font: 700 13px/1.15 'DM Sans', sans-serif; transform: rotate(-17deg); }
 </style>
@@ -34,12 +34,13 @@
     <div class="row">D1<span class="bar"></span></div>
     <div class="row">Jumbo<span class="bar"></span></div>
     <div class="row">Éxito<span class="bar"></span></div>
+    <div class="row">Carulla<span class="bar"></span></div>
   </div>
 <script>
   const en = location.hash === "#en";
   const text = en
-    ? { t: ["Same groceries.", "More money", "left over."], s: "D1, Jumbo and Éxito, side by side.", h: "ONE PRODUCT. EVERY STORE.", b: "EVERY<br>PESO<br>COUNTS" }
-    : { t: ["El mismo mercado.", "Más plata", "en tu bolsillo."], s: "D1, Jumbo y Éxito, lado a lado.", h: "UN PRODUCTO. CADA TIENDA.", b: "CADA<br>PESO<br>CUENTA" };
+    ? { t: ["Same groceries.", "More money", "left over."], s: "D1, Jumbo, Éxito and Carulla, side by side.", h: "ONE PRODUCT. EVERY STORE.", b: "EVERY<br>PESO<br>COUNTS" }
+    : { t: ["El mismo mercado.", "Más plata", "en tu bolsillo."], s: "D1, Jumbo, Éxito y Carulla, lado a lado.", h: "UN PRODUCTO. CADA TIENDA.", b: "CADA<br>PESO<br>CUENTA" };
   text.t.forEach((line, i) => (document.getElementById(`t${i + 1}`).textContent = line));
   document.getElementById("s").textContent = text.s;
   document.getElementById("h").textContent = text.h;

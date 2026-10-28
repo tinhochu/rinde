@@ -106,10 +106,10 @@ describe.skipIf(!process.env["INTEGRATION"])("e-invoice routes (dev DB)", () => 
     expect(webhook.status).toBe(404);
     const body = await (await inbox(get("http://localhost/api/receipts/inbox", session("c")))).json();
     expect(body.address).toBeNull();
-    const carulla = readFileSync(path.join(FIXTURES, "carulla.xml"));
-    const response = await upload(form("ad.xml", new Uint8Array(carulla), session("c")));
+    const surtimax = readFileSync(path.join(FIXTURES, "carulla.xml"), "utf8").replaceAll("CARULLA EXPRESS EDS EL RETIRO", "SURTIMAX CALDAS");
+    const response = await upload(form("ad.xml", new TextEncoder().encode(surtimax), session("c")));
     expect(response.status).toBe(422);
-    expect((await response.json()).error).toBe("Por ahora leemos facturas de D1, Jumbo y Éxito.");
+    expect((await response.json()).error).toBe("Por ahora leemos facturas de D1, Jumbo, Éxito y Carulla.");
     vi.stubEnv("INBOUND_EMAIL_DOMAIN", "rinde-test.resend.app");
   });
 });

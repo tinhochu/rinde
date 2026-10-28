@@ -63,17 +63,19 @@ const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,
 
 // Sister chains print the same legal name as Éxito (Almacenes Éxito) or Jumbo (Cencosud) but aren't
 // the stores we compare, so their receipts are rejected even when the legal name matches.
-const OTHER_CHAINS = /carulla|surtimax|super ?inter|surtimayorista|\bmetro\b|\beasy\b|\bara\b|olimpica|makro|pricesmart/;
+const OTHER_CHAINS = /surtimax|super ?inter|surtimayorista|\bmetro\b|\beasy\b|\bara\b|olimpica|makro|pricesmart/;
 
 /**
- * D1 is operated by Koba Colombia; Jumbo by Cencosud; Éxito by Almacenes Éxito. Only those three
- * stores are accepted: anything else, including their sister chains, is null.
+ * D1 is operated by Koba Colombia; Jumbo by Cencosud; Éxito and Carulla by Almacenes Éxito. Only those
+ * four stores are accepted: anything else, including their sister chains, is null. Carulla receipts
+ * also print "Almacenes Éxito", so Carulla is checked first.
  */
 export function detectStore(text: string): ReceiptStore | null {
   const t = norm(text);
   if (OTHER_CHAINS.test(t)) return null;
   if (/\bd1\b|tiendas d1|koba/.test(t)) return "d1";
   if (/jumbo|cencosud/.test(t)) return "jumbo";
+  if (/carulla/.test(t)) return "carulla";
   if (/exito/.test(t)) return "exito";
   return null;
 }

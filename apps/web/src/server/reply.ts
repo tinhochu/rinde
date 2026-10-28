@@ -34,10 +34,10 @@ export function intakeReply(outcome: ReplyOutcome): { subject: string; text: str
   const message = outcome.message ?? "No pudimos usar esta factura.";
   return {
     subject: "No pudimos usar tu factura en Rinde",
-    text: `${message}\n\nPuedes reenviar otra factura de D1, Jumbo o Éxito a la misma dirección.`,
+    text: `${message}\n\nPuedes reenviar otra factura de D1, Jumbo, Éxito o Carulla a la misma dirección.`,
     html: `<div style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:440px;color:#1D2A21">
 <p style="font-size:15px">${message.replace(/[<>&]/g, "")}</p>
-<p style="font-size:13px;color:#5D6B62">Puedes reenviar otra factura de D1, Jumbo o Éxito a la misma dirección.</p>
+<p style="font-size:13px;color:#5D6B62">Puedes reenviar otra factura de D1, Jumbo, Éxito o Carulla a la misma dirección.</p>
 </div>`,
   };
 }

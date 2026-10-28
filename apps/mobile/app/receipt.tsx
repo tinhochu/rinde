@@ -29,7 +29,7 @@ type Stage =
   | { kind: "review"; draft: ReceiptDraft }
   | { kind: "done"; draft: ReceiptDraft; result: ConfirmResult };
 
-const SAMPLE_NAME: Record<string, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito" };
+const SAMPLE_NAME: Record<string, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla" };
 
 // What the e-invoice picker offers: extensions in the browser's file dialog, MIME types on the phone.
 const INVOICE_TYPES = Platform.OS === "web"
@@ -297,7 +297,7 @@ function Start({ samples, onCamera, onLibrary, onSample, einvoice, pending, rece
       {recent}
 
       <View style={styles.rules}>
-        <Rule icon={<Store size={16} color={colors.primary} />} text="Facturas de D1, Jumbo o Éxito" />
+        <Rule icon={<Store size={16} color={colors.primary} />} text="Facturas de D1, Jumbo, Éxito o Carulla" />
         <Rule icon={<CalendarClock size={16} color={colors.primary} />} text="De los últimos 3 días, hasta 5 por día" />
         <Rule icon={<ScanLine size={16} color={colors.primary} />} text="Completa y con buena luz. Si es larga, tómala en varias fotos, de arriba a abajo" />
       </View>

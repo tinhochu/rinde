@@ -135,6 +135,8 @@ export const stores = {
   exito: { bg: "#FFE627", fg: "#282921", label: "éxito" },
   jumbo: { bg: "#168440", fg: "#FFFFFF", label: "Jumbo", italic: true },
   d1: { bg: "#E43435", fg: "#FFFFFF", label: "D1" },
+  // Carulla's black and lime green (carulla.com).
+  carulla: { bg: "#8DC63F", fg: "#141414", label: "Carulla" },
 } as const;
 
 export const radius = { sm: 8, md: 12, lg: 16, xl: 22, pill: 999 } as const;

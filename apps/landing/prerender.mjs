@@ -14,14 +14,14 @@ const pages = {
   es: {
     path: "/",
     title: "Rinde: el mismo mercado, más plata en tu bolsillo",
-    description: "Compara los precios de D1, Jumbo y Éxito y descubre dónde rinde más tu plata. Precios reales, con la hora en que los vimos.",
+    description: "Compara los precios de D1, Jumbo, Éxito y Carulla y descubre dónde rinde más tu plata. Precios reales, con la hora en que los vimos.",
     locale: "es_CO",
     image: "/og-es.png",
   },
   en: {
     path: "/en/",
     title: "Rinde: same groceries, more money left over",
-    description: "Compare grocery prices at D1, Jumbo and Éxito in Colombia and find out where your money goes further. Real prices, with when we saw them.",
+    description: "Compare grocery prices at D1, Jumbo, Éxito and Carulla in Colombia and find out where your money goes further. Real prices, with when we saw them.",
     locale: "en_US",
     image: "/og-en.png",
   },

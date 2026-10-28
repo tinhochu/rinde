@@ -101,7 +101,7 @@ export function DialogsHost() {
           {[
             { title: "Explora tu mercado", text: "Elige una tienda o un pasillo, busca productos y usa el + para añadirlos a tu lista. Las ideas sin precio son referencias, no inventario verificado." },
             { title: "Ponle un límite", text: "Abre tu lista y toca Armar mi plan. Confirma tu presupuesto, productos, cantidades y marcas. También puedes empezar un plan con una foto, texto o ingreso manual." },
-            { title: "Comparamos, sin inventar", text: "Consultamos Éxito, Jumbo y D1 desde el servidor. Mostramos solo los precios que recibimos, con enlace, canal y hora. Si una tienda falla o falta un precio, te lo decimos." },
+            { title: "Comparamos, sin inventar", text: "Consultamos Éxito, Jumbo, D1 y Carulla desde el servidor. Mostramos solo los precios que recibimos, con enlace, canal y hora. Si una tienda falla o falta un precio, te lo decimos." },
             { title: "Tú decides dónde comprar", text: "Compara la compra dividida y una sola tienda. Revisa paradas, saldo y faltantes, y comparte tu comprobante. Rinde no cobra, reserva ni compra por ti." },
           ].map((item, index) => (
             <View key={item.title} style={styles.helpRow}>

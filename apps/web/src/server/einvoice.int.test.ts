@@ -4,7 +4,7 @@ import path from "node:path";
 import { strToU8, zipSync } from "fflate";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Extraction } from "@rinde/core";
-import { db } from "@rinde/db";
+import { db, ensureRetailer } from "@rinde/db";
 
 // The model is mocked: the XML path never calls it; the PDF fallback reads through it like a photo.
 const muse = vi.hoisted(() => ({ extraction: null as Extraction | null, calls: 0, photos: 0, down: false }));
@@ -79,12 +79,40 @@ describe.skipIf(!process.env["INTEGRATION"])("e-invoice intake (dev DB)", () => 
     expect(stored.imagePath).toBeNull();
   });
 
-  it("refuses Carulla, credit notes and invoices without a matching DIAN validation with the spec's messages", async () => {
-    expect(await intake("b", [fresh("carulla.xml").file])).toMatchObject([{ status: "rejected", message: MESSAGES.store }]);
+  it("refuses sister chains, credit notes and invoices without a matching DIAN validation with the spec's messages", async () => {
+    const surtimax = fresh("carulla.xml");
+    const surtimaxFile = { name: surtimax.file.name, data: strToU8(surtimax.xml.replaceAll("CARULLA EXPRESS EDS EL RETIRO", "SURTIMAX CALDAS")) };
+    expect(await intake("b", [surtimaxFile])).toMatchObject([{ status: "rejected", message: MESSAGES.store }]);
     expect(await intake("b", [fresh("exito-credit-note.xml").file])).toMatchObject([{ status: "rejected", message: EINVOICE_MESSAGES.not_invoice }]);
     expect(await intake("b", [fresh("exito-cufe-mismatch.xml").file])).toMatchObject([{ status: "rejected", message: EINVOICE_MESSAGES.unvalidated }]);
     expect(await intake("b", [{ name: "x.xml", data: strToU8(fixture("xxe.xml")) }])).toMatchObject([{ status: "rejected", message: EINVOICE_MESSAGES.unvalidated }]);
     expect(await db().receipt.count({ where: { contributor: { sessionId: session("b") } } })).toBe(0);
+  });
+
+  it("accepts a Carulla invoice as Carulla: a first Carulla price earns the gap bonus, and no second account can send it", async () => {
+    // A Carulla product nobody has priced yet.
+    const carulla = await ensureRetailer(db(), "carulla");
+    const product = await db().product.create({ data: { name: `Galletas prueba ${RUN}`, size: 4, unit: "unit" } });
+    const listing = await db().retailerProduct.create({ data: { retailerId: carulla.id, productId: product.id, externalId: `test-${RUN}`, name: `Galletas x 4 taco ${RUN}`, url: "https://www.carulla.com", lastSeenAt: new Date() } });
+    try {
+      const invoice = fresh("carulla.xml");
+      const [outcome] = await intake("cr", [invoice.file]);
+      expect(outcome).toMatchObject({ status: "accepted", draft: { store: "Carulla", branch: "CARULLA EXPRESS EDS EL RETIRO" } });
+      const draft = (outcome as { draft: import("./receipts").ReceiptDraft }).draft;
+      const result = await confirmDraft({
+        sessionId: session("cr"), receiptId: draft.id,
+        edits: [{ index: 0, listingId: listing.id }, ...(draft.lines[1]!.match ? [] : [{ index: 1, noMatch: true }])],
+      });
+      expect(result.breakdown).toContainEqual({ label: "Primer precio en Carulla", points: 15, lines: 1 });
+      expect(await db().priceObservation.findFirst({ where: { retailerProductId: listing.id }, select: { price: true, source: true } })).toEqual({ price: 8600, source: "community:receipt" });
+
+      expect(await intake("cr2", [invoice.file])).toMatchObject([{ status: "rejected", code: "duplicate", message: MESSAGES.duplicate }]);
+    } finally {
+      await cleanupContributors(RUN);
+      await db().priceObservation.deleteMany({ where: { retailerProductId: listing.id } });
+      await db().retailerProduct.delete({ where: { id: listing.id } });
+      await db().product.delete({ where: { id: product.id } });
+    }
   });
 
   it("refuses an invoice issued four days ago", async () => {

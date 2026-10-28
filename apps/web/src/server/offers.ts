@@ -1,7 +1,7 @@
 import { aisleOf } from "./aisles";
 import "server-only";
 import { db, ensureRetailer, Prisma, recordOffer, type RetailerSlug } from "@rinde/db";
-import { retailerBySlug } from "@rinde/retailers";
+import { enabledStores, retailerBySlug } from "@rinde/retailers";
 import { STORE_BY_SLUG, type Offer, type Unit } from "./contract";
 import { eggOf } from "./eggs";
 import { onlineProduceOf } from "./produce-online";
@@ -38,7 +38,7 @@ export const LIVE_TIMEOUT_MS = 8_000;
 const STOPWORDS = new Set(["de", "del", "la", "el", "los", "las", "x", "y", "para", "con", "en", "un", "una"]);
 
 export function enabledRetailers(): RetailerSlug[] {
-  return process.env["INGEST_EXITO"] === "1" ? ["d1", "jumbo", "exito"] : ["d1", "jumbo"];
+  return enabledStores();
 }
 
 /** Crude Spanish singularization so "huevos" matches "Huevo" and "limones" matches "Limón". */

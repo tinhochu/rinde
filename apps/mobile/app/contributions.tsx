@@ -115,7 +115,7 @@ export default function ContributionsScreen() {
             {mine.recentReceipts.length ? (
               <ReceiptHistory receipts={mine.recentReceipts} />
             ) : (
-              <Text style={styles.muted}>Aún no has enviado facturas. Escanea una de D1, Jumbo o Éxito: antes de enviarla revisas cada producto y precio.</Text>
+              <Text style={styles.muted}>Aún no has enviado facturas. Escanea una de D1, Jumbo, Éxito o Carulla: antes de enviarla revisas cada producto y precio.</Text>
             )}
           </View>
 

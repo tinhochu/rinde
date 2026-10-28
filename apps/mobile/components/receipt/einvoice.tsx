@@ -77,7 +77,7 @@ export function EmailInvoiceCard({ inbox, onCopy, onReplace, replacing, onUpload
           </View>
         </>
       ) : (
-        <Text style={styles.cardText}>Sube el archivo que te llegó por correo de D1, Jumbo o Éxito. Leemos los precios exactos, sin foto.</Text>
+        <Text style={styles.cardText}>Sube el archivo que te llegó por correo de D1, Jumbo, Éxito o Carulla. Leemos los precios exactos, sin foto.</Text>
       )}
       <Button title="Subir factura electrónica" variant="outline" onPress={onUpload} icon={<FileUp size={17} color={colors.primary} />} />
       {address && (

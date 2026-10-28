@@ -186,7 +186,7 @@ describe.skipIf(!process.env["INTEGRATION"])("receipts (dev DB)", () => {
   });
 
   it("refuses other stores, old receipts and unreadable invoice numbers", async () => {
-    muse.extraction = receipt(`POS ${RUN}-4`, { store: "CARULLA - ALMACENES EXITO S.A.", branch: "Carulla" });
+    muse.extraction = receipt(`POS ${RUN}-4`, { store: "SURTIMAX - ALMACENES EXITO S.A.", branch: "Surtimax" });
     await expect(createDraft({ sessionId: session("i"), image: image(), mime: "image/jpeg" })).rejects.toThrow(MESSAGES.store);
     muse.extraction = receipt(`POS ${RUN}-5`, { purchased_at: printed(96) });
     await expect(createDraft({ sessionId: session("i"), image: image(), mime: "image/jpeg" })).rejects.toThrow(MESSAGES.old);

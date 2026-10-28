@@ -1,4 +1,4 @@
-export type ReceiptStore = "d1" | "jumbo" | "exito";
+export type ReceiptStore = "d1" | "jumbo" | "exito" | "carulla";
 
 /**
  * What the vision model returns: every value is text exactly as printed, empty when not legible.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { d1, jumbo } from "./index";
+import { carulla, d1, jumbo } from "./index";
 
 // Hits the real retailer sites. Run with: LIVE=1 pnpm --filter @rinde/retailers test
 describe.skipIf(!process.env["LIVE"])("live VTEX clients", () => {
@@ -19,5 +19,12 @@ describe.skipIf(!process.env["LIVE"])("live VTEX clients", () => {
     expect(ids).toHaveLength(3);
     const offers = await d1.byIds(ids);
     expect(offers.map((o) => o.externalId).sort()).toEqual([...ids].sort());
+  }, 60_000);
+
+  it("finds priced Carulla milk with its size", async () => {
+    const offers = (await carulla.search("leche entera", { limit: 10 })).filter((o) => o.available);
+    expect(offers.length).toBeGreaterThan(0);
+    expect(offers[0]?.price).toBeGreaterThan(0);
+    expect(offers[0]?.size?.unit).toBe("ml");
   }, 60_000);
 });

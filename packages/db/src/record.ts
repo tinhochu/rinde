@@ -24,6 +24,7 @@ export const RETAILERS: Record<RetailerSlug, { name: string; baseUrl: string }> 
   d1: { name: "D1", baseUrl: "https://www.d1.com.co" },
   jumbo: { name: "Jumbo", baseUrl: "https://www.jumbocolombia.com" },
   exito: { name: "Éxito", baseUrl: "https://www.exito.com" },
+  carulla: { name: "Carulla", baseUrl: "https://www.carulla.com" },
 };
 
 const D1_PRIVATE_LABEL_PREFIX = "7700304";

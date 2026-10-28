@@ -11,6 +11,7 @@ enum RetailerSlug {
   exito
   jumbo
   d1
+  carulla
 }
 
 /// Base unit a package size is normalized to, so prices compare per g / ml / unit.

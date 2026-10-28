@@ -29,10 +29,28 @@ export const exito = createVtexClient({
   searchPath: "/io/api/catalog_system/pub/products/search",
   // Éxito answers 429 at the 2 s default pace.
   minIntervalMs: 5000,
+  // Marketplace sellers list here too; only Éxito's own price counts.
+  ownSellerId: "1",
 });
 
-export function retailers(opts: { includeExito?: boolean } = {}): RetailerClient[] {
-  return opts.includeExito ? [d1, jumbo, exito] : [d1, jumbo];
+// Carulla shares Éxito's catalog (same SKUs and EANs) with its own prices. Its robots.txt disallows
+// /api/ like Éxito's, and /api/ redirects to /io/api/. Always on, by product decision (2026-10-28).
+export const carulla = createVtexClient({
+  slug: "carulla",
+  name: "Carulla",
+  baseUrl: "https://www.carulla.com",
+  searchPath: "/io/api/catalog_system/pub/products/search",
+  minIntervalMs: 5000,
+  ownSellerId: "1",
+});
+
+export const retailerBySlug: Record<RetailerSlug, RetailerClient> = { d1, jumbo, exito, carulla };
+
+/** Stores Rinde ingests and offers, in display order. Éxito only when INGEST_EXITO=1; the rest always. */
+export function enabledStores(env: Record<string, string | undefined> = process.env): RetailerSlug[] {
+  return (["d1", "jumbo", "exito", "carulla"] as const).filter((s) => s !== "exito" || env["INGEST_EXITO"] === "1");
 }
 
-export const retailerBySlug: Record<RetailerSlug, RetailerClient> = { d1, jumbo, exito };
+export function retailers(slugs: RetailerSlug[] = enabledStores()): RetailerClient[] {
+  return slugs.map((s) => retailerBySlug[s]);
+}

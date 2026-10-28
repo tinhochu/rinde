@@ -98,15 +98,15 @@ describe("personal data", () => {
 });
 
 describe("store and date", () => {
-  it("detects the three chains, including legal names", () => {
+  it("detects the four chains, including legal names", () => {
     expect(detectStore("KOBA COLOMBIA S.A.S")).toBe("d1");
     expect(detectStore("Tiendas D1")).toBe("d1");
     expect(detectStore("CENCOSUD COLOMBIA S.A.")).toBe("jumbo");
     expect(detectStore("Almacenes ÉXITO S.A.")).toBe("exito");
-    expect(detectStore("Carulla")).toBeNull();
+    expect(detectStore("Carulla")).toBe("carulla");
+    expect(detectStore("CARULLA - ALMACENES EXITO S.A.")).toBe("carulla");
   });
   it("rejects sister chains that print the same legal name", () => {
-    expect(detectStore("CARULLA - ALMACENES EXITO S.A.")).toBeNull();
     expect(detectStore("SURTIMAX Almacenes Éxito S.A.")).toBeNull();
     expect(detectStore("Super Inter")).toBeNull();
     expect(detectStore("METRO CENCOSUD COLOMBIA")).toBeNull();

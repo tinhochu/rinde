@@ -43,6 +43,11 @@ interface VtexConfig {
   privateLabelPrefix?: string;
   /** Slower pacing for hosts that rate-limit harder than the default allows */
   minIntervalMs?: number;
+  /**
+   * The store's own seller on a site that also lists marketplace sellers (VTEX seller "1"). When set,
+   * price and stock come only from it; a product only a marketplace seller has is not available here.
+   */
+  ownSellerId?: string;
 }
 
 // Minimal shape of the VTEX catalog_system search response we rely on.
@@ -57,6 +62,7 @@ interface VtexProduct extends VtexSizeSource {
     ean?: string;
     images?: Array<{ imageUrl: string }>;
     sellers?: Array<{
+      sellerId?: string;
       commertialOffer?: { Price?: number; ListPrice?: number; IsAvailable?: boolean; AvailableQuantity?: number };
     }>;
   }>;
@@ -118,9 +124,11 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
     return products.flatMap((p) =>
       p.items.map((item): Offer => {
         // The first seller can be an out-of-stock marketplace seller; use the first one actually selling.
-        const offer =
-          item.sellers?.map((s) => s.commertialOffer).find((o) => o?.IsAvailable && (o.Price ?? 0) > 0) ??
-          item.sellers?.[0]?.commertialOffer ?? {};
+        // With an own seller, only the store's price counts: never a marketplace seller's.
+        const offer = config.ownSellerId
+          ? (item.sellers?.find((s) => s.sellerId === config.ownSellerId)?.commertialOffer ?? {})
+          : (item.sellers?.map((s) => s.commertialOffer).find((o) => o?.IsAvailable && (o.Price ?? 0) > 0) ??
+            item.sellers?.[0]?.commertialOffer ?? {});
         return {
           retailer: config.slug,
           externalId: item.itemId,

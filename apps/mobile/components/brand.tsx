@@ -18,7 +18,12 @@ const LOGOS: Record<string, { source: number; round?: boolean }> = {
   D1: { source: require("@/assets/stores/d1.png") },
   Jumbo: { source: require("@/assets/stores/jumbo.png"), round: true },
   "Éxito": { source: require("@/assets/stores/exito.png"), round: true },
+  // A plain "C" in Carulla's colors, not its logo (carulla.com only serves a 28 px favicon).
+  Carulla: { source: require("@/assets/stores/carulla.png"), round: true },
 };
+
+/** Text badges by store name, for stores without a logo image. */
+const BADGES: Record<string, (typeof stores)[keyof typeof stores]> = { "Éxito": stores.exito, Jumbo: stores.jumbo, D1: stores.d1, Carulla: stores.carulla };
 
 export function StoreLogo({ store, large = false, small = false }: { store: string; large?: boolean; small?: boolean }) {
   const logo = LOGOS[store];
@@ -32,7 +37,7 @@ export function StoreLogo({ store, large = false, small = false }: { store: stri
       />
     );
   }
-  const theme = store === "Éxito" ? stores.exito : store === "Jumbo" ? stores.jumbo : stores.d1;
+  const theme = BADGES[store] ?? stores.d1;
   return (
     <View style={[styles.store, large && styles.storeLarge, { backgroundColor: theme.bg }]}>
       <Text style={[styles.storeText, large && styles.storeTextLarge, { color: theme.fg }, "italic" in theme && theme.italic ? styles.italic : null]}>
