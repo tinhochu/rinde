@@ -62,7 +62,7 @@
 ## 7. Release
 
 - [x] 7.1 Run the full checks: `pnpm -r typecheck`, the unit tests and the web integration tests. Verify: all pass, with outputs recorded in the summary.
-- [ ] 7.2 Deploy:
+- [x] 7.2 Deploy:
   - build `rinde-web`, `rinde-worker`, `rinde-migrate`, `rinde-app` and `rinde-landing` at the commit;
   - patch the compose with the new tags, then restart (migrate applies the enum value);
   - run one ingest;
