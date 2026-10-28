@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Image, Modal, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { CircleCheck, Link } from "lucide-react-native";
 import { InstallSteps } from "@/components/install-steps";
-import { Button } from "@/components/ui";
+import { Button, Sheet } from "@/components/ui";
 import { track, trackLaunch, useInstall } from "@/lib/install";
 import { toast } from "@/lib/toast";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
+
+// Long enough to see Rinde first, short enough to catch the person before they start a list.
+const APPEAR_MS = 2000;
 
 const HEADLINE: Record<"prompt" | "ios" | "android" | "inapp", string> = {
   prompt: "Un toque y queda instalada.",
@@ -16,7 +18,7 @@ const HEADLINE: Record<"prompt" | "ios" | "android" | "inapp", string> = {
 };
 
 /**
- * Opens over Rinde on launch in a phone browser when Rinde isn't installed: what installing means and
+ * Slides up over Rinde 2 s after launch in a phone browser when Rinde isn't installed: what installing means and
  * the exact taps for this browser. Nothing once it's installed (opened from the home screen, or Chrome
  * says so), in the native app, or for 3 days after "Ahora no".
  */
@@ -24,6 +26,11 @@ export function InstallSplash() {
   const { way, install, welcome, snooze, copyLink } = useInstall();
   const [installed, setInstalled] = useState(false);
   const [open, setOpen] = useState(welcome);
+  const [due, setDue] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setDue(true), APPEAR_MS);
+    return () => clearTimeout(t);
+  }, []);
   useEffect(() => { if (!welcome) setOpen(false); }, [welcome]);
   // The way is settled after the first render (Chrome's offer can arrive late); count once it is.
   useEffect(() => {
@@ -31,7 +38,7 @@ export function InstallSplash() {
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const showing = open && (way !== "none" || installed);
+  const showing = due && open && (way !== "none" || installed);
   useEffect(() => { if (showing && !installed) track({ event: "guide", detail: "shown" }, way); }, [showing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!showing) return null;
@@ -51,53 +58,51 @@ export function InstallSplash() {
   }
 
   return (
-    <Modal visible transparent={false} animationType="fade" onRequestClose={later}>
-      <SafeAreaView edges={["top", "bottom"]} style={styles.screen}>
-        <ScrollView contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
-          <HomeScreen />
-          {installed ? (
+    <Sheet visible onClose={installed ? () => setOpen(false) : later}>
+      <ScrollView contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
+        <HomeScreen />
+        {installed ? (
+          <View style={styles.copy}>
+            <CircleCheck size={28} color={colors.primary} />
+            <Text accessibilityRole="header" style={styles.title}>Listo, Rinde quedó en tu inicio</Text>
+            <Text style={styles.lede}>Ábrela desde el ícono: entra a pantalla completa y con tu lista guardada.</Text>
+          </View>
+        ) : (
+          <>
             <View style={styles.copy}>
-              <CircleCheck size={28} color={colors.primary} />
-              <Text accessibilityRole="header" style={styles.title}>Listo, Rinde quedó en tu inicio</Text>
-              <Text style={styles.lede}>Ábrela desde el ícono: entra a pantalla completa y con tu lista guardada.</Text>
+              <Text accessibilityRole="header" style={styles.title}>Instala Rinde en tu celular</Text>
+              <Text style={styles.lede}>
+                Queda en tu pantalla de inicio como cualquier app, a pantalla completa. Sin tienda de apps y casi sin ocupar espacio.{" "}
+                {HEADLINE[way as keyof typeof HEADLINE]}
+              </Text>
             </View>
-          ) : (
-            <>
-              <View style={styles.copy}>
-                <Text accessibilityRole="header" style={styles.title}>Instala Rinde en tu celular</Text>
-                <Text style={styles.lede}>
-                  Queda en tu pantalla de inicio como cualquier app, a pantalla completa. Sin tienda de apps y casi sin ocupar espacio.{" "}
-                  {HEADLINE[way as keyof typeof HEADLINE]}
-                </Text>
+            {way !== "prompt" && (
+              <View style={styles.card}>
+                <InstallSteps way={way} />
+                {way === "inapp" && (
+                  <Pressable accessibilityRole="button" onPress={onCopy} style={({ pressed }) => [styles.copyLink, pressed && styles.pressed]}>
+                    <Link size={15} color={colors.primary} />
+                    <Text style={styles.copyLinkText}>Copiar enlace de Rinde</Text>
+                  </Pressable>
+                )}
               </View>
-              {way !== "prompt" && (
-                <View style={styles.card}>
-                  <InstallSteps way={way} />
-                  {way === "inapp" && (
-                    <Pressable accessibilityRole="button" onPress={onCopy} style={({ pressed }) => [styles.copyLink, pressed && styles.pressed]}>
-                      <Link size={15} color={colors.primary} />
-                      <Text style={styles.copyLinkText}>Copiar enlace de Rinde</Text>
-                    </Pressable>
-                  )}
-                </View>
-              )}
-            </>
-          )}
-        </ScrollView>
-        <View style={styles.footer}>
-          {installed ? (
-            <Button title="Seguir aquí" variant="outline" onPress={() => setOpen(false)} />
-          ) : way === "prompt" ? (
-            <>
-              <Button title="Instalar Rinde" onPress={onInstall} />
-              <Button title="Ahora no" variant="outline" onPress={later} />
-            </>
-          ) : (
-            <Button title="Ahora no, seguir en el navegador" variant="outline" onPress={later} />
-          )}
-        </View>
-      </SafeAreaView>
-    </Modal>
+            )}
+          </>
+        )}
+      </ScrollView>
+      <View style={styles.footer}>
+        {installed ? (
+          <Button title="Seguir aquí" variant="outline" onPress={() => setOpen(false)} />
+        ) : way === "prompt" ? (
+          <>
+            <Button title="Instalar Rinde" onPress={onInstall} />
+            <Button title="Ahora no" variant="outline" onPress={later} />
+          </>
+        ) : (
+          <Button title="Ahora no, seguir en el navegador" variant="outline" onPress={later} />
+        )}
+      </View>
+    </Sheet>
   );
 }
 
@@ -127,8 +132,7 @@ function HomeScreen() {
 const ICON = 56;
 const GAP = 22;
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
-  page: { flexGrow: 1, justifyContent: "center", gap: spacing.xl, padding: spacing.lg, paddingTop: spacing.xl },
+  page: { gap: spacing.lg, padding: spacing.lg, paddingTop: spacing.sm },
   home: {
     flexDirection: "row", flexWrap: "wrap", rowGap: spacing.lg, columnGap: GAP,
     alignSelf: "center", width: 4 * ICON + 3 * GAP + 2 * spacing.lg, padding: spacing.lg,

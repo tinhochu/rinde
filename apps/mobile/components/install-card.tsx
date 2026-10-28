@@ -31,23 +31,26 @@ export function InstallCard({ dismissible = false }: { dismissible?: boolean }) 
 
   return (
     <>
-      <PressScale accessibilityRole="button" accessibilityLabel="Instalar Rinde en este celular" onPress={onInstall} style={styles.card}>
-        <Image source={require("@/assets/icon.png")} style={styles.icon} accessibilityIgnoresInvertColors />
-        <View style={styles.copy}>
-          <Text style={styles.title}>{moved ? "Rinde ahora vive en esta dirección" : "Instala Rinde en tu celular"}</Text>
-          <Text style={styles.text}>
-            {moved ? "Tus datos vienen contigo. Instálala de nuevo desde aquí." : "Ábrela desde tu pantalla de inicio, a pantalla completa."}
-          </Text>
-        </View>
-        <View style={styles.cta}>
-          <Text style={styles.ctaText}>{way === "prompt" ? "Instalar" : "Ver cómo"}</Text>
-        </View>
+      {/* The close button sits beside the card, not inside it: a button can't hold another button on the web. */}
+      <View>
+        <PressScale accessibilityRole="button" accessibilityLabel="Instalar Rinde en este celular" onPress={onInstall} style={styles.card}>
+          <Image source={require("@/assets/icon.png")} style={styles.icon} accessibilityIgnoresInvertColors />
+          <View style={styles.copy}>
+            <Text style={styles.title}>{moved ? "Rinde ahora vive en esta dirección" : "Instala Rinde en tu celular"}</Text>
+            <Text style={styles.text}>
+              {moved ? "Tus datos vienen contigo. Instálala de nuevo desde aquí." : "Ábrela desde tu pantalla de inicio, a pantalla completa."}
+            </Text>
+          </View>
+          <View style={styles.cta}>
+            <Text style={styles.ctaText}>{way === "prompt" ? "Instalar" : "Ver cómo"}</Text>
+          </View>
+        </PressScale>
         {dismissible && (
           <Pressable accessibilityRole="button" accessibilityLabel="No mostrar más" hitSlop={10} onPress={dismiss} style={styles.close}>
             <X size={14} color={colors.mutedForeground} />
           </Pressable>
         )}
-      </PressScale>
+      </View>
 
       <Sheet visible={steps} onClose={() => setSteps(false)}>
         <View style={styles.sheet}>
