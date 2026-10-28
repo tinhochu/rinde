@@ -22,8 +22,10 @@ let all: { at: number; branches: Promise<Branch[]> } | null = null;
 export function allBranches(): Promise<Branch[]> {
   if (!all || Date.now() - all.at > CACHE_MS) {
     const branches = db().storeBranch.findMany({ select: { id: true, chain: true, name: true, address: true, area: true, lat: true, lon: true } });
-    all = { at: Date.now(), branches };
-    branches.catch(() => { all = null; });
+    const entry = { at: Date.now(), branches };
+    all = entry;
+    // An empty table means the import hasn't run yet: ask again next time instead of for 10 minutes.
+    branches.then((rows) => { if (!rows.length && all === entry) all = null; }, () => { if (all === entry) all = null; });
   }
   return all.branches;
 }
