@@ -28,8 +28,19 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 // After a 429 the host is left alone until this time. Interactive lookups fail fast
 // instead of waiting (they run under a request deadline); bulk searches wait it out.
+// Each 429 in a row doubles the wait (1, 2, 4, 8, then 15 min): a host that keeps answering 429
+// has blocked us, and probing it every 30 s only keeps the block going.
 const cooldownUntilByHost = new Map<string, number>();
-const DEFAULT_COOLDOWN_MS = 30_000;
+const strikesByHost = new Map<string, number>();
+const FIRST_COOLDOWN_MS = 60_000;
+const MAX_COOLDOWN_MS = 15 * 60_000;
+/** After this many 429s in a row even bulk callers stop waiting, so an ingest skips the store instead of stalling for an hour. */
+const BLOCKED_AFTER = 5;
+
+function cooldownMs(strikes: number, retryAfterS: number) {
+  if (Number.isFinite(retryAfterS) && retryAfterS > 0) return retryAfterS * 1000;
+  return Math.min(FIRST_COOLDOWN_MS * 2 ** (strikes - 1), MAX_COOLDOWN_MS);
+}
 
 export class RateLimited extends Error {}
 
@@ -43,6 +54,8 @@ interface VtexConfig {
   privateLabelPrefix?: string;
   /** Slower pacing for hosts that rate-limit harder than the default allows */
   minIntervalMs?: number;
+  /** Stores on one backend share one rate limit (Éxito and Carulla): pace and cool down as one host. */
+  rateGroup?: string;
   /**
    * The store's own seller on a site that also lists marketplace sellers (VTEX seller "1"). When set,
    * price and stock come only from it; a product only a marketplace seller has is not available here.
@@ -72,7 +85,7 @@ class FatalStatus extends Error {}
 
 /** Client for VTEX stores whose robots.txt permits the catalog search API. */
 export function createVtexClient(config: VtexConfig): RetailerClient {
-  const origin = new URL(config.baseUrl).origin;
+  const origin = config.rateGroup ?? new URL(config.baseUrl).origin;
 
   async function request(qs: string, opts: { patient?: boolean } = {}): Promise<{ products: VtexProduct[]; url: string }> {
     const url = `${config.baseUrl}${config.searchPath}?${qs}`;
@@ -80,7 +93,8 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       const cooldown = (cooldownUntilByHost.get(origin) ?? 0) - Date.now();
       if (cooldown > 0) {
-        if (!opts.patient) throw new RateLimited(`${config.slug} cooling down after 429`);
+        if (!opts.patient || (strikesByHost.get(origin) ?? 0) >= BLOCKED_AFTER)
+          throw new RateLimited(`${config.slug} cooling down after 429`);
         await sleep(cooldown);
       }
       await pace(origin, config.minIntervalMs);
@@ -89,10 +103,12 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
         if (res.status === 429) {
           lastError = new Error(`${config.slug} 429 ${url}`);
           // Rate limited: honor Retry-After, else cool down; only patient callers retry.
-          const retryAfter = Number(res.headers.get("retry-after"));
-          const wait = Number.isFinite(retryAfter) && retryAfter > 0 ? retryAfter * 1000 : DEFAULT_COOLDOWN_MS * attempt;
-          cooldownUntilByHost.set(origin, Date.now() + wait);
-          if (!opts.patient) throw new RateLimited(`${config.slug} 429 ${url}`);
+          const strikes = (strikesByHost.get(origin) ?? 0) + 1;
+          strikesByHost.set(origin, strikes);
+          cooldownUntilByHost.set(origin, Date.now() + cooldownMs(strikes, Number(res.headers.get("retry-after"))));
+          if (!opts.patient || strikes >= BLOCKED_AFTER) throw new RateLimited(`${config.slug} 429 ${url}`);
+          // The cool-down is the wait; the retry backoff below would only add to it.
+          continue;
         } else if (res.status >= 500) {
           lastError = new Error(`${config.slug} ${res.status} ${url}`);
         } else if (!res.ok && res.status !== 206) {
@@ -104,7 +120,9 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
             lastError = new Error(`${config.slug} empty body ${url}`);
           } else {
             try {
-              return { products: JSON.parse(text) as VtexProduct[], url };
+              const products = JSON.parse(text) as VtexProduct[];
+              strikesByHost.delete(origin);
+              return { products, url };
             } catch {
               lastError = new Error(`${config.slug} invalid JSON ${url}`);
             }

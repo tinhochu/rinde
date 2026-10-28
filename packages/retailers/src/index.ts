@@ -29,6 +29,8 @@ export const exito = createVtexClient({
   searchPath: "/io/api/catalog_system/pub/products/search",
   // Éxito answers 429 at the 2 s default pace.
   minIntervalMs: 5000,
+  // Éxito and Carulla are one backend (Grupo Éxito): a 429 at one is a 429 at both.
+  rateGroup: "grupo-exito",
   // Marketplace sellers list here too; only Éxito's own price counts.
   ownSellerId: "1",
 });
@@ -41,6 +43,7 @@ export const carulla = createVtexClient({
   baseUrl: "https://www.carulla.com",
   searchPath: "/io/api/catalog_system/pub/products/search",
   minIntervalMs: 5000,
+  rateGroup: "grupo-exito",
   ownSellerId: "1",
 });
 
