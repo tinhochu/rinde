@@ -85,7 +85,7 @@
 ## 6. Release
 
 - [x] 6.1 Run the full checks: `pnpm -r typecheck`, the unit tests and the web integration tests. Verify: all pass, with outputs recorded in the summary.
-- [ ] 6.2 Deploy:
+- [x] 6.2 Deploy:
   - build the `rinde-*` images;
   - patch the compose and restart (migrate creates `StoreBranch`);
   - run the branch import;
