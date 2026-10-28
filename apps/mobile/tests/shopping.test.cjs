@@ -8,6 +8,14 @@ require.extensions[".ts"] = (module, filename) => {
   const { outputText } = ts.transpileModule(fs.readFileSync(filename, "utf8"), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } });
   module._compile(outputText, filename);
 };
+// shop.ts colors its categories from lib/theme.ts, which reads the color scheme through react-native
+// and expo-sqlite; Node can load neither, and these tests don't look at colors.
+const Module = require("node:module");
+const load = Module._load;
+Module._load = function (request, parent, ...rest) {
+  if (request === "./theme" && parent?.filename.endsWith("/lib/shop.ts")) return { tints: new Proxy({}, { get: () => "#FFFFFF" }) };
+  return load.call(this, request, parent, ...rest);
+};
 const { choices, optimize, parseList, quantityLabel } = require("../lib/market.ts");
 const { IDEAS, cartSchema, favoritesSchema, draftSchema, fromOffer, toListItems, isFresh, observedLabel } = require("../lib/shop.ts");
 
@@ -49,7 +57,8 @@ test("five-minute-old prices are not counted as fresh", () => {
   assert.equal(isFresh(source, time + 299999), true);
   assert.equal(isFresh(source, time + 300000), false);
   assert.equal(isFresh(undefined, time), false);
-  assert.match(observedLabel(source, time + 300000), /Actualizar/);
+  assert.equal(observedLabel(source, time + 300000), "Hace 5 min");
+  assert.equal(observedLabel(source, time + 30000), "Verificado ahora");
 });
 test("pack rounding and stock limits are honored deterministically", () => {
   const row = { item: item({ quantity: 2500 }), offers: [offer()], reasons: [] };

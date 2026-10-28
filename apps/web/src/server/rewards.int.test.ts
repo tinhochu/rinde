@@ -19,7 +19,8 @@ const { cleanupContributors, seedConfirmedReceipt } = await import("./receipt-fi
 
 const RUN = `test-rewards-${Date.now()}`;
 const EAN = `99${Date.now()}`.slice(0, 13);
-const prisma = db();
+// Only when the suite runs: without INTEGRATION there may be no DATABASE_URL, and db() throws.
+const prisma = process.env["INTEGRATION"] ? db() : (undefined as never);
 
 async function contributor(name: string, zone = `Zona ${RUN}`) {
   return prisma.contributor.create({ data: { sessionId: `${RUN}-${name}`, zone } });
