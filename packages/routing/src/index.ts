@@ -59,8 +59,13 @@ interface OsrmOptions {
   /** Requests in flight at once, across every call (the public server's fair use) */
   maxConcurrent?: number;
   cacheTtlMs?: number;
+  /** Retries when the server says it's busy (429/503); the public server limits bursts */
+  retries?: number;
   now?: () => number;
+  sleep?: (ms: number) => Promise<void>;
 }
+
+const BUSY = new Set([429, 503]);
 
 export function createOsrmProvider(opts: OsrmOptions = {}): RouteProvider {
   const baseUrl = opts.baseUrl ?? "https://routing.openstreetmap.de";
@@ -69,15 +74,24 @@ export function createOsrmProvider(opts: OsrmOptions = {}): RouteProvider {
   const ttl = opts.cacheTtlMs ?? WEEK_MS;
   const now = opts.now ?? Date.now;
   const limit = gate(opts.maxConcurrent ?? 2);
+  const retries = opts.retries ?? 3;
+  const sleep = opts.sleep ?? ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)));
   const cache = new Map<string, { at: number; value: Promise<unknown> }>();
 
   async function get(url: string): Promise<Record<string, unknown>> {
+    // A busy answer waits inside the gate (Retry-After, else 0.4 s, 0.8 s, 1.6 s), which also
+    // spaces out our own next requests.
     return limit(async () => {
       let res: Response;
-      try {
-        res = await doFetch(url, { headers: { "User-Agent": USER_AGENT }, signal: AbortSignal.timeout(timeoutMs) });
-      } catch (error) {
-        throw new RouteUnavailable(`routing unreachable: ${String(error)}`);
+      for (let attempt = 0; ; attempt++) {
+        try {
+          res = await doFetch(url, { headers: { "User-Agent": USER_AGENT }, signal: AbortSignal.timeout(timeoutMs) });
+        } catch (error) {
+          throw new RouteUnavailable(`routing unreachable: ${String(error)}`);
+        }
+        if (!BUSY.has(res.status) || attempt >= retries) break;
+        const after = Number(res.headers.get("retry-after"));
+        await sleep(after > 0 ? Math.min(after, 5) * 1000 : 400 * 2 ** attempt);
       }
       const body = (await res.json().catch(() => null)) as Record<string, unknown> | null;
       if (!res.ok || body?.["code"] !== "Ok") throw new RouteUnavailable(`routing ${res.status} ${String(body?.["code"] ?? "")}`);

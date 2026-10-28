@@ -64,6 +64,24 @@ describe("OSRM provider", () => {
     await expect(provider.route([D1, CARULLA], "foot")).resolves.toMatchObject({ legs: [{}] });
   });
 
+  it("waits and asks again when the server is busy, honoring Retry-After", async () => {
+    const busy = (retryAfter?: string) => ({ ok: false, status: 429, headers: new Headers(retryAfter ? { "retry-after": retryAfter } : {}), json: async () => ({}) }) as Response;
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(busy("2"))
+      .mockResolvedValueOnce(busy())
+      .mockResolvedValueOnce(answer(fixture("foot-route")));
+    const sleep = vi.fn(async (_ms: number) => {});
+    await expect(createOsrmProvider({ fetch: fetchMock, sleep }).route([D1, CARULLA], "foot")).resolves.toMatchObject({ legs: [{}] });
+    expect(sleep.mock.calls.map((c) => c[0])).toEqual([2000, 800]);
+  });
+
+  it("gives up with RouteUnavailable when the server stays busy", async () => {
+    const fetchMock = vi.fn(async () => ({ ok: false, status: 429, headers: new Headers(), json: async () => ({}) }) as Response);
+    const provider = createOsrmProvider({ fetch: fetchMock, sleep: async () => {}, retries: 2 });
+    await expect(provider.route([D1, CARULLA], "foot")).rejects.toBeInstanceOf(RouteUnavailable);
+    expect(fetchMock).toHaveBeenCalledTimes(3);
+  });
+
   it("sends at most two requests at once", async () => {
     let inFlight = 0, most = 0;
     const fetchMock = vi.fn(async () => {
