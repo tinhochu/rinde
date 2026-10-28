@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { areaFrom, branchesFromOverpass } from "./branches";
+import { areaFrom, branchesFromOverpass, streetFrom } from "./branches";
 
 // Recorded from Overpass on 2026-10-28 (© OpenStreetMap contributors, ODbL), trimmed to the tags read.
 const fixture = JSON.parse(readFileSync(new URL("./__fixtures__/overpass-branches.json", import.meta.url), "utf8"));
@@ -37,5 +37,13 @@ describe("areaFrom", () => {
     expect(areaFrom({ neighbourhood: "Laureles", city: "Medellín" })).toBe("Laureles, Medellín");
     expect(areaFrom({ town: "Chía" })).toBe("Chía");
     expect(areaFrom({})).toBeNull();
+  });
+});
+
+describe("streetFrom", () => {
+  it("tells unaddressed branches apart by the street at their point", () => {
+    expect(streetFrom({ road: "Calle 57", house_number: "9-30" })).toBe("Calle 57 # 9-30");
+    expect(streetFrom({ road: "Avenida Carrera 15" })).toBe("Cerca de Avenida Carrera 15");
+    expect(streetFrom({ suburb: "Chapinero" })).toBeNull();
   });
 });

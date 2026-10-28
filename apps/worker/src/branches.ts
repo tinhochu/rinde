@@ -91,12 +91,25 @@ async function fetchOverpass(): Promise<{ elements: OverpassElement[] }> {
   throw lastError;
 }
 
-/** Neighborhood, else locality, for a point; null when Nominatim has none. */
-async function areaOf(lat: number, lon: number): Promise<string | null> {
-  const url = `${NOMINATIM_URL}?format=jsonv2&zoom=17&accept-language=es&lat=${lat}&lon=${lon}`;
+/** Neighborhood (else locality) and nearest street for a point, from one Nominatim reverse lookup. */
+async function placeOf(lat: number, lon: number): Promise<Place> {
+  const url = `${NOMINATIM_URL}?format=jsonv2&zoom=18&accept-language=es&lat=${lat}&lon=${lon}`;
   const res = await fetch(url, { headers: { "User-Agent": USER_AGENT }, signal: AbortSignal.timeout(10_000) });
-  if (!res.ok) return null;
-  return areaFrom(((await res.json()) as { address?: Record<string, string> }).address ?? {});
+  if (!res.ok) return { area: null, street: null };
+  const a = ((await res.json()) as { address?: Record<string, string> }).address ?? {};
+  return { area: areaFrom(a), street: streetFrom(a) };
+}
+
+type Place = { area: string | null; street: string | null };
+
+/**
+ * Most D1s carry no address in OSM, so a list of them reads "D1, D1, D1". The street Nominatim
+ * finds at the point tells them apart: "Calle 57 # 9-30" with a number, else "Cerca de Calle 57".
+ */
+export function streetFrom(a: Record<string, string>): string | null {
+  const road = a["road"]?.trim();
+  if (!road) return null;
+  return a["house_number"] ? `${road} # ${a["house_number"].trim()}` : `Cerca de ${road}`;
 }
 
 /**
@@ -112,12 +125,14 @@ export function areaFrom(a: Record<string, string>): string | null {
   return parts.length ? parts.join(", ") : null;
 }
 
-export async function importBranches(opts: { fetchJson?: typeof fetchOverpass; lookupArea?: typeof areaOf; pauseMs?: number } = {}) {
+export async function importBranches(opts: { fetchJson?: typeof fetchOverpass; lookupPlace?: typeof placeOf; pauseMs?: number } = {}) {
   const prisma = db();
   const branches = branchesFromOverpass(await (opts.fetchJson ?? fetchOverpass)());
   const refreshedAt = new Date();
   for (const b of branches) {
-    await prisma.storeBranch.upsert({ where: { osmId: b.osmId }, create: { ...b, refreshedAt }, update: { ...b, refreshedAt } });
+    // OSM without an address keeps the street found earlier; a mapped address replaces it.
+    const { address, ...rest } = b;
+    await prisma.storeBranch.upsert({ where: { osmId: b.osmId }, create: { ...b, refreshedAt }, update: { ...rest, ...(address ? { address } : {}), refreshedAt } });
   }
   // A branch gone from OSM is closed or merged; drop it, unless this answer looks partial.
   const previous = await prisma.storeBranch.count();
@@ -126,14 +141,18 @@ export async function importBranches(opts: { fetchJson?: typeof fetchOverpass; l
     removed = (await prisma.storeBranch.deleteMany({ where: { refreshedAt: { lt: refreshedAt } } })).count;
   }
 
-  const lookup = opts.lookupArea ?? areaOf;
+  const lookup = opts.lookupPlace ?? placeOf;
   const pause = opts.pauseMs ?? 1100;
-  const missing = await prisma.storeBranch.findMany({ where: { area: null }, select: { id: true, lat: true, lon: true } });
+  const missing = await prisma.storeBranch.findMany({
+    where: { OR: [{ area: null }, { address: null }] },
+    select: { id: true, lat: true, lon: true, area: true, address: true },
+  });
   let areas = 0;
   for (const b of missing) {
     try {
-      const area = await lookup(b.lat, b.lon);
-      if (area) { await prisma.storeBranch.update({ where: { id: b.id }, data: { area } }); areas++; }
+      const place = await lookup(b.lat, b.lon);
+      const data = { ...(!b.area && place.area ? { area: place.area } : {}), ...(!b.address && place.street ? { address: place.street } : {}) };
+      if (Object.keys(data).length) { await prisma.storeBranch.update({ where: { id: b.id }, data }); areas++; }
     } catch (error) {
       console.warn(`[branches] area lookup failed for ${b.id}: ${String(error)}`);
     }
@@ -143,7 +162,7 @@ export async function importBranches(opts: { fetchJson?: typeof fetchOverpass; l
   const counts = Object.fromEntries(
     (await prisma.storeBranch.groupBy({ by: ["chain"], _count: true })).map((g) => [g.chain, g._count]),
   );
-  console.log(`[branches] ${branches.length} from OSM, ${removed} removed, ${areas} areas filled; by chain ${JSON.stringify(counts)}`);
+  console.log(`[branches] ${branches.length} from OSM, ${removed} removed, ${areas} places filled; by chain ${JSON.stringify(counts)}`);
   return { imported: branches.length, removed, areas, counts };
 }
 
