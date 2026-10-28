@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { CircleCheck, Link } from "lucide-react-native";
 import { InstallSteps } from "@/components/install-steps";
 import { Button } from "@/components/ui";
-import { useInstall } from "@/lib/install";
+import { track, trackLaunch, useInstall } from "@/lib/install";
 import { toast } from "@/lib/toast";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
@@ -25,19 +25,33 @@ export function InstallSplash() {
   const [installed, setInstalled] = useState(false);
   const [open, setOpen] = useState(welcome);
   useEffect(() => { if (!welcome) setOpen(false); }, [welcome]);
+  // The way is settled after the first render (Chrome's offer can arrive late); count once it is.
+  useEffect(() => {
+    const t = setTimeout(() => trackLaunch(way), 1500);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const showing = open && (way !== "none" || installed);
+  useEffect(() => { if (showing && !installed) track({ event: "guide", detail: "shown" }, way); }, [showing]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (!open || (way === "none" && !installed)) return null;
+  if (!showing) return null;
 
+  function later() {
+    track({ event: "guide", detail: "snoozed" }, way);
+    snooze();
+  }
   async function onInstall() {
+    track({ event: "guide", detail: "install-tap" }, way);
     if (await install()) setInstalled(true);
   }
   async function onCopy() {
+    track({ event: "guide", detail: "copy-link" }, way);
     if (await copyLink()) toast.success("Enlace copiado. Pégalo en Chrome o Safari.");
     else toast.error("No pudimos copiar el enlace. Ábrelo desde el menú de la app.");
   }
 
   return (
-    <Modal visible transparent={false} animationType="fade" onRequestClose={snooze}>
+    <Modal visible transparent={false} animationType="fade" onRequestClose={later}>
       <SafeAreaView edges={["top", "bottom"]} style={styles.screen}>
         <ScrollView contentContainerStyle={styles.page} showsVerticalScrollIndicator={false}>
           <HomeScreen />
@@ -76,10 +90,10 @@ export function InstallSplash() {
           ) : way === "prompt" ? (
             <>
               <Button title="Instalar Rinde" onPress={onInstall} />
-              <Button title="Ahora no" variant="outline" onPress={snooze} />
+              <Button title="Ahora no" variant="outline" onPress={later} />
             </>
           ) : (
-            <Button title="Ahora no, seguir en el navegador" variant="outline" onPress={snooze} />
+            <Button title="Ahora no, seguir en el navegador" variant="outline" onPress={later} />
           )}
         </View>
       </SafeAreaView>

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import type { InstallWay } from "./install";
+import { apiBase } from "./api";
+import type { InstallEvent, InstallWay } from "./install";
 
-export type { InstallWay } from "./install";
+export type { InstallEvent, InstallWay } from "./install";
 
 // Chrome's install offer, kept by public/index.html because it can fire before the app mounts.
-type InstallEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: "accepted" | "dismissed" }> };
+type InstallOffer = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: "accepted" | "dismissed" }> };
 declare global {
-  interface Window { __rindeInstall?: InstallEvent }
+  interface Window { __rindeInstall?: InstallOffer }
   interface Navigator { getInstalledRelatedApps?: () => Promise<{ platform: string; url?: string }[]> }
 }
 
@@ -44,6 +45,38 @@ function wayNow(): InstallWay {
   if (inApp()) return handheld() ? "inapp" : "none";
   if (apple()) return "ios";
   return /Android/i.test(navigator.userAgent) ? "android" : "none";
+}
+
+/** Fire and forget: a counter that doesn't arrive changes nothing for the person. */
+export function track(e: InstallEvent, way: InstallWay) {
+  try {
+    void fetch(`${apiBase()}/api/installs`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...e, way }), keepalive: true }).catch(() => undefined);
+  } catch {
+    // Never in the way of the app.
+  }
+}
+
+/** Counts this launch once a day per mode, so the numbers are devices per day, not page loads. */
+export function trackLaunch(way: InstallWay) {
+  const detail = standalone() ? "app" : "browser";
+  const key = `rinde-launch-${detail}`;
+  const today = new Date().toISOString().slice(0, 10);
+  try {
+    if (window.localStorage.getItem(key) === today) return;
+    window.localStorage.setItem(key, today);
+  } catch {
+    return; // Without storage every load would count; better none.
+  }
+  track({ event: "launch", detail }, way);
+}
+
+// Installed from the browser's own menu (not our button): Chrome says so once, whichever screen is open.
+let ourPrompt = false;
+if (typeof window !== "undefined") {
+  window.addEventListener("appinstalled", () => {
+    if (!ourPrompt) track({ event: "installed", detail: "menu" }, "prompt");
+    ourPrompt = false;
+  });
 }
 
 function snoozedNow() {
@@ -100,8 +133,11 @@ export function useInstall() {
   async function install() {
     const offer = window.__rindeInstall;
     if (!offer) return false;
+    ourPrompt = true;
     await offer.prompt();
     const { outcome } = await offer.userChoice;
+    if (outcome === "accepted") track({ event: "installed", detail: "prompt" }, "prompt");
+    else ourPrompt = false;
     // An offer can be used once; Chrome sends a new one later if the person said no.
     window.__rindeInstall = undefined;
     setWay(wayNow());

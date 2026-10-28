@@ -9,6 +9,15 @@
 export type InstallWay = "prompt" | "ios" | "android" | "inapp" | "none";
 
 /** moved: Rinde was just opened from its old address (see public/index.html); say so once. */
+/** Anonymous install counters (apps/web/src/server/installs.ts); the native app sends none. */
+export type InstallEvent =
+  | { event: "launch"; detail: "app" | "browser" }
+  | { event: "installed"; detail: "prompt" | "menu" }
+  | { event: "guide"; detail: "shown" | "snoozed" | "install-tap" | "copy-link" };
+export function track(_e: InstallEvent, _way: InstallWay) {}
+/** Counts this launch once a day: opened from the home-screen icon, or in a browser tab. */
+export function trackLaunch(_way: InstallWay) {}
+
 export function useInstall(): {
   way: InstallWay; install: () => Promise<boolean>; dismissed: boolean; dismiss: () => void; moved: boolean;
   /** The welcome guide opens on launch on a phone, unless it was put off in the last 3 days. */

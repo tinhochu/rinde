@@ -490,3 +490,16 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+
+/// Anonymous install counters, one row per day and kind of event: no device, session or user is stored.
+/// event launch: detail app (opened from the home-screen icon) | browser; installed: prompt (our button) | menu
+/// (the browser's own menu); guide: shown | snoozed | install-tap | copy-link. way: how that browser installs.
+model InstallCount {
+  day    DateTime @db.Date
+  event  String
+  detail String
+  way    String
+  count  Int      @default(0)
+
+  @@id([day, event, detail, way])
+}
