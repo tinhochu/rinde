@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { LiveReceipt } from '@/components/live-receipt';
 import { copy, type Lang } from '@/lib/landing-copy';
 import { APP_URL } from '@/lib/config';
+import { STORE_LOGOS, STORE_ORDER } from '@/lib/store-logos';
 import produceAisle from '@/assets/photos/produce-aisle.webp';
 import groceryCart from '@/assets/photos/grocery-cart.webp';
 
@@ -55,7 +56,7 @@ const Index = ({ lang }: { lang: Lang }) => {
           </div>
         </section>
 
-        <section className="border-y border-primary/20 bg-[var(--sand)]"><div className="page-width flex flex-col items-center justify-between gap-6 py-7 md:flex-row"><p className="eyebrow max-w-40 text-center leading-relaxed md:text-left">{t.stores}</p><div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[26px] font-bold tracking-[-1px] sm:gap-x-14 sm:text-[30px]"><span>D1</span><span>Jumbo</span><span>Éxito</span><span>Carulla</span></div><p className="max-w-40 text-center text-[11px] leading-relaxed md:text-right">{t.independent}</p></div></section>
+        <section className="border-y border-primary/20 bg-[var(--sand)]"><div className="page-width flex flex-col items-center justify-between gap-6 py-7 md:flex-row"><p className="eyebrow max-w-40 text-center leading-relaxed md:text-left">{t.stores}</p><ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-[26px] font-bold tracking-[-1px] sm:gap-x-12 sm:text-[30px]">{STORE_ORDER.map((store) => <li key={store} className="flex items-center gap-3"><img src={STORE_LOGOS[store]} alt="" width={44} height={44} loading="lazy" className="size-10 rounded-full object-cover ring-1 ring-white/15 sm:size-11" />{store}</li>)}</ul><p className="max-w-40 text-center text-[11px] leading-relaxed md:text-right">{t.independent}</p></div></section>
 
         <section id="how-it-works" className="page-width scroll-mt-8 py-20 lg:py-24"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="eyebrow mb-5">{t.howLabel}</p><h2 className="editorial section-title whitespace-pre-line">{t.howTitle}</h2></div><p className="max-w-64 pb-1 text-sm leading-7 text-[var(--body-ink)]">{t.howIntro}</p></div><ol className="mt-12 grid gap-9 md:grid-cols-3 md:gap-10">{t.steps.map(([title, desc], i) => <li key={title} className="border-t border-primary/30 pt-6"><div className="mb-7 flex items-center justify-between"><span className="editorial text-[42px] italic text-[var(--tomato)]">0{i + 1}</span>{i === 0 ? <ShoppingBasket size={29} strokeWidth={1.2} aria-hidden="true" /> : i === 1 ? <ArrowRight size={29} strokeWidth={1.2} aria-hidden="true" /> : <Leaf size={29} strokeWidth={1.2} aria-hidden="true" />}</div><h3 className="mb-3 text-lg font-semibold tracking-tight">{title}</h3><p className="max-w-80 text-[13px] leading-7 text-[var(--body-ink)]">{desc}</p></li>)}</ol></section>
 

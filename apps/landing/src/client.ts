@@ -1,6 +1,7 @@
 // What the landing page does in the browser. The HTML is complete without it (prerender.mjs).
 import "./globals.css";
 import { formatAge, formatPack, formatPrice, loadComparison, type Comparison } from "./lib/live-prices";
+import { STORE_LOGOS } from "./lib/store-logos";
 
 type Words = { lang: "es" | "en"; units: string; seen: string; receipt: string; lowest: string; difference: string; live: string };
 
@@ -21,7 +22,18 @@ function printReceipt(box: HTMLElement, words: Words, { product, offers }: Compa
     const best = i === 0;
     const row = el("li", `flex items-start justify-between gap-3 ${best ? "-mx-2 rounded-sm bg-[#e7ecda] px-2 py-2" : "py-0.5"}`);
     const left = el("span", "");
-    left.append(el("span", best ? "font-bold" : "", offer.store));
+    const store = el("span", "inline-flex items-center gap-1.5");
+    const logo = STORE_LOGOS[offer.store];
+    if (logo) {
+      const img = el("img", "size-4 rounded-full object-cover");
+      img.src = logo;
+      img.alt = "";
+      img.width = 16;
+      img.height = 16;
+      store.append(img);
+    }
+    store.append(el("span", best ? "font-bold" : "", offer.store));
+    left.append(store);
     if (best) left.append(el("span", "ml-1.5 text-[7px] font-bold", words.lowest));
     const age = `${words.seen} ${formatAge(offer.observedAt, words.lang)}${offer.source === "receipt" ? ` (${words.receipt})` : ""}`;
     left.append(el("span", "block text-[9px] text-[var(--body-ink)]", age));
