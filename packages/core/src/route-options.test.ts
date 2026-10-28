@@ -129,3 +129,44 @@ describe("routeOptions", () => {
     expect(options[1]).toMatchObject({ travelCost: 1400 + 3000, net: 12_300 - 4400 });
   });
 });
+
+describe("cold and heavy items last", () => {
+  const coldItems = [
+    item("leche", [cand("d1", 4_000), cand("carulla", 5_000)]),
+    item("arveja congelada", [cand("d1", 6_000), cand("carulla", 7_000)]),
+    item("arroz", [cand("d1", 20_000), cand("carulla", 12_700)]),
+  ];
+
+  it("visits the anchor last on the loop back when the milk and frozen peas are there", async () => {
+    const p = provider({ [key([pt(D1), pt(CARULLA), pt(D1)])]: route(600, 480, 3) }, { [pt(CARULLA).join(",")]: 240 });
+    const { options } = await routeOptions(input(p, { items: coldItems, branches: [CARULLA] }));
+    expect(options[1]!.stops.map((s) => s.chain)).toEqual(["carulla", "d1"]);
+    expect(options[1]!.stopLines.map((ls) => ls.map((l) => l.itemId))).toEqual([["arroz"], ["leche", "arveja congelada"]]);
+    expect(options[1]!.extra).toEqual({ distanceM: 600, durationS: 480 });
+  });
+
+  it("takes a slightly slower order from home to put the cold stop last", async () => {
+    const p = provider(
+      {
+        [key([HOME, pt(D1)])]: route(400, 300),
+        [key([HOME, pt(D1), pt(CARULLA)])]: route(1500, 1100, 3),
+        [key([HOME, pt(CARULLA), pt(D1)])]: route(1600, 1200, 3),
+      },
+      { [pt(CARULLA).join(",")]: 240 },
+    );
+    const { options } = await routeOptions(input(p, { items: coldItems, start: HOME, branches: [CARULLA] }));
+    expect(options[1]!.stops.map((s) => s.chain)).toEqual(["carulla", "d1"]);
+    expect(options[1]!.extra).toEqual({ distanceM: 1200, durationS: 900 });
+  });
+
+  it("puts cold and heavy items at the end of a stop's list", async () => {
+    const p = provider({}, {});
+    const items = [
+      item("leche", [cand("d1", 4_000)]),
+      { ...item("arroz", [{ ...cand("d1", 20_000), size: { amount: 5000, unit: "g" as const } }]), quantity: 5000, unit: "g" as const },
+      item("galletas", [cand("d1", 3_000)]),
+    ];
+    const { options } = await routeOptions(input(p, { items, branches: [] }));
+    expect(options[0]!.stopLines[0]!.map((l) => l.itemId)).toEqual(["galletas", "arroz", "leche"]);
+  });
+});

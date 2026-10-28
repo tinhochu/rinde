@@ -1,5 +1,6 @@
 import { STORE_NAMES, optimize } from "./optimizer";
-import type { Plan, PlanItem, RetailerSlug } from "./optimizer";
+import type { Plan, PlanItem, PlanLine, RetailerSlug } from "./optimizer";
+import { coldHeavyScore, orderLines } from "./route-items";
 import {
   extraTrip, formatMinutes, routeProfile, shorterOrder, stopCost, tripDurationS, withinLimit, MINUTE_LIMITS,
   type RouteLength, type StepInput, type TravelSettings,
@@ -57,6 +58,8 @@ export interface RouteOption {
   label: string;
   /** Stops in visiting order */
   stops: RouteStop[];
+  /** Each stop's lines, cold and heavy last, aligned with `stops` */
+  stopLines: PlanLine[][];
   plan: Plan;
   goodsTotal: number;
   /** Against everything at the anchor, over the items the anchor carries */
@@ -102,6 +105,8 @@ export interface RouteOptionsInput {
 
 /** Branches routed per chain: the closest by straight line, only to choose which to ask the router about. */
 const SHORTLIST = 5;
+/** A slower order is taken when it puts the cold and heavy items last and costs at most this much more. */
+const COLD_LAST_S = 180;
 
 export async function routeOptions(input: RouteOptionsInput): Promise<RouteOptionsResult> {
   const { items, anchor, travel, provider } = input;
@@ -123,7 +128,8 @@ export async function routeOptions(input: RouteOptionsInput): Promise<RouteOptio
 
   const anchorPlan = optimize(items, { ...planOpts, retailers: [anchor.chain] });
   const anchorOption: RouteOption = {
-    key: anchor.chain, label: `Solo en tu ${STORE_NAMES[anchor.chain]}`, stops: [anchorStop], plan: anchorPlan,
+    key: anchor.chain, label: `Solo en tu ${STORE_NAMES[anchor.chain]}`, stops: [anchorStop],
+    stopLines: [orderLines(anchorPlan.stores.flatMap((s) => s.lines))], plan: anchorPlan,
     goodsTotal: anchorPlan.total, saving: 0, extra: { distanceM: 0, durationS: 0 }, travelCost: 0, net: 0,
     extraItems: [], route: base, otherOrder: null,
   };
@@ -184,8 +190,14 @@ export async function routeOptions(input: RouteOptionsInput): Promise<RouteOptio
       leftOut.push({ chain, reason: `No pudimos calcular la ruta a ${name}` });
       continue;
     }
-    const best = shorterOrder(orders);
-    const other = orders.find((o) => o !== best) ?? null;
+    const linesAt = (stop: RouteStop) => plan.stores.find((s) => s.retailer === stop.chain)?.lines ?? [];
+    const coldLast = (o: { stops: RouteStop[] }) => coldHeavyScore(linesAt(o.stops.at(-1)!)) >= coldHeavyScore(linesAt(o.stops[0]!));
+    const fastest = shorterOrder(orders);
+    const colder = orders.find((o) => o !== fastest && coldLast(o) && !coldLast(fastest) && o.route.durationS - fastest.route.durationS <= COLD_LAST_S);
+    let best = colder ?? fastest;
+    // Anchor → B → anchor passes the anchor again on the way back: a colder anchor is the last stop.
+    if (!start && !coldLast(best)) best = { stops: [stop, anchorStop], route: best.route };
+    const other = start ? (orders.find((o) => o.route !== best.route) ?? null) : null;
     const baseLength = base ? { distanceM: base.distanceM, durationS: tripDurationS(travel.mode, base.durationS, 1) } : null;
     const extra = extraTrip(baseLength, { distanceM: best.route.distanceM, durationS: tripDurationS(travel.mode, best.route.durationS, 2) });
     if (!withinLimit(travel.mode, extra.durationS)) {
@@ -194,7 +206,8 @@ export async function routeOptions(input: RouteOptionsInput): Promise<RouteOptio
     }
     const travelCost = stopCost(travel, extra.distanceM);
     options.push({
-      key: `${anchor.chain}+${chain}`, label: `${STORE_NAMES[anchor.chain]} + ${name}`, stops: best.stops, plan,
+      key: `${anchor.chain}+${chain}`, label: `${STORE_NAMES[anchor.chain]} + ${name}`, stops: best.stops,
+      stopLines: best.stops.map((s) => orderLines(linesAt(s))), plan,
       goodsTotal: plan.total, saving, extra, travelCost, net: saving - travelCost, extraItems,
       route: best.route, otherOrder: other,
     });

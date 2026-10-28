@@ -41,14 +41,14 @@
 
 ## 3. Muse advice
 
-- [ ] 3.1 Add `adviseRoute(options, travel, note)` in `apps/web/src/server/route-advice.ts`:
+- [x] 3.1 Add `adviseRoute(options, travel, note)` in `apps/web/src/server/route-advice.ts`:
   - `museJson`, returning `{ choice, question, explanation, itemOrder }`;
   - checks that the choice is offered and that every number is a given figure;
   - the rule fallback (≥ $3.000 and ≥ 5%) with a template;
   - a cache.
 
   Verify with unit tests, Muse mocked: a valid choice; an invalid index → fallback; an invented figure → fallback; a question; `MuseUnavailable` → fallback; the prompt contains no item prices.
-- [ ] 3.2 Run an opt-in live test with the real key on the spec's three scenarios (worth it on foot, "voy con bebé", a far store). Verify: the picks and explanations are recorded in the summary, and each passes validation.
+- [x] 3.2 Run an opt-in live test with the real key on the spec's three scenarios (worth it on foot, "voy con bebé", a far store). Verify: the picks and explanations are recorded in the summary, and each passes validation.
 - [ ] 3.3 Order items within stops and choose the stop order: cold and heavy items flagged, the cold-heavy stop last, and Muse's `itemOrder` applied when it is valid. Verify with a unit test on a list with milk and frozen peas.
 
 ## 4. API
