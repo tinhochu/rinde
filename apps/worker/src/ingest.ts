@@ -1,6 +1,7 @@
 import { db, ensureRetailer, recordOffer } from "@rinde/db";
 import { retailers, type Offer, type RetailerClient } from "@rinde/retailers";
 import { STAPLE_TERMS } from "./catalog";
+import { crossFill } from "./crossfill";
 
 const PAGE_SIZE = 50;
 
@@ -60,5 +61,6 @@ export async function ingestAll() {
 // import.meta.url, because the bundled worker inlines this module into dist/index.mjs.
 if (/[\\/]ingest\.(ts|mjs)$/.test(process.argv[1] ?? "")) {
   await ingestAll();
+  if (process.env["CROSS_FILL"] !== "0") await crossFill();
   await db().$disconnect();
 }

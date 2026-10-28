@@ -1,5 +1,6 @@
 import { Cron } from "croner";
 import { cleanupReceipts } from "./cleanup";
+import { crossFill } from "./crossfill";
 import { retryStaleIntakes } from "./inbound-retry";
 import { ingestAll } from "./ingest";
 
@@ -8,6 +9,8 @@ const schedule = process.env["INGEST_CRON"] ?? "0 5 * * *";
 const job = new Cron(schedule, { timezone: "America/Bogota", protect: true }, async () => {
   console.log(`[worker] snapshot started ${new Date().toISOString()}`);
   await ingestAll();
+  // Each store's barcodes looked up at the others, once every store has been read.
+  await crossFill();
 });
 
 console.log(`[worker] scheduled "${schedule}" (America/Bogota), next run ${job.nextRun()?.toISOString()}`);

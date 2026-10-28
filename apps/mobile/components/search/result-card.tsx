@@ -31,6 +31,11 @@ export function ResultCard({ product, index, count, favorite, expanded, onToggle
           <GroceryImage src={product.image} alt={product.name} contain style={styles.image} />
         </PressScale>
         <View style={styles.info}>
+          {product.similar && (
+            <View style={styles.similar} accessibilityLabel="Similar: otra marca, no la que buscaste">
+              <Text style={styles.similarText}>Similar</Text>
+            </View>
+          )}
           <Pressable accessibilityRole="link" onPress={onOpen}>
             <Text numberOfLines={2} style={styles.name}>{product.name}</Text>
           </Pressable>
@@ -128,6 +133,8 @@ const styles = StyleSheet.create({
   top: { flexDirection: "row", gap: spacing.md },
   image: { width: 64, height: 64, borderRadius: radius.md, backgroundColor: colors.imageBg },
   info: { flex: 1, gap: 2 },
+  similar: { alignSelf: "flex-start", borderRadius: radius.pill, backgroundColor: colors.muted, paddingHorizontal: 8, paddingVertical: 2, marginBottom: 2 },
+  similarText: { fontSize: fontSize.tiny, fontWeight: "800", color: colors.mutedForeground },
   name: { fontSize: fontSize.subhead, fontWeight: "700", lineHeight: 19, color: colors.foreground },
   sub: { fontSize: fontSize.caption, color: colors.mutedForeground },
   stores: { fontSize: fontSize.caption, fontWeight: "600", color: colors.foreground },

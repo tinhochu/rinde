@@ -1,0 +1,82 @@
+import { describe, expect, it } from "vitest";
+import type { MatchItem } from "@rinde/core";
+import type { MuseConfig } from "./muse";
+import { judgeSameProduct } from "./same-product";
+
+const reply = (text: string) =>
+  new Response(JSON.stringify({ output: [{ type: "message", content: [{ type: "output_text", text }] }] }), { status: 200 });
+
+function cfg(text: string, calls: unknown[] = []): MuseConfig {
+  return {
+    apiKey: "test", baseUrl: "https://api.example/v1", model: "muse-spark-1.3", timeoutMs: 50,
+    fetch: (async (_url: string, init: RequestInit) => { calls.push(JSON.parse(init.body as string)); return reply(text); }) as typeof fetch,
+  };
+}
+const unavailable: MuseConfig = { ...cfg(""), apiKey: undefined };
+
+// Answers are cached per target and candidate set, so each test uses its own target id.
+let n = 0;
+const target = (): MatchItem => ({ id: `t${n++}`, name: "Leche deslactosada Alpina x1L", brand: "ALPINA", aisle: "dairy" });
+type Listing = MatchItem & { price: number };
+const listing = (id: string, name: string, brand: string | null, price: number): Listing => ({ id, name, brand, aisle: "dairy", price });
+
+const abbreviated = listing("a", "Leche Deslact. ALPINA 1000 ml", "Alpina", 7900);
+const skim = listing("b", "Leche 2.0 Alpina 1000 ml", "Alpina", 6900);
+const small = listing("c", "Leche deslactosada Alpina 900 ml", "Alpina", 6500);
+
+describe("judgeSameProduct", () => {
+  it("asks once, at low effort, with names, brands and sizes but no prices", async () => {
+    const calls: { input: { content: { text: string }[] }[]; reasoning?: unknown }[] = [];
+    await judgeSameProduct(target(), [abbreviated, skim, small], cfg('{"pick":0,"reason":"Misma leche"}', calls));
+    const text = calls[0]!.input[0]!.content[0]!.text;
+    expect(calls).toHaveLength(1);
+    expect(calls[0]!.reasoning).toEqual({ effort: "low" });
+    expect(text).not.toMatch(/\$|7900|6900|6500/);
+    // The 900 ml listing never reaches the model: it isn't the same size.
+    expect(text).toContain("Leche Deslact. ALPINA 1000 ml · marca Alpina · 1000 ml");
+    expect(text).not.toContain("900 ml ·");
+  });
+
+  it("returns Muse's pick and its reason", async () => {
+    const verdict = await judgeSameProduct(target(), [abbreviated, skim], cfg('{"pick":0,"reason":"Misma leche Alpina deslactosada de 1 L; la tienda la abrevia"}'));
+    expect(verdict).toEqual({ pick: abbreviated, by: "muse", reason: "Misma leche Alpina deslactosada de 1 L; la tienda la abrevia" });
+  });
+
+  it("returns none when Muse says none is the same product", async () => {
+    const verdict = await judgeSameProduct(target(), [skim], cfg('{"pick":-1,"reason":"Es leche semidescremada, no deslactosada"}'));
+    expect(verdict).toEqual({ pick: null, by: "muse", reason: "Es leche semidescremada, no deslactosada" });
+  });
+
+  it("throws away a pick outside the list, such as the 900 ml listing it was never shown", async () => {
+    // The store has [abbreviated, 900 ml]; only the 1 L listing is shown, as number 0. Number 1 isn't a candidate.
+    const verdict = await judgeSameProduct(target(), [abbreviated, small], cfg('{"pick":1,"reason":"La de 900 ml"}'));
+    expect(verdict.pick).toBeNull();
+  });
+
+  it("caches a verdict, including none", async () => {
+    const calls: unknown[] = [];
+    const t = target();
+    await judgeSameProduct(t, [skim], cfg('{"pick":-1,"reason":"No"}', calls));
+    await judgeSameProduct(t, [skim], cfg('{"pick":-1,"reason":"No"}', calls));
+    expect(calls).toHaveLength(1);
+  });
+
+  it("asks nothing when no listing has the same size and brand", async () => {
+    const calls: unknown[] = [];
+    const verdict = await judgeSameProduct(target(), [small, listing("d", "Leche deslactosada Colanta 1 L", "Colanta", 5000)], cfg("{}", calls));
+    expect(verdict).toEqual({ pick: null, by: "muse", reason: null });
+    expect(calls).toHaveLength(0);
+  });
+
+  it("falls back to the strict rule without Muse", async () => {
+    const exact = listing("e", "Leche Deslactosada ALPINA 1 L", "Alpina S.A.", 7800);
+    expect(await judgeSameProduct(target(), [exact, skim], unavailable)).toEqual({ pick: exact, by: "rules", reason: null });
+  });
+
+  it("stays undecided without Muse when the rule can't tell", async () => {
+    const twin = listing("f", "Leche Deslactosada Alpina Bolsa 1000 ml", "Alpina", 7700);
+    const exact = listing("g", "Leche Deslactosada ALPINA 1 L", "Alpina", 7800);
+    expect(await judgeSameProduct(target(), [exact, twin], unavailable)).toMatchObject({ pick: null, undecided: true });
+    expect(await judgeSameProduct(target(), [abbreviated], unavailable)).toMatchObject({ pick: null, undecided: true });
+  });
+});

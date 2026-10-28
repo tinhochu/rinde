@@ -76,6 +76,10 @@ export type ComparedProduct = {
   egg?: Egg;
   /** Most expensive minus cheapest store price; 0 with fewer than two stores */
   spread: number;
+  /** Another product than the one searched (another brand, kind or size), shown as "Similar" */
+  similar?: boolean;
+  /** Why Muse grouped it with the searched product, one line in Spanish */
+  reason?: string;
 };
 
 export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };

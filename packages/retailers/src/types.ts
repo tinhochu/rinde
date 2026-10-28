@@ -31,8 +31,8 @@ export interface RetailerClient {
   /** `patient` (default true) waits out a 429 cool-down; interactive callers pass false to fail fast. */
   search(term: string, opts?: { limit?: number; patient?: boolean }): Promise<Offer[]>;
   byEan(ean: string): Promise<Offer[]>;
-  /** Batched EAN lookup: the same products at this retailer, one request per 30 EANs. */
-  byEans(eans: string[]): Promise<Offer[]>;
+  /** Batched EAN lookup: the same products at this retailer, one request per 30 EANs. `patient` as in `search`, default false. */
+  byEans(eans: string[], opts?: { patient?: boolean }): Promise<Offer[]>;
   /** Current offers for specific SKUs (item ids), batched. Missing SKUs are simply absent. */
   byIds(skuIds: string[]): Promise<Offer[]>;
 }

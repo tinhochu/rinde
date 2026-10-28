@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
-import type { ListItem, LookupResult, Store } from "./market";
-import type { CatalogResult } from "./shop";
+import type { ListItem, LookupResult, Offer, Store } from "./market";
+import type { CatalogResult, ComparedProduct } from "./shop";
 
 // The PWA calls relative /api/* routes on its own host. On native there is no
 // same-origin server, so the backend base URL is explicit. Point it at a
@@ -47,4 +47,22 @@ export type HistoryPoint = { listingId: string; store: Store; day: string; price
 export function fetchHistory(listingIds: string[], signal?: AbortSignal): Promise<{ days: number; points: HistoryPoint[] }> {
   const ids = encodeURIComponent(listingIds.slice(0, 6).join(","));
   return fetch(`${BASE}/api/history?ids=${ids}`, { signal }).then(parse) as Promise<{ days: number; points: HistoryPoint[] }>;
+}
+
+/** One store's answer to "Buscar en todas las tiendas" (see apps/web/src/server/store-check.ts). */
+export type StoreCheck =
+  | { store: Store; state: "price"; offer: Offer; reason?: string }
+  | { store: Store; state: "not-sold"; reason?: string }
+  | { store: Store; state: "unchecked" };
+
+/** Asks every store without a current price for this listing's product, live; prices are the stores' own. */
+export function checkStores(listingId: string, signal?: AbortSignal): Promise<{ stores: StoreCheck[]; checkedAt: string }> {
+  return fetch(`${BASE}/api/products/${encodeURIComponent(listingId)}/stores`, { method: "POST", signal })
+    .then(parse) as Promise<{ stores: StoreCheck[]; checkedAt: string }>;
+}
+
+/** "Similares": other products of the same kind, by Muse, cheapest per kg / L / unit first. */
+export function fetchSimilar(listingId: string, signal?: AbortSignal): Promise<{ products: ComparedProduct[]; checkedAt: string }> {
+  return fetch(`${BASE}/api/products/${encodeURIComponent(listingId)}/similar`, { signal })
+    .then(parse) as Promise<{ products: ComparedProduct[]; checkedAt: string }>;
 }

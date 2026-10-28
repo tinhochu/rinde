@@ -8,11 +8,14 @@ import { isRelevant } from "./relevance";
 /** A search result as the grouping sees it: names and sizes only, never prices. */
 export type ValueItem = { key: string; name: string; brand: string; pack: number; unit: "g" | "ml" | "und" };
 /** Products a shopper would swap for each other when only price per kg / L / unit matters. */
-export type ValueGroup = { label: string; keys: string[] };
+export type ValueGroup = { label: string; keys: string[]; /** Muse's one line on why each product belongs, by key */ reasons?: Record<string, string> };
 export type ValueGroups = { groups: ValueGroup[]; by: "muse" | "rules" };
 
 const TTL_MS = 6 * 3_600_000;
+/** The word-rule fallback is kept briefly, so one Muse outage doesn't hide its grouping and reasons for hours. */
+const FALLBACK_TTL_MS = 2 * 60_000;
 const cache = new Map<string, { at: number; value: ValueGroups }>();
+const fresh = (hit: { at: number; value: ValueGroups }) => Date.now() - hit.at < (hit.value.by === "muse" ? TTL_MS : FALLBACK_TTL_MS);
 
 /**
  * Groups search results into kinds of product that are interchangeable regardless of brand and pack
@@ -24,7 +27,7 @@ export async function valueGroups(query: string, items: ValueItem[], cfg: MuseCo
   const sized = items.filter((i) => i.pack > 0);
   const key = createHash("sha256").update(JSON.stringify([query.toLowerCase(), sized.map((i) => i.key).sort()])).digest("hex");
   const hit = cache.get(key);
-  if (hit && Date.now() - hit.at < TTL_MS) return hit.value;
+  if (hit && fresh(hit)) return hit.value;
 
   // Eggs are a kind per grade (A, AA, codorniz…), decided by rule so grades never mix; Muse sorts the rest.
   const eggs = eggGroups(sized);
@@ -46,7 +49,7 @@ async function museGroups(query: string, items: ValueItem[], cfg: MuseConfig): P
   const instruction = `A shopper in Colombia searched a supermarket for "${query}" and wants the most product for their money; brand does not matter.
 Group the products below into kinds a shopper would buy interchangeably: the same food in the same form and preparation (for example tuna in water and tuna in oil are different kinds; whole and skim milk are different kinds; brand and pack size never split a kind).
 Leave out products that are not what was searched for. Only group products measured the same way (g, ml or und).
-Give each kind a short Spanish label a shopper understands, like "Atún en agua". Use only the numbers in this list.
+Give each kind a short Spanish label a shopper understands, like "Atún en agua". For each product in a kind, give a one-line reason in Spanish a shopper understands, saying what it is even when a store gives it its own name, like "Leche semidescremada de otra marca". Use only the numbers in this list.
 
 ${list}`;
   const result = await museJson(
@@ -60,17 +63,30 @@ ${list}`;
             type: "array",
             items: {
               type: "object", additionalProperties: false, required: ["label", "items"],
-              properties: { label: { type: "string" }, items: { type: "array", items: { type: "integer" } } },
+              properties: {
+                label: { type: "string" },
+                items: {
+                  type: "array",
+                  items: { type: "object", additionalProperties: false, required: ["item", "reason"], properties: { item: { type: "integer" }, reason: { type: "string" } } },
+                },
+              },
             },
           },
         },
       },
     },
-    z.object({ kinds: z.array(z.object({ label: z.string(), items: z.array(z.number().int()) })) }),
+    z.object({ kinds: z.array(z.object({ label: z.string(), items: z.array(z.union([z.number().int(), z.object({ item: z.number().int(), reason: z.string() })])) })) }),
     { effort: "low" },
     cfg,
   );
-  return clean(result.kinds.map((k) => ({ label: k.label, keys: k.items.map((n) => items[n]?.key).filter((x): x is string => !!x) })), items);
+  return clean(
+    result.kinds.map((k) => {
+      const picked = k.items.map((x) => (typeof x === "number" ? { item: x, reason: "" } : x)).flatMap((x) => (items[x.item] ? [{ key: items[x.item]!.key, reason: x.reason.trim().slice(0, 120) }] : []));
+      const reasons = Object.fromEntries(picked.filter((p) => p.reason).map((p) => [p.key, p.reason]));
+      return { label: k.label, keys: picked.map((p) => p.key), ...(Object.keys(reasons).length ? { reasons } : {}) };
+    }),
+    items,
+  );
 }
 
 /** Cartons keyed `egg:<grade>:<count>` (see compare.ts), one kind per grade across counts. */
@@ -95,7 +111,8 @@ function clean(groups: ValueGroup[], items: ValueItem[]): ValueGroup[] {
     const label = g.label.trim().slice(0, 40);
     if (same.length < 2 || !label) continue;
     same.forEach((k) => used.add(k));
-    out.push({ label, keys: same });
+    const reasons = g.reasons ? Object.fromEntries(same.filter((k) => g.reasons![k]).map((k) => [k, g.reasons![k]!])) : {};
+    out.push({ label, keys: same, ...(Object.keys(reasons).length ? { reasons } : {}) });
   }
   return out;
 }

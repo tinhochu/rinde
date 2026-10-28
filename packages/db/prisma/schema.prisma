@@ -42,6 +42,8 @@ model Product {
   unit       BaseUnit?
   isPrivateLabel Boolean       @default(false)
   listings   RetailerProduct[]
+  matchedFrom ProductMatch[]   @relation("matchFrom")
+  matchedTo   ProductMatch[]   @relation("matchTo")
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
 }
@@ -59,9 +61,31 @@ model RetailerProduct {
   imageUrl     String?
   observations PriceObservation[]
   lastSeenAt   DateTime
+  match        ProductMatch?
 
   @@unique([retailerId, externalId])
   @@index([productId])
+}
+
+/// A listing judged to be the same product as another product with a different barcode.
+/// The listing is re-pointed to `toProduct`; `fromProduct` keeps its own barcode, so lookups by
+/// that barcode follow this row. Kept so a wrong match can be seen and undone.
+model ProductMatch {
+  id                String          @id @default(cuid())
+  retailerProductId String          @unique
+  retailerProduct   RetailerProduct @relation(fields: [retailerProductId], references: [id], onDelete: Cascade)
+  fromProductId     String
+  fromProduct       Product         @relation("matchFrom", fields: [fromProductId], references: [id])
+  toProductId       String
+  toProduct         Product         @relation("matchTo", fields: [toProductId], references: [id])
+  /// "muse" or "rules"
+  by                String
+  /// Muse's one-line reason, in Spanish; null for a rule match
+  reason            String?
+  matchedAt         DateTime        @default(now())
+
+  @@index([fromProductId])
+  @@index([toProductId])
 }
 
 /// Append-only price history. Every price shown to a user must come from a row here.

@@ -50,11 +50,13 @@ export async function recordOffer(prisma: PrismaClient, retailerId: string, o: O
   const product = o.ean
     ? await prisma.product.upsert({ where: { ean: o.ean }, create: productData, update: {} })
     : await prisma.product.create({ data: productData });
+  // A barcode whose listing was matched to another product (see ProductMatch) lands on that product.
+  const matched = o.ean ? await prisma.productMatch.findFirst({ where: { fromProductId: product.id }, select: { toProductId: true } }) : null;
 
   const listing = await prisma.retailerProduct.upsert({
     where: { retailerId_externalId: { retailerId, externalId: o.externalId } },
     create: {
-      retailerId, productId: product.id, externalId: o.externalId,
+      retailerId, productId: matched?.toProductId ?? product.id, externalId: o.externalId,
       name: o.name, url: o.url, imageUrl: o.imageUrl, lastSeenAt: o.observedAt,
     },
     update: { name: o.name, url: o.url, imageUrl: o.imageUrl, lastSeenAt: o.observedAt },

@@ -20,6 +20,8 @@ export type CartLine = { product: ShopProduct; count: number };
 export type ComparedProduct = {
   key: string; name: string; brand: string; ean: string; pack: number; unit: Unit; image: string;
   offers: Offer[]; inStore?: Offer[]; missing: Store[]; spread: number; aisle: Aisle; produce?: { slug: string; per: "kg" | "unit" }; egg?: { grade: string; count: number };
+  /** Another product than the one searched or shown (another brand or form), compared by unit price; `reason` is Muse's one line on why. */
+  similar?: boolean; reason?: string;
 };
 export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };
 export const AISLE_NAMES: Record<Aisle, string> = {

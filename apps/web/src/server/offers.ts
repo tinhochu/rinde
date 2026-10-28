@@ -121,11 +121,18 @@ export async function searchListings(term: string, opts: ReadOptions = {}): Prom
     SELECT * FROM ranked WHERE rank <= ${perStore} ORDER BY slug, rank`;
 }
 
-/** Latest available observation for each listing whose product has one of these EANs. */
+/**
+ * Latest available observation for each listing whose product has one of these EANs, including
+ * listings matched to that product from another barcode, and the product a matched barcode moved to.
+ */
 export async function listingsByEan(eans: string[], stores: RetailerSlug[], source: PriceSource = "online"): Promise<ListingRow[]> {
   if (eans.length === 0) return [];
   return listingsWhere(Prisma.sql`AND po."retailerProductId" IN (
-    SELECT rp.id FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId" WHERE p.ean = ANY(${eans}))`, stores, source);
+    SELECT rp.id FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId" WHERE p.ean = ANY(${eans})
+    UNION
+    SELECT rp.id FROM "RetailerProduct" rp
+    JOIN "ProductMatch" pm ON pm."toProductId" = rp."productId"
+    JOIN "Product" f ON f.id = pm."fromProductId" WHERE f.ean = ANY(${eans}))`, stores, source);
 }
 
 /**
@@ -135,6 +142,18 @@ export async function listingsByEan(eans: string[], stores: RetailerSlug[], sour
 export async function listingsForProducts(productIds: string[], stores: RetailerSlug[], source: PriceSource = "online"): Promise<ListingRow[]> {
   if (productIds.length === 0) return [];
   return listingsWhere(Prisma.sql`AND po."retailerProductId" IN (SELECT id FROM "RetailerProduct" WHERE "productId" = ANY(${productIds}))`, stores, source);
+}
+
+/**
+ * Latest available observation for listings of one size (±0.5%) whose brand starts with `brand`'s
+ * first word or isn't known: the pool a same-product judgment picks from at another store.
+ */
+export async function listingsOfSize(size: { amount: number; unit: "g" | "ml" | "unit" }, brand: string, stores: RetailerSlug[]): Promise<ListingRow[]> {
+  const first = brand.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(/[^a-z0-9ñ]+/).find(Boolean) ?? "";
+  return listingsWhere(Prisma.sql`AND po."retailerProductId" IN (
+    SELECT rp.id FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId"
+    WHERE p.unit::text = ${size.unit} AND p.size BETWEEN ${size.amount * 0.995} AND ${size.amount * 1.005}
+      AND (p.brand IS NULL OR unaccent(lower(p.brand)) LIKE ${first + "%"}))`, stores, "online");
 }
 
 /** Latest available observation for every carton of eggs at these stores, to line cartons up by grade and count. */

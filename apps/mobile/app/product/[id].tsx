@@ -6,6 +6,8 @@ import { ArrowLeft, ExternalLink, Heart, History, Search, ShieldCheck, TrendingD
 import { AddControl } from "@/components/add-control";
 import { StoreLogo } from "@/components/brand";
 import { StorePrices } from "@/components/compare-card";
+import { SimilarProducts } from "@/components/similar-products";
+import { CheckStores } from "@/components/store-check";
 import { GroceryImage } from "@/components/grocery-image";
 import { FadeIn, PressScale } from "@/components/motion";
 import { Button } from "@/components/ui";
@@ -13,7 +15,7 @@ import { fetchHistory, type HistoryPoint } from "@/lib/api";
 import { useAppState } from "@/lib/app-state";
 import { fetchBasket } from "@/lib/basket";
 import { ageLabel, savings, unitPrice } from "@/lib/compare";
-import { cop, quantityLabel, type Store } from "@/lib/market";
+import { cop, quantityLabel, STORES, type Offer, type Store } from "@/lib/market";
 import { recallProduct, rememberProduct } from "@/lib/product-cache";
 import { searchHref } from "@/lib/search";
 import { fromOffer, type ShopProduct } from "@/lib/shop";
@@ -26,10 +28,15 @@ import { colors, fontSize, radius, spacing } from "@/lib/theme";
 export default function ProductScreen() {
   const { id: raw } = useLocalSearchParams<{ id: string }>();
   const id = decodeURIComponent(String(raw ?? ""));
-  const { cart, favorites, stores: preferredStores, addProduct, removeProduct, favoriteProduct } = useAppState();
+  const { cart, favorites, stores: preferredStores, addProduct, removeProduct, favoriteProduct, openProduct } = useAppState();
   const [product, setProduct] = useState<ShopProduct | undefined>(() => recallProduct(id));
   const [error, setError] = useState("");
   const [history, setHistory] = useState<HistoryPoint[] | null>();
+  const [reasons, setReasons] = useState<Partial<Record<Store, string>>>({});
+  // Stores "Buscar en todas las tiendas" got an answer from; their row says it, not the catalog line.
+  const [answered, setAnswered] = useState<Store[]>([]);
+
+  useEffect(() => { setReasons({}); setAnswered([]); }, [id]);
 
   useEffect(() => {
     const known = recallProduct(id);
@@ -69,6 +76,21 @@ export default function ProductScreen() {
     return () => controller.abort();
   }, [listingKey]);
 
+  // Prices "Buscar en todas las tiendas" found join the store list, cheapest first, with Muse's reason when it matched by name.
+  function addFound(found: { offer: Offer; reason?: string }[], stores: Store[]) {
+    setAnswered(prev => [...prev, ...stores]);
+    if (!product || !found.length) return;
+    const priced = new Set(found.map(f => f.offer.store));
+    const merged = [...offers.filter(o => !priced.has(o.store)), ...found.map(f => f.offer)].sort((a, b) => a.price - b.price);
+    const next: ShopProduct = {
+      ...product,
+      compare: { ...product.compare, offers: merged, missing: (product.compare?.missing ?? []).filter(s => !priced.has(s)) },
+    };
+    rememberProduct(next);
+    setProduct(next);
+    setReasons(prev => ({ ...prev, ...Object.fromEntries(found.flatMap(f => (f.reason ? [[f.offer.store, f.reason]] : []))) }));
+  }
+
   function back() {
     if (router.canGoBack()) router.back();
     else router.replace("/");
@@ -78,6 +100,9 @@ export default function ProductScreen() {
   const saved = savings(offers);
   const count = product ? cart.find(line => line.product.id === product.id)?.count || 0 : 0;
   const favorite = !!product && favorites.some(p => p.id === product.id);
+  const priced = new Set(offers.map(o => o.store));
+  // Produce is compared by kind, not by barcode or name, so there's nothing to look up per store.
+  const lacking = product?.compare?.produce ? [] : STORES.filter(s => !priced.has(s));
 
   return (
     <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
@@ -147,13 +172,16 @@ export default function ProductScreen() {
 
             <View style={styles.section}>
               <Text accessibilityRole="header" style={styles.sectionTitle}>Precio en cada tienda</Text>
-              <StorePrices offers={offers} inStore={product.compare?.inStore} missing={product.compare?.missing ?? []} />
+              <StorePrices offers={offers} inStore={product.compare?.inStore} missing={(product.compare?.missing ?? []).filter(s => !answered.includes(s))} reasons={reasons} />
+              {best && <CheckStores listingId={best.id} lacking={lacking} onFound={addFound} />}
               <View style={styles.trust}>
                 <ShieldCheck size={14} color={colors.mutedForeground} />
                 <Text style={styles.trustText}>
                   {product.compare?.produce
                     ? `Precios ${product.compare.produce.per === "kg" ? "por kilo" : "por unidad"} de la misma fruta o verdura en cada tienda.`
-                    : `Mismo código de barras${best?.ean ? ` (EAN ${best.ean})` : ""} en cada tienda.`}
+                    : Object.keys(reasons).length
+                      ? `Mismo código de barras${best?.ean ? ` (EAN ${best.ean})` : ""}, o el mismo producto con otro código según Muse, que dice por qué.`
+                      : `Mismo código de barras${best?.ean ? ` (EAN ${best.ean})` : ""} en cada tienda.`}
                   {" "}Cada fila dice cuándo vimos el precio; toca una tienda para verificarlo en su página.
                 </Text>
               </View>
@@ -166,6 +194,13 @@ export default function ProductScreen() {
               </View>
               <PriceHistory points={history} />
             </View>
+
+            {best && !product.compare?.produce && (
+              <SimilarProducts
+                listingId={best.id}
+                onOpen={p => openProduct({ ...fromOffer(p.offers[0]!, product.term, p.aisle), compare: { offers: p.offers, inStore: p.inStore, missing: p.missing, produce: p.produce } })}
+              />
+            )}
 
             <PressScale accessibilityRole="link" onPress={() => router.push(searchHref(product.term, { stores: preferredStores }))} style={styles.similar}>
               <Search size={16} color={colors.primary} />

@@ -30,6 +30,13 @@ describe("valueGroups", () => {
     expect(calls[0]!.input[0]!.content[0]!.text).not.toMatch(/\$/);
   });
 
+  it("keeps Muse's one-line reason for each product", async () => {
+    const calls: { input: { content: { text: string }[] }[] }[] = [];
+    const out = await valueGroups("atun r", items("r"), cfg('{"kinds":[{"label":"Atún en agua","items":[{"item":0,"reason":"Atún en agua en trozos"},{"item":1,"reason":"Atún en agua de otra marca"}]}]}', calls));
+    expect(out.groups).toEqual([{ label: "Atún en agua", keys: ["r-1", "r-2"], reasons: { "r-1": "Atún en agua en trozos", "r-2": "Atún en agua de otra marca" } }]);
+    expect(calls[0]!.input[0]!.content[0]!.text).toContain("one-line reason");
+  });
+
   it("drops invented and repeated items, mixed units and kinds of one", async () => {
     const out = await valueGroups("atun b", items("b"), cfg('{"kinds":[{"label":"Atún","items":[0,1,4,99]},{"label":"Otra vez","items":[1,2]},{"label":"Solo","items":[3]}]}'));
     expect(out.groups).toEqual([{ label: "Atún", keys: ["b-1", "b-2"] }]);

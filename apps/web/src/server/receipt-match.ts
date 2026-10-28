@@ -38,14 +38,18 @@ async function listingsByCode(store: RetailerSlug, codes: string[]) {
   // Store codes are sometimes printed zero-padded ("0116"); compare without leading zeros too.
   const variants = [...new Set(codes.flatMap((c) => [c, c.replace(/^0+/, "")]))];
   const rows = await db().retailerProduct.findMany({
-    where: { retailer: { slug: store }, product: { ean: { in: variants } } },
-    select: { id: true, name: true, imageUrl: true, product: { select: { ean: true, size: true, unit: true } } },
+    // A listing matched to another product keeps its own barcode on the product it came from.
+    where: { retailer: { slug: store }, OR: [{ product: { ean: { in: variants } } }, { match: { fromProduct: { ean: { in: variants } } } }] },
+    select: { id: true, name: true, imageUrl: true, product: { select: { ean: true, size: true, unit: true } }, match: { select: { fromProduct: { select: { ean: true } } } } },
   });
   const byCode = new Map<string, ListingOption>();
   for (const r of rows) {
     const o = { listingId: r.id, name: r.name, image: r.imageUrl, size: sizeLabel(r.product.size?.toString() ?? null, r.product.unit) };
-    byCode.set(r.product.ean!, o);
-    byCode.set(r.product.ean!.replace(/^0+/, ""), o);
+    for (const ean of [r.product.ean, r.match?.fromProduct.ean]) {
+      if (!ean) continue;
+      byCode.set(ean, o);
+      byCode.set(ean.replace(/^0+/, ""), o);
+    }
   }
   return byCode;
 }

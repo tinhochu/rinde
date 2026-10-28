@@ -75,11 +75,15 @@ export function Verdict({ offers }: { offers: Offer[] }) {
  * One line per store: price, age and the difference from the cheapest. Online lines open the store's page.
  * A price read from a shopper's receipt says so; under an online line it shows as "En tienda: …".
  */
-export function StorePrices({ offers, inStore = [], missing }: { offers: Offer[]; inStore?: Offer[]; missing: Store[] }) {
+export function StorePrices({ offers, inStore = [], missing, reasons = {} }: {
+  offers: Offer[]; inStore?: Offer[]; missing: Store[];
+  /** Why Muse judged a store's listing the same product, when it has another barcode. */
+  reasons?: Partial<Record<Store, string>>;
+}) {
   const [best] = offers;
   const many = offers.length > 1;
   // Cartons of eggs line up across brands, so each store says which one it is.
-  const brands = new Set(offers.map(o => o.brand).filter(Boolean)).size > 1;
+  const brands = new Set(offers.map(o => o.brand.toLowerCase()).filter(Boolean)).size > 1;
   const spread = offers.at(-1)!.price - best!.price;
   return (
     <View style={styles.rowsWrap}>
@@ -106,6 +110,7 @@ export function StorePrices({ offers, inStore = [], missing }: { offers: Offer[]
             </View>
             {brands && offer.brand ? <Text numberOfLines={1} style={styles.inStore}>Marca: {offer.brand}</Text> : null}
             {reported && <Text style={styles.inStore}>{reportedLabel(offer)}</Text>}
+            {!reported && reasons[offer.store] ? <Text style={styles.inStore}>Mismo producto según Muse: {reasons[offer.store]}</Text> : null}
             {below && (
               <Text style={styles.inStore}>
                 En tienda: {cop(below.price)}{perLabel(below)} · factura · {ageLabel(below)}{below.branch ? ` · ${below.branch}` : ""}

@@ -17,8 +17,8 @@ const UNIT_FACTORS: Record<string, [BaseUnit, number]> = {
 
 // "1000 gr", "1.5 Lt", "x500grs", "900ml", "1,5 L"
 const SIZE_RE = /(\d+(?:[.,]\d+)?)\s*(kgs?|kilos?|grs?|gramos|gm|g|libras?|lb|lts?|litros?|l|ml|cc|unds?|uds?|ud|un|unidades|unidad)\b/gi;
-// "x 6", "X6", "6 x 200 ml" multipacks
-const MULTIPACK_RE = /(?:\bx\s*(\d+)\s*(?:und|un|ud)?\b|\b(\d+)\s*x\s*(?=\d))/i;
+// "x 6", "X6", "6 x 200 ml" multipacks; never the "x2" of "x2.5kg"
+const MULTIPACK_RE = /(?:\bx\s*(\d+)(?![.,]\d)\s*(?:und|un|ud)?\b|\b(\d+)\s*x\s*(?=\d))/i;
 
 /**
  * Parse a retailer product name into a normalized package size.

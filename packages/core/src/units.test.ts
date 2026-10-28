@@ -15,6 +15,9 @@ describe("parsePackageSize", () => {
     ["Avena Alpina Vaso 250 Ml", 250, "ml"],
     ["Aceite 1,5 L", 1500, "ml"],
     ["Leche Colanta 6 x 200 ml", 1200, "ml"],
+    // "x2.5kg" is one 2.5 kg bag, not two
+    ["Arroz Casanare blanco x2.5kg", 2500, "g"],
+    ["Leche Alpina x6 1100 ml", 6600, "ml"],
     // Colombian thousands separator on g / ml
     ["Arroz Integral Diana 1.000 G", 1000, "g"],
     ["Aceite Vegetal Imatá 3.000 Ml", 3000, "ml"],

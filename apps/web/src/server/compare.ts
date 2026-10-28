@@ -1,5 +1,7 @@
 import "server-only";
+import { normBrand } from "@rinde/core";
 import type { RetailerSlug } from "@rinde/db";
+import { brandIn, knownBrands } from "./brands";
 import { STORE_BY_SLUG, type ComparedProduct, type Offer, type Store } from "./contract";
 import { eggKey, eggLabel } from "./eggs";
 import { eggListings, findOffers, isThingFor, listingsByEan, lookupMissingEans, searchListings, toOffer } from "./offers";
@@ -111,10 +113,16 @@ export async function compareProducts(term: string, stores: RetailerSlug[]) {
     };
   });
 
-  // The searched thing before things that only mention it ("Manzana" before "Gaseosa … manzana"),
-  // then products sold in more stores: that's the comparison people came for.
+  // A search that names a brand ("leche alpina"): other brands are similar products, never that brand's
+  // price at a store that doesn't sell it. Produce and egg groups have no single brand.
+  const brand = brandIn(term, await knownBrands());
+  if (brand) for (const p of products) if (!p.produce && !p.egg && normBrand(p.brand) !== brand) p.similar = true;
+
+  // The brand searched before similar products, the searched thing before things that only mention it
+  // ("Manzana" before "Gaseosa … manzana"), then products sold in more stores: that's the comparison people came for.
   const isThing = isThingFor(term);
-  products.sort((a, b) => Number(isThing(b)) - Number(isThing(a)) || b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price);
+  products.sort((a, b) =>
+    Number(!!a.similar) - Number(!!b.similar) || Number(isThing(b)) - Number(isThing(a)) || b.offers.length - a.offers.length || a.offers[0]!.price - b.offers[0]!.price);
   // One fruit's per-kg and per-unit groups sit together; each keeps its own verdict.
   const ordered: ComparedProduct[] = [];
   for (const p of products) {

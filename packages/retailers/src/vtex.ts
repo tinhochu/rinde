@@ -169,13 +169,13 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
       }
       return offers;
     },
-    async byEans(eans) {
+    async byEans(eans, { patient = false } = {}) {
       // Repeated `fq=alternateIds_Ean:` params are OR-ed, like skuId (verified on D1, Jumbo and Éxito, 2026-10-26).
       const unique = [...new Set(eans)];
       const offers: Offer[] = [];
       for (let i = 0; i < unique.length; i += SKU_BATCH_SIZE) {
         const batch = unique.slice(i, i + SKU_BATCH_SIZE);
-        const { products, url } = await request(batch.map((ean) => `fq=alternateIds_Ean:${encodeURIComponent(ean)}`).join("&"));
+        const { products, url } = await request(batch.map((ean) => `fq=alternateIds_Ean:${encodeURIComponent(ean)}`).join("&"), { patient });
         offers.push(...toOffers(products, url).filter((o) => o.ean && batch.includes(o.ean)));
       }
       return offers;
