@@ -19,6 +19,7 @@
     "expo-image": "~58.0.17",
     "expo-image-picker": "~58.0.10",
     "expo-linking": "~58.0.14",
+    "expo-location": "~58.0.20",
     "expo-network": "~58.0.4",
     "expo-router": "~58.0.26",
     "expo-secure-store": "~58.0.2",
@@ -27,10 +28,12 @@
     "expo-status-bar": "~58.0.4",
     "expo-web-browser": "~58.0.6",
     "lucide-react-native": "~1.61.0",
+    "maplibre-gl": "^5.24.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "react-hook-form": "~7.91.0",
     "react-native": "0.88.0",
+    "react-native-maps": "1.29.11",
     "react-native-safe-area-context": "~5.10.1",
     "react-native-screens": "~4.30.0",
     "react-native-web": "^0.21.4",
@@ -48,7 +51,7 @@
     "web": "expo start --web",
     "build": "expo export --platform web --output-dir dist",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/shopping.test.cjs",
+    "test": "node --test tests/shopping.test.cjs tests/navigate.test.cjs",
     "fix": "expo install --fix"
   }
 }

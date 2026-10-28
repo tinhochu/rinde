@@ -34,7 +34,13 @@
       "expo-router",
       "expo-sqlite",
       "expo-secure-store",
-      "expo-web-browser"
+      "expo-web-browser",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Rinde usa tu ubicación solo para ordenar las tiendas por cercanía y trazar tu ruta. No la guarda."
+        }
+      ]
     ]
   }
 }

@@ -33,6 +33,7 @@ export default function RootLayout() {
               <Stack.Screen name="product/[id]" />
               <Stack.Screen name="receipt" />
               <Stack.Screen name="contributions" />
+              <Stack.Screen name="route-plan" />
             </Stack>
             <OfflineBanner />
             <ProductModal />

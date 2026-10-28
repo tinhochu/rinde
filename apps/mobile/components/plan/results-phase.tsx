@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, Platform, Pressable, ScrollView, StyleSheet, Text, View, type ScrollViewInstance } from "react-native";
-import { AlertCircle, ArrowDown, ArrowRight, Check, Info, ListChecks, RefreshCw, Scale, Share2, ShieldCheck, X } from "lucide-react-native";
+import { AlertCircle, ArrowDown, ArrowRight, Check, Info, ListChecks, MapPinned, RefreshCw, Scale, Share2, ShieldCheck, X } from "lucide-react-native";
+import { router } from "expo-router";
 import { FadeIn, Pop, useReducedMotion } from "@/components/motion";
 import { StoreLogo } from "@/components/brand";
 import { PlanLineRow } from "@/components/plan/plan-line";
@@ -235,6 +236,15 @@ export function ResultsPhase({ result, hasBudget, area, progress, refreshing, de
         </View>
       </FadeIn>
 
+      <Pressable accessibilityRole="button" onPress={() => router.push("/route-plan")} style={({ pressed }) => [styles.routeEntry, pressed && styles.disabled]}>
+        <MapPinned size={20} color={colors.primary} />
+        <View style={styles.routeEntryText}>
+          <Text style={styles.routeEntryTitle}>Planear mi ruta</Text>
+          <Text style={styles.routeEntrySub}>Desde tu súper de siempre: te decimos si vale la pena una parada más.</Text>
+        </View>
+        <ArrowRight size={16} color={colors.mutedForeground} />
+      </Pressable>
+
       {viewingRecommended && over && (
         <TradeoffPanel overBudget={plan.overBudget} tradeoffs={result.tradeoffs} deciding={deciding} progress={progress} onDecide={onDecide} onEdit={onEdit} />
       )}
@@ -443,6 +453,10 @@ const styles = StyleSheet.create({
   savingsPillText: { fontSize: fontSize.subhead, fontWeight: "800", color: "#FFFFFF", fontVariant: ["tabular-nums"] },
   heroNote: { fontSize: fontSize.caption, lineHeight: 16, color: colors.forestSub },
   heroActions: { flexDirection: "row", gap: spacing.sm, marginTop: spacing.sm },
+  routeEntry: { flexDirection: "row", alignItems: "center", gap: spacing.md, padding: spacing.lg, borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card },
+  routeEntryText: { flex: 1, gap: 2 },
+  routeEntryTitle: { fontSize: fontSize.subhead, fontWeight: "800", color: colors.foreground },
+  routeEntrySub: { fontSize: fontSize.caption, lineHeight: 16, color: colors.mutedForeground },
   heroButton: { flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 6, borderRadius: radius.pill, borderWidth: 1, borderColor: colors.forestLine, paddingVertical: 11 },
   heroButtonMain: { backgroundColor: colors.forestInk, borderColor: colors.forestInk },
   heroButtonMainText: { fontSize: fontSize.body, fontWeight: "800", color: colors.forest },

@@ -3,7 +3,7 @@
 ## 1. Branch data
 
 - [x] 1.1 Add `StoreBranch` (chain, name, address, lat, lon, `osmId` unique, refreshedAt) with an additive migration. Verify: `prisma migrate dev` applies, and `pnpm -r typecheck` passes.
-- [ ] 1.2 Add the branch import `apps/worker/src/branches.ts`:
+- [x] 1.2 Add the branch import `apps/worker/src/branches.ts`:
   - an Overpass query for the four brands in Colombia, with a User-Agent;
   - brand → chain mapping, upsert by `osmId`;
   - counts per chain logged;
@@ -58,25 +58,25 @@
 
 ## 5. Mobile app
 
-- [ ] 5.1 Build the "¿A qué súper vas?" step:
+- [x] 5.1 Build the "¿A qué súper vas?" step:
   - chain chips and a searchable branch list;
   - "Usar mi ubicación" (`npx expo install expo-location`, after reading the SDK 58 docs), optional;
   - travel mode chips, an "Editar costos" sheet saved on the device, and a note field.
 
   Verify: `npx tsc --noEmit`, and web screenshots with location denied and allowed (mocked), in light and dark mode.
-- [ ] 5.2 Build the route plan screen:
+- [x] 5.2 Build the route plan screen:
   - Muse's explanation (or its question, with quick answers);
   - stop cards in order, with leg distance and minutes, items, totals and net saving;
   - a collapsible "Indicaciones" step list per leg;
   - the chain-price note and the bus-estimate label.
 
   Verify: `npx tsc --noEmit`, and screenshots of the "worth it" plan and the "stay at your D1" plan against the local API.
-- [ ] 5.3 Add `components/route-map`:
+- [x] 5.3 Add `components/route-map`:
   - web: MapLibre GL JS, lazily loaded, with OSM raster tiles, attribution, the decoded route line and numbered markers;
   - native: `react-native-maps` (`npx expo install`, after reading the SDK 58 docs) with a `Polyline` and `Marker`s.
 
   Verify: a web screenshot of a two-stop walking route that follows the streets and fits the viewport at 320 px and 1280 px; the native build typechecks.
-- [ ] 5.4 Add the "Navegar" sheet:
+- [x] 5.4 Add the "Navegar" sheet:
   - Google Maps with origin, waypoints, destination and travel mode;
   - Waze to the next stop, with "Siguiente parada" after it.
 
@@ -84,7 +84,7 @@
 
 ## 6. Release
 
-- [ ] 6.1 Run the full checks: `pnpm -r typecheck`, the unit tests and the web integration tests. Verify: all pass, with outputs recorded in the summary.
+- [x] 6.1 Run the full checks: `pnpm -r typecheck`, the unit tests and the web integration tests. Verify: all pass, with outputs recorded in the summary.
 - [ ] 6.2 Deploy:
   - build the `rinde-*` images;
   - patch the compose and restart (migrate creates `StoreBranch`);
