@@ -1,0 +1,82 @@
+{
+ "elements": [
+  {
+   "type": "way",
+   "id": 24084290,
+   "tags": {
+    "addr:city": "Bogotá",
+    "addr:housenumber": "Carrera 68",
+    "addr:street": "Avenida Calle 80",
+    "branch": "Calle 80",
+    "brand": "Éxito",
+    "name": "Éxito",
+    "shop": "department_store"
+   },
+   "center": {
+    "lat": 4.683959,
+    "lon": -74.0806089
+   }
+  },
+  {
+   "type": "node",
+   "id": 12545079911,
+   "tags": {
+    "brand": "Tiendas D1",
+    "name": "Tiendas D1",
+    "shop": "supermarket"
+   },
+   "lat": 3.6579114,
+   "lon": -76.2453494
+  },
+  {
+   "type": "node",
+   "id": 3277724598,
+   "tags": {
+    "brand": "D1",
+    "name": "D1",
+    "shop": "supermarket"
+   },
+   "lat": 4.5376051,
+   "lon": -75.6720194
+  },
+  {
+   "type": "node",
+   "id": 491835983,
+   "tags": {
+    "addr:city": "Medellín",
+    "addr:postcode": "0500",
+    "addr:street": "Circular 73B",
+    "branch": "Laureles",
+    "brand": "Carulla",
+    "name": "Carulla",
+    "shop": "supermarket"
+   },
+   "lat": 6.2448328,
+   "lon": -75.5945217
+  },
+  {
+   "type": "node",
+   "id": 343527819,
+   "tags": {
+    "brand": "Jumbo",
+    "name": "Jumbo",
+    "shop": "supermarket"
+   },
+   "lat": 6.2292869,
+   "lon": -75.570748
+  },
+  {
+   "type": "relation",
+   "id": 2648895,
+   "tags": {
+    "brand": "Éxito",
+    "name": "Éxito",
+    "shop": "department_store"
+   },
+   "center": {
+    "lat": 9.3021664,
+    "lon": -75.3952203
+   }
+  }
+ ]
+}

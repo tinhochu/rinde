@@ -1,4 +1,5 @@
 import { Cron } from "croner";
+import { importBranches } from "./branches";
 import { cleanupReceipts } from "./cleanup";
 import { crossFill } from "./crossfill";
 import { retryStaleIntakes } from "./inbound-retry";
@@ -25,6 +26,11 @@ new Cron("17 * * * *", { timezone: "America/Bogota", protect: true }, async () =
 new Cron("*/5 * * * *", { timezone: "America/Bogota", protect: true }, async () => {
   const { retried } = await retryStaleIntakes();
   if (retried) console.log(`[worker] retried ${retried} e-invoice emails`);
+});
+
+// Supermarket branches from OpenStreetMap for route plans: monthly, early on the 2nd.
+new Cron("40 3 2 * *", { timezone: "America/Bogota", protect: true }, async () => {
+  await importBranches().catch((error) => console.error(`[worker] branch import failed: ${String(error)}`));
 });
 
 if (process.env["INGEST_ON_START"] === "1") void job.trigger();

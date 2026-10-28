@@ -40,5 +40,5 @@ COPY --from=builder /repo/apps/worker/dist ./dist
 # Receipt photos volume: web (nextjs) writes, worker (node) deletes.
 RUN mkdir -p /data/receipts && chmod 777 /data/receipts
 USER node
-# One-off jobs: `node dist/ingest.mjs`, `node dist/seed-produce.mjs`, `node dist/repair-sizes.mjs`.
+# One-off jobs: `node dist/ingest.mjs`, `node dist/seed-produce.mjs`, `node dist/repair-sizes.mjs`, `node dist/branches.mjs`.
 CMD ["node", "dist/index.mjs"]

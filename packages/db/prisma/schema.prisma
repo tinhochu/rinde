@@ -503,3 +503,22 @@ model InstallCount {
 
   @@id([day, event, detail, way])
 }
+
+/// A supermarket branch from OpenStreetMap (© OpenStreetMap contributors, ODbL), for route plans.
+/// Online prices stay chain-wide; a branch only places the chain on the map.
+model StoreBranch {
+  id          String       @id @default(cuid())
+  chain       RetailerSlug
+  name        String
+  address     String?
+  /// Neighborhood or locality from a reverse lookup, so "D1 Chapinero" finds a branch OSM names only "D1"
+  area        String?
+  lat         Float
+  lon         Float
+  /// "node/123" or "way/456"
+  osmId       String       @unique
+  refreshedAt DateTime
+
+  @@index([chain])
+  @@index([lat, lon])
+}

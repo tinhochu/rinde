@@ -2,7 +2,7 @@
 
 ## 1. Branch data
 
-- [ ] 1.1 Add `StoreBranch` (chain, name, address, lat, lon, `osmId` unique, refreshedAt) with an additive migration. Verify: `prisma migrate dev` applies, and `pnpm -r typecheck` passes.
+- [x] 1.1 Add `StoreBranch` (chain, name, address, lat, lon, `osmId` unique, refreshedAt) with an additive migration. Verify: `prisma migrate dev` applies, and `pnpm -r typecheck` passes.
 - [ ] 1.2 Add the branch import `apps/worker/src/branches.ts`:
   - an Overpass query for the four brands in Colombia, with a User-Agent;
   - brand → chain mapping, upsert by `osmId`;
@@ -15,7 +15,7 @@
 
 ## 2. Routing and route math
 
-- [ ] 2.1 Add `packages/routing`: a `RouteProvider` interface and an OSRM client for `routing.openstreetmap.de`:
+- [x] 2.1 Add `packages/routing`: a `RouteProvider` interface and an OSRM client for `routing.openstreetmap.de`:
   - profiles foot and car;
   - `route` (polyline6, steps) and `table`;
   - User-Agent, 5 s timeout, at most 2 concurrent requests;
@@ -24,14 +24,14 @@
   Verify:
   - unit tests on recorded OSRM fixtures (route and table parsing, legs, steps);
   - an opt-in live test (`ROUTING_LIVE=1`): the Chapinero test pair gives about 1,194 m on foot, and more than the 880 m straight line.
-- [ ] 2.2 Add `packages/core/src/route-cost.ts`:
+- [x] 2.2 Add `packages/core/src/route-cost.ts`:
   - the extra route minutes and km of a stop (with or without the person's location, and whichever order is shorter);
   - cost per mode, with the bus estimate (car duration × 1.6 + 8 min);
   - the minute limits;
   - `stepText` for Spanish steps.
 
   Verify with unit tests: walking costs $0; the car adds parking; a 45-minute bus detour is out of range; the shorter stop order is chosen; `stepText` covers the turn, roundabout, arrive and continue maneuvers.
-- [ ] 2.3 Add `routeOptions(items, anchor, branches, travel, provider)`:
+- [x] 2.3 Add `routeOptions(items, anchor, branches, travel, provider)`:
   - shortlist the 5 nearest branches per chain by straight line, then one `table` call to pick the branch adding the least route time;
   - one `route` per offered option;
   - `optimize(..., { forceStores })` for the goods, savings and net saving;

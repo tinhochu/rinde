@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "esbuild src/index.ts src/ingest.ts src/seed-produce.ts src/repair-sizes.ts --bundle --platform=node --target=node24 --format=esm --out-extension:.js=.mjs --outdir=dist --external:pg-native --log-level=warning --banner:js=\"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);\"",
+    "build": "esbuild src/index.ts src/ingest.ts src/seed-produce.ts src/repair-sizes.ts src/branches.ts --bundle --platform=node --target=node24 --format=esm --out-extension:.js=.mjs --outdir=dist --external:pg-native --log-level=warning --banner:js=\"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);\"",
     "start": "tsx src/index.ts",
     "ingest": "tsx src/ingest.ts",
     "seed:produce": "tsx src/seed-produce.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "repair:sizes": "tsx src/repair-sizes.ts"
+    "repair:sizes": "tsx src/repair-sizes.ts",
+    "branches": "tsx src/branches.ts"
   },
   "dependencies": {
     "@rinde/core": "workspace:*",
