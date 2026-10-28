@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- Source of the link-preview images (1200×630). Regenerate: open og.html#es / og.html#en at 1200×630 and screenshot. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../static/styles.css">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { background: #173E25; color: #fff; display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 64px; padding: 0 88px; }
+  .brand { font-size: 34px; color: #fff; }
+  .brand svg { width: 44px; height: 44px; }
+  h1 { font-size: 76px; max-width: 13ch; margin-top: 28px; color: #fff; }
+  .lede { font-size: 28px; color: #BFD8C5; max-width: 30ch; }
+  .receipt { transform: rotate(-3deg); max-width: none; color: #263D2F; background: #FFF9EF; font-size: 20px; }
+  .bar { height: 14px; background: #263D2F; opacity: .18; border-radius: 3px; margin: 14px 0; }
+  .bar.s { width: 55%; } .bar.m { width: 75%; }
+</style>
+</head>
+<body>
+  <div>
+    <span class="brand"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#FFFFFF"/><path d="M9 22c0-8 6-13 15-13-1 8-6 14-13 14l-2 3-1.5-1 1.5-3Z" fill="#21734D"/><path d="M11 21c3-4 6-6 10-8" stroke="#FFFFFF" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>Rinde</span>
+    <h1 id="h"></h1>
+    <p class="lede" id="l"></p>
+  </div>
+  <div class="receipt">
+    <h2>D1</h2><div class="bar m"></div>
+    <h2>Jumbo</h2><div class="bar"></div>
+    <h2>Éxito</h2><div class="bar s"></div>
+  </div>
+<script>
+  const en = location.hash === "#en";
+  document.getElementById("h").textContent = en ? "Shop where your money goes further." : "Haz el mercado donde tu plata rinde más.";
+  document.getElementById("l").textContent = en ? "Grocery prices at D1, Jumbo and Éxito, compared." : "Precios de D1, Jumbo y Éxito, comparados.";
+</script>
+</body>
+</html>
