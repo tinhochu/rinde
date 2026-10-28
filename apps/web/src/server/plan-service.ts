@@ -53,7 +53,7 @@ export async function createList(input: Exclude<CreatePlanRequest, { listId: str
   return list.id;
 }
 
-async function loadList(listId: string) {
+export async function loadList(listId: string) {
   const list = await db().shoppingList.findUnique({
     where: { id: listId },
     include: { items: { orderBy: { position: "asc" } }, decisions: true },
@@ -175,11 +175,11 @@ export class PlanError extends Error {
 }
 
 /** NDJSON stream: one JSON event per line. Errors become a final {"type":"error"} line. */
-export function ndjsonStream(run: (emit: (event: PlanEvent) => void) => Promise<void>): Response {
+export function ndjsonStream<E extends { type: string } = PlanEvent>(run: (emit: (event: E | { type: "error"; error: string }) => void) => Promise<void>): Response {
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
-      const emit = (event: PlanEvent) => controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+      const emit = (event: E | { type: "error"; error: string }) => controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
       try {
         await run(emit);
       } catch (error) {

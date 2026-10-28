@@ -49,12 +49,12 @@
 
   Verify with unit tests, Muse mocked: a valid choice; an invalid index → fallback; an invented figure → fallback; a question; `MuseUnavailable` → fallback; the prompt contains no item prices.
 - [x] 3.2 Run an opt-in live test with the real key on the spec's three scenarios (worth it on foot, "voy con bebé", a far store). Verify: the picks and explanations are recorded in the summary, and each passes validation.
-- [ ] 3.3 Order items within stops and choose the stop order: cold and heavy items flagged, the cold-heavy stop last, and Muse's `itemOrder` applied when it is valid. Verify with a unit test on a list with milk and frozen peas.
+- [x] 3.3 Order items within stops and choose the stop order: cold and heavy items flagged, the cold-heavy stop last, and Muse's `itemOrder` applied when it is valid. Verify with a unit test on a list with milk and frozen peas.
 
 ## 4. API
 
-- [ ] 4.1 Add `GET /api/branches` (`near` + `chain`, or `q`; at most 20; with distances). Verify with an integration test on seeded branches, routing stubbed: with `near`, results are ordered by route time and show route distance and minutes; the name search works without location.
-- [ ] 4.2 Add `POST /api/route-plan`, streaming the `options`, `advice` or `question`, and `verified` events. It takes `anchor` as a `branchId` or as lat/lon plus chain (rounded, not stored), and geocodes a typed address through Nominatim with a cache. Each option includes its route (geometry, legs, steps). Verify with an integration test, with Muse, routing and live checks mocked: the events arrive in order, the options carry routes, and no coordinates are stored.
+- [x] 4.1 Add `GET /api/branches` (`near` + `chain`, or `q`; at most 20; with distances). Verify with an integration test on seeded branches, routing stubbed: with `near`, results are ordered by route time and show route distance and minutes; the name search works without location.
+- [x] 4.2 Add `POST /api/route-plan`, streaming the `options`, `advice` or `question`, and `verified` events. It takes `anchor` as a `branchId` or as lat/lon plus chain (rounded, not stored), and geocodes a typed address through Nominatim with a cache. Each option includes its route (geometry, legs, steps). Verify with an integration test, with Muse, routing and live checks mocked: the events arrive in order, the options carry routes, and no coordinates are stored.
 
 ## 5. Mobile app
 

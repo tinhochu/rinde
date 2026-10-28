@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: monorepoRoot,
   // Internal workspace packages ship TypeScript source
-  transpilePackages: ["@rinde/core", "@rinde/db", "@rinde/retailers"],
+  transpilePackages: ["@rinde/core", "@rinde/db", "@rinde/retailers", "@rinde/routing"],
   serverExternalPackages: ["pg", "@prisma/adapter-pg", "mupdf"],
   cacheComponents: true,
   experimental: {
