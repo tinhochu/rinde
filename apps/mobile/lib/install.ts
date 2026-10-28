@@ -6,6 +6,7 @@
  */
 export type InstallWay = "prompt" | "ios" | "none";
 
-export function useInstall(): { way: InstallWay; install: () => Promise<boolean>; dismissed: boolean; dismiss: () => void } {
-  return { way: "none", install: async () => false, dismissed: true, dismiss: () => undefined };
+/** moved: Rinde was just opened from its old address (see public/index.html); say so once. */
+export function useInstall(): { way: InstallWay; install: () => Promise<boolean>; dismissed: boolean; dismiss: () => void; moved: boolean } {
+  return { way: "none", install: async () => false, dismissed: true, dismiss: () => undefined, moved: false };
 }

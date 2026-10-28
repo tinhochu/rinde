@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Share, SquarePlus, X } from "lucide-react-native";
 import { PressScale } from "@/components/motion";
@@ -10,11 +10,18 @@ import { colors, fontSize, radius, spacing } from "@/lib/theme";
 /**
  * "Instala Rinde": in a browser that can install, one tap; on an iPhone, the steps in Safari's Share
  * menu. Nothing once installed or in the native app. On Home it can be closed for good; Perfil keeps it.
+ * Right after Rinde moved from its old address, it says so (once) and asks to install it again.
  */
 export function InstallCard({ dismissible = false }: { dismissible?: boolean }) {
-  const { way, install, dismissed, dismiss } = useInstall();
+  const { way, install, dismissed, dismiss, moved } = useInstall();
   const [steps, setSteps] = useState(false);
-  if (way === "none" || (dismissible && dismissed)) return null;
+
+  // Where this browser can't install, the move is still worth saying.
+  useEffect(() => {
+    if (moved && dismissible && way === "none") toast.success("Rinde ahora vive en esta dirección. Tus datos vienen contigo.");
+  }, [moved, dismissible, way]);
+
+  if (way === "none" || (dismissible && dismissed && !moved)) return null;
 
   async function onInstall() {
     if (way === "ios") return setSteps(true);
@@ -26,8 +33,10 @@ export function InstallCard({ dismissible = false }: { dismissible?: boolean }) 
       <PressScale accessibilityRole="button" accessibilityLabel="Instalar Rinde en este celular" onPress={onInstall} style={styles.card}>
         <Image source={require("@/assets/icon.png")} style={styles.icon} accessibilityIgnoresInvertColors />
         <View style={styles.copy}>
-          <Text style={styles.title}>Instala Rinde en tu celular</Text>
-          <Text style={styles.text}>Ábrela desde tu pantalla de inicio, a pantalla completa.</Text>
+          <Text style={styles.title}>{moved ? "Rinde ahora vive en esta dirección" : "Instala Rinde en tu celular"}</Text>
+          <Text style={styles.text}>
+            {moved ? "Tus datos vienen contigo. Instálala de nuevo desde aquí." : "Ábrela desde tu pantalla de inicio, a pantalla completa."}
+          </Text>
         </View>
         <View style={styles.cta}>
           <Text style={styles.ctaText}>{way === "ios" ? "Ver cómo" : "Instalar"}</Text>

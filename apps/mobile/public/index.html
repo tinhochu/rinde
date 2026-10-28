@@ -48,6 +48,26 @@
       img { -webkit-touch-callout: none; }
     </style>
     <script>
+      // Rinde used to live on the root domain; its landing page forwards old installs here with that
+      // origin's data in the URL fragment (#rinde-handoff=, never sent to a server). Imported before the
+      // app reads storage, and only into a device with no session of its own.
+      try {
+        var handoff = /^#rinde-handoff=([A-Za-z0-9_-]+)$/.exec(location.hash);
+        if (handoff) {
+          history.replaceState(null, "", location.pathname + location.search);
+          if (!localStorage.getItem("rinde-session")) {
+            var b64 = handoff[1].replace(/-/g, "+").replace(/_/g, "/");
+            var bin = atob(b64 + "===".slice((b64.length + 3) % 4));
+            var bytes = new Uint8Array(bin.length);
+            for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+            var data = JSON.parse(new TextDecoder().decode(bytes));
+            Object.keys(data).forEach(function (key) {
+              if (/^rinde-[a-z-]+$/.test(key) && typeof data[key] === "string") localStorage.setItem(key, data[key]);
+            });
+            localStorage.setItem("rinde-moved-notice", "1");
+          }
+        }
+      } catch (e) {}
       // The theme chosen in Perfil (lib/theme-pref.web.ts), applied before first paint.
       try {
         var t = localStorage.getItem("rinde-theme");

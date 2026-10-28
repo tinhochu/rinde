@@ -10,6 +10,8 @@ declare global {
 }
 
 const DISMISSED = "rinde-install-dismissed";
+// Set by public/index.html when this device's data arrived from Rinde's old address.
+const MOVED = "rinde-moved-notice";
 
 /** Opened from the home screen icon (or a desktop app window): already installed. */
 function standalone() {
@@ -28,9 +30,9 @@ function wayNow(): InstallWay {
   return apple() ? "ios" : "none";
 }
 
-function readDismissed() {
+function readFlag(key: string) {
   try {
-    return window.localStorage.getItem(DISMISSED) === "1";
+    return window.localStorage.getItem(key) === "1";
   } catch {
     return false;
   }
@@ -38,7 +40,18 @@ function readDismissed() {
 
 export function useInstall() {
   const [way, setWay] = useState<InstallWay>(wayNow);
-  const [dismissed, setDismissed] = useState(readDismissed);
+  const [dismissed, setDismissed] = useState(() => readFlag(DISMISSED));
+  // Read once per launch and cleared right away: the notice shows on this visit only.
+  const [moved] = useState(() => readFlag(MOVED));
+
+  useEffect(() => {
+    if (!moved) return;
+    try {
+      window.localStorage.removeItem(MOVED);
+    } catch {
+      // Shown again next visit; harmless.
+    }
+  }, [moved]);
 
   useEffect(() => {
     const update = () => setWay(wayNow());
@@ -72,5 +85,5 @@ export function useInstall() {
     }
   }
 
-  return { way, install, dismissed, dismiss };
+  return { way, install, dismissed, dismiss, moved };
 }
