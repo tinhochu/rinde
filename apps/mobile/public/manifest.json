@@ -2,7 +2,7 @@
   "id": "/",
   "name": "Rinde: compara precios de mercado",
   "short_name": "Rinde",
-  "description": "Compara precios de D1, Jumbo y Éxito y arma el mercado donde más te rinde la plata.",
+  "description": "Compara precios de D1, Jumbo, Éxito y Carulla y arma el mercado donde más te rinde la plata.",
   "lang": "es-CO",
   "dir": "ltr",
   "start_url": "/",
@@ -11,6 +11,7 @@
   "orientation": "portrait",
   "background_color": "#FCFAF8",
   "theme_color": "#FCFAF8",
+  "related_applications": [{ "platform": "webapp", "url": "https://app.rinde.cool.chuventures.com/manifest.json" }],
   "categories": ["shopping", "food", "finance"],
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },

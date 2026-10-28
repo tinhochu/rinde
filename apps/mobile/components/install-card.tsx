@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { Share, SquarePlus, X } from "lucide-react-native";
+import { X } from "lucide-react-native";
+import { InstallSteps } from "@/components/install-steps";
 import { PressScale } from "@/components/motion";
 import { Button, Sheet } from "@/components/ui";
 import { useInstall } from "@/lib/install";
@@ -24,7 +25,7 @@ export function InstallCard({ dismissible = false }: { dismissible?: boolean }) 
   if (way === "none" || (dismissible && dismissed && !moved)) return null;
 
   async function onInstall() {
-    if (way === "ios") return setSteps(true);
+    if (way !== "prompt") return setSteps(true);
     if (await install()) toast.success("Listo: Rinde quedó en tu pantalla de inicio.");
   }
 
@@ -39,7 +40,7 @@ export function InstallCard({ dismissible = false }: { dismissible?: boolean }) 
           </Text>
         </View>
         <View style={styles.cta}>
-          <Text style={styles.ctaText}>{way === "ios" ? "Ver cómo" : "Instalar"}</Text>
+          <Text style={styles.ctaText}>{way === "prompt" ? "Instalar" : "Ver cómo"}</Text>
         </View>
         {dismissible && (
           <Pressable accessibilityRole="button" accessibilityLabel="No mostrar más" hitSlop={10} onPress={dismiss} style={styles.close}>
@@ -51,30 +52,14 @@ export function InstallCard({ dismissible = false }: { dismissible?: boolean }) 
       <Sheet visible={steps} onClose={() => setSteps(false)}>
         <View style={styles.sheet}>
           <Text accessibilityRole="header" style={styles.sheetTitle}>Agrega Rinde a tu inicio</Text>
-          <Text style={styles.sheetLede}>En Safari son tres toques. Después la abres como cualquier app.</Text>
-          <Step n={1} icon={<Share size={18} color={colors.primary} />}>
-            Toca <Text style={styles.strong}>Compartir</Text> en la barra de Safari. Si no lo ves, toca primero <Text style={styles.strong}>···</Text>.
-          </Step>
-          <Step n={2} icon={<SquarePlus size={18} color={colors.primary} />}>
-            Baja en el menú y elige <Text style={styles.strong}>Agregar a inicio</Text>.
-          </Step>
-          <Step n={3} icon={<Text style={styles.add}>Agregar</Text>}>
-            Confirma con <Text style={styles.strong}>Agregar</Text>. Rinde queda junto a tus apps.
-          </Step>
+          <Text style={styles.sheetLede}>
+            {way === "inapp" ? "Este navegador no puede instalar; ábrela en Chrome o Safari." : "Son tres toques. Después la abres como cualquier app."}
+          </Text>
+          <InstallSteps way={way} />
           <Button title="Entendido" onPress={() => setSteps(false)} />
         </View>
       </Sheet>
     </>
-  );
-}
-
-function Step({ n, icon, children }: { n: number; icon: React.ReactNode; children: React.ReactNode }) {
-  return (
-    <View style={styles.step}>
-      <View style={styles.stepNumber}><Text style={styles.stepNumberText}>{n}</Text></View>
-      <Text style={styles.stepText}>{children}</Text>
-      <View style={styles.stepIcon}>{icon}</View>
-    </View>
   );
 }
 
@@ -96,11 +81,4 @@ const styles = StyleSheet.create({
   sheet: { gap: spacing.md, paddingTop: spacing.sm, paddingHorizontal: spacing.lg, paddingBottom: spacing.lg },
   sheetTitle: { fontSize: fontSize.title, fontWeight: "800", color: colors.foreground },
   sheetLede: { fontSize: fontSize.body, color: colors.mutedForeground },
-  step: { flexDirection: "row", alignItems: "center", gap: spacing.md },
-  stepNumber: { width: 26, height: 26, borderRadius: 13, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center" },
-  stepNumberText: { fontSize: fontSize.small, fontWeight: "800", color: colors.secondaryForeground },
-  stepText: { flex: 1, fontSize: fontSize.body, lineHeight: 21, color: colors.foreground },
-  stepIcon: { width: 64, alignItems: "flex-end" },
-  strong: { fontWeight: "800" },
-  add: { fontSize: fontSize.small, fontWeight: "700", color: "#0A84FF" },
 });

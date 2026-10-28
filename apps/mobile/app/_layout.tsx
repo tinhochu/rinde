@@ -7,6 +7,7 @@ import { ToastHost } from "@/lib/toast";
 import { OfflineBanner } from "@/components/offline-banner";
 import { ProductModal } from "@/components/product-modal";
 import { DialogsHost } from "@/components/app-dialogs";
+import { InstallSplash } from "@/components/install-splash";
 import { colors, scheme } from "@/lib/theme";
 
 // The navigator paints behind every screen (and shows during tab switches); give it Rinde's colors, not
@@ -36,6 +37,7 @@ export default function RootLayout() {
             <OfflineBanner />
             <ProductModal />
             <DialogsHost />
+            <InstallSplash />
             <ToastHost />
           </View>
         </View>
