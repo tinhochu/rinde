@@ -89,3 +89,10 @@
 
   Verify: the screenshots and curl outputs are recorded in the summary.
 - [x] 6.4 (Not applicable on 2026-10-27: production sets no Google client, so Google sign-in is off. Redo this if it is turned on.) Manual for the user, if Google sign-in is configured: add `https://app.rinde.cool.chuventures.com` to the OAuth client's authorized JavaScript origins. Verify: Google sign-in completes on the app subdomain.
+
+## 7. Dyad design port
+
+- [x] 7.1 Replace the hand-written pages with the Dyad design as a Vite + React prerender (`prerender.mjs`, `src/client.ts` in the browser, no hydration); keep live prices, `/` es and `/en/`, same-tab app links, the handoff and the redirects. Verify: `pnpm --filter @rinde/landing build && pnpm --filter @rinde/landing test` pass; no-JS and API-down pages show no prices.
+- [x] 7.2 Self-host fonts and photos; add dark tokens following `prefers-color-scheme`. Verify: light and dark screenshots at 390 px and 1280 px.
+- [x] 7.3 Root-context Dockerfile with `turbo prune`; compose `landing` builds from `.`. Verify: image builds, `/`, `/en/`, 301s to the app and the 404 page answer correctly.
+- [x] 7.4 Regenerate `public/og-es.png` and `public/og-en.png` from `og/og.html` in the new look, with no prices.

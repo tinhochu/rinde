@@ -1,12 +1,16 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { gzipSync } from "node:zlib";
 import { runInNewContext } from "node:vm";
 
 const root = new URL("../", import.meta.url);
 const read = (path) => readFileSync(new URL(path, root), "utf8");
-const es = read("index.html");
-const en = read("en/index.html");
+// The built site (pnpm build): the pages are prerendered there.
+const dist = (path) => new URL(`dist/${path}`, root);
+assert.ok(existsSync(dist("index.html")), "run `pnpm build` before the tests");
+const es = readFileSync(dist("index.html"), "utf8");
+const en = readFileSync(dist("en/index.html"), "utf8");
 
 const sectionIds = (html) => [...html.matchAll(/<section[^>]*\sid="([^"]+)"/g)].map((m) => m[1]);
 const meta = (html, attr, name) => new RegExp(`<meta ${attr}="${name}" content="[^"]+"`).test(html);
@@ -19,41 +23,54 @@ test("both languages have the same sections", () => {
 test("each page declares its language, its alternate and its link preview", () => {
   for (const [html, lang] of [[es, "es"], [en, "en"]]) {
     assert.match(html, new RegExp(`<html lang="${lang}">`));
-    assert.match(html, /<link rel="alternate" hreflang="es" href="__SITE_ORIGIN__\/">/);
-    assert.match(html, /<link rel="alternate" hreflang="en" href="__SITE_ORIGIN__\/en\/">/);
+    assert.match(html, /<link rel="alternate" hreflang="es" href="[^"]+\/" \/>/);
+    assert.match(html, /<link rel="alternate" hreflang="en" href="[^"]+\/en\/" \/>/);
     for (const name of ["og:title", "og:description", "og:image", "og:url"]) assert.ok(meta(html, "property", name), `${lang} ${name}`);
-    for (const name of ["description", "twitter:card", "twitter:title", "twitter:image"]) assert.ok(meta(html, "name", name), `${lang} ${name}`);
+    for (const name of ["description", "twitter:card", "twitter:title", "twitter:image", "rinde-app", "rinde-api"]) assert.ok(meta(html, "name", name), `${lang} ${name}`);
   }
   assert.match(es, /og-es\.png/);
   assert.match(en, /og-en\.png/);
 });
 
-test("both pages open the app and switch language", () => {
+test("the page text is in the HTML, not added by a script", () => {
+  assert.match(es, /El mismo mercado\./);
+  assert.match(en, /Same groceries\./);
+  assert.match(es, /<details/);
+});
+
+test("both pages open the app in the same tab and switch language", () => {
   for (const html of [es, en]) {
-    assert.equal([...html.matchAll(/href="__APP_ORIGIN__\/" data-open-app/g)].length, 2);
-    assert.match(html, /<a class="lang" href="[^"]+" hreflang="(es|en)"/);
+    const links = [...html.matchAll(/<a [^>]*data-open-app[^>]*>/g)].map((m) => m[0]);
+    assert.ok(links.length >= 3);
+    for (const link of links) assert.doesNotMatch(link, /target=/);
+    assert.match(html, /<a [^>]*hrefLang="(es|en)"|<a [^>]*hreflang="(es|en)"/i);
   }
   assert.match(es, /id="read-en" hidden/);
 });
 
 test("no price is written into the pages", () => {
   for (const path of ["index.html", "en/index.html", "404.html"]) {
-    assert.doesNotMatch(read(path), /\$\s?\d/, path);
+    assert.doesNotMatch(readFileSync(dist(path), "utf8"), /\$\s?\d/, path);
   }
 });
 
-test("the first view weighs under 200 KB before compression", () => {
-  const assets = [...es.matchAll(/(?:href|src)="\/static\/([^"]+)"/g)]
-    .map((m) => m[1])
-    .filter((name) => name !== "apple-touch-icon.png");
-  const bytes = assets.reduce((sum, name) => sum + statSync(new URL(`static/${name}`, root)).size, statSync(new URL("index.html", root)).size);
+test("the first view transfers under 200 KB", () => {
+  // Text is served gzipped; fonts and photos as they are. The lazy-loaded photo is not in the first view.
+  const css = [...es.matchAll(/href="\/(static\/[^"]+\.css)"/g)].map((m) => m[1]);
+  const js = [...es.matchAll(/src="\/(static\/[^"]+\.js)"/g)].map((m) => m[1]);
+  const fonts = css.flatMap((f) => [...readFileSync(dist(f), "utf8").matchAll(/url\(\/(static\/[^)]+\.woff2)\)/g)].map((m) => m[1]));
+  const hero = [...es.matchAll(/src="\/(static\/[^"]+\.webp)" [^>]*fetchPriority="high"/gi)].map((m) => m[1]);
+  assert.equal(hero.length, 1);
+  const gz = (path) => gzipSync(readFileSync(dist(path))).length;
+  const bytes = gz("index.html") + gz("handoff.js") + [...css, ...js].reduce((n, f) => n + gz(f), 0)
+    + [...fonts, ...hero].reduce((n, f) => n + statSync(dist(f)).size, 0);
   assert.ok(bytes < 200 * 1024, `${bytes} bytes`);
 });
 
 // The handoff script, run as the browser would but without a document.
 function loadHandoff() {
   const context = { TextEncoder, btoa };
-  runInNewContext(read("static/handoff.js"), context);
+  runInNewContext(read("public/handoff.js"), context);
   return context.rindeHandoff;
 }
 

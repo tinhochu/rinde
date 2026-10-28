@@ -1,0 +1,94 @@
+/* DM Sans, DM Serif Display and Kalam (SIL Open Font License 1.1), Latin subsets served from this site.
+   Kalam only carries the glyphs of the handwritten line. */
+@font-face { font-family: 'DM Sans'; font-weight: 400; font-display: swap; src: url('./assets/fonts/dm-sans-400.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 500; font-display: swap; src: url('./assets/fonts/dm-sans-500.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 600; font-display: swap; src: url('./assets/fonts/dm-sans-600.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 700; font-display: swap; src: url('./assets/fonts/dm-sans-700.woff2') format('woff2'); }
+@font-face { font-family: 'DM Serif Display'; font-style: normal; font-display: swap; src: url('./assets/fonts/dm-serif-display.woff2') format('woff2'); }
+@font-face { font-family: 'DM Serif Display'; font-style: italic; font-display: swap; src: url('./assets/fonts/dm-serif-display-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Kalam'; font-display: swap; src: url('./assets/fonts/kalam-subset.woff2') format('woff2'); }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 45 33% 95%;
+    --foreground: 150 40% 24%;
+    --card: 45 33% 95%;
+    --card-foreground: 150 40% 24%;
+    --popover: 45 33% 95%;
+    --popover-foreground: 150 40% 24%;
+    --primary: 150 40% 24%;
+    --primary-foreground: 45 33% 95%;
+    --secondary: 75 20% 89%;
+    --secondary-foreground: 150 40% 24%;
+    --muted: 75 20% 89%;
+    --muted-foreground: 145 12% 35%;
+    --accent: 75 20% 89%;
+    --accent-foreground: 150 40% 24%;
+    --destructive: 10 61% 44%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 145 15% 78%;
+    --input: 145 15% 78%;
+    --ring: 150 40% 24%;
+    --radius: .75rem;
+    --paper: #fffdf5;
+    --sand: #eeeade;
+    --sage: #e8ecdf;
+    --tomato: #b6422e;
+    --yellow: #edce70;
+    --body-ink: #536153;
+    color-scheme: light;
+  }
+  /* Dark follows the device. The receipt stays paper in both (.receipt below). */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: 150 22% 9%;
+      --foreground: 45 33% 92%;
+      --card: 150 22% 9%;
+      --card-foreground: 45 33% 92%;
+      --popover: 150 22% 9%;
+      --popover-foreground: 45 33% 92%;
+      --primary: 45 33% 92%;
+      --primary-foreground: 150 22% 9%;
+      --secondary: 150 15% 16%;
+      --secondary-foreground: 45 33% 92%;
+      --muted: 150 15% 16%;
+      --muted-foreground: 90 10% 72%;
+      --accent: 150 15% 16%;
+      --accent-foreground: 45 33% 92%;
+      --border: 150 10% 28%;
+      --input: 150 10% 28%;
+      --ring: 45 33% 92%;
+      --sand: #17241c;
+      --sage: #1b2b21;
+      --tomato: #ef8a74;
+      --body-ink: #b9c3b5;
+      color-scheme: dark;
+    }
+  }
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  ::selection { background: #edce70; color: #24543c; }
+  a, button { -webkit-tap-highlight-color: transparent; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--tomato); outline-offset: 5px; }
+}
+
+@layer components {
+  .page-width { @apply mx-auto w-[calc(100%-40px)] max-w-[1120px] sm:w-[calc(100%-80px)]; }
+  .editorial { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; letter-spacing: -.035em; }
+  .wordmark { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; letter-spacing: -.075em; }
+  .hero-title { font-size: clamp(49px, 5.7vw, 79px); line-height: 1.04; }
+  .section-title { font-size: clamp(35px, 3.7vw, 48px); line-height: 1.12; }
+  .eyebrow { font-size: 9px; font-weight: 600; letter-spacing: .13em; }
+  .handwritten { font-family: 'Kalam', cursive; }
+  .nav-link { @apply underline-offset-4 hover:underline; }
+  .receipt { color: #294332; --primary: 150 40% 24%; --body-ink: #536153; --tomato: #b6422e; }
+  /* The yellow notes read the same in both schemes. */
+  .on-yellow { background: var(--yellow); color: #24543c; }
+  .receipt::after { content: ''; position: absolute; bottom: -9px; left: 0; width: 100%; height: 10px; background: var(--paper); clip-path: polygon(0 0, 100% 0, 100% 100%, 97% 20%, 94% 100%, 91% 20%, 88% 100%, 85% 20%, 82% 100%, 79% 20%, 76% 100%, 73% 20%, 70% 100%, 67% 20%, 64% 100%, 61% 20%, 58% 100%, 55% 20%, 52% 100%, 49% 20%, 46% 100%, 43% 20%, 40% 100%, 37% 20%, 34% 100%, 31% 20%, 28% 100%, 25% 20%, 22% 100%, 19% 20%, 16% 100%, 13% 20%, 10% 100%, 7% 20%, 4% 100%, 0 0); }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

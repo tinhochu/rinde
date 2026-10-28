@@ -30,14 +30,17 @@
 
 ## Decisions
 
-**1. `apps/landing` is plain static HTML/CSS plus one small ES module, with no framework and no build step.**
-- `index.html` (es) and `en/index.html` are written by hand from one shared structure.
-- `styles.css`, `compare.js`, `handoff.js`, the OG images and the favicon sit next to them.
-- A tiny `node --test` checks: both pages have the same section ids, no digits that look like prices appear in the HTML, and the hreflang/OG tags are present.
+**1. `apps/landing` is a Vite + React page prerendered to static HTML, with a small vanilla script in the browser.**
+- The design came from a Dyad prototype (Vite, React, Tailwind, shadcn `Button`). React runs only at build time: `prerender.mjs` renders `src/pages/Index.tsx` to `dist/index.html` (es), `dist/en/index.html` and `dist/404.html`, each with its own title, OG, canonical and hreflang tags.
+- The browser loads `src/client.ts` (about 4 KB gz): the live receipt, the section-keeping language links and the English hint. No hydration, so the page is complete before or without JavaScript.
+- `public/handoff.js`, `public/sw.js`, the OG images and the icons are copied as is. Fonts (DM Sans, DM Serif Display, a Kalam subset) and the two photos (WebP) are self-hosted.
+- The Docker build uses the repository root as context and `turbo prune @rinde/landing`, like `apps/web`; the final stage is nginx with `dist/` only.
+- `node --test` (after `pnpm build`) checks: both pages have the same section ids, no price-like text in the HTML, the head tags, links open the app in the same tab, the first-view weight budget, and the handoff script.
+- Dark mode follows `prefers-color-scheme`; the receipt stays paper-colored in both schemes.
 - *Alternatives:*
-  - Astro or Next static export: nicer templating, but adds a toolchain for two pages.
+  - Hand-written static HTML (the first version): no toolchain, but two hand-kept copies and a plainer design.
+  - Hydrating React in the browser: about 85 KB gz more for three small behaviors.
   - A route inside the Expo app: would ship the app bundle and break the "loads before script" rule.
-- Two hand-kept files are acceptable at this size, and the test guards drift.
 
 **2. Live comparison: one browser-side `GET /api/catalog` per staple, run in order.**
 - Staples, tried in order: `huevos`, `arroz`, `leche`, `aceite`. The page takes the first product with offers from ≥2 stores, preferring the largest `spread`.

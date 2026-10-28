@@ -1,36 +1,49 @@
 <!doctype html>
-<!-- Source of the link-preview images (1200×630). Regenerate: open og.html#es / og.html#en at 1200×630 and screenshot. -->
+<!-- Source of the link-preview images (1200×630), in the page's look. No prices: a preview can't say when they were seen.
+     Regenerate: serve apps/landing, open og/og.html#es and og/og.html#en at 1200×630, screenshot to public/og-<lang>.png. -->
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="../static/styles.css">
 <style>
+  @font-face { font-family: 'DM Serif Display'; src: url(../src/assets/fonts/dm-serif-display.woff2) format('woff2'); }
+  @font-face { font-family: 'DM Serif Display'; font-style: italic; src: url(../src/assets/fonts/dm-serif-display-italic.woff2) format('woff2'); }
+  @font-face { font-family: 'DM Sans'; font-weight: 500; src: url(../src/assets/fonts/dm-sans-500.woff2) format('woff2'); }
+  @font-face { font-family: 'DM Sans'; font-weight: 700; src: url(../src/assets/fonts/dm-sans-700.woff2) format('woff2'); }
   html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
-  body { background: #173E25; color: #fff; display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 64px; padding: 0 88px; }
-  .brand { font-size: 34px; color: #fff; }
-  .brand svg { width: 44px; height: 44px; }
-  h1 { font-size: 76px; max-width: 13ch; margin-top: 28px; color: #fff; }
-  .lede { font-size: 28px; color: #BFD8C5; max-width: 30ch; }
-  .receipt { transform: rotate(-3deg); max-width: none; color: #263D2F; background: #FFF9EF; font-size: 20px; }
-  .bar { height: 14px; background: #263D2F; opacity: .18; border-radius: 3px; margin: 14px 0; }
-  .bar.s { width: 55%; } .bar.m { width: 75%; }
+  body { box-sizing: border-box; background: #f6f3ea; color: #24543c; font-family: 'DM Sans', sans-serif; display: grid; grid-template-columns: 1fr 330px; align-items: center; gap: 56px; padding: 0 88px; }
+  .wordmark { font-family: 'DM Serif Display', serif; letter-spacing: -.075em; font-size: 54px; line-height: 1; }
+  h1 { font-family: 'DM Serif Display', serif; font-weight: 400; letter-spacing: -.035em; font-size: 80px; line-height: 1.02; margin: 34px 0 0; }
+  h1 em { display: block; color: #b6422e; }
+  .stores { margin-top: 34px; font-size: 22px; font-weight: 500; color: #536153; }
+  .receipt { position: relative; transform: rotate(5deg); background: #fffdf5; color: #294332; padding: 34px 32px 40px; box-shadow: 0 24px 40px rgba(36, 84, 60, .18); font-family: ui-monospace, Menlo, monospace; }
+  .receipt .head { font-size: 15px; letter-spacing: .08em; padding-bottom: 18px; border-bottom: 2px dashed rgba(36, 84, 60, .3); margin-bottom: 14px; }
+  .row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; font-size: 26px; font-weight: 700; }
+  .bar { height: 14px; width: 92px; background: #294332; opacity: .2; border-radius: 3px; }
+  .badge { position: absolute; left: -46px; top: -46px; width: 96px; height: 96px; border-radius: 50%; background: #edce70; color: #24543c; display: grid; place-items: center; text-align: center; font: 700 13px/1.15 'DM Sans', sans-serif; transform: rotate(-17deg); }
 </style>
 </head>
 <body>
   <div>
-    <span class="brand"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#FFFFFF"/><path d="M9 22c0-8 6-13 15-13-1 8-6 14-13 14l-2 3-1.5-1 1.5-3Z" fill="#21734D"/><path d="M11 21c3-4 6-6 10-8" stroke="#FFFFFF" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>Rinde</span>
-    <h1 id="h"></h1>
-    <p class="lede" id="l"></p>
+    <div class="wordmark">rinde ✳</div>
+    <h1><span id="t1"></span><br><span id="t2"></span><em id="t3"></em></h1>
+    <p class="stores" id="s"></p>
   </div>
   <div class="receipt">
-    <h2>D1</h2><div class="bar m"></div>
-    <h2>Jumbo</h2><div class="bar"></div>
-    <h2>Éxito</h2><div class="bar s"></div>
+    <div class="badge" id="b"></div>
+    <div class="head" id="h"></div>
+    <div class="row">D1<span class="bar"></span></div>
+    <div class="row">Jumbo<span class="bar"></span></div>
+    <div class="row">Éxito<span class="bar"></span></div>
   </div>
 <script>
   const en = location.hash === "#en";
-  document.getElementById("h").textContent = en ? "Shop where your money goes further." : "Haz el mercado donde tu plata rinde más.";
-  document.getElementById("l").textContent = en ? "Grocery prices at D1, Jumbo and Éxito, compared." : "Precios de D1, Jumbo y Éxito, comparados.";
+  const text = en
+    ? { t: ["Same groceries.", "More money", "left over."], s: "D1, Jumbo and Éxito, side by side.", h: "ONE PRODUCT. EVERY STORE.", b: "EVERY<br>PESO<br>COUNTS" }
+    : { t: ["El mismo mercado.", "Más plata", "en tu bolsillo."], s: "D1, Jumbo y Éxito, lado a lado.", h: "UN PRODUCTO. CADA TIENDA.", b: "CADA<br>PESO<br>CUENTA" };
+  text.t.forEach((line, i) => (document.getElementById(`t${i + 1}`).textContent = line));
+  document.getElementById("s").textContent = text.s;
+  document.getElementById("h").textContent = text.h;
+  document.getElementById("b").innerHTML = text.b;
 </script>
 </body>
 </html>

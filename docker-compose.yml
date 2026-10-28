@@ -93,7 +93,8 @@ services:
   # and this page redirects the app's old paths there. Origins are baked in at build time.
   landing:
     build:
-      context: apps/landing
+      context: .
+      dockerfile: apps/landing/Dockerfile
       args:
         SITE_ORIGIN: ${SITE_ORIGIN:-https://rinde.cool.chuventures.com}
         APP_ORIGIN: ${APP_ORIGIN:-https://app.rinde.cool.chuventures.com}
