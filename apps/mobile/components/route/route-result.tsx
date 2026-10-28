@@ -74,6 +74,7 @@ export function RouteResult({ options, advice, question, verified, mode, start, 
               accessibilityRole="radio"
               accessibilityState={{ selected: i === shown }}
               onPress={() => setPicked(i)}
+              testID="route-option"
               style={[styles.optionChip, i === shown && styles.optionChipOn]}
             >
               <Text style={[styles.optionLabel, i === shown && styles.optionLabelOn]}>{o.label}</Text>

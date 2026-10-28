@@ -273,7 +273,7 @@ export function ResultsPhase({ result, hasBudget, area, progress, refreshing, de
       <View onLayout={e => { routeY.current = e.nativeEvent.layout.y; }} style={styles.section}>
         <Text accessibilityRole="header" style={styles.sectionTitle}>Tu ruta de compra</Text>
         {plan.stores.map((store, i) => (
-          <View key={store.retailer} style={styles.storeCard}>
+          <View key={store.retailer} style={styles.storeCard} testID="plan-store">
             <View style={styles.storeHeader}>
               <View style={styles.storeIndex}><Text style={styles.storeIndexText}>{i + 1}</Text></View>
               <StoreLogo store={STORE_NAME[store.retailer]} />

@@ -1,11 +1,15 @@
 #!/usr/bin/env node
-// End-to-end: a shopper with a usual supermarket and a grocery list.
+// End-to-end: shoppers with a usual supermarket and a grocery list. Each one
 //
 //   1. writes a list, compares it, and checks every matched product is the item asked for and the
 //      total adds up;
 //   2. picks their store from their (emulated) location, plans the route on foot, and checks the
 //      advice, the map, each stop's items and totals;
 //   3. opens "Navegar" and checks the Google Maps and Waze links.
+//
+// The second shopper usually goes to Carulla and splits the list to save money: the compare step's
+// "Ahorrar al máximo" must spread the list over more stores for less, and the route plan's
+// "Carulla + another store" must save money net of the trip, with each item bought at one stop.
 //
 // Prices are live, so it checks shape and consistency, never amounts.
 //
@@ -24,19 +28,32 @@ const BASE = (process.env.E2E_BASE_URL || "http://localhost:19006").replace(/\/$
 const OUT = process.env.E2E_OUT || mkdtempSync(join(tmpdir(), "rinde-e2e-"));
 const HERE = { latitude: Number(process.env.E2E_LAT || 4.6492), longitude: Number(process.env.E2E_LON || -74.0628) };
 
-// What the shopper types, and what a matched product must look like for each line.
-const LIST = [
+// What a shopper types, and what a matched product must look like for each line.
+const BASICS = [
   { line: "1 litro de leche entera", is: /leche/i },
   { line: "30 huevos", is: /huevo/i },
   { line: "1 kilo de arroz", is: /arroz/i },
   { line: "500 g de café molido", is: /caf[eé]/i },
   { line: "1 kilo de pechuga de pollo", is: /pollo|pechuga/i },
 ];
-const MIN_PRICED = 3; // online catalogs can miss an item; fewer than this means matching broke
+// Staples where the stores' prices differ most (pasta and sugar cheapest at Éxito or Jumbo, oats at
+// Carulla, the rest at D1), so spreading the list over stores pays.
+const PANTRY = [
+  { line: "pasta spaghetti 500 g", is: /pasta|spaghetti|espagueti/i },
+  { line: "1 kilo de azúcar", is: /az[uú]car/i },
+  { line: "500 g de avena", is: /avena/i },
+];
+
+const SHOPPERS = [
+  { name: "D1 shopper", tag: "d1", chain: "D1", split: false, list: BASICS },
+  { name: "Carulla shopper splits the list to save", tag: "split", chain: "Carulla", split: true, list: [...BASICS, ...PANTRY] },
+];
+// Online catalogs can miss an item; fewer priced than this means matching broke.
+const minPriced = (list) => Math.ceil(list.length * 0.6);
 
 mkdirSync(OUT, { recursive: true });
 const peso = (text) => Number(String(text).replace(/[^\d]/g, ""));
-const itemFor = (label) => LIST.find((i) => i.is.test(label));
+const itemFor = (list, label) => list.find((i) => i.is.test(label));
 
 // --- Chrome over CDP ---------------------------------------------------------------------------
 
@@ -129,6 +146,166 @@ function check(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+async function shop(p, send, shopper) {
+  const shot = (name) => p.shot(`${shopper.tag}-${name}`);
+  const LIST = shopper.list;
+  const MIN_PRICED = minPriced(LIST);
+  let planned = [];
+  await step("Write the grocery list", async () => {
+    await send("Page.navigate", { url: `${BASE}/plan` });
+    await p.click("Pegar lista", { ms: 60_000 });
+    const box = await p.until("the list box", p.where(`document.querySelector('textarea')`));
+    await p.press(box[0], box[1]);
+    await send("Input.insertText", { text: LIST.map((i) => i.line).join("\n") });
+    await p.click("Agregar a mi lista");
+    const summary = await p.until("the list", `(document.body.innerText.match(/Tu lista tiene (\\d+) productos?/) || [])[1]`);
+    check(Number(summary) === LIST.length, `the list has ${summary} items, expected ${LIST.length}`);
+    await shot("1-list");
+    return `${summary} items`;
+  });
+
+  await step("Compare it: the right products, a total that adds up", async () => {
+    await p.click("Continuar");
+    await p.click("$300 mil");
+    await p.click("Ver dónde rinde más");
+    await p.until("the plan", `!!document.querySelector('[data-testid="plan-total"]')`, 150_000);
+    await sleep(1000);
+    const products = await p.texts("plan-line-product");
+    const subs = await p.texts("plan-line-sub");
+    const totals = (await p.texts("plan-line-total")).map(peso);
+    const missing = await p.js(`(document.body.innerText.match(/Sin precio: ([^.]+)\\./) || [])[1] || ""`);
+    planned = subs.map((sub, i) => ({ label: (sub.match(/para “(.+)”/) || [])[1] ?? "", product: products[i], total: totals[i] }));
+    check(planned.length >= MIN_PRICED, `only ${planned.length} items got a price`);
+    for (const line of planned) {
+      const item = itemFor(LIST, line.label);
+      check(item, `"${line.label}" isn't on the list`);
+      check(item.is.test(line.product), `"${line.label}" was matched to "${line.product}"`);
+      check(line.total > 0, `"${line.product}" has no price`);
+    }
+    for (const item of LIST) {
+      const priced = planned.some((l) => item.is.test(l.label));
+      check(priced || item.is.test(missing), `"${item.line}" is neither priced nor listed as missing`);
+    }
+    const total = peso(await p.js(`document.querySelector('[data-testid="plan-total"]').innerText`));
+    const sum = totals.reduce((s, n) => s + n, 0);
+    check(total === sum, `the total ${total} isn't the sum of its lines ${sum}`);
+    await shot("2-plan");
+    return `${planned.length}/${LIST.length} priced, total $${total.toLocaleString("es-CO")}${missing ? `; no price: ${missing}` : ""}`;
+  });
+
+  if (shopper.split) {
+    await step("Split the list to save: \"Ahorrar al máximo\" uses more stores for less", async () => {
+      const chips = JSON.parse(await p.js(`JSON.stringify([...document.querySelectorAll('[role=radiogroup] [role=radio]')].map(e => e.innerText.split("\\n")))`));
+      const max = chips.find((c) => c[0] === "Ahorrar al máximo");
+      const fewer = chips.filter((c) => c !== max);
+      check(max && / \+ /.test(max[2] ?? "") && fewer.length, `no split offered (options: ${chips.map((c) => c.join(" ")).join(" | ") || "none"})`);
+      // Against the next best option (one store when one carries everything, else the recommendation).
+      const next = fewer.sort((a, b) => peso(a[1]) - peso(b[1]))[0];
+      check(peso(max[1]) < peso(next[1]), `the split ${max[1]} isn't cheaper than ${next[2]} ${next[1]}`);
+      await p.click("Ahorrar al máximo");
+      await sleep(800);
+      const stores = await p.js(`document.querySelectorAll('[data-testid="plan-store"]').length`);
+      check(stores >= 2, `the split plan shops at ${stores} store`);
+      const total = peso(await p.js(`document.querySelector('[data-testid="plan-total"]').innerText`));
+      const sum = (await p.texts("plan-line-total")).map(peso).reduce((a, n) => a + n, 0);
+      check(total === peso(max[1]) && total === sum, `the split total ${total} doesn't match its option ${max[1]} or lines ${sum}`);
+      await shot("2b-split");
+      return `${max[2]} $${total.toLocaleString("es-CO")} vs ${next[2]} $${peso(next[1]).toLocaleString("es-CO")}: saves $${(peso(next[1]) - total).toLocaleString("es-CO")}`;
+    });
+  }
+
+  let stopCount = 0;
+  await step(`Pick their usual ${shopper.chain} from their location`, async () => {
+    await p.click("Planear mi ruta");
+    const chip = await p.until(`the ${shopper.chain} chip`, p.where(`document.querySelector('[role=radio][aria-label="${shopper.chain}"]')`));
+    await p.press(chip[0], chip[1]);
+    await p.click("Usar mi ubicación", { ms: 30_000 });
+    const first = await p.until("nearby stores", p.where(`[...document.querySelectorAll('[role=radio]')].find(e => /\\d+ min/.test(e.innerText))`), 30_000);
+    const name = await p.js(`[...document.querySelectorAll('[role=radio]')].find(e => /\\d+ min/.test(e.innerText)).innerText.replace(/\\n/g, " · ")`);
+    await p.press(first[0], first[1]);
+    await p.click("A pie");
+    await shot("3-anchor");
+    return name;
+  });
+
+  await step("Plan the route: advice, stops, items and totals", async () => {
+    await p.click("Planear mi ruta");
+    const which = await p.until("the advice", `document.querySelector('[data-testid="route-advice"]') ? "advice" : document.querySelector('[data-testid="route-question"]') ? "question" : null`, 150_000);
+    if (which === "question") {
+      await p.click("No");
+      await p.until("the advice after answering", `!!document.querySelector('[data-testid="route-advice"]')`, 120_000);
+    }
+    const advice = await p.js(`document.querySelector('[data-testid="route-advice"]').innerText`);
+    check(advice.split("\n").slice(1).join(" ").trim().length > 20, "the advice is empty");
+    if (shopper.split) {
+      // The shopper takes the two-store option that saves money, whatever Muse recommended.
+      const options = JSON.parse(await p.js(`JSON.stringify([...document.querySelectorAll('[data-testid="route-option"]')].map(e => e.innerText.split("\\n")))`));
+      const pair = options.find((o) => o[0].startsWith(`${shopper.chain} + `) && /^Ahorras/.test(o[1] ?? ""));
+      check(pair, `no second store saves money from this ${shopper.chain} (options: ${options.map((o) => o.join(" ")).join(" | ")})`);
+      const xy = await p.js(p.where(`[...document.querySelectorAll('[data-testid="route-option"]')].find(e => e.innerText.startsWith(${JSON.stringify(pair[0])}))`));
+      await p.press(xy[0], xy[1]);
+      await sleep(1000);
+    }
+    const stops = await p.texts("route-stop-name");
+    stopCount = stops.length;
+    check(stops.length >= 1 && stops.length <= 2, `${stops.length} stops`);
+    const labels = (await p.texts("route-line-label")).map((l) => l.replace(/^\d+ × /, ""));
+    const products = await p.texts("route-line-product");
+    const totals = (await p.texts("route-line-total")).map(peso);
+    check(labels.length >= MIN_PRICED, `only ${labels.length} items on the route`);
+    labels.forEach((label, i) => {
+      const item = itemFor(LIST, label);
+      check(item, `"${label}" on the route isn't on the list`);
+      check(item.is.test(products[i]), `"${label}" on the route is "${products[i]}"`);
+      check(totals[i] > 0, `"${products[i]}" on the route has no price`);
+    });
+    check(new Set(labels).size === labels.length, "an item is bought at two stops");
+    let saving = "";
+    if (shopper.split) {
+      check(stops.length === 2, `the split route has ${stops.length} stops`);
+      const perStop = JSON.parse(await p.js(`JSON.stringify([...document.querySelectorAll('[data-testid="route-stop"]')].map(s => s.querySelectorAll('[data-testid="route-line"]').length))`));
+      check(perStop.every((n) => n > 0), `a stop has nothing to buy (${perStop.join(", ")})`);
+      const net = await p.js(`(document.body.innerText.match(/Ahorras (\\$\\s?[\\d.]+) netos/) || [])[1] || ""`);
+      check(peso(net) > 0, "the split route shows no net saving");
+      saving = `, saves ${net} net (${perStop.join(" + ")} items)`;
+    }
+    // Once the live check lands the totals settle; read them after it, or after a minute.
+    await p.until("prices checked", `/Precios verificados ahora/.test(document.body.innerText)`, 60_000).catch(() => {});
+    const settled = (await p.texts("route-line-total")).map(peso).reduce((s, n) => s + n, 0);
+    const total = peso(await p.js(`document.querySelector('[data-testid="route-total"]').innerText`));
+    check(total === settled, `the route total ${total} isn't the sum of its lines ${settled}`);
+    return `${stops.join(" → ")}; ${labels.length} items, $${total.toLocaleString("es-CO")}${saving}`;
+  });
+
+  await step("The map shows the route", async () => {
+    const kind = await p.until("the map", `document.querySelector('.maplibregl-canvas') ? "map" : document.querySelector('svg[aria-label="Esquema de la ruta"]') ? "sketch" : null`, 30_000);
+    if (kind === "map") {
+      const markers = await p.until("the stop markers", `document.querySelectorAll('.maplibregl-marker').length || null`, 20_000);
+      check(markers >= stopCount, `${markers} markers for ${stopCount} stops`);
+    }
+    await p.js(`document.querySelector('.maplibregl-canvas, svg[aria-label="Esquema de la ruta"]').scrollIntoView({ block: "center" })`);
+    await sleep(2500); // tiles
+    await shot("4-route");
+    return kind === "map" ? "MapLibre with OSM tiles" : "SVG sketch (no WebGL2)";
+  });
+
+  await step("Navegar hands off to Google Maps and Waze", async () => {
+    await p.js(`window.__opened = []; window.open = (u) => { window.__opened.push(String(u)); return null; }`);
+    await p.click("Navegar");
+    await p.click("Abrir en Google Maps (todas las paradas)");
+    await p.click("Abrir en Waze", { prefix: true });
+    const [google, waze] = JSON.parse(await p.js(`JSON.stringify(window.__opened)`)).map((u) => new URL(u));
+    check(google?.host === "www.google.com" && google.pathname === "/maps/dir/", `not a Google Maps link: ${google}`);
+    check(google.searchParams.get("travelmode") === "walking", `travel mode ${google.searchParams.get("travelmode")}`);
+    check(/^-?\d+\.\d+,-?\d+\.\d+$/.test(google.searchParams.get("destination") ?? ""), "no destination");
+    const waypoints = google.searchParams.get("waypoints")?.split("|").length ?? 0;
+    check(waypoints === stopCount - 1, `${waypoints} waypoints for ${stopCount} stops`);
+    check(waze?.host === "waze.com" && waze.searchParams.get("navigate") === "yes" && waze.searchParams.get("ll"), `not a Waze link: ${waze}`);
+    await shot("5-navegar");
+    return `${stopCount} stop${stopCount === 1 ? "" : "s"}, walking`;
+  });
+}
+
 async function run() {
   const browser = await chrome();
   const { send, close } = await connect(browser.endpoint);
@@ -145,119 +322,12 @@ async function run() {
     await send("Browser.grantPermissions", { origin, permissions: ["geolocation"] }).catch(() => {});
     await send("Emulation.setGeolocationOverride", { ...HERE, accuracy: 30 });
 
-    let planned = [];
-    await step("Write the grocery list", async () => {
-      await send("Page.navigate", { url: `${BASE}/plan` });
-      await p.click("Pegar lista", { ms: 60_000 });
-      const box = await p.until("the list box", p.where(`document.querySelector('textarea')`));
-      await p.press(box[0], box[1]);
-      await send("Input.insertText", { text: LIST.map((i) => i.line).join("\n") });
-      await p.click("Agregar a mi lista");
-      const summary = await p.until("the list", `(document.body.innerText.match(/Tu lista tiene (\\d+) productos?/) || [])[1]`);
-      check(Number(summary) === LIST.length, `the list has ${summary} items, expected ${LIST.length}`);
-      await p.shot("1-list");
-      return `${summary} items`;
-    });
-
-    await step("Compare it: the right products, a total that adds up", async () => {
-      await p.click("Continuar");
-      await p.click("$300 mil");
-      await p.click("Ver dónde rinde más");
-      await p.until("the plan", `!!document.querySelector('[data-testid="plan-total"]')`, 150_000);
-      await sleep(1000);
-      const products = await p.texts("plan-line-product");
-      const subs = await p.texts("plan-line-sub");
-      const totals = (await p.texts("plan-line-total")).map(peso);
-      const missing = await p.js(`(document.body.innerText.match(/Sin precio: ([^.]+)\\./) || [])[1] || ""`);
-      planned = subs.map((sub, i) => ({ label: (sub.match(/para “(.+)”/) || [])[1] ?? "", product: products[i], total: totals[i] }));
-      check(planned.length >= MIN_PRICED, `only ${planned.length} items got a price`);
-      for (const line of planned) {
-        const item = itemFor(line.label);
-        check(item, `"${line.label}" isn't on the list`);
-        check(item.is.test(line.product), `"${line.label}" was matched to "${line.product}"`);
-        check(line.total > 0, `"${line.product}" has no price`);
-      }
-      for (const item of LIST) {
-        const priced = planned.some((l) => item.is.test(l.label));
-        check(priced || item.is.test(missing), `"${item.line}" is neither priced nor listed as missing`);
-      }
-      const total = peso(await p.js(`document.querySelector('[data-testid="plan-total"]').innerText`));
-      const sum = totals.reduce((s, n) => s + n, 0);
-      check(total === sum, `the total ${total} isn't the sum of its lines ${sum}`);
-      await p.shot("2-plan");
-      return `${planned.length}/${LIST.length} priced, total $${total.toLocaleString("es-CO")}${missing ? `; no price: ${missing}` : ""}`;
-    });
-
-    let stopCount = 0;
-    await step("Pick the usual store from their location", async () => {
-      await p.click("Planear mi ruta");
-      await p.click("Usar mi ubicación", { ms: 30_000 });
-      const first = await p.until("nearby stores", p.where(`[...document.querySelectorAll('[role=radio]')].find(e => /\\d+ min/.test(e.innerText))`), 30_000);
-      const name = await p.js(`[...document.querySelectorAll('[role=radio]')].find(e => /\\d+ min/.test(e.innerText)).innerText.replace(/\\n/g, " · ")`);
-      await p.press(first[0], first[1]);
-      await p.click("A pie");
-      await p.shot("3-anchor");
-      return name;
-    });
-
-    await step("Plan the route: advice, stops, items and totals", async () => {
-      await p.click("Planear mi ruta");
-      const which = await p.until("the advice", `document.querySelector('[data-testid="route-advice"]') ? "advice" : document.querySelector('[data-testid="route-question"]') ? "question" : null`, 150_000);
-      if (which === "question") {
-        await p.click("No");
-        await p.until("the advice after answering", `!!document.querySelector('[data-testid="route-advice"]')`, 120_000);
-      }
-      const advice = await p.js(`document.querySelector('[data-testid="route-advice"]').innerText`);
-      check(advice.split("\n").slice(1).join(" ").trim().length > 20, "the advice is empty");
-      const stops = await p.texts("route-stop-name");
-      stopCount = stops.length;
-      check(stops.length >= 1 && stops.length <= 2, `${stops.length} stops`);
-      const labels = (await p.texts("route-line-label")).map((l) => l.replace(/^\d+ × /, ""));
-      const products = await p.texts("route-line-product");
-      const totals = (await p.texts("route-line-total")).map(peso);
-      check(labels.length >= MIN_PRICED, `only ${labels.length} items on the route`);
-      labels.forEach((label, i) => {
-        const item = itemFor(label);
-        check(item, `"${label}" on the route isn't on the list`);
-        check(item.is.test(products[i]), `"${label}" on the route is "${products[i]}"`);
-        check(totals[i] > 0, `"${products[i]}" on the route has no price`);
-      });
-      check(new Set(labels).size === labels.length, "an item is bought at two stops");
-      // Once the live check lands the totals settle; read them after it, or after a minute.
-      await p.until("prices checked", `/Precios verificados ahora/.test(document.body.innerText)`, 60_000).catch(() => {});
-      const settled = (await p.texts("route-line-total")).map(peso).reduce((s, n) => s + n, 0);
-      const total = peso(await p.js(`document.querySelector('[data-testid="route-total"]').innerText`));
-      check(total === settled, `the route total ${total} isn't the sum of its lines ${settled}`);
-      return `${stops.join(" → ")}; ${labels.length} items, $${total.toLocaleString("es-CO")}`;
-    });
-
-    await step("The map shows the route", async () => {
-      const kind = await p.until("the map", `document.querySelector('.maplibregl-canvas') ? "map" : document.querySelector('svg[aria-label="Esquema de la ruta"]') ? "sketch" : null`, 30_000);
-      if (kind === "map") {
-        const markers = await p.until("the stop markers", `document.querySelectorAll('.maplibregl-marker').length || null`, 20_000);
-        check(markers >= stopCount, `${markers} markers for ${stopCount} stops`);
-      }
-      await p.js(`document.querySelector('.maplibregl-canvas, svg[aria-label="Esquema de la ruta"]').scrollIntoView({ block: "center" })`);
-      await sleep(2500); // tiles
-      await p.shot("4-route");
-      return kind === "map" ? "MapLibre with OSM tiles" : "SVG sketch (no WebGL2)";
-    });
-
-    await step("Navegar hands off to Google Maps and Waze", async () => {
-      await p.js(`window.__opened = []; window.open = (u) => { window.__opened.push(String(u)); return null; }`);
-      await p.click("Navegar");
-      await p.click("Abrir en Google Maps (todas las paradas)");
-      await p.click("Abrir en Waze", { prefix: true });
-      const [google, waze] = JSON.parse(await p.js(`JSON.stringify(window.__opened)`)).map((u) => new URL(u));
-      check(google?.host === "www.google.com" && google.pathname === "/maps/dir/", `not a Google Maps link: ${google}`);
-      check(google.searchParams.get("travelmode") === "walking", `travel mode ${google.searchParams.get("travelmode")}`);
-      check(/^-?\d+\.\d+,-?\d+\.\d+$/.test(google.searchParams.get("destination") ?? ""), "no destination");
-      const waypoints = google.searchParams.get("waypoints")?.split("|").length ?? 0;
-      check(waypoints === stopCount - 1, `${waypoints} waypoints for ${stopCount} stops`);
-      check(waze?.host === "waze.com" && waze.searchParams.get("navigate") === "yes" && waze.searchParams.get("ll"), `not a Waze link: ${waze}`);
-      await p.shot("5-navegar");
-      return `${stopCount} stop${stopCount === 1 ? "" : "s"}, walking`;
-    });
+    for (const shopper of SHOPPERS) {
+      console.log(`\n${shopper.name}`);
+      // Each shopper starts from an empty device: no saved list, travel mode or plan.
+      await send("Storage.clearDataForOrigin", { origin, storageTypes: "local_storage,indexeddb,cache_storage,service_workers" });
+      await shop(p, send, shopper);
+    }
   } catch {
     await p.shot("failure").catch(() => {});
   } finally {
@@ -266,7 +336,7 @@ async function run() {
   }
   const failed = results.filter((r) => !r.ok).length;
   console.log(failed ? `\nFAILED (${results.length - failed}/${results.length} steps passed). Screenshot: ${join(OUT, "failure.png")}` : `\nPASSED ${results.length}/${results.length} steps.`);
-  process.exit(failed || results.length < 6 ? 1 : 0);
+  process.exit(failed || results.length < 6 * SHOPPERS.length ? 1 : 0);
 }
 
 await run();
