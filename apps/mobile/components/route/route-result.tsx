@@ -44,7 +44,7 @@ export function RouteResult({ options, advice, question, verified, mode, start, 
   return (
     <ScrollView contentContainerStyle={styles.content}>
       {question ? (
-        <View style={styles.advice}>
+        <View style={styles.advice} testID="route-question">
           <View style={styles.adviceHead}><Sparkles size={15} color={colors.primary} /><Text style={styles.adviceTag}>Muse pregunta</Text></View>
           <Text style={styles.adviceText}>{question.question}</Text>
           <View style={styles.answers}>
@@ -54,7 +54,7 @@ export function RouteResult({ options, advice, question, verified, mode, start, 
           <Text style={styles.small}>Mientras tanto: {question.explanation}</Text>
         </View>
       ) : advice ? (
-        <View style={styles.advice}>
+        <View style={styles.advice} testID="route-advice">
           <View style={styles.adviceHead}>
             <Sparkles size={15} color={colors.primary} />
             <Text style={styles.adviceTag}>{advice.source === "muse" ? "Recomendación de Muse" : "Nuestra recomendación"}</Text>
@@ -94,11 +94,11 @@ export function RouteResult({ options, advice, question, verified, mode, start, 
         const stopLines = lines[i] ?? [];
         const leg = option.route?.legs.find((l, n) => l.to === stop.name && n >= i - (start ? 0 : 1)) ?? option.route?.legs[i];
         return (
-          <View key={`${stop.chain}-${i}`} style={styles.stop}>
+          <View key={`${stop.chain}-${i}`} style={styles.stop} testID="route-stop">
             <View style={styles.stopHead}>
               <View style={styles.stopNumber}><Text style={styles.stopNumberText}>{i + 1}</Text></View>
               <View style={styles.flex}>
-                <Text style={styles.stopName}>{stop.name}</Text>
+                <Text style={styles.stopName} testID="route-stop-name">{stop.name}</Text>
                 <Text style={styles.stopSub} numberOfLines={2}>{[stop.area, stop.address].filter(Boolean).join(" · ") || "Dirección no registrada en el mapa"}</Text>
               </View>
               <StoreLogo store={CHAIN_NAMES[stop.chain]} small />
@@ -107,14 +107,14 @@ export function RouteResult({ options, advice, question, verified, mode, start, 
             {stopLines.length === 0 ? (
               <Text style={styles.small}>Nada de tu lista se compra aquí.</Text>
             ) : stopLines.map(l => (
-              <View key={l.itemId} style={styles.line}>
+              <View key={l.itemId} style={styles.line} testID="route-line">
                 <View style={styles.flex}>
-                  <Text style={styles.lineLabel}>{l.packs > 1 ? `${l.packs} × ` : ""}{l.label}</Text>
-                  <Text style={styles.lineProduct} numberOfLines={1}>{l.product}</Text>
+                  <Text style={styles.lineLabel} testID="route-line-label">{l.packs > 1 ? `${l.packs} × ` : ""}{l.label}</Text>
+                  <Text style={styles.lineProduct} numberOfLines={1} testID="route-line-product">{l.product}</Text>
                 </View>
                 {l.cold && <Snowflake size={14} color={colors.primary} accessibilityLabel="Frío" />}
                 {l.heavy && <Weight size={14} color={colors.mutedForeground} accessibilityLabel="Pesado" />}
-                <Text style={styles.lineTotal}>{cop(l.lineTotal)}</Text>
+                <Text style={styles.lineTotal} testID="route-line-total">{cop(l.lineTotal)}</Text>
               </View>
             ))}
             {stopLines.length > 0 && <Text style={styles.subtotal}>Subtotal {cop(stopLines.reduce((s, l) => s + l.lineTotal, 0))}</Text>}
@@ -123,7 +123,7 @@ export function RouteResult({ options, advice, question, verified, mode, start, 
       })}
 
       <View style={styles.totals}>
-        <Text style={styles.total}>Total {cop(goods)}</Text>
+        <Text style={styles.total} testID="route-total">Total {cop(goods)}</Text>
         {shown > 0 && (
           <Text style={styles.net}>
             {net > 0 ? `Ahorras ${cop(net)} netos frente a comprar todo en ${anchorName}`

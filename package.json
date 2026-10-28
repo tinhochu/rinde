@@ -14,7 +14,8 @@
     "db:generate": "pnpm --filter @rinde/db generate",
     "db:migrate": "pnpm --filter @rinde/db migrate:dev",
     "db:deploy": "pnpm --filter @rinde/db migrate:deploy",
-    "ingest": "pnpm --filter @rinde/worker ingest"
+    "ingest": "pnpm --filter @rinde/worker ingest",
+    "e2e": "node scripts/e2e/shopping-route.e2e.mjs"
   },
   "devDependencies": {
     "turbo": "2.11.10",

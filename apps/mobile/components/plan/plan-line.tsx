@@ -8,12 +8,12 @@ export function PlanLineRow({ line, now }: { line: PlanLine; now: number }) {
   const c = line.candidate;
   const live = c.priceStatus === "live";
   return (
-    <View style={styles.root}>
+    <View style={styles.root} testID="plan-line">
       <View style={styles.titleRow}>
-        <Text style={styles.title}>{c.name}</Text>
-        <Text style={styles.total} selectable>{cop(line.lineTotal)}</Text>
+        <Text style={styles.title} testID="plan-line-product">{c.name}</Text>
+        <Text style={styles.total} selectable testID="plan-line-total">{cop(line.lineTotal)}</Text>
       </View>
-      <Text style={styles.sub}>
+      <Text style={styles.sub} testID="plan-line-sub">
         {line.packs} × {packLabel(c) || "empaque"} · {cop(c.price)} c/u · para “{line.label}”
       </Text>
       <View style={[styles.reason, line.isSubstitute && styles.reasonSwap]}>

@@ -186,7 +186,7 @@ export function ResultsPhase({ result, hasBudget, area, progress, refreshing, de
         <View style={styles.hero}>
           <Text style={styles.heroKicker}>Así rinde tu mercado</Text>
           <Pop value={plan.total}>
-            <Text style={styles.heroTotal} selectable>{cop(plan.total)}</Text>
+            <Text style={styles.heroTotal} selectable testID="plan-total">{cop(plan.total)}</Text>
           </Pop>
           <Text style={styles.heroSub}>
             {plan.unavailable.length ? `Total de los ${priced} productos con precio` : "Total de tu mercado"} · {plan.stores.map(s => STORE_NAME[s.retailer]).join(" + ")}

@@ -95,7 +95,7 @@ async function fetchOverpass(): Promise<{ elements: OverpassElement[] }> {
 async function placeOf(lat: number, lon: number): Promise<Place> {
   const url = `${NOMINATIM_URL}?format=jsonv2&zoom=18&accept-language=es&lat=${lat}&lon=${lon}`;
   const res = await fetch(url, { headers: { "User-Agent": USER_AGENT }, signal: AbortSignal.timeout(10_000) });
-  if (!res.ok) return { area: null, street: null };
+  if (!res.ok) throw new Error(`nominatim ${res.status}`);
   const a = ((await res.json()) as { address?: Record<string, string> }).address ?? {};
   return { area: areaFrom(a), street: streetFrom(a) };
 }
