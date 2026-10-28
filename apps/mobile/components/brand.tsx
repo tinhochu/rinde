@@ -18,7 +18,6 @@ const LOGOS: Record<string, { source: number; round?: boolean }> = {
   D1: { source: require("@/assets/stores/d1.png") },
   Jumbo: { source: require("@/assets/stores/jumbo.png"), round: true },
   "Éxito": { source: require("@/assets/stores/exito.png"), round: true },
-  // A plain "C" in Carulla's colors, not its logo (carulla.com only serves a 28 px favicon).
   Carulla: { source: require("@/assets/stores/carulla.png"), round: true },
 };
 

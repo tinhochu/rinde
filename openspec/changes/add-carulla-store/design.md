@@ -105,4 +105,4 @@ Rollback: redeploy the previous images. The enum value and Carulla rows stay, wh
 
 ## Open Questions
 
-- A Carulla logo image for the app badge, versus the text badge. Cosmetic: it can be swapped later without touching specs or tasks beyond 7.
+- ~~A Carulla logo image for the app badge, versus the text badge.~~ Resolved 2026-10-28: the user supplied Carulla's logo, now `assets/stores/carulla.png` (192 px, clipped round like Jumbo and Éxito).
