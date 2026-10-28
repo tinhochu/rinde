@@ -48,7 +48,11 @@ export async function recordOffer(prisma: PrismaClient, retailerId: string, o: O
     isPrivateLabel: o.retailer === "d1" && Boolean(o.ean?.startsWith(D1_PRIVATE_LABEL_PREFIX)),
   };
   const product = o.ean
-    ? await prisma.product.upsert({ where: { ean: o.ean }, create: productData, update: {} })
+    // The latest size read wins, so a fixed parser or newer store metadata corrects old rows on re-ingest.
+    ? await prisma.product.upsert({
+        where: { ean: o.ean }, create: productData,
+        update: o.size ? { size: o.size.amount, unit: o.size.unit } : {},
+      })
     : await prisma.product.create({ data: productData });
   // A barcode whose listing was matched to another product (see ProductMatch) lands on that product.
   const matched = o.ean ? await prisma.productMatch.findFirst({ where: { fromProductId: product.id }, select: { toProductId: true } }) : null;

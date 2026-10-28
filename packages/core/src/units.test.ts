@@ -17,6 +17,9 @@ describe("parsePackageSize", () => {
     ["Leche Colanta 6 x 200 ml", 1200, "ml"],
     // "x2.5kg" is one 2.5 kg bag, not two
     ["Arroz Casanare blanco x2.5kg", 2500, "g"],
+    // "10" is the brand ("Arroz 10"), not a pack count; the x belongs to the size
+    ["Arroz Roa 10 x2.5kg", 2500, "g"],
+    ["Galletas 6x30g", 180, "g"],
     ["Leche Alpina x6 1100 ml", 6600, "ml"],
     // Colombian thousands separator on g / ml
     ["Arroz Integral Diana 1.000 G", 1000, "g"],
