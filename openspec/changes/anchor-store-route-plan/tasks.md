@@ -18,7 +18,7 @@
 - [x] 2.1 Add `packages/routing`: a `RouteProvider` interface and an OSRM client for `routing.openstreetmap.de`:
   - profiles foot and car;
   - `route` (polyline6, steps) and `table`;
-  - User-Agent, 5 s timeout, at most 2 concurrent requests;
+  - User-Agent, 15 s timeout, 429/503 retried with backoff, at most 2 concurrent requests;
   - a 7-day cache by rounded coordinates and mode.
 
   Verify:

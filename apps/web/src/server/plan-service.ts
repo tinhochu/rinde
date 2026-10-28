@@ -177,17 +177,25 @@ export class PlanError extends Error {
 /** NDJSON stream: one JSON event per line. Errors become a final {"type":"error"} line. */
 export function ndjsonStream<E extends { type: string } = PlanEvent>(run: (emit: (event: E | { type: "error"; error: string }) => void) => Promise<void>): Response {
   const encoder = new TextEncoder();
+  // A client that hangs up (the app asks again after an answer) leaves nobody to write to: stop quietly.
+  let gone = false;
   const stream = new ReadableStream({
     async start(controller) {
-      const emit = (event: E | { type: "error"; error: string }) => controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+      const emit = (event: E | { type: "error"; error: string }) => {
+        if (!gone) controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+      };
       try {
         await run(emit);
       } catch (error) {
+        if (gone) return;
         console.error("[plan]", error);
         emit({ type: "error", error: error instanceof PlanError ? error.message : "No pudimos armar el plan. Intenta de nuevo." });
       } finally {
-        controller.close();
+        if (!gone) controller.close();
       }
+    },
+    cancel() {
+      gone = true;
     },
   });
   return new Response(stream, {

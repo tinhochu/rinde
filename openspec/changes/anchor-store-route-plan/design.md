@@ -50,7 +50,7 @@
   - one `table` call to shortlist branches and one `route` call per offered option;
   - results cached for 7 days by rounded coordinates and mode;
   - at most 2 concurrent requests;
-  - 5 s timeout.
+  - 15 s timeout (the public server queues a busy client for ~7 s), and 429/503 answers retried with backoff.
 - *Alternatives:*
   - Google Routes API: real transit and traffic, but it needs a key and billing. The user chose free routing for now, and the interface lets it be added later for bus.
   - OpenRouteService: needs a key.
@@ -129,7 +129,7 @@
   - A typed address is geocoded and not stored.
   - The note is sent to Muse and not stored.
 - **[The public OSRM server is slow, down, or limits us]**
-  - 5 s timeouts, and routes cached for 7 days;
+  - 15 s timeouts with 429 retries, and routes cached for 7 days;
   - an option whose route fails is left out, with a reason, never estimated with a straight line;
   - the `RouteProvider` interface allows a self-hosted OSRM (Colombia extract) if usage grows.
 - **[Bus times are estimates]** They are labeled "estimado, sin horarios", and Google Maps transit takes over for real guidance through "Navegar".

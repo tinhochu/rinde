@@ -70,7 +70,8 @@ const BUSY = new Set([429, 503]);
 export function createOsrmProvider(opts: OsrmOptions = {}): RouteProvider {
   const baseUrl = opts.baseUrl ?? "https://routing.openstreetmap.de";
   const doFetch = opts.fetch ?? fetch;
-  const timeoutMs = opts.timeoutMs ?? 5000;
+  // The public server queues a busy client for ~7 s rather than refusing it, so allow for that wait.
+  const timeoutMs = opts.timeoutMs ?? 15_000;
   const ttl = opts.cacheTtlMs ?? WEEK_MS;
   const now = opts.now ?? Date.now;
   const limit = gate(opts.maxConcurrent ?? 2);
