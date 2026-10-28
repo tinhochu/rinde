@@ -73,13 +73,13 @@
 
 ## 6. Deploy and verify
 
-- [ ] 6.1 Update the API env on Coolify:
+- [x] 6.1 Update the API env on Coolify:
   - `CORS_ORIGINS=https://app.rinde.cool.chuventures.com,https://rinde.cool.chuventures.com`;
   - `APP_URL=https://app.rinde.cool.chuventures.com`.
 
   Restart web. Verify: a preflight from each origin to `/api/catalog` returns its `Access-Control-Allow-Origin`.
-- [ ] 6.2 Build `rinde-app:<sha>` (with the handoff) and `rinde-landing:<sha>` on the server. PATCH the compose: app domain becomes `app.rinde.cool.chuventures.com`, the landing service goes on `rinde.cool.chuventures.com`. Restart, then delete only the old `rinde-*` images. Verify: both hosts serve over HTTPS with valid certificates.
-- [ ] 6.3 Run the production checks (CDP screenshots at 360 px and 1280 px):
+- [x] 6.2 Build `rinde-app:<sha>` (with the handoff) and `rinde-landing:<sha>` on the server. PATCH the compose: app domain becomes `app.rinde.cool.chuventures.com`, the landing service goes on `rinde.cool.chuventures.com`. Restart, then delete only the old `rinde-*` images. Verify: both hosts serve over HTTPS with valid certificates.
+- [x] 6.3 Run the production checks (CDP screenshots at 360 px and 1280 px):
   - ES and EN landing render;
   - the live comparison shows real prices with ages;
   - `/receipt/x` gets a 301;
@@ -88,4 +88,4 @@
   - a reply-email link uses the new host.
 
   Verify: the screenshots and curl outputs are recorded in the summary.
-- [ ] 6.4 Manual for the user, if Google sign-in is configured: add `https://app.rinde.cool.chuventures.com` to the OAuth client's authorized JavaScript origins. Verify: Google sign-in completes on the app subdomain.
+- [x] 6.4 (Not applicable on 2026-10-27: production sets no Google client, so Google sign-in is off. Redo this if it is turned on.) Manual for the user, if Google sign-in is configured: add `https://app.rinde.cool.chuventures.com` to the OAuth client's authorized JavaScript origins. Verify: Google sign-in completes on the app subdomain.
