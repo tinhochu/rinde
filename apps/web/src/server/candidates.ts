@@ -93,16 +93,14 @@ async function searchWithFallback(term: string, stores: RetailerSlug[]): Promise
   const recovered = missing.filter((s) => !live.failed.includes(s));
   if (recovered.length) rows = [...rows, ...(await searchListings(term, { stores: recovered, perStore: PER_STORE }))];
   // Stores word things differently: "atún en lata" is sold as "Atún en agua", "pasta spaghetti" as
-  // "Spaghetti Capríssima". Drop trailing words, then try each later word alone, until each store has one.
+  // "Spaghetti Capríssima". For a store still without one, read every looser wording (trailing words
+  // dropped, then each later word alone): the first that finds some pasta may miss the cheapest spaghetti.
   const tokens = searchTokens(term);
   const looser = [...tokens.slice(0, -1).map((_, n) => tokens.slice(0, tokens.length - 1 - n).join(" ")), ...tokens.slice(1)];
   missing = uncovered(rows, stores);
-  for (const relaxed of looser) {
-    if (missing.length === 0) break;
-    rows = [...rows, ...(await searchListings(relaxed, { stores: missing, perStore: PER_STORE }))];
-    missing = uncovered(rows, missing);
-  }
-  return rows;
+  if (missing.length === 0) return rows;
+  const more = await Promise.all(looser.map((relaxed) => searchListings(relaxed, { stores: missing, perStore: PER_STORE })));
+  return [...rows, ...more.flat()];
 }
 
 function matchesBrand(r: ListingRow, brandTokens: string[]) {

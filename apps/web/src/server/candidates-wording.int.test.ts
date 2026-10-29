@@ -41,6 +41,8 @@ describe.skipIf(!process.env["INTEGRATION"])("candidatesFor: list wording differ
 
   it('finds "atún en lata" as tuna, though no store says "lata"', async () => {
     const item = await ask(`atún ${WORD} en lata`, "unit", 3);
-    expect(item.candidates.map((c) => c.name).sort()).toEqual([`Atún ${WORD} en aceite 170 G`, `Atún ${WORD} en agua 140g`]);
+    const names = item.candidates.map((c) => c.name);
+    expect(names).toEqual(expect.arrayContaining([`Atún ${WORD} en aceite 170 G`, `Atún ${WORD} en agua 140g`]));
+    expect(names.filter((n) => n.startsWith("Salsa"))).toEqual([]);
   }, 60_000);
 });
