@@ -36,7 +36,7 @@ function d1Size(p: VtexSizeSource): PackageSize | null {
 // "Leche Colanta 6Und 900ml" → 5.4). Its unit label is unreliable (milk is tagged "gr"),
 // so g vs ml comes from the name; the label is used only when the name has no unit.
 function jumboSize(p: VtexSizeSource): PackageSize | null {
-  let data: { unit_multiplier_un?: number; measurement_unit_un?: string };
+  let data: { unit_multiplier_un?: number; measurement_unit_un?: string; measurement_unit?: string };
   try {
     data = JSON.parse(p.ProductData?.[0] ?? "");
   } catch {
@@ -46,6 +46,8 @@ function jumboSize(p: VtexSizeSource): PackageSize | null {
   if (!(kiloAmount > 0)) return null;
 
   const fromName = parsePackageSize(p.productName);
+  // Sold by the piece ("Plátano verde a $3.000"): one unit, unless the name gives a size.
+  if (data.measurement_unit === "un" && data.measurement_unit_un === "un" && !fromName) return { amount: 1, unit: "unit" };
   const unit: BaseUnit | null =
     fromName && fromName.unit !== "unit" ? fromName.unit
     : data.measurement_unit_un === "gr" ? "g"

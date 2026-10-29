@@ -24,6 +24,15 @@ describe("resolvePackageSize (real responses, 2026-10-26)", () => {
     expect(resolvePackageSize(byName(jumbo, "Arroz Casanare Blanco"))).toEqual({ amount: 1000, unit: "g" });
   });
 
+  it("reads a Jumbo listing sold by the piece as one unit", () => {
+    // Recorded 2026-10-28: the same plantain sold by the kilo and by the piece.
+    const data = (o: object) => [JSON.stringify(o)];
+    expect(resolvePackageSize({ productName: "Plátano verde a $3.000", ProductData: data({ measurement_unit: "un", measurement_unit_un: "un", unit_multiplier_un: 0.001 }) }))
+      .toEqual({ amount: 1, unit: "unit" });
+    expect(resolvePackageSize({ productName: "Plátano  verde", ProductData: data({ measurement_unit: "kg", measurement_unit_un: "gr", unit_multiplier_un: 1 }) }))
+      .toEqual({ amount: 1000, unit: "g" });
+  });
+
   it("reads D1's '1.000' as a thousand grams, not one", () => {
     expect(resolvePackageSize({ productName: "Arroz Integral Diana 1.000 G", "Unidad De Medida": ["Gr"], "Valor de Medida": ["1.000"] }))
       .toEqual({ amount: 1000, unit: "g" });
