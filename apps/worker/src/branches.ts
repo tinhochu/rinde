@@ -166,7 +166,9 @@ export async function importBranches(opts: { fetchJson?: typeof fetchOverpass; l
   return { imported: branches.length, removed, areas, counts };
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// `node dist/branches.mjs` imports once and exits. Matched by file name, not import.meta.url: the worker
+// bundle inlines this module into dist/index.mjs, where import.meta.url is index.mjs and would match it.
+if (/[\\/]branches\.(ts|mjs)$/.test(process.argv[1] ?? "")) {
   await importBranches();
   process.exit(0);
 }
