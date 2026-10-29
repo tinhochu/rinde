@@ -26,6 +26,12 @@ describe("parsePackageSize", () => {
     ["Aceite Vegetal Imatá 3.000 Ml", 3000, "ml"],
     ["Gaseosa Manzana Postobon 1.750 Ml", 1750, "ml"],
     ["Arroz 2.500 kg", 2500, "g"],
+    // Éxito and Carulla: the trailing "(… gr)" is the whole pack, not one of the "x30und"
+    ["Salchicha de pollo RICA x30und (500  gr)", 500, "g"],
+    ["Galletas SALTIN NOEL tradicional x4 tacos (354  gr)", 354, "g"],
+    ["Agua con gas H2O saborizada surtido x6und (3600  ml)", 3600, "ml"],
+    ["Leche entera ALPINA caja x4und 1l (4000  ml)", 4000, "ml"],
+    ["Café  JUAN VALDEZ liofilizado sticks x30und (45  gr)", 45, "g"],
   ])("%s → %d %s", (name, amount, unit) => {
     expect(parsePackageSize(name)).toEqual({ amount, unit });
   });

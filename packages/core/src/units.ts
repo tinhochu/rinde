@@ -37,6 +37,15 @@ export function parsePackageSize(name: string): PackageSize | null {
   const measured = matches.find((m) => m.unit !== "unit");
   const best = measured ?? matches[0]!;
 
+  // Éxito and Carulla end every name with the whole pack's net content in parentheses:
+  // "Salchicha RICA x30und (500  gr)" is 500 g in all, not 30 × 500 g.
+  const net = name.match(/\((\d+(?:[.,]\d+)?)\s*([a-z]+)\)\s*$/i);
+  const netUnit = net ? UNIT_FACTORS[net[2]!.toLowerCase()] : undefined;
+  if (net && netUnit && netUnit[0] !== "unit") {
+    const size = { amount: round(parseAmount(net[1]!, netUnit[1]) * netUnit[1]), unit: netUnit[0] };
+    if (plausibleSize(size)) return size;
+  }
+
   if (measured) {
     const multi = name.match(MULTIPACK_RE);
     const count = Number(multi?.[1] ?? multi?.[2] ?? 1);
