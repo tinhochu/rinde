@@ -2,6 +2,8 @@ import type { Config } from "tailwindcss";
 
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  // base.css is the reset, and .container is the page's own (tokens.css).
+  corePlugins: { preflight: false, container: false },
   theme: {
     extend: {
       colors: {

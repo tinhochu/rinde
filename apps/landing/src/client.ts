@@ -14,40 +14,40 @@ function el<K extends keyof HTMLElementTagNameMap>(tag: K, className: string, te
 
 /** Prints the comparison into the receipt, with the same look as the rest of it. Text only: API data never becomes HTML. */
 function printReceipt(box: HTMLElement, words: Words, { product, offers }: Comparison) {
-  const name = el("h2", "font-mono text-sm font-bold", product.name);
-  const size = el("p", "mb-4 mt-1 font-mono text-[10px] text-[var(--body-ink)]", [formatPack(product, words.units), "COP"].filter(Boolean).join(" · "));
+  const name = el("h3", "text-base font-semibold leading-snug", product.name);
+  const size = el("p", "mb-4 mt-1 text-sm text-[var(--color-muted)]", [formatPack(product, words.units), "COP"].filter(Boolean).join(", "));
 
-  const list = el("ul", "space-y-2 font-mono text-xs");
+  const list = el("ul", "space-y-1 text-sm tabular-nums");
   offers.forEach((offer, i) => {
     const best = i === 0;
-    const row = el("li", `flex items-start justify-between gap-3 ${best ? "-mx-2 rounded-sm bg-[#e7ecda] px-2 py-2" : "py-0.5"}`);
+    const row = el("li", `flex items-start justify-between gap-3 ${best ? "-mx-2 rounded-sm bg-[var(--color-receipt-best)] px-2 py-2" : "py-1"}`);
     const left = el("span", "");
     const store = el("span", "inline-flex items-center gap-1.5");
     const logo = STORE_LOGOS[offer.store];
     if (logo) {
-      const img = el("img", "size-4 rounded-full object-cover");
+      const img = el("img", "size-5 rounded-full object-cover");
       img.src = logo;
       img.alt = "";
-      img.width = 16;
-      img.height = 16;
+      img.width = 20;
+      img.height = 20;
       store.append(img);
     }
-    store.append(el("span", best ? "font-bold" : "", offer.store));
+    store.append(el("span", best ? "font-semibold" : "", offer.store));
     left.append(store);
-    if (best) left.append(el("span", "ml-1.5 text-[7px] font-bold", words.lowest));
+    if (best) left.append(el("span", "ml-2 text-xs font-semibold text-[var(--color-accent)]", words.lowest));
     const age = `${words.seen} ${formatAge(offer.observedAt, words.lang)}${offer.source === "receipt" ? ` (${words.receipt})` : ""}`;
-    left.append(el("span", "block text-[9px] text-[var(--body-ink)]", age));
-    row.append(left, el(best ? "b" : "span", "", formatPrice(offer.price)));
+    left.append(el("span", "block text-xs text-[var(--color-muted)]", age));
+    row.append(left, el(best ? "b" : "span", best ? "font-semibold" : "", formatPrice(offer.price)));
     list.append(row);
   });
 
-  const diff = el("div", "mt-4 flex items-center justify-between border-t border-dashed border-primary/30 pt-4");
+  const diff = el("div", "mt-4 flex items-center justify-between gap-3 border-t border-dashed border-[var(--color-rule)] pt-4");
   diff.append(
-    el("span", "max-w-28 font-mono text-[10px]", words.difference),
-    el("span", "text-2xl font-bold text-[var(--tomato)]", formatPrice(offers[offers.length - 1].price - offers[0].price)),
+    el("span", "max-w-32 text-sm", words.difference),
+    el("span", "text-2xl font-semibold tabular-nums text-[var(--color-accent)]", formatPrice(offers[offers.length - 1].price - offers[0].price)),
   );
 
-  box.replaceChildren(name, size, list, diff, el("p", "mt-4 font-mono text-[8px] leading-relaxed text-[var(--body-ink)]", words.live));
+  box.replaceChildren(name, size, list, diff, el("p", "mt-4 text-xs leading-relaxed text-[var(--color-muted)]", words.live));
 }
 
 const receipt = document.querySelector<HTMLElement>("[data-live-receipt]");
@@ -66,6 +66,25 @@ document.querySelectorAll<HTMLAnchorElement>("header a[hreflang]").forEach((link
     link.href = link.href.split("#")[0] + (current ? `#${current}` : "");
   });
 });
+
+// The bar slides up while the visitor reads down the page and comes back as soon as they scroll up.
+const bar = document.querySelector<HTMLElement>("[data-bar]");
+if (bar) {
+  let last = window.scrollY;
+  let queued = false;
+  window.addEventListener("scroll", () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (Math.abs(y - last) > 8) {
+        bar.toggleAttribute("data-away", y > last && y > bar.offsetHeight * 3 && !bar.contains(document.activeElement));
+        last = y;
+      }
+      queued = false;
+    });
+  }, { passive: true });
+}
 
 // On the Spanish page, a browser that prefers English over Spanish gets a link to /en/ (never a redirect).
 const hint = document.getElementById("read-en");

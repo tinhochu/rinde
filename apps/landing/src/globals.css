@@ -1,94 +1,161 @@
-/* DM Sans, DM Serif Display and Kalam (SIL Open Font License 1.1), Latin subsets served from this site.
-   Kalam only carries the glyphs of the handwritten line. */
-@font-face { font-family: 'DM Sans'; font-weight: 400; font-display: swap; src: url('./assets/fonts/dm-sans-400.woff2') format('woff2'); }
-@font-face { font-family: 'DM Sans'; font-weight: 500; font-display: swap; src: url('./assets/fonts/dm-sans-500.woff2') format('woff2'); }
-@font-face { font-family: 'DM Sans'; font-weight: 600; font-display: swap; src: url('./assets/fonts/dm-sans-600.woff2') format('woff2'); }
-@font-face { font-family: 'DM Sans'; font-weight: 700; font-display: swap; src: url('./assets/fonts/dm-sans-700.woff2') format('woff2'); }
-@font-face { font-family: 'DM Serif Display'; font-style: normal; font-display: swap; src: url('./assets/fonts/dm-serif-display.woff2') format('woff2'); }
-@font-face { font-family: 'DM Serif Display'; font-style: italic; font-display: swap; src: url('./assets/fonts/dm-serif-display-italic.woff2') format('woff2'); }
-@font-face { font-family: 'Kalam'; font-display: swap; src: url('./assets/fonts/kalam-subset.woff2') format('woff2'); }
+/* Hallmark · shape: Split Studio · genre: editorial · theme: brand · redesign: full · draw: 8dd176
+ * paper: oklch(97.6% 0.011 95) · accent: oklch(53% 0.15 38) · display: DM Serif Display · body: DM Sans · hero: Stage (swapped from Banner: the first view carries the app's own screen) · nav: banner over a retracting bar · footer: mast · signature: the live receipt, printed from today's catalog
+ * axes: light/roman-serif/warm · posture: Restrained, one ink band at the close · contrast: pass · fold: pass · v2.0.0
+ * imagery: screenshots 4 (the production app, light and dark, 29 Oct 2026) · copy: case and punctuation only, listed in the handoff
+ * waive 77 (#on-your-phone): two install disclosures are the whole content; the section stays quiet after the dense rows
+ * dropped: the produce-aisle and grocery-cart photographs (76: origin unknown, uncredited; the cart shows foreign products), the "Cada peso cuenta" sticker, the handwritten line and the "Compras reales" note (66), the eyebrow labels (54), the emoji (30a) */
+/* Hallmark · pre-emit critique: P4 H4 E3 S4 R4 V4 · weakest: E (the install rows are text only), kept quiet on purpose after the dense rows */
+@import url("./tokens.css");
+@import url("./base.css");
 
-@tailwind base;
+/* DM Sans and DM Serif Display (SIL Open Font License 1.1), Latin subsets served from this site. */
+@font-face { font-family: 'DM Sans'; font-weight: 400; font-display: swap; src: url('./assets/fonts/dm-sans-400.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 600; font-display: swap; src: url('./assets/fonts/dm-sans-600.woff2') format('woff2'); }
+@font-face { font-family: 'DM Serif Display'; font-style: normal; font-display: swap; src: url('./assets/fonts/dm-serif-display.woff2') format('woff2'); }
+
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 45 33% 95%;
-    --foreground: 150 40% 24%;
-    --card: 45 33% 95%;
-    --card-foreground: 150 40% 24%;
-    --popover: 45 33% 95%;
-    --popover-foreground: 150 40% 24%;
-    --primary: 150 40% 24%;
-    --primary-foreground: 45 33% 95%;
-    --secondary: 75 20% 89%;
-    --secondary-foreground: 150 40% 24%;
-    --muted: 75 20% 89%;
-    --muted-foreground: 145 12% 35%;
-    --accent: 75 20% 89%;
-    --accent-foreground: 150 40% 24%;
-    --destructive: 10 61% 44%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 145 15% 78%;
-    --input: 145 15% 78%;
-    --ring: 150 40% 24%;
-    --radius: .75rem;
-    --paper: #fffdf5;
-    --sand: #eeeade;
-    --sage: #e8ecdf;
-    --tomato: #b6422e;
-    --yellow: #edce70;
-    --body-ink: #536153;
-    color-scheme: light;
-  }
-  /* Dark follows the device. The receipt stays paper in both (.receipt below). */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: 150 22% 9%;
-      --foreground: 45 33% 92%;
-      --card: 150 22% 9%;
-      --card-foreground: 45 33% 92%;
-      --popover: 150 22% 9%;
-      --popover-foreground: 45 33% 92%;
-      --primary: 45 33% 92%;
-      --primary-foreground: 150 22% 9%;
-      --secondary: 150 15% 16%;
-      --secondary-foreground: 45 33% 92%;
-      --muted: 150 15% 16%;
-      --muted-foreground: 90 10% 72%;
-      --accent: 150 15% 16%;
-      --accent-foreground: 45 33% 92%;
-      --border: 150 10% 28%;
-      --input: 150 10% 28%;
-      --ring: 45 33% 92%;
-      --sand: #17241c;
-      --sage: #1b2b21;
-      --tomato: #ef8a74;
-      --body-ink: #b9c3b5;
-      color-scheme: dark;
-    }
-  }
-  * { @apply border-border; }
-  html { scroll-behavior: smooth; }
-  body { @apply bg-background text-foreground; font-family: 'DM Sans', sans-serif; -webkit-font-smoothing: antialiased; }
-  ::selection { background: #edce70; color: #24543c; }
-  a, button { -webkit-tap-highlight-color: transparent; }
-  a:focus-visible, button:focus-visible { outline: 2px solid var(--tomato); outline-offset: 5px; }
-}
+/* What preflight used to reset, and nothing more. */
+h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+summary { list-style: none; }
+summary::-webkit-details-marker { display: none; }
+html { scroll-behavior: smooth; }
+a, button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline-offset: 4px; }
 
-@layer components {
-  .page-width { @apply mx-auto w-[calc(100%-40px)] max-w-[1120px] sm:w-[calc(100%-80px)]; }
-  .editorial { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; letter-spacing: -.035em; }
-  .wordmark { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; letter-spacing: -.075em; }
-  .hero-title { font-size: clamp(49px, 5.7vw, 79px); line-height: 1.04; }
-  .section-title { font-size: clamp(35px, 3.7vw, 48px); line-height: 1.12; }
-  .eyebrow { font-size: 9px; font-weight: 600; letter-spacing: .13em; }
-  .handwritten { font-family: 'Kalam', cursive; }
-  .nav-link { @apply underline-offset-4 hover:underline; }
-  .receipt { color: #294332; --primary: 150 40% 24%; --body-ink: #536153; --tomato: #b6422e; }
-  /* The yellow notes read the same in both schemes. */
-  .on-yellow { background: var(--yellow); color: #24543c; }
-  .receipt::after { content: ''; position: absolute; bottom: -9px; left: 0; width: 100%; height: 10px; background: var(--paper); clip-path: polygon(0 0, 100% 0, 100% 100%, 97% 20%, 94% 100%, 91% 20%, 88% 100%, 85% 20%, 82% 100%, 79% 20%, 76% 100%, 73% 20%, 70% 100%, 67% 20%, 64% 100%, 61% 20%, 58% 100%, 55% 20%, 52% 100%, 49% 20%, 46% 100%, 43% 20%, 40% 100%, 37% 20%, 34% 100%, 31% 20%, 28% 100%, 25% 20%, 22% 100%, 19% 20%, 16% 100%, 13% 20%, 10% 100%, 7% 20%, 4% 100%, 0 0); }
+/* Twelve columns inside the container. */
+.grid-12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); }
+
+.small { font-size: var(--text-sm); line-height: 1.5; color: var(--color-muted); }
+.lead { color: var(--color-ink); }
+.wordmark { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.05em; line-height: 1; text-decoration: none; }
+
+/* Controls: one filled primary, the rest quiet. */
+.btn { display: inline-flex; align-items: center; gap: var(--space-sm); min-height: 52px; padding: 0 var(--space-lg); border-radius: var(--radius-pill); font-weight: 600; font-size: var(--text-md); text-decoration: none; transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
+.btn svg { flex-shrink: 0; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--btn-fill, var(--color-action)); color: var(--btn-ink, var(--color-on-action)); }
+.btn-primary:hover { background: var(--btn-hover, var(--color-ink)); }
+.btn-quiet { min-height: 44px; padding: 0 var(--space-md); border: var(--rule-hair) solid var(--color-rule); color: var(--color-ink); font-size: var(--text-sm); }
+.btn-quiet:hover { border-color: var(--color-ink-2); }
+
+/* The banner over the bar; the bar slides away while reading down and comes back on the way up (client.ts). */
+.hint { padding: var(--space-xs) var(--gutter); background: var(--color-paper-3); text-align: center; font-size: var(--text-sm); }
+.banner { padding: var(--space-xs) var(--gutter); background: var(--color-field); color: var(--color-on-field); text-align: center; font-size: var(--text-sm); }
+.bar { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-paper); border-bottom: var(--rule-hair) solid var(--color-rule); transition: transform var(--dur-long) var(--ease-out); }
+.bar[data-away] { transform: translateY(-100%); }
+.bar-in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); height: 72px; }
+.bar .wordmark { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: var(--text-2xl); color: var(--color-ink-2); }
+.bar .wordmark img { width: 32px; height: 32px; border-radius: var(--radius-card); }
+.bar nav { display: flex; gap: var(--space-xl); font-size: var(--text-sm); }
+.bar nav a, .footer-links a { text-decoration: none; }
+.bar nav a:hover, .footer-links a:hover { text-decoration: underline; }
+.bar-end { display: flex; align-items: center; gap: var(--space-lg); }
+.langs { display: flex; align-items: center; gap: var(--space-xs); font-size: var(--text-sm); }
+.langs [aria-current] { font-weight: 600; text-decoration: underline; text-underline-offset: 0.3em; }
+.langs a { color: var(--color-muted); text-decoration: none; }
+.langs a:hover { color: var(--color-ink); }
+
+/* The hero: the words beside the app's own first screen. */
+.hero { align-items: center; padding-block: var(--space-xl) var(--space-2xl); }
+.hero-text { grid-column: 1 / span 7; display: grid; gap: var(--space-lg); justify-items: start; }
+.hero-text h1 { color: var(--color-ink-2); max-width: 17ch; }
+.hero-text .lead { max-width: 40ch; }
+.hero-act { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); margin-top: var(--space-xs); }
+.hero-act .small { display: inline-flex; align-items: center; gap: var(--space-xs); }
+.stores { display: grid; gap: var(--space-sm); margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); width: 100%; max-width: 560px; }
+.stores ul { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-lg); font-weight: 600; }
+.stores li { display: inline-flex; align-items: center; gap: var(--space-xs); }
+.stores img { width: 28px; height: 28px; border-radius: var(--radius-pill); object-fit: cover; }
+.hero-shot { grid-column: 9 / span 4; justify-self: center; }
+.shot { display: block; border-radius: var(--radius-screen); overflow: hidden; outline: 1px solid color-mix(in oklab, var(--color-ink) 9%, transparent); outline-offset: -1px; background: var(--color-paper-2); }
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.hero-shot .shot { height: min(64svh, 600px); aspect-ratio: 600 / 1298; }
+.hero-shot figcaption, .row figcaption { margin-top: var(--space-sm); }
+@keyframes settle { from { opacity: 0; transform: translateY(8px); } }
+.hero-text, .hero-shot { animation: settle 0.6s var(--ease-out) both; }
+.hero-shot { animation-delay: 80ms; }
+
+/* How it works: each stage beside its screen; the screens keep the right side. */
+.how { padding-block: var(--section-gap) var(--section-gap-s); }
+.head { display: grid; gap: var(--space-md); margin-bottom: var(--space-2xl); }
+.head h2 { color: var(--color-ink-2); }
+.split-head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
+.split-head h2 { grid-column: 1 / span 6; }
+.split-head .lead { grid-column: 8 / span 5; }
+.rows { counter-reset: stage; display: grid; gap: var(--space-3xl); }
+.row { counter-increment: stage; align-items: center; }
+.row-text { grid-column: 1 / span 5; display: grid; gap: var(--space-md); align-content: start; }
+.row-text::before { content: counter(stage); font-family: var(--font-display); font-size: var(--text-display-s); line-height: 1; color: var(--color-ink-2); }
+.row-text p { color: var(--color-muted); max-width: 45ch; }
+.row figure { grid-column: 7 / span 6; padding: var(--space-xl); background: var(--color-paper-2); border-radius: var(--radius-card); }
+.row-lead .row-text { grid-column: 1 / span 4; }
+.row-lead figure { grid-column: 6 / span 7; }
+.row .shot { width: min(100%, 400px); aspect-ratio: 640 / 738; margin-inline: auto; }
+.row figcaption { text-align: center; }
+
+/* The prices: where they come from, beside one printed live. */
+.prices { padding-block: var(--section-gap-s); background: var(--color-paper-2); }
+.prices-text { grid-column: 1 / span 6; display: grid; gap: var(--space-lg); align-content: center; }
+.prices-text h2 { color: var(--color-ink-2); }
+.sources { display: grid; margin-top: var(--space-xs); }
+.sources > div { display: grid; gap: var(--space-2xs); padding-block: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
+.sources h3 { font-family: var(--font-body); font-size: var(--text-md); font-weight: 600; letter-spacing: 0; }
+.sources p { color: var(--color-muted); }
+.prices-proof { grid-column: 8 / span 5; align-self: center; }
+.receipt { position: relative; max-width: 380px; margin-inline: auto; padding: var(--space-lg) var(--space-lg) var(--space-xl); background: var(--color-receipt); color: var(--color-receipt-ink); box-shadow: var(--shadow-card); font-family: var(--font-outlier);
+  /* Paper in both schemes. */
+  --color-ink: var(--color-receipt-ink); --color-ink-2: var(--color-receipt-ink-2); --color-muted: var(--color-receipt-muted); --color-rule: var(--color-receipt-rule); --color-accent: var(--color-receipt-accent); }
+.receipt::after { content: ''; position: absolute; bottom: -9px; left: 0; width: 100%; height: 10px; background: var(--color-receipt); clip-path: polygon(0 0, 100% 0, 100% 100%, 97% 20%, 94% 100%, 91% 20%, 88% 100%, 85% 20%, 82% 100%, 79% 20%, 76% 100%, 73% 20%, 70% 100%, 67% 20%, 64% 100%, 61% 20%, 58% 100%, 55% 20%, 52% 100%, 49% 20%, 46% 100%, 43% 20%, 40% 100%, 37% 20%, 34% 100%, 31% 20%, 28% 100%, 25% 20%, 22% 100%, 19% 20%, 16% 100%, 13% 20%, 10% 100%, 7% 20%, 4% 100%, 0 0); }
+.receipt-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-md); }
+.receipt-head .wordmark { font-size: var(--text-xl); color: var(--color-ink-2); }
+.receipt-title { padding-bottom: var(--space-md); margin-bottom: var(--space-md); border-bottom: 1px dashed var(--color-rule); font-size: var(--text-sm); }
+
+/* On your phone: the head beside two disclosures. */
+.phone { padding-block: var(--section-gap); }
+.phone-head { grid-column: 1 / span 5; display: grid; gap: var(--space-md); align-content: start; }
+.phone-head h2 { color: var(--color-ink-2); }
+.phone-head p { color: var(--color-muted); }
+.phone-steps { grid-column: 7 / span 6; align-self: center; border-top: var(--rule-hair) solid var(--color-rule); }
+.phone-steps details { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.phone-steps summary { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); min-height: 72px; cursor: pointer; font-size: var(--text-title); font-family: var(--font-display); }
+.phone-steps summary svg { flex-shrink: 0; transition: transform var(--dur-short) var(--ease-in-out); }
+.phone-steps details[open] summary svg { transform: rotate(180deg); }
+.phone-steps .answer { display: grid; gap: var(--space-sm); padding-bottom: var(--space-lg); color: var(--color-muted); max-width: 52ch; }
+.phone-steps .answer a { color: var(--color-ink-2); font-weight: 600; display: inline-flex; align-items: center; gap: var(--space-2xs); }
+
+/* The close: an ink band. */
+.close { padding-block: var(--section-gap-s); background: var(--color-field); color: var(--color-on-field); --btn-fill: var(--color-on-field); --btn-ink: var(--color-field); --btn-hover: var(--color-paper-2); }
+.close-in { align-items: end; }
+.close h2 { grid-column: 1 / span 8; font-size: var(--text-display-s); max-width: 16ch; }
+.close-act { grid-column: 9 / span 4; display: grid; gap: var(--space-md); justify-items: start; }
+.close-act p { color: var(--color-on-field-2); }
+
+/* The footer: the wordmark large over the links. */
+.footer { padding-block: var(--space-2xl) var(--space-xl); }
+.footer .wordmark { display: block; font-size: clamp(6rem, 16vw, 15rem); color: var(--color-ink-2); margin-bottom: var(--space-xl); }
+.footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-md) var(--space-xl); padding-block: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); }
+.footer-links { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-size: var(--text-sm); }
+.footer-links a { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+.footer-legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-xs) var(--space-xl); }
+
+/* The 404 page. */
+.missing { min-height: 100vh; display: grid; align-content: center; justify-items: start; gap: var(--space-lg); }
+.missing .wordmark { font-size: var(--text-2xl); color: var(--color-ink-2); }
+
+@media (max-width: 60rem) {
+  .bar nav { display: none; }
+  .hero { padding-block: var(--space-xl) var(--space-2xl); row-gap: var(--space-xl); }
+  .hero-text, .hero-shot, .split-head h2, .split-head .lead, .row-text, .row figure, .row-lead .row-text, .row-lead figure, .prices-text, .prices-proof, .phone-head, .phone-steps, .close h2, .close-act { grid-column: 1 / -1; }
+  .hero-shot .shot { height: min(80svh, 560px); }
+  .split-head, .rows .row, .prices .grid-12, .phone .grid-12, .close-in { row-gap: var(--space-xl); }
+  .row figure { padding: var(--space-lg); }
+  .prices-proof { margin-top: var(--space-md); }
 }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (max-width: 40rem) {
+  .bar-end .btn-quiet { display: none; }
+  .bar .wordmark { font-size: var(--text-xl); }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .bar { transition: none; } }
