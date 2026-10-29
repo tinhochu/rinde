@@ -6,7 +6,7 @@ import {
 import { db, ensureRetailer, RETAILERS, type Prisma, type RetailerSlug } from "@rinde/db";
 import { STORE_BY_SLUG, type Store } from "./contract";
 import { extractReceipt, MuseUnavailable, sha256 } from "./muse";
-import { matchLines, searchCandidates, sizeLabel, type LineMatch, type ListingOption } from "./receipt-match";
+import { listingsByCode, matchLines, searchCandidates, sizeLabel, type LineMatch, type ListingOption } from "./receipt-match";
 import { saveReceiptImage } from "./receipt-storage";
 import { awardLines, isGap, syncBadges, BADGES, type BadgeId } from "./rewards";
 
@@ -93,6 +93,8 @@ export type ConfirmResult = {
   acceptedLines: number;
   badges: { id: BadgeId; name: string; description: string }[];
   balance: number;
+  /** Sent without an account: the prices are saved, but points and badges need an account. */
+  free: boolean;
 };
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -355,6 +357,19 @@ export async function draftFor(sessionId: string, receiptId: string): Promise<Re
     include: { lines: { orderBy: { position: "asc" } } },
   });
   if (!receipt) return null;
+  // A coded line still without a product gets another lookup: the store may not have answered when
+  // the invoice arrived, or the draft predates matching by its code (Éxito and Carulla SKUs).
+  const coded = receipt.lines.filter((l) => l.kind === "item" && l.code && !l.retailerProductId && !l.produceSlug);
+  if (coded.length) {
+    const byCode = await listingsByCode(receipt.store, coded.map((l) => l.code!));
+    for (const l of coded) {
+      const hit = byCode.get(l.code!) ?? byCode.get(l.code!.replace(/^0+/, ""));
+      if (!hit) continue;
+      const matchedBy = hit.by ?? (l.code!.length >= 8 ? "ean" : "code");
+      await prisma.receiptLine.update({ where: { id: l.id }, data: { retailerProductId: hit.listingId, matchedBy } });
+      Object.assign(l, { retailerProductId: hit.listingId, matchedBy });
+    }
+  }
   const listingIds = receipt.lines.map((l) => l.retailerProductId).filter((id): id is string => !!id);
   const listings = new Map((await prisma.retailerProduct.findMany({
     where: { id: { in: listingIds } },
@@ -501,8 +516,10 @@ export async function confirmDraft(input: { sessionId: string; receiptId: string
       }
 
       await tx.receipt.update({ where: { id: receipt.id }, data: { status: "confirmed", confirmedAt: now } });
-      const events = await awardLines(tx, contributor.id, receipt.id, receipt.store, rewards);
-      const earned = await syncBadges(tx, contributor.id);
+      // Points live in an account, so they can't be lost with the phone; without one the prices go in for free.
+      const free = !contributor.accountId;
+      const events = free ? [] : await awardLines(tx, contributor.id, receipt.id, receipt.store, rewards);
+      const earned = free ? [] : await syncBadges(tx, contributor.id);
       const balance = (await tx.rewardEvent.aggregate({ where: { contributorId: contributor.id }, _sum: { points: true } }))._sum.points ?? 0;
 
       const breakdown = new Map<string, { points: number; lines: number }>();
@@ -517,6 +534,7 @@ export async function confirmDraft(input: { sessionId: string; receiptId: string
         acceptedLines: rewards.length,
         badges: earned.map((id) => ({ id, ...BADGES[id] })),
         balance,
+        free,
       };
     });
   } catch (e) {

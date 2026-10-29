@@ -34,7 +34,7 @@ export function sizeLabel(size: string | null, unit: ListingRow["unit"]): string
 export const option = (r: ListingRow): ListingOption => ({ listingId: r.listingId, name: r.name, image: r.imageUrl, size: sizeLabel(r.size, r.unit) });
 
 /** Store listings whose product carries one of these printed codes (EAN, a store's own code like Jumbo "116", or a Grupo Éxito SKU). */
-async function listingsByCode(store: RetailerSlug, codes: string[]) {
+export async function listingsByCode(store: RetailerSlug, codes: string[]) {
   if (codes.length === 0) return new Map<string, ListingOption & { by?: MatchedBy }>();
   // Store codes are sometimes printed zero-padded ("0116"); compare without leading zeros too.
   const variants = [...new Set(codes.flatMap((c) => [c, c.replace(/^0+/, "")]))];
