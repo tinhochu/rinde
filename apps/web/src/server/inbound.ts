@@ -153,7 +153,7 @@ export async function processIntake(intakeId: string, email?: ReceivedEmail, opt
 
   // At most one reply per email: the flag flips once, before sending.
   if (meta.from && (await prisma.invoiceIntake.updateMany({ where: { id: intakeId, replied: false }, data: { replied: true } })).count === 1) {
-    await sendIntakeReply(meta.from, summary, fetcher).catch((e: unknown) => console.warn(`[inbound] reply failed: ${e instanceof Error ? e.message : "error"}`));
+    await sendIntakeReply(meta.from, { ...summary, hasAccount: !!contributor.accountId }, fetcher).catch((e: unknown) => console.warn(`[inbound] reply failed: ${e instanceof Error ? e.message : "error"}`));
   }
 }
 

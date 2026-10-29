@@ -52,6 +52,8 @@ export type Badge = { id: string; name: string; description: string };
 export type ConfirmResult = {
   receiptId: string; points: number; breakdown: { label: string; points: number; lines: number }[];
   acceptedLines: number; badges: Badge[]; balance: number;
+  /** Sent without an account: the prices were saved, but points need an account */
+  free?: boolean;
 };
 export type RankRow = { rank: number; name: string; points: number; you: boolean };
 export type BadgeId = "primera-factura" | "cazador-de-frutas" | "pionero" | "constante";

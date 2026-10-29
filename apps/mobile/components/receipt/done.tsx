@@ -7,8 +7,9 @@ import type { ConfirmResult } from "@/lib/receipts";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 /** After sending: what was earned and why, line by line category, and any new badge. */
-export function ReceiptDone({ result, store, einvoice, onAnother, onRewards, onHome }: {
-  result: ConfirmResult; store: string; /** Read from a DIAN e-invoice's XML */ einvoice?: boolean; onAnother: () => void; onRewards: () => void; onHome: () => void;
+export function ReceiptDone({ result, store, einvoice, onAnother, onRewards, onHome, onAccount }: {
+  result: ConfirmResult; store: string; /** Read from a DIAN e-invoice's XML */ einvoice?: boolean;
+  onAnother: () => void; onRewards: () => void; onHome: () => void; onAccount: () => void;
 }) {
   const saved = result.acceptedLines;
   return (
@@ -16,9 +17,13 @@ export function ReceiptDone({ result, store, einvoice, onAnother, onRewards, onH
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.hero}>
           <View style={styles.check}><Check size={26} color="#FFFFFF" strokeWidth={3} /></View>
-          <Pop value={result.points}>
-            <Text accessibilityRole="header" style={styles.points}>+{result.points} puntos</Text>
-          </Pop>
+          {result.free ? (
+            <Text accessibilityRole="header" style={styles.sent}>Precios enviados</Text>
+          ) : (
+            <Pop value={result.points}>
+              <Text accessibilityRole="header" style={styles.points}>+{result.points} puntos</Text>
+            </Pop>
+          )}
           <Text style={styles.lede}>
             {saved === 1 ? "Guardamos 1 precio" : `Guardamos ${saved} precios`} de {store}. Desde ya aparecen como “Reportado en tienda · {einvoice ? "factura electrónica" : "factura"}” para tus vecinos.
           </Text>
@@ -53,11 +58,21 @@ export function ReceiptDone({ result, store, einvoice, onAnother, onRewards, onH
           </View>
         ))}
 
+        {result.free && (
+          <View style={styles.badge}>
+            <View style={styles.badgeIcon}><Award size={22} color={colors.accent} /></View>
+            <View style={styles.rowBody}>
+              <Text style={styles.badgeName}>Gracias por ayudar gratis</Text>
+              <Text style={styles.rowMeta}>Con una cuenta, tu próxima factura suma puntos para el ranking de tu zona e insignias. Los puntos se guardan en tu cuenta, así no se pierden si cambias de celular.</Text>
+            </View>
+          </View>
+        )}
+
         <Text style={styles.note}>Los puntos no tienen valor en dinero. Sirven para el ranking de tu zona y tus insignias.</Text>
       </ScrollView>
 
       <SafeAreaView edges={["bottom"]} style={styles.footer}>
-        <Button title="Ver mis puntos" onPress={onRewards} />
+        {result.free ? <Button title="Crear cuenta" onPress={onAccount} /> : <Button title="Ver mis puntos" onPress={onRewards} />}
         <View style={styles.footerRow}>
           <View style={styles.flex}><Button title="Otra factura" variant="outline" onPress={onAnother} icon={<ScanLine size={15} color={colors.primary} />} /></View>
           <View style={styles.flex}><Button title="Ir al inicio" variant="outline" onPress={onHome} /></View>
@@ -73,6 +88,7 @@ const styles = StyleSheet.create({
   content: { gap: spacing.lg, padding: spacing.lg, paddingBottom: spacing.xxl },
   hero: { alignItems: "center", gap: spacing.sm, paddingTop: spacing.xl },
   check: { width: 56, height: 56, borderRadius: 28, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center" },
+  sent: { fontSize: fontSize.title, fontWeight: "900", color: colors.primary },
   points: { fontSize: fontSize.hero, fontWeight: "900", color: colors.primary, fontVariant: ["tabular-nums"] },
   lede: { textAlign: "center", fontSize: fontSize.body, lineHeight: 19, color: colors.mutedForeground, maxWidth: 320 },
   card: { borderRadius: radius.lg, borderWidth: 1, borderColor: colors.border, backgroundColor: colors.card, paddingHorizontal: spacing.lg },

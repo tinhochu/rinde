@@ -11,6 +11,7 @@ import { EmailInvoiceCard, PendingInvoices, RecentOutcomes } from "@/components/
 import { ReceiptReview } from "@/components/receipt/review";
 import { Button } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
+import { useAccount } from "@/lib/auth";
 import { STORES } from "@/lib/market";
 import { copyText } from "@/lib/clipboard";
 import {
@@ -44,6 +45,7 @@ const INVOICE_TYPES = Platform.OS === "web"
  */
 export default function ReceiptScreen() {
   const { area } = useAppState();
+  const { user } = useAccount();
   const { draft: draftParam } = useLocalSearchParams<{ draft?: string }>();
   const [stage, setStage] = useState<Stage>(draftParam ? { kind: "opening" } : { kind: "start" });
   const [samples, setSamples] = useState<string[]>([]);
@@ -238,7 +240,7 @@ export default function ReceiptScreen() {
         </View>
       )}
       {stage.kind === "error" && <Failed message={stage.message} einvoice={stage.einvoice} onRetry={restart} />}
-      {stage.kind === "review" && <ReceiptReview draft={stage.draft} sending={sending} onRetake={restart} onSend={send} />}
+      {stage.kind === "review" && <ReceiptReview draft={stage.draft} sending={sending} signedIn={!!user} onRetake={restart} onSend={send} onAccount={() => router.push("/account")} />}
       {stage.kind === "done" && (
         <ReceiptDone
           result={stage.result}
@@ -247,6 +249,7 @@ export default function ReceiptScreen() {
           onAnother={restart}
           onRewards={() => router.replace("/profile")}
           onHome={() => router.replace("/")}
+          onAccount={() => router.push("/account")}
         />
       )}
     </SafeAreaView>

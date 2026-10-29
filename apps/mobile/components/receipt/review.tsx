@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AlertTriangle, BadgeCheck, Camera, CheckCircle2, CircleSlash, FileText, FlaskConical, Info } from "lucide-react-native";
+import { AlertTriangle, Award, BadgeCheck, Camera, CheckCircle2, CircleSlash, FileText, FlaskConical, Info } from "lucide-react-native";
 import { StoreLogo } from "@/components/brand";
 import { Button, Sheet } from "@/components/ui";
 import { cop } from "@/lib/market";
@@ -14,8 +14,9 @@ import { LineRow, lineCounts } from "./line-row";
  * receipt; for an e-invoice it comes from the DIAN document); lines can be corrected, re-matched or left out. Only lines that pass the check, have a
  * product and are included become prices.
  */
-export function ReceiptReview({ draft, sending, onRetake, onSend }: {
-  draft: ReceiptDraft; sending: boolean; onRetake: () => void; onSend: (lines: ReviewLine[]) => void;
+export function ReceiptReview({ draft, sending, signedIn, onRetake, onSend, onAccount }: {
+  draft: ReceiptDraft; sending: boolean; /** Points need an account; without one the prices are sent for free */ signedIn: boolean;
+  onRetake: () => void; onSend: (lines: ReviewLine[]) => void; onAccount: () => void;
 }) {
   const [lines, setLines] = useState<ReviewLine[]>(() => draft.lines.map(l => ({ ...l, excluded: false, noMatch: false, edited: false })));
   const [picking, setPicking] = useState<number | null>(null);
@@ -80,11 +81,11 @@ export function ReceiptReview({ draft, sending, onRetake, onSend }: {
 
         <Reconciliation difference={sums.difference} linesTotal={sums.linesTotal} printed={draft.total} tolerance={draft.tolerance ?? 1} />
 
-        <Text style={styles.count}>{counted} de {items} productos suman puntos</Text>
+        <Text style={styles.count}>{counted} de {items} productos {signedIn ? "suman puntos" : "se guardan"}</Text>
 
         <View style={styles.lines}>
           {lines.map(line => (
-            <LineRow key={line.index} line={line} onChange={update} onPickProduct={() => setPicking(line.index)} />
+            <LineRow key={line.index} line={line} earns={signedIn} onChange={update} onPickProduct={() => setPicking(line.index)} />
           ))}
         </View>
 
@@ -97,8 +98,18 @@ export function ReceiptReview({ draft, sending, onRetake, onSend }: {
       </ScrollView>
 
       <SafeAreaView edges={["bottom"]} style={styles.footer}>
+        {!signedIn && counted > 0 && (
+          <View style={styles.account}>
+            <Award size={20} color={colors.accent} />
+            <View style={styles.accountBody}>
+              <Text style={styles.accountTitle}>Gana puntos con tu cuenta</Text>
+              <Text style={styles.accountText}>Los puntos se guardan en tu cuenta, no en el celular. Sin cuenta, tus precios se envían gratis. Esta factura te espera mientras la creas.</Text>
+              <Button title="Crear cuenta y ganar puntos" variant="outline" onPress={onAccount} />
+            </View>
+          </View>
+        )}
         <Button
-          title={counted ? `Enviar ${counted} ${counted === 1 ? "precio" : "precios"}` : "Ningún precio para enviar"}
+          title={!counted ? "Ningún precio para enviar" : signedIn ? `Enviar ${counted} ${counted === 1 ? "precio" : "precios"}` : "Enviar gratis, sin puntos"}
           disabled={!counted}
           loading={sending}
           onPress={() => onSend(lines)}
@@ -234,6 +245,10 @@ const styles = StyleSheet.create({
   lines: { gap: spacing.sm },
   note: { flexDirection: "row", gap: 6, paddingTop: spacing.sm },
   noteText: { flex: 1, fontSize: fontSize.caption, lineHeight: 16, color: colors.mutedForeground },
+  account: { flexDirection: "row", gap: spacing.md, padding: spacing.md, marginBottom: spacing.md, borderRadius: radius.md, backgroundColor: colors.muted },
+  accountBody: { flex: 1, gap: spacing.sm },
+  accountTitle: { fontSize: fontSize.body, fontWeight: "800", color: colors.foreground },
+  accountText: { fontSize: fontSize.caption, lineHeight: 17, color: colors.mutedForeground },
   footer: { paddingHorizontal: spacing.lg, paddingTop: spacing.md, paddingBottom: spacing.md, borderTopWidth: 1, borderTopColor: colors.border, backgroundColor: colors.background },
   sheetScroll: { maxHeight: 520 },
   sheet: { gap: spacing.sm, paddingHorizontal: spacing.lg, paddingBottom: spacing.md },

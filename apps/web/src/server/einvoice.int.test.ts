@@ -24,7 +24,14 @@ vi.mock("./muse", async (orig) => {
 vi.stubEnv("RECEIPTS_DIR", "/tmp/rinde-receipts-test");
 
 const { intakeInvoiceFiles, EINVOICE_MESSAGES } = await import("./einvoice");
-const { confirmDraft, createDraft, contributorFor, MESSAGES } = await import("./receipts");
+const receipts = await import("./receipts");
+const { createDraft, contributorFor, MESSAGES } = receipts;
+/** Points need an account, so these sessions are signed in before they send. */
+const confirmDraft = async (input: Parameters<typeof receipts.confirmDraft>[0]) => {
+  await db().contributor.updateMany({ where: { sessionId: input.sessionId, accountId: null }, data: { accountId: `acct-${input.sessionId}` } });
+  return receipts.confirmDraft(input);
+};
+
 const { searchSnapshot } = await import("./offers");
 const { cleanupContributors } = await import("./receipt-fixture");
 

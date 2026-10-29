@@ -20,7 +20,14 @@ vi.mock("./muse", async (orig) => {
 });
 vi.stubEnv("RECEIPTS_DIR", "/tmp/rinde-receipts-test");
 
-const { createDraft, confirmDraft, MESSAGES } = await import("./receipts");
+const receipts = await import("./receipts");
+const { createDraft, MESSAGES } = receipts;
+/** Points need an account, so these sessions are signed in before they send. */
+const confirmDraft = async (input: Parameters<typeof receipts.confirmDraft>[0]) => {
+  await db().contributor.updateMany({ where: { sessionId: input.sessionId, accountId: null }, data: { accountId: `acct-${input.sessionId}` } });
+  return receipts.confirmDraft(input);
+};
+
 const { cleanupContributors } = await import("./receipt-fixture");
 
 const RUN = `test-receipts-${Date.now()}`;
@@ -78,6 +85,16 @@ describe.skipIf(!process.env["INTEGRATION"])("receipts (dev DB)", () => {
     expect(result.badges.map((b) => b.id)).toContain("primera-factura");
     const observations = await db().priceObservation.count({ where: { receiptLine: { receiptId: draft.id } } });
     expect(observations).toBe(9);
+  });
+
+  it("saves the prices of a receipt sent without an account, for free: no points, no badges", async () => {
+    muse.extraction = receipt(`POS ${RUN}-free`);
+    const draft = await createDraft({ sessionId: session("free"), image: image(), mime: "image/jpeg" });
+    const result = await receipts.confirmDraft({ sessionId: session("free"), receiptId: draft.id, edits: [{ index: 11, noMatch: true }] });
+    expect(result).toMatchObject({ free: true, points: 0, breakdown: [], badges: [], balance: 0 });
+    expect(result.acceptedLines).toBeGreaterThan(0);
+    expect(await db().priceObservation.count({ where: { receiptLine: { receiptId: draft.id } } })).toBe(result.acceptedLines);
+    expect(await db().rewardEvent.count({ where: { contributor: { sessionId: session("free") } } })).toBe(0);
   });
 
   it("proposes Arroz Diana for an abbreviated line and records weighed banana per kg", async () => {

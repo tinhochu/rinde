@@ -19,8 +19,8 @@ export function lineCounts(line: ReviewLine) {
  * One receipt line: the printed text, quantity × price = total (editable), its check, the product it
  * matched, and whether to include it. Edits rerun the same check the API runs on confirm.
  */
-export function LineRow({ line, onChange, onPickProduct }: {
-  line: ReviewLine; onChange: (next: ReviewLine) => void; onPickProduct: () => void;
+export function LineRow({ line, earns = true, onChange, onPickProduct }: {
+  line: ReviewLine; /** Signed in, so a saved price also earns points */ earns?: boolean; onChange: (next: ReviewLine) => void; onPickProduct: () => void;
 }) {
   const check = lineCheck(line);
   const [editing, setEditing] = useState(check !== "ok" && line.kind === "item");
@@ -79,7 +79,7 @@ export function LineRow({ line, onChange, onPickProduct }: {
               <View style={[styles.status, counts ? styles.statusOk : styles.statusIdle]}>
                 <Check size={12} color={counts ? colors.primary : colors.mutedForeground} />
                 <Text style={[styles.statusText, counts ? styles.statusTextOk : styles.statusTextIdle]}>
-                  {counts ? "Suma puntos" : "Sin producto: no se guarda"}
+                  {counts ? (earns ? "Suma puntos" : "Se guarda") : "Sin producto: no se guarda"}
                 </Text>
               </View>
             ) : (
