@@ -8,7 +8,7 @@ For the live final on Nov 9. Use a phone-sized browser window at https://app.rin
 - [ ] Plan the family list once (below), so its routes are cached.
 - [ ] Have the list text ready to paste.
 - [ ] Use a fresh browser profile, or clear site data, so the install sheet appears on landing.
-- [ ] Backup: screen recording of a full run, in case the venue's network fails.
+- [x] Backup: screen recording of a full run, in case the venue's network fails: `docs/demo/rinde-demo.mp4` (3:25, no sound; waits play at 4x, the rest at 1.5x). Re-record with `node scripts/demo/record-demo.mjs`, run twice so the second take has warm caches.
 
 ## The list (paste as is)
 
