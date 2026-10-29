@@ -56,7 +56,12 @@ async function ask(target: MatchItem, candidates: MatchItem[], cfg: MuseConfig) 
   const instruction = `A shopper in Colombia wants this exact product at another supermarket:
 ${describe(target)}
 
-That supermarket lists the products below. Which one, if any, is the same product the shopper would get: the same brand, the same variety and form (for example whole, skim and lactose-free milk are different; plain and flavored are different), the same size? Stores abbreviate and reorder words ("Deslact." is "Deslactosada"), and some give products their own names, so judge what the product is, not the exact words.
+That supermarket lists the products below. Which one, if any, is the same product the shopper would get?
+- Same brand. When no brand is given, read it from the name; a different brand is never the same product.
+- Same variety, line, flavor, form and formula. Whole, skim and lactose-free milk are different; so are salted and unsalted butter, organic and regular, round and tablet panela, plain and flavored. A line or edition name (Premium, Vitaplus, Familia, Buenavista, Gold) in one listing and a different one in the other means different products.
+- Same size (already checked).
+- Same packaging when both names state it: milk in a bag (bolsa) and in a carton (caja, tetrapak) are different products, as are can and bottle, glass and plastic. Packaging named in only one listing is not a difference.
+Stores abbreviate, reorder and describe the same product differently ("Deslact." is "Deslactosada", "S/A" is "sin azúcar"). Words that only describe it do not make it different: "esparcible", "pasteurizada", "tradicional", "clásico", "original", "tostado y molido". Judge what the product is, not the exact words; when a word in one name neither names a different product nor is contradicted by the other name, it is a description.
 Answer with the number of that product, or -1 if none is the same product. Give a one-line reason in Spanish a shopper understands, e.g. "Misma leche Alpina deslactosada de 1 L; la tienda la abrevia" or "Es leche semidescremada, no deslactosada".
 
 ${list}`;

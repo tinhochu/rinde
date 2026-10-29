@@ -104,9 +104,9 @@
    }
   ],
   "answer": "cmvpheh9z02os3pgoufq8xxtg",
-  "ms": 2969,
+  "ms": 1680,
   "muse": "cmvpheh9z02os3pgoufq8xxtg",
-  "museReason": "Mismo garbanzo Diana de 500 g; la tienda solo abrevia cuidadosamente seleccionados a seleccionados",
+  "museReason": "Mismo garbanzo DIANA seleccionado de 500 g; cuidadosamente solo lo describe",
   "rules": null
  },
  {
@@ -159,9 +159,9 @@
    }
   ],
   "answer": "cmvs5lol801ol0ogowhbv62yv",
-  "ms": 2947,
+  "ms": 1902,
   "muse": "cmvs5lol801ol0ogowhbv62yv",
-  "museReason": "Mismo yogurt FINESSE de melocotón de 1700 g; la tienda solo agrega botella",
+  "museReason": "Mismo yogur FINESSE de melocotón de 1700 g; botella solo describe el envase",
   "rules": null
  },
  {
@@ -225,9 +225,9 @@
    }
   ],
   "answer": "cmvphejpn049q3pgowghkuit3",
-  "ms": 4577,
-  "muse": "cmvphejpn049q3pgowghkuit3",
-  "museReason": "Mismo suavizante Suavitel de jazmín de 1,5 L; la tienda lo llama Brisa de Jazmín",
+  "ms": 6130,
+  "muse": null,
+  "museReason": "Ninguno es jazmín eucalipto; el 0 es Brisa de Jazmín y los demás son lavanda y fresca primavera",
   "rules": null
  },
  {
@@ -280,9 +280,9 @@
    }
   ],
   "answer": "cmvpheh0102i43pgol22xxolu",
-  "ms": 3191,
+  "ms": 3291,
   "muse": "cmvpheh0102i43pgol22xxolu",
-  "museReason": "Misma pasta Conzazoni vermicelli de 1000 g; la tienda solo cambia el orden de las palabras",
+  "museReason": "Misma pasta Conzazoni vermicelli de 1000 g; larga solo describe el formato",
   "rules": null
  },
  {
@@ -324,9 +324,9 @@
    }
   ],
   "answer": "cmvphekog04s33pgonztv13rt",
-  "ms": 2841,
+  "ms": 2712,
   "muse": "cmvphekog04s33pgonztv13rt",
-  "museReason": "Misma Kola Román original de 1.5 L; la tienda aclara sabor original",
+  "museReason": "Misma gaseosa Kola Román original de 1.5 L; 'Sabor Original' solo la describe",
   "rules": null
  },
  {
@@ -379,9 +379,9 @@
    }
   ],
   "answer": "cmvsijrpe00h9megojlww2h9f",
-  "ms": 5799,
+  "ms": 3331,
   "muse": "cmvsijrpe00h9megojlww2h9f",
-  "museReason": "Mismo Aguardiente Antioqueño verde sin azúcar de 24 grados en caja Tetra de 1050 ml",
+  "museReason": "Es el mismo Antioqueño verde 24 grados sin azúcar en caja/tetra de 1050 ml",
   "rules": null
  },
  {
@@ -423,9 +423,9 @@
    }
   ],
   "answer": "cmvs5lkty00fu0ogojp98gztt",
-  "ms": 1786,
+  "ms": 1736,
   "muse": "cmvs5lkty00fu0ogojp98gztt",
-  "museReason": "Misma azúcar Riopaila blanca de 1000 g; la tienda solo escribe distinto el nombre",
+  "museReason": "Misma azúcar blanca Riopaila de 1000 g; la tienda solo cambia el orden y la puntuación",
   "rules": "cmvs5lkty00fu0ogojp98gztt"
  },
  {
@@ -467,9 +467,9 @@
    }
   ],
   "answer": "cmvs5lozx01xl0ogoeiria9wd",
-  "ms": 2288,
+  "ms": 2258,
   "muse": "cmvs5lozx01xl0ogoeiria9wd",
-  "museReason": "Mismo detergente líquido Ariel limpieza profunda de 2.8 L",
+  "museReason": "Mismo detergente Ariel limpieza profunda de 2.8 L; el otro es Revitacolor, línea distinta",
   "rules": "cmvs5lozx01xl0ogoeiria9wd"
  },
  {
@@ -522,9 +522,9 @@
    }
   ],
   "answer": "cmvphejop04953pgo8twt0oed",
-  "ms": 2004,
+  "ms": 2317,
   "muse": "cmvphejop04953pgo8twt0oed",
-  "museReason": "Mismo suavizante Suavitel Frescura de Manzana de 2.3 L; coincide marca, variedad y tamaño",
+  "museReason": "Mismo suavizante Suavitel frescura de manzana de 2.3 L; solo cambia mayúsculas y abreviatura",
   "rules": "cmvphejop04953pgo8twt0oed"
  },
  {
@@ -577,9 +577,9 @@
    }
   ],
   "answer": "cmvphef7401de3pgogzu31g32",
-  "ms": 2621,
+  "ms": 3612,
   "muse": "cmvphef7401de3pgogzu31g32",
-  "museReason": "Mismo arroz Roa blanco fortiplus de 1 kg; la tienda solo lo abrevia a Arroz Roa x1kg",
+  "museReason": "Mismo arroz blanco Roa de 1 kg; la tienda abrevia el nombre y omite Fortiplus",
   "rules": null
  },
  {
@@ -632,9 +632,9 @@
    }
   ],
   "answer": "cmvs5lob001ja0ogock5d8icu",
-  "ms": 1234,
+  "ms": 1319,
   "muse": "cmvs5lob001ja0ogock5d8icu",
-  "museReason": "Misma mantequilla Alpina con sal de 125 g",
+  "museReason": "Misma mantequilla Alpina con sal de 125 g; solo cambia el orden y los paréntesis",
   "rules": "cmvs5lob001ja0ogock5d8icu"
  },
  {
@@ -676,9 +676,9 @@
    }
   ],
   "answer": "cmvsfywdx00bomego4zxfuq2n",
-  "ms": 5141,
+  "ms": 4079,
   "muse": "cmvsfywdx00bomego4zxfuq2n",
-  "museReason": "Mismo café Paloma Rivera molido de 250 g; la tienda solo agrega Origen al nombre",
+  "museReason": "Mismo café Paloma Rivera molido de 250 g; Origen solo lo describe",
   "rules": null
  },
  {
@@ -720,9 +720,9 @@
    }
   ],
   "answer": "cmvps97kl00x51lgos25wc9c9",
-  "ms": 9159,
-  "muse": "cmvps97kl00x51lgos25wc9c9",
-  "museReason": "Mismo vino tinto Convento da Vila alentejano de 750 ml; la tienda lo etiqueta como Otra Cepa",
+  "ms": 2417,
+  "muse": null,
+  "museReason": "Ninguno es blend: el tinto es otra cepa y el otro es vino blanco.",
   "rules": null
  },
  {
@@ -764,9 +764,9 @@
    }
   ],
   "answer": "cmvsisluh00jnmego2t2wunbo",
-  "ms": 4026,
-  "muse": null,
-  "museReason": "Es mantequilla esparcible, no la mantequilla común sin sal de 125 g",
+  "ms": 1399,
+  "muse": "cmvsisluh00jnmego2t2wunbo",
+  "museReason": "Misma mantequilla Colanta sin sal de 125 g; esparcible solo la describe",
   "rules": null
  },
  {
@@ -874,9 +874,9 @@
    }
   ],
   "answer": "cmvs5lmf300oq0ogovx0a0h34",
-  "ms": 2239,
+  "ms": 5071,
   "muse": null,
-  "museReason": "Ninguno es Buenavista molido; son orgánico, especial, espresso, descafeinado o en grano.",
+  "museReason": "Ninguno es de la línea Buenavista; son orgánico, especial, espresso o genérico",
   "rules": null
  },
  {
@@ -929,9 +929,9 @@
    }
   ],
   "answer": "cmvsikno400inmego80o3omi9",
-  "ms": 1959,
+  "ms": 1909,
   "muse": "cmvsikno400inmego80o3omi9",
-  "museReason": "Misma gaseosa Postobón uva de 400 ml; la tienda solo agrega botella",
+  "museReason": "Misma gaseosa Postobón de uva de 400 ml; la tienda solo agrega que es en botella",
   "rules": "cmvsikno400inmego80o3omi9"
  },
  {
@@ -973,9 +973,9 @@
    }
   ],
   "answer": "cmvpheiwm03rm3pgowv0224i4",
-  "ms": 5735,
+  "ms": 3233,
   "muse": "cmvpheiwm03rm3pgowv0224i4",
-  "museReason": "Mismo jamón Catalan 100% de cerdo de 210 g; la tienda lo llama york",
+  "museReason": "Mismo jamón Catalan 100% de cerdo de 210 g; la tienda lo nombra como york",
   "rules": null
  },
  {
@@ -1028,9 +1028,9 @@
    }
   ],
   "answer": "cmvphdpzs006u3pgoztoyy6ob",
-  "ms": 3065,
+  "ms": 3172,
   "muse": "cmvphdpzs006u3pgoztoyy6ob",
-  "museReason": "Mismo Aguardiente Antioqueño sin azúcar de 750 ml de la misma marca",
+  "museReason": "Mismo Aguardiente Antioqueño sin azúcar de 750 ml; coincide marca y fórmula",
   "rules": null
  },
  {
@@ -1083,7 +1083,7 @@
    }
   ],
   "answer": "cmvphehmh02w13pgomfs73b87",
-  "ms": 1877,
+  "ms": 1418,
   "muse": null,
   "museReason": "Ninguna es harina precocida; son de garbanzo, quinua y arroz integral.",
   "rules": null
@@ -1127,9 +1127,9 @@
    }
   ],
   "answer": "cmvsfyi8s009imegoy68ynflq",
-  "ms": 2145,
+  "ms": 2319,
   "muse": "cmvsfyi8s009imegoy68ynflq",
-  "museReason": "Misma sal marina Refisal de 110 g; la tienda solo agrega cristal fino salero",
+  "museReason": "Misma sal marina Refisal de 110 g; 'cristal fino salero' solo describe la presentación",
   "rules": null
  },
  {
@@ -1204,9 +1204,9 @@
    }
   ],
   "answer": "cmvs5lmh400pr0ogogeb6h8oo",
-  "ms": 8239,
+  "ms": 7911,
   "muse": "cmvs5lmh400pr0ogogeb6h8oo",
-  "museReason": "Mismo café Quindío de vainilla molido de 250 g; la tienda lo describe como notas vainilla dulce",
+  "museReason": "Mismo café Cafe Quindio de vainilla de 250 g; la tienda lo describe como notas de vainilla dulce",
   "rules": null
  },
  {
@@ -1259,9 +1259,9 @@
    }
   ],
   "answer": "cmvpheh9u02op3pgozy3gz5ny",
-  "ms": 1932,
+  "ms": 1809,
   "muse": null,
-  "museReason": "Ninguna es harina precocida, son de garbanzo, quinua y arroz integral",
+  "museReason": "Ninguna es harina precocida; son de garbanzo, quinua y arroz integral.",
   "rules": null
  },
  {
@@ -1314,9 +1314,9 @@
    }
   ],
   "answer": "cmvsfys9u00b2mego76yubeyx",
-  "ms": 1647,
+  "ms": 1969,
   "muse": "cmvsfys9u00b2mego76yubeyx",
-  "museReason": "Misma mantequilla Karavansay clarificada con orégano de 175 g; la tienda solo agrega Ghee al nombre",
+  "museReason": "Misma mantequilla Karavansay clarificada de orégano de 175 g; Ghee es lo mismo que clarificada",
   "rules": null
  },
  {
@@ -1391,9 +1391,9 @@
    }
   ],
   "answer": "cmvphejxv04f23pgon7abrmxd",
-  "ms": 2136,
+  "ms": 2397,
   "muse": "cmvphejxv04f23pgon7abrmxd",
-  "museReason": "Misma crema Sensodyne rápido alivio blanqueador de 100 g que busca el comprador",
+  "museReason": "Misma crema Sensodyne rápido alivio blanqueadora de 100 g; lo de sensibilidad dental solo la describe",
   "rules": null
  },
  {
@@ -1435,9 +1435,9 @@
    }
   ],
   "answer": "cmvphekjz04p33pgo8drsafhv",
-  "ms": 1319,
+  "ms": 2001,
   "muse": "cmvphekjz04p33pgo8drsafhv",
-  "museReason": "Es la misma gaseosa Pepsi regular de 400 ml, solo cambia el orden de palabras.",
+  "museReason": "Misma gaseosa Pepsi regular de 400 ml; la otra es Pepsi Cero",
   "rules": "cmvphekjz04p33pgo8drsafhv"
  },
  {
@@ -1479,9 +1479,9 @@
    }
   ],
   "answer": "cmvpokocj02qq5jgosbuxf52d",
-  "ms": 2030,
+  "ms": 1416,
   "muse": "cmvpokocj02qq5jgosbuxf52d",
-  "museReason": "Mismo detergente Ariel líquido Limpieza Profunda de 1.8 L / 1800 ml",
+  "museReason": "Mismo detergente líquido Ariel Limpieza Profunda de 1800 ml; la tienda lo escribe igual",
   "rules": "cmvpokocj02qq5jgosbuxf52d"
  },
  {
@@ -1556,9 +1556,9 @@
    }
   ],
   "answer": "cmvphejrt04b53pgols6jg8u0",
-  "ms": 2590,
+  "ms": 1637,
   "muse": "cmvphejrt04b53pgols6jg8u0",
-  "museReason": "Mismo suavizante Dersa eterna primavera de 1500 ml; la tienda solo agrega doypack",
+  "museReason": "Mismo suavizante Dersa eterna primavera de 1500 ml; la tienda solo agrega que es doypack",
   "rules": "cmvphejrt04b53pgols6jg8u0"
  },
  {
@@ -1600,9 +1600,9 @@
    }
   ],
   "answer": "cmvs5lpo902bf0ogoe39ujbzy",
-  "ms": 9533,
+  "ms": 2804,
   "muse": "cmvs5lpo902bf0ogoe39ujbzy",
-  "museReason": "Es la misma galleta Dux salada original de 250 g, la tienda la llama original.",
+  "museReason": "Mismas galletas Dux saladas; la otra tienda las llama original",
   "rules": null
  },
  {
@@ -1644,9 +1644,9 @@
    }
   ],
   "answer": "cmvphefy601u23pgomovb4n4p",
-  "ms": 1942,
+  "ms": 2101,
   "muse": "cmvphefy601u23pgomovb4n4p",
-  "museReason": "Misma azúcar Mayagüez blanca de 2500 g; blanca es lo mismo que blanco",
+  "museReason": "Misma azúcar Mayaguez blanca de 2500 g; blanco y blanca es lo mismo",
   "rules": null
  },
  {
@@ -1743,9 +1743,9 @@
    }
   ],
   "answer": "cmvpheh8c02np3pgonevchdz4",
-  "ms": 1716,
+  "ms": 1623,
   "muse": "cmvpheh8c02np3pgonevchdz4",
-  "museReason": "Mismas lentejas Diana seleccionadas de 1000 g; la tienda abrevia el nombre",
+  "museReason": "Misma lenteja DIANA seleccionada de 1000 g; cuidadosamente solo la describe",
   "rules": null
  },
  {
@@ -1787,9 +1787,9 @@
    }
   ],
   "answer": "cmvphefzd01up3pgoc37o03v4",
-  "ms": 2027,
+  "ms": 2670,
   "muse": "cmvphefzd01up3pgoc37o03v4",
-  "museReason": "Misma azúcar Providencia orgánica de 850 g; coincide marca, variedad y tamaño",
+  "museReason": "Misma azúcar Providencia orgánica de 850 g en ambas tiendas",
   "rules": "cmvphefzd01up3pgoc37o03v4"
  },
  {
@@ -1831,9 +1831,9 @@
    }
   ],
   "answer": "cmvsfyg8d008kmego1swkzy94",
-  "ms": 2154,
+  "ms": 1585,
   "muse": "cmvsfyg8d008kmego1swkzy94",
-  "museReason": "Mismo café OMA descafeinado de 250 g; la tienda omite decir tostado molido",
+  "museReason": "Mismo café OMA descafeinado de 250 g; tostado molido es solo descripción",
   "rules": null
  },
  {
@@ -1875,9 +1875,9 @@
    }
   ],
   "answer": "cmvs5lks600ev0ogo9swiq0sd",
-  "ms": 2896,
+  "ms": 4523,
   "muse": "cmvs5lks600ev0ogo9swiq0sd",
-  "museReason": "Misma azúcar blanca Mayagüez de 1000 g; la tienda aclara la marca",
+  "museReason": "Misma azúcar blanca Mayagüez de 1000 g; la tienda abrevia Mayagüez como MAYA",
   "rules": null
  },
  {
@@ -1919,9 +1919,9 @@
    }
   ],
   "answer": "cmvpheg1d01vy3pgofy3i7ua5",
-  "ms": 2114,
+  "ms": 1690,
   "muse": "cmvpheg1d01vy3pgofy3i7ua5",
-  "museReason": "Mismo azúcar Manuelita dorada de 907 g; la tienda solo agrega la palabra Natural",
+  "museReason": "Misma azúcar Manuelita dorada de 907 g; la tienda solo agrega ‘Natural’ como descripción",
   "rules": null
  },
  {
@@ -1963,9 +1963,9 @@
    }
   ],
   "answer": "cmvs5lphc027p0ogoigi3v8q5",
-  "ms": 2459,
+  "ms": 3995,
   "muse": "cmvs5lphc027p0ogoigi3v8q5",
-  "museReason": "Misma crema Proquident sensitive de 75 ml; la tienda omite la palabra menta",
+  "museReason": "Misma crema Proquident Sensitive de 75 ml; la otra tienda solo omite la palabra menta",
   "rules": null
  },
  {
@@ -2018,7 +2018,7 @@
    }
   ],
   "answer": "cmvs5lm9h00ma0ogolutd3okb",
-  "ms": 2188,
+  "ms": 1868,
   "muse": "cmvs5lm9h00ma0ogolutd3okb",
   "museReason": "Misma sal Refisal ligera baja en sodio de 120 g; la tienda la describe como con potasio",
   "rules": null
@@ -2073,9 +2073,9 @@
    }
   ],
   "answer": "cmvsijrpz00hfmego8066ams1",
-  "ms": 3579,
+  "ms": 5590,
   "muse": "cmvsijrpz00hfmego8066ams1",
-  "museReason": "Mismo Aguardiente Antioqueño rojo clásico en caja de 1050 ml; tetra prisma es la caja",
+  "museReason": "Mismo aguardiente Antioqueño tradicional en caja de 1050 ml; la tienda lo llama rojo",
   "rules": null
  },
  {
@@ -2117,9 +2117,9 @@
    }
   ],
   "answer": "cmvphefz801um3pgo0wh4tlq0",
-  "ms": 2238,
+  "ms": 1559,
   "muse": "cmvphefz801um3pgo0wh4tlq0",
-  "museReason": "Es la misma azúcar Manuelita morena de 1000 g.",
+  "museReason": "Es la misma azúcar Manuelita morena de 1000 g, solo cambia el orden de las palabras",
   "rules": "cmvphefz801um3pgo0wh4tlq0"
  },
  {
@@ -2161,9 +2161,9 @@
    }
   ],
   "answer": "cmvpheg7v02003pgoltll45g9",
-  "ms": 2909,
+  "ms": 5569,
   "muse": "cmvpheg8702093pgovz4bybyp",
-  "museReason": "Misma panela Fonce pulverizada natural de 500 g; DORIGENN abrevia de origen natural",
+  "museReason": "Misma panela Fonce pulverizada natural de 500 g; DORIGENN abrevia de origen natural, no es la orgánica",
   "rules": null
  },
  {
@@ -2216,9 +2216,9 @@
    }
   ],
   "answer": "cmvs5loby01ju0ogoaqjf7xe0",
-  "ms": 6481,
+  "ms": 1393,
   "muse": "cmvs5loby01ju0ogoaqjf7xe0",
-  "museReason": "Misma mantequilla ALPINA sin sal de 125 g; solo cambia el orden de las palabras",
+  "museReason": "Misma mantequilla Alpina sin sal de 125 g; solo cambia el orden de las palabras",
   "rules": "cmvs5loby01ju0ogoaqjf7xe0"
  },
  {
@@ -2271,9 +2271,9 @@
    }
   ],
   "answer": "cmvs5long01pt0ogoh7nfm193",
-  "ms": 1880,
+  "ms": 1375,
   "muse": "cmvs5long01pt0ogoh7nfm193",
-  "museReason": "Mismo yogur griego Alpina natural de 141 ml (150 g)",
+  "museReason": "Mismo yogur griego Alpina natural de 141 ml; solo cambia cómo lo escribe la tienda",
   "rules": null
  },
  {
@@ -2359,9 +2359,9 @@
    }
   ],
   "answer": "cmvs5ln2a00zj0ogo9msd0fcp",
-  "ms": 1667,
+  "ms": 1256,
   "muse": "cmvs5ln2a00zj0ogo9msd0fcp",
-  "museReason": "Mismo frijol DIANA zaragoza de 500 g, misma marca, variedad y tamaño",
+  "museReason": "Mismo frijol DIANA zaragoza de 500 g; solo cambia mayúsculas y formato",
   "rules": "cmvs5ln2a00zj0ogo9msd0fcp"
  },
  {
@@ -2425,7 +2425,7 @@
    }
   ],
   "answer": "cmvs5lo1r01e20ogo4cd6hna8",
-  "ms": 1546,
+  "ms": 1655,
   "muse": "cmvs5lo1r01e20ogo4cd6hna8",
   "museReason": "Misma avena Quaker en hojuelas sabor vainilla de 300 g",
   "rules": "cmvs5lo1r01e20ogo4cd6hna8"
@@ -2469,9 +2469,9 @@
    }
   ],
   "answer": "cmvs5lmco00nq0ogodem3qzb0",
-  "ms": 1266,
+  "ms": 1576,
   "muse": "cmvs5lmco00nq0ogodem3qzb0",
-  "museReason": "Misma mantequilla ALPINA sin sal de 250 g",
+  "museReason": "Misma mantequilla Alpina sin sal de 250 g",
   "rules": "cmvs5lmco00nq0ogodem3qzb0"
  },
  {
@@ -2546,9 +2546,9 @@
    }
   ],
   "answer": "cmvphekuu04w23pgo3t2ty6l3",
-  "ms": 1787,
+  "ms": 3543,
   "muse": "cmvphekuu04w23pgo3t2ty6l3",
-  "museReason": "Mismo Del Valle mango-fresa de 500 ml; la tienda lo llama Jugo Frutal Mango-Fresa",
+  "museReason": "Mismo Del Valle mango y fresa de 500 ml; la tienda lo nombra como Jugo Frutal Mango-Fresa",
   "rules": null
  },
  {
@@ -2590,9 +2590,9 @@
    }
   ],
   "answer": "cmvphejrx04b83pgoejetq37g",
-  "ms": 3477,
+  "ms": 3816,
   "muse": "cmvphejrx04b83pgoejetq37g",
-  "museReason": "Mismo suavizante Aromatel floral de 1.8 L; la tienda solo agrega 10x más fragancia",
+  "museReason": "Mismo suavizante Aromatel floral de 1800 ml; lo de 10x más fragancia es solo descripción",
   "rules": null
  },
  {
@@ -2645,9 +2645,9 @@
    }
   ],
   "answer": "cmvsfyc6j007cmegop482qmgp",
-  "ms": 1199,
+  "ms": 1789,
   "muse": "cmvsfyc6j007cmegop482qmgp",
-  "museReason": "Misma agua Brisa con gas sabor manzana de 600 ml",
+  "museReason": "Misma agua Brisa con gas sabor a manzana de 600 ml",
   "rules": null
  },
  {
@@ -2689,9 +2689,9 @@
    }
   ],
   "answer": "cmvphejb7040p3pgo8jyw4hfd",
-  "ms": 1731,
+  "ms": 1694,
   "muse": "cmvphejb7040p3pgo8jyw4hfd",
-  "museReason": "Mismo detergente líquido Ariel toque de Downy de 1200 ml; la tienda escribe 1.2L",
+  "museReason": "Mismo detergente líquido Ariel Toque de Downy de 1200 ml; la tienda lo pone como 1.2L",
   "rules": "cmvphejb7040p3pgo8jyw4hfd"
  },
  {
@@ -2755,9 +2755,9 @@
    }
   ],
   "answer": "cmvsfy90s006kmego7trprfqr",
-  "ms": 2263,
+  "ms": 1527,
   "muse": "cmvsfy90s006kmego7trprfqr",
-  "museReason": "Misma avena Quaker instantánea sabor fresa de 300 g; doypack es solo el empaque",
+  "museReason": "Misma avena Quaker instantánea de fresa de 300 g; doypack solo indica el empaque",
   "rules": null
  },
  {
@@ -2810,7 +2810,7 @@
    }
   ],
   "answer": "cmvs5lpc2024y0ogopvwlhq47",
-  "ms": 1296,
+  "ms": 1835,
   "muse": "cmvs5lpc2024y0ogopvwlhq47",
   "museReason": "Mismo suavizante Aromatel frambuesa de 1800 ml",
   "rules": "cmvs5lpc2024y0ogopvwlhq47"
@@ -2854,9 +2854,9 @@
    }
   ],
   "answer": "cmvpheikj03je3pgop7j8l11u",
-  "ms": 1767,
+  "ms": 2193,
   "muse": "cmvpheikj03je3pgop7j8l11u",
-  "museReason": "Mismo yogurt Baby Gü de vainilla marca BABYGU de 113 g",
+  "museReason": "Mismo yogurt Baby Gü vainilla de 113 g; la otra tienda solo omite que viene en vaso",
   "rules": null
  },
  {
@@ -2898,9 +2898,9 @@
    }
   ],
   "answer": "cmvphegfd024m3pgobryr2z74",
-  "ms": 8565,
-  "muse": "cmvphegf9024j3pgobb5xzz1b",
-  "museReason": "Misma mantequilla Colanta sin sal de 250 g en barra esparcible; la otra tienda omite la palabra esparcible",
+  "ms": 7833,
+  "muse": null,
+  "museReason": "La buscada no dice si es con sal o sin sal y hay dos versiones distintas.",
   "rules": null
  },
  {
@@ -2964,9 +2964,9 @@
    }
   ],
   "answer": "cmvpheg4n01y33pgo9fww04u0",
-  "ms": 2076,
+  "ms": 1585,
   "muse": "cmvpheg4n01y33pgo9fww04u0",
-  "museReason": "Misma panela Doña Panela en cubos de naranja de 300 g; la tienda solo agrega 48 cubos",
+  "museReason": "Misma panela Doña Panela en cubos de naranja de 300 g",
   "rules": "cmvpheg4n01y33pgo9fww04u0"
  },
  {
@@ -3008,9 +3008,9 @@
    }
   ],
   "answer": "cmvsfxwx2002imegogu54br40",
-  "ms": 1642,
+  "ms": 1668,
   "muse": "cmvsfxwx2002imegogu54br40",
-  "museReason": "Mismo yogur Finesse de fresa vaso de 180 g; la tienda solo agrega Alpina al nombre",
+  "museReason": "Mismo yogur Finesse de fresa de 180 g; la tienda lo llama Yogur Alpina Finesse Fresa",
   "rules": null
  },
  {
@@ -3118,7 +3118,7 @@
    }
   ],
   "answer": "cmvs3uvun000egogo9pwkfbq6",
-  "ms": 1088,
+  "ms": 1439,
   "muse": "cmvs3uvun000egogo9pwkfbq6",
   "museReason": "Mismo arroz Diana integral de 1000 g",
   "rules": "cmvs3uvun000egogo9pwkfbq6"
@@ -3162,9 +3162,9 @@
    }
   ],
   "answer": "cmvsgkjyf000mbzgo4vvu2au1",
-  "ms": 1698,
+  "ms": 2021,
   "muse": "cmvsgkjyf000mbzgo4vvu2au1",
-  "museReason": "Misma crema de leche Alpina semientera de 1100 ml, solo cambia el orden de palabras",
+  "museReason": "Misma crema de leche Alpina semientera de 1100 ml; la tienda solo agrega que es en bolsa",
   "rules": null
  },
  {
@@ -3217,9 +3217,9 @@
    }
   ],
   "answer": "cmvs5lobv01js0ogoaa15jq1o",
-  "ms": 1231,
+  "ms": 1823,
   "muse": "cmvs5lobv01js0ogoaa15jq1o",
-  "museReason": "Misma mantequilla Karavansay clarificada de ajo de 175 g",
+  "museReason": "Misma mantequilla Karavansay clarificada de ajo de 175 g; Ghee es solo otra forma de llamarla",
   "rules": null
  },
  {
@@ -3283,9 +3283,9 @@
    }
   ],
   "answer": "cmvs5lntu019t0ogoim4cl00n",
-  "ms": 1459,
+  "ms": 1751,
   "muse": "cmvs5lntu019t0ogoim4cl00n",
-  "museReason": "Misma harina PAN de maíz blanco de 500 g, solo cambia el orden de las palabras",
+  "museReason": "Misma harina PAN de maíz blanco de 500 g; solo cambia el orden del gramaje",
   "rules": "cmvs5lntu019t0ogoim4cl00n"
  },
  {
@@ -3327,9 +3327,9 @@
    }
   ],
   "answer": "cmvphehnq02wv3pgo8grnzh7q",
-  "ms": 2073,
+  "ms": 2888,
   "muse": "cmvphehnq02wv3pgo8grnzh7q",
-  "museReason": "Misma harina Promasa amarilla de 1000 g; la tienda solo agrega que es precocida",
+  "museReason": "Misma harina Promasa amarilla de 1 kg; la tienda solo agrega precocida",
   "rules": null
  },
  {
@@ -3371,9 +3371,9 @@
    }
   ],
   "answer": "cmvs5llzs00j30ogoztsfsc6a",
-  "ms": 2492,
+  "ms": 2992,
   "muse": "cmvs5llzs00j30ogoztsfsc6a",
-  "museReason": "Misma panela Fonce pulverizada natural de 500 g; la tienda solo abrevia pulverizada",
+  "museReason": "Es la misma panela Fonce pulverizada natural de 500 g, solo abreviada como PULVERIZAD",
   "rules": null
  },
  {
@@ -3470,9 +3470,9 @@
    }
   ],
   "answer": "cmvs5lm9q00md0ogoj2552spw",
-  "ms": 1925,
+  "ms": 2599,
   "muse": "cmvs5lm9q00md0ogoj2552spw",
-  "museReason": "Misma sal Refisal ligera/baja en sodio de 500 g; la tienda la llama baja en sodio con potasio",
+  "museReason": "Misma sal Refisal ligera baja en sodio de 500 g; la tienda la describe como baja en sodio con potasio",
   "rules": null
  },
  {
@@ -3514,9 +3514,9 @@
    }
   ],
   "answer": "cmvs5lkvq00gn0ogocd44fwle",
-  "ms": 2289,
+  "ms": 1155,
   "muse": "cmvs5lkvq00gn0ogocd44fwle",
-  "museReason": "Misma azúcar Mayaguez morena de 1000 g; solo cambia el orden de palabras",
+  "museReason": "Misma azúcar Mayaguez morena de 1000 g; solo cambia mayúscula y formato",
   "rules": "cmvs5lkvq00gn0ogocd44fwle"
  },
  {
@@ -3558,9 +3558,9 @@
    }
   ],
   "answer": "cmvsfydo9007umego4cxmoshx",
-  "ms": 1556,
+  "ms": 2466,
   "muse": "cmvsfydo9007umego4cxmoshx",
-  "museReason": "Mismo café Quindío gourmet tostado en grano de 454 g",
+  "museReason": "Mismo café Quindío gourmet tostado en grano de 454 g; la tienda lo abrevia",
   "rules": "cmvsfydo9007umego4cxmoshx"
  },
  {
@@ -3668,9 +3668,9 @@
    }
   ],
   "answer": "cmvs5lmdq00o60ogopwqhj5a3",
-  "ms": 1541,
+  "ms": 2277,
   "muse": "cmvs5lmdq00o60ogopwqhj5a3",
-  "museReason": "Mismo café Quindío orgánico molido de 340 g, solo cambia el orden de las palabras",
+  "museReason": "Mismo café CAFE QUINDIO orgánico molido de 340 g",
   "rules": "cmvs5lmdq00o60ogopwqhj5a3"
  },
  {
@@ -3712,9 +3712,9 @@
    }
   ],
   "answer": "cmvphei8q03b83pgof01fj7vt",
-  "ms": 2013,
+  "ms": 1796,
   "muse": "cmvphei8q03b83pgof01fj7vt",
-  "museReason": "Misma tostadita Susanita de mantequilla de 90 g; la tienda solo escribe Tostada en singular",
+  "museReason": "Misma tostada Susanita de mantequilla de 90 g; la tienda la nombra en singular",
   "rules": null
  },
  {
@@ -3778,7 +3778,7 @@
    }
   ],
   "answer": "cmvpheh7b02my3pgo8hap6vik",
-  "ms": 1286,
+  "ms": 1260,
   "muse": "cmvpheh7b02my3pgo8hap6vik",
   "museReason": "Misma lenteja Maritza premium de 1000 g",
   "rules": "cmvpheh7b02my3pgo8hap6vik"
@@ -3844,9 +3844,9 @@
    }
   ],
   "answer": "cmvsjojgs00lnmegoqrx2xv0e",
-  "ms": 1529,
+  "ms": 1528,
   "muse": "cmvsjojgs00lnmegoqrx2xv0e",
-  "museReason": "Mismo arroz DIANA blanco premium de 1000 g; solo cambia el orden de las palabras",
+  "museReason": "Mismo arroz Diana blanco Premium de 1000 g; solo cambia el orden de las palabras",
   "rules": "cmvsjojgs00lnmegoqrx2xv0e"
  },
  {
@@ -3899,9 +3899,9 @@
    }
   ],
   "answer": "cmvphegzn02hv3pgobofc9eqy",
-  "ms": 2656,
+  "ms": 3713,
   "muse": "cmvphegzn02hv3pgobofc9eqy",
-  "museReason": "Misma pasta Conzazoni spaghetti de 1000 g; la tienda solo omite el #12",
+  "museReason": "Misma pasta spaghetti Conzazoni de 1000 g; el #12 es solo la numeración del spaghetti",
   "rules": "cmvphegzn02hv3pgobofc9eqy"
  },
  {
@@ -3965,9 +3965,9 @@
    }
   ],
   "answer": "cmvpheihw03hh3pgoib3rnqgg",
-  "ms": 2249,
+  "ms": 1955,
   "muse": "cmvpheihw03hh3pgoib3rnqgg",
-  "museReason": "Mismo yogurt Alqueria de melocotón de 150 g; la tienda omite la palabra dulce",
+  "museReason": "Mismo yogurt Alquería de melocotón de 150 g; la tienda omite 'dulce' en el nombre",
   "rules": null
  },
  {
@@ -4009,9 +4009,9 @@
    }
   ],
   "answer": "cmvs5lkyl00hm0ogo3srkbpml",
-  "ms": 1746,
+  "ms": 3019,
   "muse": "cmvs5lkyl00hm0ogo3srkbpml",
-  "museReason": "Misma panela Doña Panela en cubos de limón de 300 g; la tienda la llama cubitos inst limón",
+  "museReason": "Mismos cubitos de panela Doña Panela sabor limón de 300 g; la tienda lo abrevia como INST LIMON",
   "rules": null
  },
  {
@@ -4064,9 +4064,9 @@
    }
   ],
   "answer": "cmvs5m320001f4vgoffpagsl9",
-  "ms": 2024,
+  "ms": 3611,
   "muse": "cmvs5m320001f4vgoffpagsl9",
-  "museReason": "Es la misma leche entera Alpina de 1 L; solo dice caja en vez de caja bolsa.",
+  "museReason": "Misma leche Alpina entera de 1 L; la tienda solo indica caja",
   "rules": "cmvs5m320001f4vgoffpagsl9"
  },
  {
@@ -4130,9 +4130,9 @@
    }
   ],
   "answer": "cmvsfy4x2005amego8y88unph",
-  "ms": 1299,
+  "ms": 1694,
   "muse": "cmvsfy4x2005amego8y88unph",
-  "museReason": "Misma gaseosa Postobón naranja de 400 ml; la tienda solo agrega Pet",
+  "museReason": "Misma gaseosa Postobón naranja de 400 ml; Pet es botella plástica",
   "rules": "cmvsfy4x2005amego8y88unph"
  },
  {
@@ -4185,9 +4185,9 @@
    }
   ],
   "answer": "cmvpheg5g01yi3pgo91r2fhx0",
-  "ms": 1695,
+  "ms": 1922,
   "muse": "cmvpheg5g01yi3pgo91r2fhx0",
-  "museReason": "Misma panela Fonce en pastilla de 900 g",
+  "museReason": "Misma panela Fonce en pastilla de 900 g; las otras son redonda, no pastilla",
   "rules": "cmvpheg5g01yi3pgo91r2fhx0"
  },
  {
@@ -4284,9 +4284,9 @@
    }
   ],
   "answer": "cmvpheil803jw3pgolknp3tov",
-  "ms": 2189,
+  "ms": 1711,
   "muse": "cmvpheil803jw3pgolknp3tov",
-  "museReason": "Mismo yogurt griego DEJA-MU de coco de 160 g que buscas",
+  "museReason": "Mismo yogurt griego Deja-Mu sabor coco de 160 g",
   "rules": "cmvpheil803jw3pgolknp3tov"
  },
  {
@@ -4339,9 +4339,9 @@
    }
   ],
   "answer": "cmvsfydoo0080megopjhetelj",
-  "ms": 1727,
+  "ms": 3504,
   "muse": "cmvsfydoo0080megopjhetelj",
-  "museReason": "Mismo café Quindío descafeinado de 340 g; la tienda solo aclara que es molido",
+  "museReason": "Mismo café Quindío descafeinado de 340 g; 'molido' solo describe el producto",
   "rules": null
  },
  {
@@ -4427,9 +4427,9 @@
    }
   ],
   "answer": "cmvphek4l04ik3pgoeshqahq6",
-  "ms": 3107,
+  "ms": 3695,
   "muse": "cmvphek4l04ik3pgoeshqahq6",
-  "museReason": "Mismo shampoo Nutrit restaura max de 600 ml; la tienda lo escribe junto como restauramax",
+  "museReason": "Mismo shampoo Nutrit restauramax de 600 ml; la otra tienda omite 'sin sal' en el nombre",
   "rules": null
  },
  {
@@ -4482,9 +4482,9 @@
    }
   ],
   "answer": "cmvphehn502wg3pgomb6o8t7d",
-  "ms": 2666,
+  "ms": 2806,
   "muse": null,
-  "museReason": "Ninguna es harina integral precocida; son harinas de arroz, garbanzo y quinua.",
+  "museReason": "Ninguna es la misma harina integral precocida; son de arroz, de garbanzo y de quinua.",
   "rules": null
  },
  {
@@ -4526,9 +4526,9 @@
    }
   ],
   "answer": "cmvs5lojl01nv0ogopg6hrcio",
-  "ms": 1489,
+  "ms": 1606,
   "muse": "cmvs5lojl01nv0ogopg6hrcio",
-  "museReason": "Mismos palitos de queso Zenú de 440 g, solo cambia singular a plural",
+  "museReason": "Mismos palitos de queso Zenú de 440 g; solo cambia de singular a plural",
   "rules": "cmvs5lojl01nv0ogopg6hrcio"
  },
  {
@@ -4614,9 +4614,9 @@
    }
   ],
   "answer": "cmvsfyuoo00bgmegogc21o8zf",
-  "ms": 1693,
+  "ms": 2615,
   "muse": null,
-  "museReason": "Ninguna es harina de yuca; hay de lentejas, plátano y arroz, pero no de yuca.",
+  "museReason": "Ninguna es harina de yuca; la más cercana es tapioca, que es almidón y no la misma harina.",
   "rules": null
  },
  {
@@ -4658,9 +4658,9 @@
    }
   ],
   "answer": "cmvphefjj01ko3pgoyeagwy8w",
-  "ms": 4415,
+  "ms": 3145,
   "muse": "cmvphefjj01ko3pgoyeagwy8w",
-  "museReason": "Mismo atún Alamar en aceite de 91 g; la tienda lo llama bocados y pone 140 g de peso total",
+  "museReason": "Mismo atún Alamar en aceite de 91 g; la tienda solo agrega Bocados",
   "rules": null
  },
  {
@@ -4702,9 +4702,9 @@
    }
   ],
   "answer": null,
-  "ms": 1833,
+  "ms": 1376,
   "muse": null,
-  "museReason": "Ninguno es gourmet en grano; ambos son molidos saborizados a chocolate y vainilla.",
+  "museReason": "Son café molido saborizado chocolate y vainilla, no gourmet en grano",
   "rules": null
  },
  {
@@ -4801,9 +4801,9 @@
    }
   ],
   "answer": null,
-  "ms": 1636,
+  "ms": 1527,
   "muse": null,
-  "museReason": "Ninguno es arroz blanco, solo hay harina, frijoles, lenteja y garbanzo Diana",
+  "museReason": "Ninguno es arroz blanco; son harina, frijoles, lenteja y garbanzo Diana",
   "rules": null
  },
  {
@@ -4845,9 +4845,9 @@
    }
   ],
   "answer": null,
-  "ms": 2048,
+  "ms": 1647,
   "muse": null,
-  "museReason": "Ninguno es vainilla Cuidado Superior; uno es Fresca Primavera y el otro es Manzana.",
+  "museReason": "Ninguno es vainilla Cuidado Superior; uno es Fresca Primavera y el otro es Frescura de Manzana.",
   "rules": null
  },
  {
@@ -4900,9 +4900,9 @@
    }
   ],
   "answer": null,
-  "ms": 2669,
+  "ms": 2814,
   "muse": null,
-  "museReason": "Ninguno es de fresa; son de melocotón, mora y surtido de Alqueria.",
+  "museReason": "Ninguno es sabor a fresa, son de melocotón, mora y surtido",
   "rules": null
  },
  {
@@ -4944,9 +4944,9 @@
    }
   ],
   "answer": null,
-  "ms": 1728,
+  "ms": 1456,
   "muse": null,
-  "museReason": "Ninguna es carbonara, solo hay boloñesa y bechamel de Maggi de 50 g",
+  "museReason": "Ninguna es salsa carbonara, solo hay bolognesa y bechamel",
   "rules": null
  },
  {
@@ -4988,9 +4988,9 @@
    }
   ],
   "answer": null,
-  "ms": 3741,
+  "ms": 4143,
   "muse": null,
-  "museReason": "Son variedades Explosion Citrica y Xtreme, no el Axion liquido generico de 1500 ml buscado.",
+  "museReason": "El buscado es Axion líquido sin aroma/línea y las opciones son Explosión Cítrica y Xtreme, variedades distintas.",
   "rules": null
  },
  {
@@ -5043,9 +5043,9 @@
    }
   ],
   "answer": null,
-  "ms": 3057,
+  "ms": 3967,
   "muse": null,
-  "museReason": "La 0 es Manzana Postobón regular de 400 ml, no es sin azúcar, y la 1 y 2 son de uva y naranja.",
+  "museReason": "La manzana disponible es regular, no sin azúcar; las otras son uva y naranja",
   "rules": null
  },
  {
@@ -5087,9 +5087,9 @@
    }
   ],
   "answer": null,
-  "ms": 2421,
+  "ms": 1808,
   "muse": null,
-  "museReason": "Ninguna es harina PAN de maíz blanco; una es de maíz amarillo y la otra es pasta.",
+  "museReason": "Ninguna es harina PAN de maíz blanco: una es de maíz amarillo y la otra es pasta spaghetti.",
   "rules": null
  },
  {
@@ -5131,9 +5131,9 @@
    }
   ],
   "answer": null,
-  "ms": 1908,
+  "ms": 2001,
   "muse": null,
-  "museReason": "Ninguno es explosión cítrica: uno es Blue 7 en 1 y el otro es Xtreme",
+  "museReason": "Ninguno es explosión cítrica; uno es Blue 7 en 1 y el otro es Xtreme",
   "rules": null
  },
  {
@@ -5197,9 +5197,9 @@
    }
   ],
   "answer": null,
-  "ms": 3866,
+  "ms": 3863,
   "muse": null,
-  "museReason": "La 0 es rápido alivio blanqueador, no el rápido alivio original; las demás son otras variedades.",
+  "museReason": "Ninguna es Rápido Alivio normal; la 0 es versión blanqueador y las otras son Repara y Protege o de encías.",
   "rules": null
  },
  {
@@ -5241,9 +5241,9 @@
    }
   ],
   "answer": null,
-  "ms": 1604,
+  "ms": 1764,
   "muse": "cmvsijrpe00h9megojlww2h9f",
-  "museReason": "Mismo Aguardiente Antioqueño sin azúcar verde de 1050 ml; S/A significa sin azúcar",
+  "museReason": "Mismo Aguardiente Antioqueño verde sin azúcar de 1050 ml; S/A significa sin azúcar",
   "rules": null
  },
  {
@@ -5296,9 +5296,9 @@
    }
   ],
   "answer": null,
-  "ms": 1559,
+  "ms": 1632,
   "muse": null,
-  "museReason": "Ninguno es pan 6 granos integral; son de 3 granos, kosako y avena.",
+  "museReason": "Ninguno es pan 6 granos integral, son de 3 granos, kosako y con avena",
   "rules": null
  },
  {
@@ -5395,9 +5395,9 @@
    }
   ],
   "answer": null,
-  "ms": 1838,
+  "ms": 1815,
   "muse": null,
-  "museReason": "No hay frijol Diana cargamanto de 500 g, solo hay calima, Zaragoza y bola roja que son otras variedades",
+  "museReason": "Ninguno es frijol cargamanto; los frijoles listados son calima, zaragoza y bola roja.",
   "rules": null
  },
  {
@@ -5450,9 +5450,9 @@
    }
   ],
   "answer": null,
-  "ms": 1816,
+  "ms": 1433,
   "muse": null,
-  "museReason": "Ninguno es Suavitel Complete lavanda, son Fresca Primavera o Brisa de Jazmín",
+  "museReason": "Ninguno es Suavitel Complete lavanda; son Fresca Primavera o Brisa de Jazmín.",
   "rules": null
  },
  {
@@ -5494,9 +5494,9 @@
    }
   ],
   "answer": null,
-  "ms": 1552,
+  "ms": 1195,
   "muse": null,
-  "museReason": "Ambos son harina de maíz PAN, no pasta spaghetti PAN",
+  "museReason": "Son harinas de maíz PAN, no pasta spaghetti",
   "rules": null
  },
  {
@@ -5549,9 +5549,9 @@
    }
   ],
   "answer": null,
-  "ms": 2725,
+  "ms": 2094,
   "muse": null,
-  "museReason": "Ninguna es Postobón manzana regular de 400 ml; hay manzana cero, uva y naranja.",
+  "museReason": "Ninguna es manzana regular; son manzana cero, uva y naranja.",
   "rules": null
  },
  {
@@ -5593,9 +5593,9 @@
    }
   ],
   "answer": null,
-  "ms": 2118,
+  "ms": 1687,
   "muse": null,
-  "museReason": "Ninguna es harina de trigo tradicional, ambas son harinas precocidas de maíz para arepa",
+  "museReason": "Ninguna es harina de trigo tradicional, son harinas precocidas de maíz para arepa",
   "rules": null
  },
  {
@@ -5670,9 +5670,9 @@
    }
   ],
   "answer": null,
-  "ms": 1258,
+  "ms": 1303,
   "muse": null,
-  "museReason": "Ninguno es lenteja Diana, todos son fríjol o garbanzo.",
+  "museReason": "Ninguno es lenteja, todos son frijol o garbanzo Diana",
   "rules": null
  },
  {
@@ -5758,7 +5758,7 @@
    }
   ],
   "answer": null,
-  "ms": 1533,
+  "ms": 1483,
   "muse": null,
   "museReason": "Ninguno es harina de maíz blanco, solo hay arroz, lentejas y garbanzos Diana.",
   "rules": null
@@ -5802,9 +5802,9 @@
    }
   ],
   "answer": null,
-  "ms": 2280,
+  "ms": 2221,
   "muse": null,
-  "museReason": "Ninguno es de chocolate con leche; el 0 es gourmet en grano y el 1 es de vainilla molido",
+  "museReason": "Ninguno es sabor milk chocolate; uno es Gourmet en grano y el otro es de vainilla molido.",
   "rules": null
  },
  {
@@ -5846,9 +5846,9 @@
    }
   ],
   "answer": null,
-  "ms": 3888,
+  "ms": 2830,
   "muse": null,
-  "museReason": "Ninguna es alta pureza: la 0 es sal en cristales y la 1 es ligera baja en sodio.",
+  "museReason": "Ninguna es igual: la 0 es sal en cristales y la 1 es baja en sodio, no sal alta pureza normal.",
   "rules": null
  },
  {
@@ -5890,9 +5890,9 @@
    }
   ],
   "answer": null,
-  "ms": 1926,
+  "ms": 3390,
   "muse": null,
-  "museReason": "Ninguno es atún en agua: el 0 es en aceite y el 1 es ahumado.",
+  "museReason": "Ninguno es en agua: uno es en aceite y el otro es ahumado.",
   "rules": null
  },
  {
@@ -5945,9 +5945,9 @@
    }
   ],
   "answer": null,
-  "ms": 4197,
-  "muse": "cmvphefgs01iu3pgoa51zelm2",
-  "museReason": "Mismo aceite Gourmet clásico Vitaplus de 900 ml; la tienda lo llama Familia",
+  "ms": 2086,
+  "muse": null,
+  "museReason": "Ninguno es Vitaplus antioxidantes naturales; son líneas Familia, Line y Canola diferentes.",
   "rules": null
  },
  {
@@ -5989,9 +5989,9 @@
    }
   ],
   "answer": null,
-  "ms": 2767,
+  "ms": 1634,
   "muse": null,
-  "museReason": "Son base Maggi de 50 g pero sabor carbonara y boloñesa, no bechamel.",
+  "museReason": "Son bases carbonara y boloñesa, no salsa bechamel.",
   "rules": null
  },
  {
@@ -6033,7 +6033,7 @@
    }
   ],
   "answer": null,
-  "ms": 2180,
+  "ms": 2059,
   "muse": null,
   "museReason": "Ninguno es lomos en aceite: uno es en agua y el otro es ahumado.",
   "rules": null
@@ -6110,9 +6110,9 @@
    }
   ],
   "answer": null,
-  "ms": 1774,
+  "ms": 1362,
   "muse": null,
-  "museReason": "Ninguno es frijol Diana calima de 500 g; son otras variedades como cargamanto, zaragoza y radical.",
+  "museReason": "Ninguno es frijol calima; son otras variedades como cargamanto, zaragoza y radical, o lenteja y garbanzo.",
   "rules": null
  },
  {
@@ -6154,9 +6154,9 @@
    }
   ],
   "answer": null,
-  "ms": 1532,
+  "ms": 1951,
   "muse": null,
-  "museReason": "Ninguna es de albahaca: una es de ajo y la otra de orégano.",
+  "museReason": "Ninguna es de albahaca: la 0 es de ajo y la 1 es de orégano",
   "rules": null
  },
  {
@@ -6198,9 +6198,9 @@
    }
   ],
   "answer": null,
-  "ms": 1969,
+  "ms": 1835,
   "muse": null,
-  "museReason": "Ninguna es igual: la 0 es un combo con Quatro y la 1 es Zero, no la original de 1.5 L sola.",
+  "museReason": "Una es combo de Coca-Cola original con Quatro y la otra es Coca-Cola Zero, no la original sola.",
   "rules": null
  },
  {
@@ -6297,9 +6297,9 @@
    }
   ],
   "answer": null,
-  "ms": 2214,
+  "ms": 2557,
   "muse": null,
-  "museReason": "Ninguna es Colgate Luminous carbón blanqueadora de 75 ml; son Brilliant, Café o línea Total, variedades distintas.",
+  "museReason": "Ninguna es Luminous carbón; las opciones son Luminous Brilliant, Luminous Café o Total con carbón.",
   "rules": null
  },
  {
@@ -6363,9 +6363,9 @@
    }
   ],
   "answer": null,
-  "ms": 2982,
+  "ms": 2231,
   "muse": null,
-  "museReason": "Ninguna es la misma; la 0 es Triple Acción Xtra Blancura, no la Triple Acción clásica de 150 ml.",
+  "museReason": "Ninguna es la Triple Acción original; la 0 es Xtra Blancura y las demás son de la línea Total.",
   "rules": null
  },
  {
@@ -6418,9 +6418,9 @@
    }
   ],
   "answer": null,
-  "ms": 4906,
-  "muse": "cmvpheg7201zi3pgo1awnvm5f",
-  "museReason": "Misma panela Fonce de 450 g; redonda es la forma en pastilla que busca",
+  "ms": 3021,
+  "muse": null,
+  "museReason": "La buscada es pastilla regular; las opciones son orgánica o redonda, que son productos distintos.",
   "rules": null
  },
  {
@@ -6506,9 +6506,9 @@
    }
   ],
   "answer": null,
-  "ms": 5418,
+  "ms": 6964,
   "muse": null,
-  "museReason": "Ninguna es leche Latti deslactosada y descremada de 900 ml, solo deslactosada o entera",
+  "museReason": "Ninguna es Latti deslactosada descremada San Fernando; las deslactosadas no dicen descremada.",
   "rules": null
  },
  {
@@ -6550,9 +6550,9 @@
    }
   ],
   "answer": null,
-  "ms": 1681,
+  "ms": 1630,
   "muse": "cmvphefl101ll3pgo69emrkuw",
-  "museReason": "Misma leche Alquería deslactosada de 1000 ml",
+  "museReason": "Misma leche Alquería deslactosada de 1000 ml; que no diga caja no la hace distinta",
   "rules": "cmvphefl101ll3pgo69emrkuw"
  },
  {
@@ -6616,9 +6616,9 @@
    }
   ],
   "answer": null,
-  "ms": 2051,
+  "ms": 2409,
   "muse": null,
-  "museReason": "Ninguno es igual: el 0 es lavaloza limón, no Jabón Rey desinfectante, y los otros son suavizantes",
+  "museReason": "El lavaloza es aroma limón, no de Jabón Rey, y los demás son suavizantes Dersa.",
   "rules": null
  },
  {
@@ -6715,9 +6715,9 @@
    }
   ],
   "answer": null,
-  "ms": 1962,
+  "ms": 4659,
   "muse": "cmvs5lk6r002m0ogo3hu8kwcu",
-  "museReason": "Mismo arroz Diana blanco de 1000 g; la tienda solo agrega la palabra premium",
+  "museReason": "Mismo arroz Diana blanco de 1 kg; la tienda solo agrega premium",
   "rules": null
  },
  {
@@ -6759,9 +6759,9 @@
    }
   ],
   "answer": null,
-  "ms": 1812,
+  "ms": 2078,
   "muse": null,
-  "museReason": "Ninguno es queso Siete Cueros; son sabanero y mozzarella",
+  "museReason": "Ninguno es queso Dejamu siete cueros; uno es sabanero y el otro mozzarella.",
   "rules": null
  },
  {
@@ -6803,9 +6803,9 @@
    }
   ],
   "answer": null,
-  "ms": 3033,
+  "ms": 4858,
   "muse": null,
-  "museReason": "Ambos son Antioqueño Sin Azúcar verde, no el Antioqueño amarillo.",
+  "museReason": "Ninguno es el amarillo; el 0 es sin azúcar genérico y el 1 es verde.",
   "rules": null
  },
  {
@@ -6858,9 +6858,9 @@
    }
   ],
   "answer": null,
-  "ms": 1623,
+  "ms": 2263,
   "muse": null,
-  "museReason": "Ninguno es lavaloza jabón rey; el 0 es desinfectante, el 1 es detergente manzana y el 2 es suavizante.",
+  "museReason": "Ninguno es lavaloza jabón rey; son desinfectante, detergente manzana y suavizante",
   "rules": null
  },
  {
@@ -6924,9 +6924,9 @@
    }
   ],
   "answer": null,
-  "ms": 1654,
+  "ms": 1399,
   "muse": null,
-  "museReason": "Ninguno es de piña y mandarina; son de mora, salpicón, mango y mango-fresa.",
+  "museReason": "Ninguno es piña y mandarina; son de mora, salpicón y mango.",
   "rules": null
  },
  {
@@ -6979,9 +6979,9 @@
    }
   ],
   "answer": null,
-  "ms": 1371,
+  "ms": 1897,
   "muse": null,
-  "museReason": "Ninguna es igual: la buscada es en aceite de girasol natural, las otras son picante, en oliva o en tomate.",
+  "museReason": "Ninguna es la natural en aceite de girasol: una es picante, otra en aceite de oliva y otra en salsa de tomate.",
   "rules": null
  }
 ]
