@@ -11,15 +11,20 @@ import { ReceiptHistory } from "@/components/rewards/receipt-history";
 import { useRewards } from "@/components/rewards/use-rewards";
 import { Button } from "@/components/ui";
 import { useAppState } from "@/lib/app-state";
+import { useAccount } from "@/lib/auth";
 import { fetchLeaderboard, type Leaderboard } from "@/lib/receipts";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 // Badges already celebrated on this device, so an unlock is shown once.
 const SEEN = "rinde-seen-badges";
 
-/** "Mis aportes": points, receipts and their status, achievements with their rules, and the zone's ranking. */
+/**
+ * "Mis aportes": points, receipts and their status, achievements with their rules, and the zone's ranking.
+ * Points, badges and the ranking need an account; signed out, the screen keeps the receipts and the rules.
+ */
 export default function ContributionsScreen() {
   const { area } = useAppState();
+  const { user } = useAccount();
   const { mine, failed, setMine } = useRewards();
   const [board, setBoard] = useState<Leaderboard | null>(null);
   const [fresh, setFresh] = useState<Set<string>>(new Set());
@@ -69,6 +74,13 @@ export default function ContributionsScreen() {
         </View>
       ) : (
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          {!user ? (
+            <FadeIn style={styles.hero}>
+              <Text style={styles.gateTitle}>Gana puntos con tu cuenta</Text>
+              <Text style={styles.gateText}>Los puntos, los logros y el ranking se guardan en tu cuenta. Sin cuenta, tus facturas se envían gratis y no suman puntos.</Text>
+              <Button title="Crear cuenta o iniciar sesión" variant="white" onPress={() => router.push("/account")} />
+            </FadeIn>
+          ) : (
           <FadeIn style={styles.hero}>
             <View style={styles.heroTop}>
               <View>
@@ -88,6 +100,7 @@ export default function ContributionsScreen() {
             </View>
             <Text style={styles.heroFine}>Los puntos no tienen valor en dinero.</Text>
           </FadeIn>
+          )}
 
           {scan}
 
@@ -101,6 +114,7 @@ export default function ContributionsScreen() {
             </View>
           </View>
 
+          {user ? (
           <View style={styles.section}>
             <Text accessibilityRole="header" style={styles.sectionTitle}>Logros</Text>
             <View style={styles.badges}>
@@ -109,6 +123,7 @@ export default function ContributionsScreen() {
               ))}
             </View>
           </View>
+          ) : null}
 
           <View style={styles.section}>
             <Text accessibilityRole="header" style={styles.sectionTitle}>Mis facturas</Text>
@@ -119,10 +134,12 @@ export default function ContributionsScreen() {
             )}
           </View>
 
-          <View style={styles.section}>
-            <Text accessibilityRole="header" style={styles.sectionTitle}>Ranking de la semana</Text>
-            <CommunityLeaderboard mine={mine} board={board} onSaved={setMine} />
-          </View>
+          {user ? (
+            <View style={styles.section}>
+              <Text accessibilityRole="header" style={styles.sectionTitle}>Ranking de la semana</Text>
+              <CommunityLeaderboard mine={mine} board={board} onSaved={setMine} />
+            </View>
+          ) : null}
         </ScrollView>
       )}
     </SafeAreaView>
@@ -163,6 +180,8 @@ const styles = StyleSheet.create({
   rankText: { fontSize: fontSize.caption, fontWeight: "800", color: colors.forestInk },
   stats: { flexDirection: "row", gap: spacing.sm },
   stat: { flex: 1, gap: 2, padding: spacing.md, borderRadius: radius.md, borderWidth: 1, borderColor: colors.forestLine },
+  gateTitle: { fontSize: fontSize.title, fontWeight: "900", color: colors.forestInk },
+  gateText: { fontSize: fontSize.caption, lineHeight: 18, color: colors.forestSub },
   statValue: { fontSize: fontSize.title, fontWeight: "900", color: colors.forestInk, fontVariant: ["tabular-nums"] },
   statLabel: { fontSize: fontSize.small, color: colors.forestSub },
   heroFine: { fontSize: fontSize.small, color: colors.forestSub },

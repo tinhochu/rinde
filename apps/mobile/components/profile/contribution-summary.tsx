@@ -4,14 +4,17 @@ import { router } from "expo-router";
 import { Pop } from "@/components/motion";
 import { useRewards } from "@/components/rewards/use-rewards";
 import { Button } from "@/components/ui";
+import { useAccount } from "@/lib/auth";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
 /**
  * Perfil's small window into Mis aportes: three real counts from the API (points, accepted receipts,
  * badges earned), the way to scan, and the way in. Unknown counts show a dash, never a guess.
+ * Points and badges belong to an account: signed out, it says so and offers to scan for free.
  */
 export function ContributionSummary() {
   const { mine, failed } = useRewards();
+  const { user } = useAccount();
   const earned = mine?.achievements.filter(a => a.earnedAt).length;
   const metrics = [
     { label: "Puntos", value: mine ? mine.points.toLocaleString("es-CO") : "—" },
@@ -25,6 +28,16 @@ export function ContributionSummary() {
         <Text accessibilityRole="header" style={styles.title}>Ayuda a que Rinde sea mejor</Text>
         <Text style={styles.text}>Comparte los precios de tu mercado y ayuda a otras familias a ahorrar.</Text>
       </View>
+      {!user ? (
+        <>
+          <Text style={styles.text}>Los puntos, los logros y el ranking son para quienes tienen cuenta. Sin cuenta, tus facturas se envían gratis y no suman puntos.</Text>
+          <Button title="Escanear factura" variant="white" icon={<ScanLine size={16} color={colors.primary} />} onPress={() => router.push("/receipt")} />
+          <Pressable accessibilityRole="link" onPress={() => router.push("/account")} style={({ pressed }) => [styles.link, pressed && styles.pressed]}>
+            <Text style={styles.linkText}>Crear cuenta para ganar puntos</Text>
+            <ChevronRight size={16} color={colors.forestInk} />
+          </Pressable>
+        </>
+      ) : (<>
       <View style={styles.metrics}>
         {metrics.map(m => (
           <View key={m.label} accessible accessibilityLabel={`${m.label}: ${m.value === "—" ? "sin cargar" : m.value}`} style={styles.metric}>
@@ -39,6 +52,7 @@ export function ContributionSummary() {
         <Text style={styles.linkText}>Ver mis aportes y logros</Text>
         <ChevronRight size={16} color={colors.forestInk} />
       </Pressable>
+      </>)}
     </View>
   );
 }

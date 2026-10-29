@@ -11,7 +11,7 @@ const initials = (name: string) => name.trim().split(/\s+/).slice(0, 2).map(w =>
 
 /**
  * Who is using Rinde. A guest sees what an account adds, in one line, and the way in; a signed-in
- * person sees their name and email and can change the name. Signing out lives in "Gestionar cuenta".
+ * person sees their name and email and can change the name. Signing out lives in "Mi cuenta".
  */
 export function ProfileAccountCard() {
   const { user, loading } = useAccount();

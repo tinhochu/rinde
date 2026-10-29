@@ -3,7 +3,7 @@ import { ShieldCheck } from "lucide-react-native";
 import { InstallCard } from "@/components/install-card";
 import { ProfileAccountCard } from "@/components/profile/account-card";
 import { ContributionSummary } from "@/components/profile/contribution-summary";
-import { DataSection } from "@/components/profile/data-section";
+import { AccountSection, DataSection } from "@/components/profile/data-section";
 import { SettingsSection } from "@/components/profile/settings-section";
 import { ShoppingPreferences } from "@/components/profile/shopping-preferences";
 import { colors, fontSize, spacing } from "@/lib/theme";
@@ -22,6 +22,7 @@ export default function ProfileScreen() {
       <ContributionSummary />
       <SettingsSection />
       <DataSection />
+      <AccountSection />
       <View style={styles.footer}>
         <ShieldCheck size={13} color={colors.mutedForeground} />
         <Text style={styles.footerText}>Sin registro obligatorio. Solo precios observados en las tiendas.</Text>
