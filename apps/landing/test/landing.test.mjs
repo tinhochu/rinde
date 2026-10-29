@@ -128,3 +128,103 @@ test("the old copy is removed 30 days after the handoff", () => {
   assert.equal(s.getItem("rinde-session"), null);
   assert.equal(s.getItem("rinde-handoff-done"), "0");
 });
+
+// --- what agents read ----------------------------------------------------------------------------
+
+const SLUGS = ["about", "contact", "privacy"];
+const htmlPages = ["index.html", "en/index.html", ...SLUGS.flatMap((s) => [`${s}/index.html`, `en/${s}/index.html`])];
+const text = (html) => html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+const mainText = (html) => text(html.match(/<main[\s\S]*<\/main>/)?.[0] ?? "");
+
+test("the homepage title names the product, the link preview keeps the tagline", () => {
+  assert.match(es, /<title>Rinde: comparador de precios de supermercado en Colombia<\/title>/);
+  assert.match(en, /<title>Rinde: grocery price comparison for Colombian supermarkets<\/title>/);
+  assert.match(es, /<meta property="og:title" content="Rinde: el mismo mercado, más plata en tu bolsillo"/);
+});
+
+test("the homepage carries Organization, WebSite and WebApplication JSON-LD", () => {
+  for (const html of [es, en]) {
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
+    assert.equal(blocks.length, 1);
+    const graph = blocks[0]["@graph"];
+    assert.equal(blocks[0]["@context"], "https://schema.org");
+    const byType = Object.fromEntries(graph.map((n) => [n["@type"], n]));
+    assert.deepEqual(Object.keys(byType).sort(), ["Organization", "WebApplication", "WebSite"]);
+    const org = byType.Organization;
+    assert.equal(org.name, "Rinde");
+    assert.match(org.contactPoint.email, /^[^@\s]+@[^@\s]+\.[a-z]+$/);
+    assert.ok(org.contactPoint.contactType);
+    const app = byType.WebApplication;
+    assert.ok(app.name && app.description && app.url && app.applicationCategory);
+    assert.equal(app.offers.price, "0");
+  }
+});
+
+test("About, Contact and Privacy exist in both languages, with real text, linked from the home footer", () => {
+  for (const lang of ["", "en/"]) {
+    for (const slug of SLUGS) {
+      const html = readFileSync(dist(`${lang}${slug}/index.html`), "utf8");
+      assert.ok(mainText(html).length >= 500, `${lang}${slug}: ${mainText(html).length} characters`);
+      assert.match(html, /<h1>/);
+      assert.match(html, new RegExp(`<link rel="canonical" href="[^"]+/${lang}${slug}/" />`));
+      assert.match(lang ? en : es, new RegExp(`href="/${lang}${slug}/"`));
+    }
+  }
+  assert.match(mainText(readFileSync(dist("contact/index.html"), "utf8")), /\S+@\S+\.\w+/);
+});
+
+test("every page has a Markdown twin with the same content", () => {
+  for (const page of htmlPages) {
+    const md = readFileSync(dist(page.replace(/\.html$/, ".md")), "utf8");
+    assert.match(md, /^# \S/, page);
+    assert.ok(md.length > 300, page);
+    assert.doesNotMatch(md, /<[a-z][^>]*>/i, `${page}: HTML in the Markdown`);
+    const html = readFileSync(dist(page), "utf8");
+    assert.match(html, new RegExp(`<link rel="alternate" type="text/markdown" href="[^"]+/${page.replace(/index\.html$/, "")}index\\.md" />`));
+    // The first heading of the HTML's main content is in the Markdown too.
+    const h1 = text(html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? "");
+    assert.ok(h1 && md.replace(/\s+/g, " ").includes(h1), `${page}: ${h1}`);
+  }
+  const home = readFileSync(dist("index.md"), "utf8");
+  assert.match(home, /El mismo mercado\./);
+  assert.match(home, /\]\(https:\/\/[^)]+\/llms\.txt\)/);
+});
+
+test("the Markdown 404 explains itself and links somewhere useful", () => {
+  const md = readFileSync(dist("404.md"), "utf8");
+  assert.ok(md.length >= 20);
+  assert.match(md, /404/);
+  assert.match(md, /\/llms\.txt\)/);
+  assert.match(md, /\/sitemap\.xml\)/);
+});
+
+test("llms.txt follows llmstxt.org and says when to use Rinde", () => {
+  const llms = readFileSync(dist("llms.txt"), "utf8");
+  const lines = llms.split("\n");
+  assert.equal(lines[0], "# Rinde");
+  assert.match(llms, /^> \S/m);
+  assert.equal(llms.match(/^# /gm).length, 1);
+  assert.match(llms, /^When to use Rinde:$/m);
+  assert.match(llms, /^When not to use it:/m);
+  assert.match(llms, /GET https:\/\/\S+\/api\/catalog\?query=/);
+  // Each H2 section is a list of links, each to a file the build wrote.
+  const sections = llms.split(/^## /m).slice(1);
+  assert.deepEqual(sections.map((s) => s.split("\n")[0]), ["Pages", "Optional"]);
+  for (const section of sections) {
+    for (const line of section.split("\n").slice(1).filter(Boolean)) {
+      const m = line.match(/^- \[[^\]]+\]\(https:\/\/[^/]+\/([^)]*)\)(: .+)?$/);
+      assert.ok(m, line);
+      assert.ok(existsSync(dist(m[1])), m[1]);
+    }
+  }
+});
+
+test("the sitemap lists every page, both languages, with a lastmod", () => {
+  const xml = readFileSync(dist("sitemap.xml"), "utf8");
+  assert.match(xml, /^<\?xml version="1\.0" encoding="UTF-8"\?>\n<urlset xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
+  const locs = [...xml.matchAll(/<loc>https:\/\/[^/]+\/([^<]*)<\/loc>/g)].map((m) => `${m[1]}index.html`);
+  assert.deepEqual(locs.sort(), [...htmlPages].sort());
+  assert.equal([...xml.matchAll(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g)].length, locs.length);
+  assert.equal((xml.match(/<url>/g) ?? []).length, (xml.match(/<\/url>/g) ?? []).length);
+  assert.match(readFileSync(dist("robots.txt"), "utf8"), /^Sitemap: https:\/\/\S+\/sitemap\.xml$/m);
+});

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node prerender.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/landing.test.mjs",
+    "test:nginx": "NGINX_TEST=1 node --test test/nginx.test.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.5.0",

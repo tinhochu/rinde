@@ -1,5 +1,6 @@
 import { ArrowUp, ArrowUpRight, Check, ChevronDown } from 'lucide-react';
 import { LiveReceipt } from '@/components/live-receipt';
+import { InfoLinks } from '@/pages/InfoPage';
 import { copy, type Lang } from '@/lib/landing-copy';
 import { APP_URL } from '@/lib/config';
 import { STORE_LOGOS, STORE_ORDER } from '@/lib/store-logos';
@@ -180,6 +181,7 @@ const Index = ({ lang }: { lang: Lang }) => {
           <div className="footer-links"><a href="#how-it-works">{t.how}</a><a href="#our-prices">{t.prices}</a><a href="#same-product">{t.sameProduct}</a><a href="#on-your-phone">{t.install}</a><a href="#top">{t.top}<ArrowUp size={16} aria-hidden="true" /></a></div>
         </div>
         <div className="footer-legal small"><p>{t.made}</p><p>{t.disclaimer}</p></div>
+        <div className="footer-info small"><InfoLinks lang={lang} /></div>
       </footer>
     </div>
   );

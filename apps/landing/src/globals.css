@@ -170,6 +170,14 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .footer-links a { display: inline-flex; align-items: center; gap: var(--space-2xs); }
 .footer-legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-xs) var(--space-xl); }
 
+/* About, Contact and Privacy: reading text at one measure. */
+.info { display: grid; gap: var(--space-xl); max-width: 68ch; padding-block: var(--space-2xl); }
+.info h1 { font-size: var(--text-display-s); }
+.info section { display: grid; gap: var(--space-sm); }
+.info h2 { font-size: var(--text-xl); line-height: 1.25; }
+.info p { line-height: 1.65; }
+.footer-info { margin-top: var(--space-sm); }
+
 /* The 404 page. */
 .missing { min-height: 100vh; display: grid; align-content: center; justify-items: start; gap: var(--space-lg); }
 .missing .wordmark { font-size: var(--text-2xl); color: var(--color-ink-2); }
