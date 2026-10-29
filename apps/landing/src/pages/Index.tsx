@@ -11,6 +11,9 @@ import cartLight from '@/assets/screens/cart-light.webp';
 import cartDark from '@/assets/screens/cart-dark.webp';
 import receiptLight from '@/assets/screens/receipt-light.webp';
 import receiptDark from '@/assets/screens/receipt-dark.webp';
+import packCarulla from '@/assets/match/carulla-de-fruta.webp';
+import packManzana from '@/assets/match/jumbo-manzana.webp';
+import packFrutosRojos from '@/assets/match/jumbo-frutos-rojos.webp';
 
 const HOME: Record<Lang, string> = { es: '/', en: '/en/' };
 
@@ -21,8 +24,11 @@ const STEP_SHOTS = [
   { light: receiptLight, dark: receiptDark, alt: 'receipt' },
 ] as const;
 
-// Jumbo's two candidates for Carulla's McVitie's, as the stores list them; Muse picked the second.
-const TICKET_OPTIONS = [['Galletas Mcvities Manzana 174g', false], ['Galletas Mcvities Frutos Rojos 174g', true]] as const;
+// Jumbo's two candidates for Carulla's McVitie's, named as Jumbo lists them; Muse picked the second.
+const JUMBO_PACKS = [
+  { name: 'Galletas Mcvities Manzana 174g', src: packManzana, w: 513, h: 250, alt: "Paquete verde de galletas McVitie's Go Ahead de manzana, 174 g", picked: false },
+  { name: 'Galletas Mcvities Frutos Rojos 174g', src: packFrutosRojos, w: 516, h: 277, alt: "Paquete morado de galletas McVitie's Go Ahead de frutos rojos, 174 g", picked: true },
+] as const;
 
 const Screen = ({ light, dark, alt, width, height, first = false }: { light: string; dark: string; alt: string; width: number; height: number; first?: boolean }) => (
   <picture className="shot">
@@ -66,7 +72,7 @@ const Index = ({ lang }: { lang: Lang }) => {
       <header className="bar" data-bar>
         <div className="container bar-in">
           <a href={HOME[lang]} aria-label="Rinde" className="wordmark"><img src="/icon-192.png" width={32} height={32} alt="" />rinde</a>
-          <nav aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}><a href="#how-it-works">{t.how}</a><a href="#our-prices">{t.prices}</a><a href="#on-your-phone">{t.install}</a></nav>
+          <nav aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}><a href="#how-it-works">{t.how}</a><a href="#our-prices">{t.prices}</a><a href="#same-product">{t.sameProduct}</a><a href="#on-your-phone">{t.install}</a></nav>
           <div className="bar-end">{languageSwitch}<a href={APP_URL} data-open-app className="btn btn-quiet">{t.open}<ArrowUpRight size={16} aria-hidden="true" /></a></div>
         </div>
       </header>
@@ -123,29 +129,31 @@ const Index = ({ lang }: { lang: Lang }) => {
         </section>
 
         <section id="same-product" className="match">
-          <div className="container grid-12">
-            <div className="match-proof">
-              {/* A real answer from the held-out test (apps/web/eval/RESULTS-heldout.md, find-37). */}
-              <figure className="receipt ticket" aria-label={t.ticketLabel}>
-                <p className="ticket-from">{t.ticketFrom}</p>
-                <p className="receipt-title ticket-item">Galletas MC.VITIES de fruta · 174 g</p>
-                <p className="ticket-ask">{t.ticketAsk}</p>
-                <ol className="ticket-options">
-                  {TICKET_OPTIONS.map(([name, picked]) => (
-                    <li key={name} className={picked ? 'picked' : undefined}>
-                      {picked ? <Check size={16} aria-hidden="true" /> : <span className="ticket-dot" aria-hidden="true" />}{name}
+          <div className="container">
+            <div className="head split-head"><h2>{t.matchTitle.split('\n').map((line, i) => <span key={line}>{i > 0 && <br />}{line}</span>)}</h2><p className="lead">{t.matchIntro}</p></div>
+            {/* A real answer from the held-out test (apps/web/eval/RESULTS-heldout.md, find-37), with the stores' own photos. */}
+            <div className="grid-12 match-board">
+              <figure className="pack pack-shopper">
+                <figcaption><span className="small">{t.matchShopper}</span>Galletas MC.VITIES de fruta<br />174 g</figcaption>
+                <div className="pack-photo"><img src={packCarulla} width={516} height={278} alt="Paquete morado de galletas McVitie's Go Ahead de frutos rojos, 174 g" loading="lazy" decoding="async" /></div>
+              </figure>
+              <div className="match-jumbo">
+                <p className="match-ask">{t.matchAsk}</p>
+                <ul className="packs">
+                  {JUMBO_PACKS.map((p) => (
+                    <li key={p.name} className={p.picked ? 'pack is-picked' : 'pack'}>
+                      <div className="pack-photo"><img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" /></div>
+                      <p>{p.name}</p>
+                      {p.picked && <p className="pack-picked"><Check size={16} aria-hidden="true" />{t.matchPicked}</p>}
                     </li>
                   ))}
-                </ol>
-                <blockquote className="ticket-reason"><p>{t.ticketReason}</p></blockquote>
-                <figcaption className="ticket-by">{t.ticketBy}</figcaption>
-              </figure>
+                </ul>
+                <blockquote className="match-reason"><p>{t.matchReason}</p><footer className="small">{t.matchBy}</footer></blockquote>
+              </div>
             </div>
-            <div className="match-text">
-              <h2>{t.matchTitle.split('\n').map((line, i) => <span key={line}>{i > 0 && <br />}{line}</span>)}</h2>
-              <p className="lead">{t.matchIntro}</p>
-              <dl className="match-score">{t.matchScore.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-              <p className="small">{t.matchNote}</p>
+            <div className="grid-12 match-result">
+              <dl className="match-score">{t.matchScore.map(([label, value]) => <div key={label}><dt>{label}</dt><dd><span className="match-figure">{value}</span> {t.matchUnit}</dd></div>)}</dl>
+              <p className="small match-note">{t.matchNote}</p>
             </div>
           </div>
         </section>
@@ -169,7 +177,7 @@ const Index = ({ lang }: { lang: Lang }) => {
         <a href="#top" className="wordmark">rinde</a>
         <div className="footer-row">
           <p>{t.footer}</p>
-          <div className="footer-links"><a href="#how-it-works">{t.how}</a><a href="#our-prices">{t.prices}</a><a href="#on-your-phone">{t.install}</a><a href="#top">{t.top}<ArrowUp size={16} aria-hidden="true" /></a></div>
+          <div className="footer-links"><a href="#how-it-works">{t.how}</a><a href="#our-prices">{t.prices}</a><a href="#same-product">{t.sameProduct}</a><a href="#on-your-phone">{t.install}</a><a href="#top">{t.top}<ArrowUp size={16} aria-hidden="true" /></a></div>
         </div>
         <div className="footer-legal small"><p>{t.made}</p><p>{t.disclaimer}</p></div>
       </footer>

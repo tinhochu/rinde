@@ -114,28 +114,33 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .receipt-head .wordmark { font-size: var(--text-xl); color: var(--color-ink-2); }
 .receipt-title { padding-bottom: var(--space-md); margin-bottom: var(--space-md); border-bottom: 1px dashed var(--color-rule); font-size: var(--text-sm); }
 
-/* The same product: one of Muse's real answers, printed like a receipt, beside the test result. */
+/* The same product: the shopper's pack, the store's two, and Muse's answer; then the test, set in figures. */
 .match { padding-block: var(--section-gap-s); }
-.match-proof { grid-column: 1 / span 5; align-self: center; }
-.match-text { grid-column: 7 / span 6; display: grid; gap: var(--space-lg); align-content: center; }
-.match-text h2 { color: var(--color-ink-2); }
-.match-text .small { color: var(--color-muted); max-width: 56ch; }
-.match-score { display: grid; margin-top: var(--space-xs); }
-.match-score > div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2xs) var(--space-md); padding-block: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
-.match-score > div:last-child { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.match-board { align-items: start; }
+.pack-shopper { grid-column: 1 / span 4; display: grid; gap: var(--space-md); }
+.pack-shopper figcaption { display: grid; gap: var(--space-2xs); font-weight: 600; color: var(--color-ink-2); }
+.pack-shopper figcaption .small { font-weight: 400; color: var(--color-muted); }
+.match-jumbo { grid-column: 6 / span 7; display: grid; gap: var(--space-md); }
+.match-ask { font-weight: 600; color: var(--color-ink-2); }
+.packs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); padding: 0; list-style: none; }
+.pack { display: grid; gap: var(--space-xs); align-content: start; }
+.pack > p { font-size: var(--text-sm); color: var(--color-muted); }
+.pack-photo { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: var(--space-md); background: var(--color-receipt); border-radius: var(--radius-card); outline: var(--rule-hair) solid var(--color-rule); outline-offset: -1px; }
+.pack-photo img { width: 100%; height: auto; }
+.is-picked .pack-photo { outline: 2px solid var(--color-ink-2); outline-offset: -2px; }
+.is-picked > p { color: var(--color-ink-2); }
+.pack-picked { display: inline-flex; align-items: center; gap: var(--space-2xs); font-weight: 600; }
+.match-reason { margin-top: var(--space-sm); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); display: grid; gap: var(--space-xs); }
+.match-reason p { font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.3; color: var(--color-ink-2); max-width: 34ch; }
+.match-reason footer { color: var(--color-muted); }
+.match-result { margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule); align-items: end; }
+.match-score { grid-column: 1 / span 8; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns); }
+.match-score > div { display: grid; gap: var(--space-xs); align-content: start; }
 .match-score dt { color: var(--color-muted); }
-.match-score dd { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-ink-2); }
+.match-score dd { margin: 0; color: var(--color-ink-2); font-weight: 600; }
+.match-figure { display: block; font-family: var(--font-display); font-size: var(--text-display); font-weight: var(--display-weight); line-height: 1; letter-spacing: var(--tracking-display); font-variant-numeric: tabular-nums; }
 .match-score > div:last-child dd { color: var(--color-accent); }
-.ticket { font-size: var(--text-sm); }
-.ticket-from { color: var(--color-muted); margin-bottom: var(--space-2xs); }
-.ticket-item { font-size: var(--text-md); color: var(--color-ink-2); }
-.ticket-ask { color: var(--color-muted); margin-bottom: var(--space-xs); }
-.ticket-options { display: grid; gap: var(--space-2xs); padding: 0; list-style: none; }
-.ticket-options li { display: flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-card); }
-.ticket-options .picked { background: var(--color-receipt-best); color: var(--color-ink-2); font-weight: 600; }
-.ticket-dot { width: 16px; height: 16px; flex-shrink: 0; border: 1px solid var(--color-rule); border-radius: var(--radius-pill); }
-.ticket-reason { margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px dashed var(--color-rule); color: var(--color-ink); line-height: 1.5; }
-.ticket-by { margin-top: var(--space-sm); color: var(--color-muted); font-size: var(--text-xs); }
+.match-note { grid-column: 9 / span 4; color: var(--color-muted); }
 
 /* On your phone: the head beside two disclosures. */
 .phone { padding-block: var(--section-gap); }
@@ -172,12 +177,12 @@ a, button { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 60rem) {
   .bar nav { display: none; }
   .hero { padding-block: var(--space-xl) var(--space-2xl); row-gap: var(--space-xl); }
-  .hero-text, .hero-shot, .split-head h2, .split-head .lead, .row-text, .row figure, .row-lead .row-text, .row-lead figure, .prices-text, .prices-proof, .match-text, .match-proof, .phone-head, .phone-steps, .close h2, .close-act { grid-column: 1 / -1; }
+  .hero-text, .hero-shot, .split-head h2, .split-head .lead, .row-text, .row figure, .row-lead .row-text, .row-lead figure, .prices-text, .prices-proof, .pack-shopper, .match-jumbo, .match-score, .match-note, .phone-head, .phone-steps, .close h2, .close-act { grid-column: 1 / -1; }
   .hero-shot .shot { height: min(80svh, 560px); }
-  .split-head, .rows .row, .prices .grid-12, .match .grid-12, .phone .grid-12, .close-in { row-gap: var(--space-xl); }
+  .split-head, .rows .row, .prices .grid-12, .match-board, .match-result, .phone .grid-12, .close-in { row-gap: var(--space-xl); }
   .row figure { padding: var(--space-lg); }
   .prices-proof { margin-top: var(--space-md); }
-  .match-text { order: -1; }
+  .pack-shopper { max-width: 360px; }
 }
 @media (max-width: 40rem) {
   .bar-end .btn-quiet { display: none; }
