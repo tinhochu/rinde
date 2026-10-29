@@ -17,6 +17,7 @@
 @tailwind utilities;
 
 /* What preflight used to reset, and nothing more. */
+*, ::before, ::after { border-width: 0; border-style: solid; }
 h1, h2, h3, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 summary { list-style: none; }

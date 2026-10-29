@@ -43,7 +43,7 @@ function printReceipt(box: HTMLElement, words: Words, { product, offers }: Compa
 
   const diff = el("div", "mt-4 flex items-center justify-between gap-3 border-t border-dashed border-[var(--color-rule)] pt-4");
   diff.append(
-    el("span", "max-w-32 text-sm", words.difference),
+    el("span", "max-w-44 text-sm", words.difference),
     el("span", "text-2xl font-semibold tabular-nums text-[var(--color-accent)]", formatPrice(offers[offers.length - 1].price - offers[0].price)),
   );
 
