@@ -19,8 +19,11 @@ export const authClient = createAuthClient({
   plugins: [expoClient({ scheme: "rinde", storagePrefix: "rinde", storage: SecureStore }), emailOTPClient()],
 });
 
-/** email: password sign-in; code: one-time codes by email (only when the server can send them); google: OAuth. */
-export type AuthMethods = { email: boolean; code: boolean; google: boolean };
+/**
+ * email: password sign-in; code: one-time codes by email (only when the server can send them); google: OAuth;
+ * captcha: the Turnstile site key when the server asks for a captcha on sign-in forms.
+ */
+export type AuthMethods = { email: boolean; code: boolean; google: boolean; captcha: string | null };
 
 const LINKED = "rinde-linked-user";
 
@@ -49,7 +52,7 @@ async function linkThisDevice(): Promise<{ merged: boolean }> {
 export function useAccount() {
   const { data, isPending } = authClient.useSession();
   const user = data?.user ?? null;
-  const [methods, setMethods] = useState<AuthMethods>({ email: true, code: false, google: false });
+  const [methods, setMethods] = useState<AuthMethods>({ email: true, code: false, google: false, captcha: null });
   // Until the server answers, the screen can't know whether codes or Google are available.
   const [methodsReady, setMethodsReady] = useState(false);
 
@@ -118,6 +121,9 @@ export function authErrorMessage(error: { code?: string; message?: string; statu
   const code = error?.code ?? "";
   if (code.includes("ALREADY_EXISTS")) return "Ya hay una cuenta con ese correo. Entra con tu contraseña.";
   if (code.includes("INVALID_EMAIL_OR_PASSWORD") || code.includes("CREDENTIAL")) return "El correo o la contraseña no coinciden.";
+  if (code === "PASSWORD_COMPROMISED") return "Esa contraseña aparece en filtraciones conocidas. Elige otra.";
+  if (code === "MISSING_RESPONSE" || code === "VERIFICATION_FAILED" || code === "UNKNOWN_ERROR") return "No pudimos comprobar que no eres un robot. Espera la verificación e inténtalo de nuevo.";
+  if (code === "SERVICE_UNAVAILABLE") return "La verificación no responde ahora. Inténtalo en un momento.";
   if (code.includes("PASSWORD_TOO_SHORT")) return "La contraseña necesita al menos 8 caracteres.";
   if (code.includes("INVALID_EMAIL")) return "Revisa el correo: parece incompleto.";
   if (code === "INVALID_OTP") return "Ese código no es correcto. Revísalo o pide uno nuevo.";

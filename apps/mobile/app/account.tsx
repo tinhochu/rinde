@@ -3,6 +3,8 @@ import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollVie
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeft, ShieldCheck, X } from "lucide-react-native";
+import { Captcha } from "@/components/auth/captcha";
+import { PasswordMeter, passwordStrength } from "@/components/auth/password-meter";
 import { Button, inputStyle, labelStyle } from "@/components/ui";
 import { authClient, authErrorMessage, useAccount } from "@/lib/auth";
 import { toast } from "@/lib/toast";
@@ -34,6 +36,9 @@ export default function AccountScreen() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState<"" | "send" | "verify" | "password" | "google">("");
   const [cooldown, setCooldown] = useState(0);
+  // Turnstile, when the server asks for it: a token works once, so each request gets a fresh widget.
+  const [captcha, setCaptcha] = useState<string | null>(null);
+  const [captchaRun, setCaptchaRun] = useState(0);
 
   // Without email delivery there are no codes: the password form is the only email way in.
   useEffect(() => { if (methodsReady && !methods.code && step === "email") setStep("password"); }, [methodsReady, methods.code, step]);
@@ -47,6 +52,19 @@ export default function AccountScreen() {
     setError("");
     setCode("");
     setStep(next);
+  }
+
+  /** The captcha header for a protected request, or null (with a message) while the check hasn't passed. */
+  function captchaHeaders(): { headers: Record<string, string> } | undefined | null {
+    if (!methods.captcha) return undefined;
+    if (!captcha) { setError("Espera un momento: estamos comprobando que no eres un robot."); return null; }
+    return { headers: { "x-captcha-response": captcha } };
+  }
+
+  function spendCaptcha() {
+    if (!methods.captcha) return;
+    setCaptcha(null);
+    setCaptchaRun(n => n + 1);
   }
 
   function close() {
@@ -66,10 +84,13 @@ export default function AccountScreen() {
     setError("");
     const address = cleanEmail(email);
     if (!validEmail(address)) return setError("Escribe tu correo completo, por ejemplo ana@correo.com.");
+    const fetchOptions = captchaHeaders();
+    if (fetchOptions === null) return;
     setBusy("send");
     const { error: failed } = purpose === "sign-in"
-      ? await authClient.emailOtp.sendVerificationOtp({ email: address, type: "sign-in" })
-      : await authClient.emailOtp.requestPasswordReset({ email: address });
+      ? await authClient.emailOtp.sendVerificationOtp({ email: address, type: "sign-in", fetchOptions })
+      : await authClient.emailOtp.requestPasswordReset({ email: address, fetchOptions });
+    spendCaptcha();
     setBusy("");
     if (failed) return setError(authErrorMessage(failed));
     setEmail(address);
@@ -96,10 +117,14 @@ export default function AccountScreen() {
     const address = cleanEmail(email);
     if (!validEmail(address)) return setError("Escribe tu correo completo, por ejemplo ana@correo.com.");
     if (password.length < 8) return setError("La contraseña necesita al menos 8 caracteres.");
+    if (mode === "signUp" && passwordStrength(password, address).score < 2) return setError("Esa contraseña es fácil de adivinar. Elige una más segura.");
+    const fetchOptions = captchaHeaders();
+    if (fetchOptions === null) return;
     setBusy("password");
     const { error: failed } = mode === "signUp"
-      ? await authClient.signUp.email({ email: address, password, name: name.trim() || address.split("@")[0]! })
-      : await authClient.signIn.email({ email: address, password });
+      ? await authClient.signUp.email({ email: address, password, name: name.trim() || address.split("@")[0]!, fetchOptions })
+      : await authClient.signIn.email({ email: address, password, fetchOptions });
+    spendCaptcha();
     setBusy("");
     if (failed) return setError(authErrorMessage(failed));
     toast.success(mode === "signUp" ? "Cuenta creada. Tus puntos ya quedan guardados." : "Entraste a tu cuenta.");
@@ -110,11 +135,15 @@ export default function AccountScreen() {
     setError("");
     if (!/^\d{6}$/.test(code)) return setError("El código tiene 6 números.");
     if (password.length < 8) return setError("La nueva contraseña necesita al menos 8 caracteres.");
+    if (passwordStrength(password, email).score < 2) return setError("Esa contraseña es fácil de adivinar. Elige una más segura.");
+    const fetchOptions = captchaHeaders();
+    if (fetchOptions === null) return;
     setBusy("verify");
     const { error: failed } = await authClient.emailOtp.resetPassword({ email, otp: code, password });
     if (failed) { setBusy(""); return setError(authErrorMessage(failed)); }
     // A reset doesn't open a session by itself; enter with the new password right away.
-    const { error: signInFailed } = await authClient.signIn.email({ email, password });
+    const { error: signInFailed } = await authClient.signIn.email({ email, password, fetchOptions });
+    spendCaptcha();
     setBusy("");
     toast.success("Listo. Cambiaste tu contraseña.");
     if (signInFailed) { setMode("signIn"); go("password"); return; }
@@ -242,6 +271,7 @@ export default function AccountScreen() {
                     style={inputStyle}
                   />
                 </Field>
+                {mode === "signUp" ? <PasswordMeter password={password} email={email} /> : null}
                 {errorText}
                 <Button title={mode === "signUp" ? "Crear cuenta" : "Entrar"} loading={busy === "password"} disabled={working} onPress={submitPassword} />
               </View>
@@ -280,12 +310,15 @@ export default function AccountScreen() {
                     style={inputStyle}
                   />
                 </Field>
+                <PasswordMeter password={password} email={email} />
                 {errorText}
                 <Button title="Guardar y entrar" loading={busy === "verify"} disabled={working} onPress={resetPassword} />
               </View>
               <Resend cooldown={cooldown} busy={busy === "send"} onPress={() => sendCode("forget-password")} />
             </>
           )}
+
+          {methodsReady && methods.captcha ? <Captcha key={captchaRun} siteKey={methods.captcha} onToken={setCaptcha} /> : null}
 
           <View style={styles.assure}>
             <ShieldCheck size={13} color={colors.mutedForeground} />

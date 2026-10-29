@@ -1,7 +1,7 @@
 import "server-only";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { emailOTP } from "better-auth/plugins";
+import { captcha, emailOTP, haveIBeenPwned } from "better-auth/plugins";
 import { expo } from "@better-auth/expo";
 import { db } from "@rinde/db";
 import { emailDelivery, sendCode } from "@/server/email";
@@ -12,6 +12,12 @@ const CODE_MINUTES = 10;
 const google = process.env["GOOGLE_CLIENT_ID"] && process.env["GOOGLE_CLIENT_SECRET"]
   ? { clientId: process.env["GOOGLE_CLIENT_ID"], clientSecret: process.env["GOOGLE_CLIENT_SECRET"] }
   : undefined;
+
+// Cloudflare Turnstile on every form that sends a code or tries a password, once both keys are set.
+const turnstile = process.env["TURNSTILE_SITE_KEY"] && process.env["TURNSTILE_SECRET_KEY"]
+  ? { siteKey: process.env["TURNSTILE_SITE_KEY"], secretKey: process.env["TURNSTILE_SECRET_KEY"] }
+  : undefined;
+const CAPTCHA_ENDPOINTS = ["/sign-up/email", "/sign-in/email", "/email-otp/send-verification-otp", "/email-otp/request-password-reset"];
 
 /**
  * Accounts are optional: everything works with the anonymous device session, and signing in only
@@ -38,6 +44,9 @@ export const auth = betterAuth({
   ],
   plugins: [
     expo(),
+    ...(turnstile ? [captcha({ provider: "cloudflare-turnstile", secretKey: turnstile.secretKey, endpoints: CAPTCHA_ENDPOINTS })] : []),
+    // Refuses passwords already exposed in known breaches; only the first 5 characters of the password's SHA-1 leave the server.
+    haveIBeenPwned({ customPasswordCompromisedMessage: "Esa contraseña aparece en filtraciones conocidas. Elige otra." }),
     // One-time codes by email: sign in or create an account without a password, and reset a forgotten one.
     // Unknown addresses asking for a reset get the same answer and no email, so accounts can't be probed.
     ...(emailDelivery ? [emailOTP({
@@ -51,7 +60,7 @@ export const auth = betterAuth({
 });
 
 /** Which sign-in methods the server has configured, so the app shows only working buttons. */
-export const authMethods = { email: true, code: emailDelivery !== null, google: Boolean(google) };
+export const authMethods = { email: true, code: emailDelivery !== null, google: Boolean(google), captcha: turnstile?.siteKey ?? null };
 
 export async function currentUser(headers: Headers) {
   const session = await auth.api.getSession({ headers });
