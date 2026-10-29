@@ -48,21 +48,23 @@
 
 ## 8. Plan screen (Expo client, `apps/mobile`)
 
-- [ ] 8.1 Build the plan screen in `apps/mobile` (Expo; web PWA + native), calling `POST /api/plan` via `lib/api.ts`:
+- [x] 8.1 Build the plan screen in `apps/mobile` (Expo; web PWA + native), calling `POST /api/plan` via `lib/api.ts`:
   - stop-count switcher (1 / 2 / 3 stops with totals)
   - per-store pick lists in visit order, each line showing product, packs, price, reason, provenance label and product link
   - totals, remaining budget, savings with the baseline description
   - unavailable section
 
   Verify in the exported web PWA at 375 px width with a seeded list.
-- [ ] 8.2 Render live verification progress from the stream ("Verificando D1… 9/9 ✓"). Verify it is visible during a real plan run.
-- [ ] 8.3 Add the over-budget trade-off panel with accept/reject buttons that recalculate in place. Verify a 150.000 budget run reaches "dentro del presupuesto" after accepting proposals.
+- [x] 8.2 Render live verification progress from the stream ("Verificando D1… 9/9 ✓"). Verify it is visible during a real plan run.
+- [x] 8.3 Add the over-budget trade-off panel with accept/reject buttons that recalculate in place. Verify a 150.000 budget run reaches "dentro del presupuesto" after accepting proposals.
 
 ## 9. End-to-end check
 
-- [ ] 9.1 Seed a realistic 15-item family list (Colombian staples) with a 200.000 COP budget. Run the full flow on a fresh worker snapshot and confirm:
+- [x] 9.1 Seed a realistic 15-item family list (Colombian staples) with a 200.000 COP budget. Run the full flow on a fresh worker snapshot and confirm:
   - at least one item is split to a second store
   - every price has provenance
   - savings match a hand calculation from the stored observations
 
   Record the result in `docs/` as the demo baseline.
+
+  Done 2026-10-29 on production (web `ebba7c3`, app `4431828`), in the PWA at 375 px. Pasting the 15-item list with café, plátano and atún optional at $150 mil showed "Verificando D1… 11 precios en vivo" while planning. The plan priced 15/15 items, $27.975 over budget. Accepting "Quitar café" and then "Quitar plátano" recalculated in place to $147.500, within budget. Baseline and hand check: `docs/demo-baseline.md`.
