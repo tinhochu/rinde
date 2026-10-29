@@ -85,6 +85,12 @@ export function CheckStores({ listingId, lacking, onFound }: {
               <Text style={styles.status}>No lo vende</Text>
               {row.reason ? <Text style={styles.reason}>{row.reason}</Text> : null}
             </View>
+          ) : row.state === "unsure" ? (
+            // Asking again gives the same answer, so there is no retry.
+            <View style={styles.statusBlock}>
+              <Text style={styles.status}>No sabemos cuál es</Text>
+              <Text style={styles.reason}>{row.reason}</Text>
+            </View>
           ) : (
             <>
               <Text style={[styles.status, styles.flex]}>No pudimos revisar</Text>

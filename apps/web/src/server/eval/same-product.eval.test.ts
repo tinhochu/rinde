@@ -35,7 +35,7 @@ const PARALLEL = 6;
 
 type Item = MatchItem & { store: RetailerSlug };
 type Case = { id: string; kind: "find" | "none"; target: Item; candidates: Item[]; answer: string | null };
-type Outcome = Case & { muse: string | null; museReason: string | null; rules: string | null; ms: number };
+type Outcome = Case & { muse: string | null; museReason: string | null; museUnsure?: boolean; rules: string | null; ms: number };
 
 const item = (r: ListingRow): Item => ({
   id: r.listingId, store: r.slug as RetailerSlug, name: r.name, brand: r.brand,
@@ -125,14 +125,16 @@ function report(outcomes: Outcome[], model: string, review: Review[]) {
     const rightPicks = picks.filter((o) => pick(o) === o.answer).length;
     return { finds: finds.length, nones: nones.length, found, wrongFind, missed, heldBack, falseMatch, correct: found + heldBack, picks: picks.length, rightPicks };
   };
+  const unsure = outcomes.filter((o) => o.museUnsure);
   const m = score((o) => o.muse);
   const r = score((o) => o.rules);
   const ms = outcomes.map((o) => o.ms).sort((a, b) => a - b);
   const median = ms[Math.floor(ms.length / 2)] ?? 0;
   const p90 = ms[Math.floor(ms.length * 0.9)] ?? 0;
-  const row = (label: string, s: ReturnType<typeof score>) =>
-    `| ${label} | ${pct(s.correct, s.finds + s.nones)} | ${pct(s.found, s.finds)} | ${pct(s.heldBack, s.nones)} | ${pct(s.rightPicks, s.picks)} | ${s.wrongFind + s.falseMatch} |`;
-  const mistakes = outcomes.filter((o) => o.muse !== o.answer);
+  const row = (label: string, s: ReturnType<typeof score>, notSure: number | string) =>
+    `| ${label} | ${pct(s.correct, s.finds + s.nones)} | ${pct(s.found, s.finds)} | ${pct(s.heldBack, s.nones)} | ${pct(s.rightPicks, s.picks)} | ${s.wrongFind + s.falseMatch} | ${notSure} |`;
+  // "Not sure" on a case without the product is still right: it showed no price.
+  const mistakes = outcomes.filter((o) => o.muse !== o.answer || (o.museUnsure && o.answer !== null));
   const reviewed = new Map(review.map((r) => [r.id, r]));
   const unreviewed = mistakes.filter((o) => !reviewed.has(o.id)).length;
   const kept = outcomes.filter((o) => reviewed.get(o.id)?.verdict !== "unclear");
@@ -148,10 +150,12 @@ function report(outcomes: Outcome[], model: string, review: Review[]) {
 Run ${new Date().toISOString().slice(0, 10)} with \`${model}\` on ${outcomes.length} cases (${m.finds} with the product in the other store's list, ${m.nones} without it).
 The answer key is the barcode: each case is a product two stores sell under one EAN. Muse sees names, brands and sizes only, never the barcode or a price, exactly as in the app.
 
-| Judge | Correct overall | Found the product | Said "none" when it wasn't there | Right when it picked one | Wrong products picked |
-| --- | --- | --- | --- | --- | --- |
-${row("Meta Muse", m)}
-${row("Word rule (no AI)", r)}
+| Judge | Correct overall | Found the product | Said "none" when it wasn't there | Right when it picked one | Wrong products picked | Said "not sure" |
+| --- | --- | --- | --- | --- | --- | --- |
+${row("Meta Muse", m, unsure.length)}
+${row("Word rule (no AI)", r, "n/a")}
+
+"Not sure" shows no price for that store and says why; it is never a wrong price.${unsure.length ? ` Not sure on: ${unsure.map((o) => `${o.id} (${o.kind === "find" ? "product was there" : "product was not there"})`).join(", ")}.` : ""}
 
 ${afterReview}
 Muse time per judgment: median ${(median / 1000).toFixed(1)} s, 90th percentile ${(p90 / 1000).toFixed(1)} s.
@@ -160,7 +164,7 @@ A wrong pick is the costly error: it would show one product's price for another.
 
 ## Every case Muse got wrong
 
-${mistakes.length === 0 ? "None." : mistakes.map((o) => `- **${o.id}**: ${describeItem(o.target)}\n  - expected: ${byId(o, o.answer)}\n  - Muse: ${byId(o, o.muse)}${o.museReason ? `, "${o.museReason}"` : ""}${reviewed.has(o.id) ? `\n  - review: ${reviewed.get(o.id)!.verdict}, ${reviewed.get(o.id)!.note}` : ""}`).join("\n")}
+${mistakes.length === 0 ? "None." : mistakes.map((o) => `- **${o.id}**: ${describeItem(o.target)}\n  - expected: ${byId(o, o.answer)}\n  - Muse: ${o.museUnsure ? "not sure" : byId(o, o.muse)}${o.museReason ? `, "${o.museReason}"` : ""}${reviewed.has(o.id) ? `\n  - review: ${reviewed.get(o.id)!.verdict}, ${reviewed.get(o.id)!.note}` : ""}`).join("\n")}
 
 Some "wrong" answers may be right: two listings can be the same product under different barcodes. Each is listed above so a person can check it.
 
@@ -194,6 +198,7 @@ describe.skipIf(!process.env["MUSE_EVAL"])("Meta Muse accuracy: same product acr
         ...c, ms: Date.now() - start,
         muse: verdict.by === "muse" ? verdict.pick?.id ?? null : null,
         museReason: verdict.reason,
+        museUnsure: verdict.unsure === true,
         rules: pickSameProduct(c.target, c.candidates)?.id ?? null,
       };
     });

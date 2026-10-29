@@ -9,11 +9,13 @@ import { listingsForProducts, toOffer, withTimeout } from "./offers";
 /**
  * - `price`: the store's own stored price (`reason` says why it's the same product when Muse matched it)
  * - `not-sold`: the store answered the barcode and name lookups and has nothing that is this product
+ * - `unsure`: the store answered, but its listings' names fit more than one product; no price, Muse's reason
  * - `unchecked`: the store didn't answer, or nothing could tell; never a "doesn't sell it"
  */
 export type StoreCheck =
   | { store: Store; state: "price"; offer: Offer; reason?: string }
   | { store: Store; state: "not-sold"; reason?: string }
+  | { store: Store; state: "unsure"; reason: string }
   | { store: Store; state: "unchecked" };
 
 export type StoreCheckResult = { stores: StoreCheck[]; checkedAt: string };
@@ -60,6 +62,7 @@ export async function checkStores(listingId: string, stores: RetailerSlug[], cfg
         }
         const match = await matchByName(productId, slug, { live: true, cfg });
         if (match.state === "undecided") return { store, state: "unchecked" };
+        if (match.state === "unsure") return { store, state: "unsure", reason: match.reason };
         if (match.state === "none") return { store, state: "not-sold", ...(match.reason ? { reason: match.reason } : {}) };
         const now = (await priced(productId, [slug])).get(slug);
         return now ? { store, state: "price", ...now } : { store, state: "unchecked" };

@@ -124,4 +124,11 @@ describe.skipIf(!process.env["INTEGRATION"])("checkStores when nothing matches (
     const { stores } = await checkStores(listing, ["exito"], noMuse);
     expect(stores).toEqual([{ store: "Éxito", state: "unchecked" }]);
   });
+
+  it("says not sure, with Muse's reason and no price, when the name fits both listings", async () => {
+    live.search = {};
+    const reason = "El nombre no dice si es en bolsa o en caja";
+    const { stores } = await checkStores(listing, ["exito"], muse(JSON.stringify({ pick: -2, reason })));
+    expect(stores).toEqual([{ store: "Éxito", state: "unsure", reason }]);
+  });
 });

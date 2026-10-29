@@ -13,7 +13,9 @@ export type NameMatch =
   | { state: "matched"; listingId: string; by: "muse" | "rules"; reason: string | null }
   | { state: "none"; reason: string | null }
   /** Muse was unavailable and the strict rule couldn't tell */
-  | { state: "undecided" };
+  | { state: "undecided" }
+  /** The names fit more than one of the store's listings; Muse says why */
+  | { state: "unsure"; reason: string };
 
 /** The store didn't answer the live search: nothing can be said about it. */
 export class StoreUnavailable extends Error {}
@@ -42,7 +44,7 @@ export async function matchByName(productId: string, store: RetailerSlug, opts: 
   const stored = await pool();
   let verdict = await judgeSameProduct(target, stored, opts.cfg);
 
-  if (!verdict.pick && opts.live) {
+  if (!verdict.pick && !verdict.unsure && opts.live) {
     const words = product.name.split(/\s+/).filter((w) => !/\d/.test(w) && w.toLowerCase() !== product.brand!.toLowerCase()).slice(0, 3);
     let found;
     try {
@@ -58,6 +60,7 @@ export async function matchByName(productId: string, store: RetailerSlug, opts: 
   }
 
   if (verdict.undecided) return { state: "undecided" };
+  if (verdict.unsure) return { state: "unsure", reason: verdict.reason };
   if (!verdict.pick) return { state: "none", reason: verdict.reason };
   await link(verdict.pick.productId, productId, verdict.by, verdict.reason);
   return { state: "matched", listingId: verdict.pick.id, by: verdict.by, reason: verdict.reason };

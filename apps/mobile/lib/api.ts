@@ -53,6 +53,8 @@ export function fetchHistory(listingIds: string[], signal?: AbortSignal): Promis
 export type StoreCheck =
   | { store: Store; state: "price"; offer: Offer; reason?: string }
   | { store: Store; state: "not-sold"; reason?: string }
+  /** The names fit more than one of the store's listings: no price, and Muse's reason why */
+  | { store: Store; state: "unsure"; reason: string }
   | { store: Store; state: "unchecked" };
 
 /** Asks every store without a current price for this listing's product, live; prices are the stores' own. */

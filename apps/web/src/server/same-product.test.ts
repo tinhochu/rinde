@@ -47,6 +47,23 @@ describe("judgeSameProduct", () => {
     expect(verdict).toEqual({ pick: null, by: "muse", reason: "Es leche semidescremada, no deslactosada" });
   });
 
+  it("says not sure, with no pick, when the name fits more than one listing", async () => {
+    const calls: unknown[] = [];
+    const t = target();
+    const bag = listing("h", "Leche Deslactosada Alpina Bolsa 1000 ml", "Alpina", 7700);
+    const answer = '{"pick":-2,"reason":"El nombre no dice si es en bolsa o en caja"}';
+    const verdict = await judgeSameProduct(t, [abbreviated, bag], cfg(answer, calls));
+    expect(verdict).toEqual({ pick: null, by: "muse", reason: "El nombre no dice si es en bolsa o en caja", unsure: true });
+    // Cached like any other answer.
+    expect(await judgeSameProduct(t, [abbreviated, bag], cfg(answer, calls))).toMatchObject({ unsure: true });
+    expect(calls).toHaveLength(1);
+  });
+
+  it("reads not sure about a single listing as none: there is nothing to choose between", async () => {
+    const verdict = await judgeSameProduct(target(), [skim], cfg('{"pick":-2,"reason":"No sé"}'));
+    expect(verdict).toEqual({ pick: null, by: "muse", reason: "No sé" });
+  });
+
   it("throws away a pick outside the list, such as the 900 ml listing it was never shown", async () => {
     // The store has [abbreviated, 900 ml]; only the 1 L listing is shown, as number 0. Number 1 isn't a candidate.
     const verdict = await judgeSameProduct(target(), [abbreviated, small], cfg('{"pick":1,"reason":"La de 900 ml"}'));

@@ -8,11 +8,16 @@ const TTL_MS = 6 * 3_600_000;
 
 export type SameProductVerdict<T> =
   /** The one candidate that is the same product (or none), and who decided */
-  | { pick: T | null; by: "muse" | "rules"; reason: string | null; undecided?: false }
+  | { pick: T | null; by: "muse" | "rules"; reason: string | null; undecided?: false; unsure?: false }
   /** Muse was unavailable and the strict rule couldn't tell: the store stays unchecked */
-  | { pick: null; by: "rules"; reason: null; undecided: true };
+  | { pick: null; by: "rules"; reason: null; undecided: true; unsure?: false }
+  /** The names can't tell which listing it is (more than one could be): no price is shown for it */
+  | { pick: null; by: "muse"; reason: string; undecided?: false; unsure: true };
 
-const cache = new Map<string, { at: number; pickId: string | null; reason: string }>();
+/** Muse's answer when the names fit more than one listing. */
+const UNSURE = -2;
+
+const cache = new Map<string, { at: number; pickId: string | null; reason: string; unsure: boolean }>();
 
 const sizeLabel = (i: MatchItem) => {
   const s = i.size ?? parsePackageSize(i.name);
@@ -24,7 +29,8 @@ const describe = (i: MatchItem) => `${i.name}${i.brand ? ` · marca ${i.brand}` 
  * Meta Muse decides which of another store's listings, if any, is the same product a shopper would
  * get: the same variety and form, whatever the store calls it ("Leche Deslact. ALPINA 1000ml").
  * It sees names, brands and sizes, never a price, and picks only among candidates that already
- * passed the size and brand checks; a pick that doesn't pass them again is thrown away. Without
+ * passed the size and brand checks; a pick that doesn't pass them again is thrown away. When the
+ * names are too vague to tell which listing it is, Muse says so rather than guess (`unsure`). Without
  * Muse, the strict word rule decides, and when it can't, the store stays unchecked.
  */
 export async function judgeSameProduct<T extends MatchItem>(target: MatchItem, listings: T[], cfg: MuseConfig = museConfig()): Promise<SameProductVerdict<T>> {
@@ -33,7 +39,9 @@ export async function judgeSameProduct<T extends MatchItem>(target: MatchItem, l
 
   const key = createHash("sha256").update(JSON.stringify([target.id, candidates.map((c) => c.id).sort()])).digest("hex");
   const hit = cache.get(key);
-  if (hit && Date.now() - hit.at < TTL_MS) return { pick: candidates.find((c) => c.id === hit.pickId) ?? null, by: "muse", reason: hit.reason };
+  if (hit && Date.now() - hit.at < TTL_MS) {
+    return hit.unsure ? { pick: null, by: "muse", reason: hit.reason, unsure: true } : { pick: candidates.find((c) => c.id === hit.pickId) ?? null, by: "muse", reason: hit.reason };
+  }
 
   let answer: { pick: number; reason: string };
   try {
@@ -43,11 +51,16 @@ export async function judgeSameProduct<T extends MatchItem>(target: MatchItem, l
     const strict = pickSameProduct(target, candidates);
     return strict ? { pick: strict, by: "rules", reason: null } : { pick: null, by: "rules", reason: null, undecided: true };
   }
+  const reason = answer.reason.trim().slice(0, 200);
+  // "Can't tell" needs two listings to choose between; with one, it is a yes or a no.
+  if (answer.pick === UNSURE && candidates.length >= 2) {
+    cache.set(key, { at: Date.now(), pickId: null, reason, unsure: true });
+    return { pick: null, by: "muse", reason, unsure: true };
+  }
   const chosen = answer.pick >= 0 ? candidates[answer.pick] : undefined;
   // A slip that names a listing outside the list, or one that fails the size and brand checks, isn't a match.
   const pick = chosen && candidatesFor(target, [chosen]).length === 1 ? chosen : null;
-  const reason = answer.reason.trim().slice(0, 200);
-  cache.set(key, { at: Date.now(), pickId: pick?.id ?? null, reason });
+  cache.set(key, { at: Date.now(), pickId: pick?.id ?? null, reason, unsure: false });
   return { pick, by: "muse", reason };
 }
 
@@ -62,7 +75,7 @@ That supermarket lists the products below. Which one, if any, is the same produc
 - Same size (already checked).
 - Same packaging when both names state it: milk in a bag (bolsa) and in a carton (caja, tetrapak) are different products, as are can and bottle, glass and plastic. Packaging named in only one listing is not a difference.
 Stores abbreviate, reorder and describe the same product differently ("Deslact." is "Deslactosada", "S/A" is "sin azúcar"). Words that only describe it do not make it different: "esparcible", "pasteurizada", "tradicional", "clásico", "original", "tostado y molido". Judge what the product is, not the exact words; when a word in one name neither names a different product nor is contradicted by the other name, it is a description.
-Answer with the number of that product, or -1 if none is the same product. Give a one-line reason in Spanish a shopper understands, e.g. "Misma leche Alpina deslactosada de 1 L; la tienda la abrevia" or "Es leche semidescremada, no deslactosada".
+Answer with the number of that product, or -1 if none is the same product. Answer -2 only when the shopper's product name is too vague to tell which of two or more listings it is, each of which could be it (for example "Harina precocida" against a chickpea, a quinoa and a rice flour of that brand): a wrong guess would show the price of another product. Give a one-line reason in Spanish a shopper understands, e.g. "Misma leche Alpina deslactosada de 1 L; la tienda la abrevia", "Es leche semidescremada, no deslactosada" or "El nombre no dice si es de garbanzo, quinua o arroz".
 
 ${list}`;
   return museJson(
