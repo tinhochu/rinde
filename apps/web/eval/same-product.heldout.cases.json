@@ -1,0 +1,3901 @@
+[
+ {
+  "id": "find-0",
+  "kind": "find",
+  "target": {
+   "id": "cmvphejp0049b3pgof6scrzkv",
+   "store": "jumbo",
+   "name": "Suavizante Downy Brisa de Verano 1L",
+   "brand": "DOWNY",
+   "size": {
+    "amount": 1000,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lpe5025v0ogoddtxa7oo",
+    "store": "carulla",
+    "name": "Suavizante DOWNY brisa de verano (1000  ml)",
+    "brand": "DOWNY",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvs5lpg1026w0ogolpm1xpab",
+    "store": "carulla",
+    "name": "Suavizante de ropa DOWNY Verano Tropic  (1000  ml)",
+    "brand": "DOWNY",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvs5lpe5025v0ogoddtxa7oo"
+ },
+ {
+  "id": "find-1",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lpys02fv0ogo56jx8lbp",
+   "store": "carulla",
+   "name": "Gaseosa POSTOBON manzana botella (1500  ml)",
+   "brand": "POSTOBON",
+   "size": {
+    "amount": 1500,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvpt2bal005c59godibcj0ar",
+    "store": "jumbo",
+    "name": "Gaseosa Manzana Postobón Pet x 1500 ml Manzana",
+    "brand": "POSTOBON",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvphekm704qk3pgojzrfaktn",
+    "store": "jumbo",
+    "name": "Gaseosa Postobón naranja x1.5Litros",
+    "brand": "POSTOBON",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvpt2bal005c59godibcj0ar"
+ },
+ {
+  "id": "find-2",
+  "kind": "find",
+  "target": {
+   "id": "cmvsjwf4200m7megogj9jx6c7",
+   "store": "exito",
+   "name": "Arroz ROA blanco fortiplus (5000  gr)",
+   "brand": "ROA",
+   "size": {
+    "amount": 5000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphef6g01d23pgoqw5bg41e",
+    "store": "jumbo",
+    "name": "Arroz Roa x5kg",
+    "brand": "ROA",
+    "size": {
+     "amount": 5000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphefbq01fo3pgocr0x5jtw",
+    "store": "jumbo",
+    "name": "Arroz Roa parbolizado x5000g",
+    "brand": "ROA",
+    "size": {
+     "amount": 5000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphef6g01d23pgoqw5bg41e"
+ },
+ {
+  "id": "find-3",
+  "kind": "find",
+  "target": {
+   "id": "cmvpxufn5009p59gouwh68crl",
+   "store": "exito",
+   "name": "Arroz FLOR HUILA blanco (1000  gr)",
+   "brand": "FLORHUILA",
+   "size": {
+    "amount": 1000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphef7f01dk3pgoc7wttqb6",
+    "store": "jumbo",
+    "name": "Arroz Florhuila x1kg",
+    "brand": "FLORHUILA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphefd001gf3pgopd2wkqqf",
+    "store": "jumbo",
+    "name": "Arroz Florhuila integral x1kg",
+    "brand": "FLORHUILA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphef7f01dk3pgoc7wttqb6"
+ },
+ {
+  "id": "find-4",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5loy401wh0ogo8cokn7hb",
+   "store": "carulla",
+   "name": "Detergente líquido WOOLITE ropa oscura (900  ml)",
+   "brand": "WOOLITE",
+   "size": {
+    "amount": 900,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvsfydot0082mego3vx5aw36",
+    "store": "jumbo",
+    "name": "Detergente Líquido Woolite Ropa Oscura 900 ml",
+    "brand": "WOOLITE",
+    "size": {
+     "amount": 900,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvpheja104013pgoim03x0tq",
+    "store": "jumbo",
+    "name": "Detergente Líquido Woolite Bebé x900ml",
+    "brand": "WOOLITE",
+    "size": {
+     "amount": 900,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvsfydot0082mego3vx5aw36"
+ },
+ {
+  "id": "none-0",
+  "kind": "none",
+  "target": {
+   "id": "cmvphefqh01p03pgoci6yiywq",
+   "store": "jumbo",
+   "name": "Leche descremada Colanta x1000ml",
+   "brand": "COLANTA",
+   "size": {
+    "amount": 1000,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lkj7009k0ogoj94nv8ns",
+    "store": "carulla",
+    "name": "Leche COLANTA entera pasteurizada (1000  ml)",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvshkthn002kbzgop9m1dv1s",
+    "store": "carulla",
+    "name": "Leche COLANTA entera en caja (1000  ml)",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "none-1",
+  "kind": "none",
+  "target": {
+   "id": "cmvps96a700fx1lgos2z8qf0b",
+   "store": "exito",
+   "name": "Panela Pulverizada DONA PANELA 500  gr",
+   "brand": "DONA PANELA",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheg4301xr3pgovfc1vwne",
+    "store": "jumbo",
+    "name": "Panela Doña Panela pulverizada limón x500g",
+    "brand": "DONA PANELA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpheg4801xu3pgoz5gd6o8o",
+    "store": "jumbo",
+    "name": "Panela Doña Panela pulverizada maracuyá x500g",
+    "brand": "DONA PANELA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-5",
+  "kind": "find",
+  "target": {
+   "id": "cmvphefnu01nf3pgol6vmpp3i",
+   "store": "jumbo",
+   "name": "Leche Entera Colanta x1100ml",
+   "brand": "COLANTA",
+   "size": {
+    "amount": 1100,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvshkti0002mbzgof7x53vah",
+    "store": "carulla",
+    "name": "Leche COLANTA entera bolsa (1100  ml)",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1100,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvs5lkg3007s0ogo84xj5hzc",
+    "store": "carulla",
+    "name": "Leche COLANTA semidescremada (1100  ml)",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1100,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvshkti0002mbzgof7x53vah"
+ },
+ {
+  "id": "find-6",
+  "kind": "find",
+  "target": {
+   "id": "cmvsgkjxq000gbzgohmv03607",
+   "store": "carulla",
+   "name": "Leche deslactosada ALPINA caja (200  ml)",
+   "brand": "ALPINA",
+   "size": {
+    "amount": 200,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheflx01m63pgop0wn9w6b",
+    "store": "jumbo",
+    "name": "Leche deslactosada Alpina x200ml",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 200,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvphefn701n03pgoec8056cl",
+    "store": "jumbo",
+    "name": "Leche Entera Alpina x200ml",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 200,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvpheflx01m63pgop0wn9w6b"
+ },
+ {
+  "id": "find-7",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfyc78007mmego6p3bvcrs",
+   "store": "jumbo",
+   "name": "Arroz Castellano Premium jazmín x500g",
+   "brand": "CASTELLANO",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lk3t00160ogo66shtsby",
+    "store": "carulla",
+    "name": "Arroz CASTELLANO jazmín (500  gr)",
+    "brand": "CASTELLANO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lk1y000h0ogoxqjiilhw",
+    "store": "carulla",
+    "name": "Arroz CASTELLANO basmati  (500  gr)",
+    "brand": "CASTELLANO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lk3t00160ogo66shtsby"
+ },
+ {
+  "id": "find-8",
+  "kind": "find",
+  "target": {
+   "id": "cmvphej1b03uy3pgo8d7uw4hi",
+   "store": "jumbo",
+   "name": "Papel Higiénico Familia AcolchaMAX Megarollo x 1 und",
+   "brand": "FAMILIA",
+   "size": {
+    "amount": 1,
+    "unit": "unit"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5losy01ti0ogok0z4cyfm",
+    "store": "carulla",
+    "name": "Papel higiénico FAMILIA acolchamax megarollo 1 rollo (29.6  mts)",
+    "brand": "FAMILIA",
+    "size": {
+     "amount": 1,
+     "unit": "unit"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvs5lopt01r40ogo9svpa3i8",
+    "store": "carulla",
+    "name": "Papel Higienico Extra Pack 15 FAMILIA Papel Higiénico  (1  und)",
+    "brand": "FAMILIA",
+    "size": {
+     "amount": 1,
+     "unit": "unit"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvs5losy01ti0ogok0z4cyfm"
+ },
+ {
+  "id": "find-9",
+  "kind": "find",
+  "target": {
+   "id": "cmvpxufmr009j59god6aw5y9x",
+   "store": "exito",
+   "name": "Arroz FLOR HUILA integral (1000  gr)",
+   "brand": "FLORHUILA",
+   "size": {
+    "amount": 1000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphefd001gf3pgopd2wkqqf",
+    "store": "jumbo",
+    "name": "Arroz Florhuila integral x1kg",
+    "brand": "FLORHUILA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphef7f01dk3pgoc7wttqb6",
+    "store": "jumbo",
+    "name": "Arroz Florhuila x1kg",
+    "brand": "FLORHUILA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphefd001gf3pgopd2wkqqf"
+ },
+ {
+  "id": "find-10",
+  "kind": "find",
+  "target": {
+   "id": "cmvsgkjyo000obzgoqhogstpi",
+   "store": "carulla",
+   "name": "Leche Entera ALPINA Caja (200  ml)",
+   "brand": "ALPINA",
+   "size": {
+    "amount": 200,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvphefn701n03pgoec8056cl",
+    "store": "jumbo",
+    "name": "Leche Entera Alpina x200ml",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 200,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvpheflx01m63pgop0wn9w6b",
+    "store": "jumbo",
+    "name": "Leche deslactosada Alpina x200ml",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 200,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvphefn701n03pgoec8056cl"
+ },
+ {
+  "id": "find-11",
+  "kind": "find",
+  "target": {
+   "id": "cmvps98bw01cu1lgobdnl40wt",
+   "store": "exito",
+   "name": "Harina DONAREPA precocida de maíz blanco (1000  gr)",
+   "brand": "DONAREPA",
+   "size": {
+    "amount": 1000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehp802xs3pgoyk1kr3rl",
+    "store": "jumbo",
+    "name": "Harina Doñarepa precocida maíz amarillo x1000g",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehq402yg3pgofjzyr1c5",
+    "store": "jumbo",
+    "name": "Harina Doñarepa extrafina maíz blanco x1000g",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehq402yg3pgofjzyr1c5"
+ },
+ {
+  "id": "find-12",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfyi8m009gmegoqnxp6xp7",
+   "store": "jumbo",
+   "name": "Sal Refisal rosada himalaya fina x200g",
+   "brand": "REFISAL",
+   "size": {
+    "amount": 200,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lm8v00m30ogo9di887a5",
+    "store": "carulla",
+    "name": "Sal REFISAL rosada del Himalaya grano fino (200  gr)",
+    "brand": "REFISAL",
+    "size": {
+     "amount": 200,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lm9z00mg0ogo491vlepv",
+    "store": "carulla",
+    "name": "Sal REFISAL rosada himalaya granulado (200  gr)",
+    "brand": "REFISAL",
+    "size": {
+     "amount": 200,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lm8v00m30ogo9di887a5"
+ },
+ {
+  "id": "find-13",
+  "kind": "find",
+  "target": {
+   "id": "cmvps9bdf031w1lgo5ra3y8xj",
+   "store": "exito",
+   "name": "Gaseosa QUATRO toronja original (1500  ml)",
+   "brand": "QUATRO",
+   "size": {
+    "amount": 1500,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvsfyc6d007amegozkobgoj1",
+    "store": "jumbo",
+    "name": "Gaseosa Quatro toronja sabor original x1.5L",
+    "brand": "QUATRO",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvphekly04qe3pgoujr5o7y4",
+    "store": "jumbo",
+    "name": "Gaseosa Quatro toronja zero 1.5L",
+    "brand": "QUATRO",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvsfyc6d007amegozkobgoj1"
+ },
+ {
+  "id": "find-14",
+  "kind": "find",
+  "target": {
+   "id": "cmvps95zv00dv1lgo9pa540ee",
+   "store": "exito",
+   "name": "Azúcar RIOPAILA morena (2500  gr)",
+   "brand": "RIOPAILA",
+   "size": {
+    "amount": 2500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphefzh01us3pgov7gv3bvf",
+    "store": "jumbo",
+    "name": "Azúcar Riopaila morena x2500g",
+    "brand": "RIOPAILA",
+    "size": {
+     "amount": 2500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphefzu01v13pgocv5dl9v7",
+    "store": "jumbo",
+    "name": "Azúcar Riopaila blanca x2500g",
+    "brand": "RIOPAILA",
+    "size": {
+     "amount": 2500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphefzh01us3pgov7gv3bvf"
+ },
+ {
+  "id": "find-15",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfy7tp0060megoemctn3du",
+   "store": "jumbo",
+   "name": "Detergente Fab Ultra Flash Líquido Botella 3lt",
+   "brand": "FAB",
+   "size": {
+    "amount": 3000,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lox601vw0ogol9nk3qd9",
+    "store": "carulla",
+    "name": "Detergente líquido FAB ultra flash (3000  ml)",
+    "brand": "FAB",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvs5lozd01xc0ogowyv7t9xm",
+    "store": "carulla",
+    "name": "Detergente líquido FAB ultra color (3000  ml)",
+    "brand": "FAB",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvs5lox601vw0ogol9nk3qd9"
+ },
+ {
+  "id": "find-16",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfyc74007kmegod1m27qmz",
+   "store": "jumbo",
+   "name": "Arroz Castellano Premium basmati x500g",
+   "brand": "CASTELLANO",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lk1y000h0ogoxqjiilhw",
+    "store": "carulla",
+    "name": "Arroz CASTELLANO basmati  (500  gr)",
+    "brand": "CASTELLANO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lk3t00160ogo66shtsby",
+    "store": "carulla",
+    "name": "Arroz CASTELLANO jazmín (500  gr)",
+    "brand": "CASTELLANO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lk1y000h0ogoxqjiilhw"
+ },
+ {
+  "id": "find-17",
+  "kind": "find",
+  "target": {
+   "id": "cmvphej3u03ws3pgo9nwwrewz",
+   "store": "jumbo",
+   "name": "Detergente Blancox liquido detergente x 1.8L",
+   "brand": "BLANCOX",
+   "size": {
+    "amount": 1800,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5loy101we0ogo44bg1k4b",
+    "store": "carulla",
+    "name": "Detergente líquido BLANCOX blancos radiantes (1800  ml)",
+    "brand": "BLANCOX",
+    "size": {
+     "amount": 1800,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvs5loz601x60ogoz3lntmbf",
+    "store": "carulla",
+    "name": "Detergente multiusos BLANCOX Multiusos Bicarbonato (1.8  lt)",
+    "brand": "BLANCOX",
+    "size": {
+     "amount": 1800,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvs5loy101we0ogo44bg1k4b"
+ },
+ {
+  "id": "none-2",
+  "kind": "none",
+  "target": {
+   "id": "cmvs5lkj7009k0ogoj94nv8ns",
+   "store": "carulla",
+   "name": "Leche COLANTA entera pasteurizada (1000  ml)",
+   "brand": "COLANTA",
+   "size": {
+    "amount": 1000,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvpr8piz00bsx9gof0to20ky",
+    "store": "jumbo",
+    "name": "Leche Entera Colanta Tetrapack x1000ml",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvphefqh01p03pgoci6yiywq",
+    "store": "jumbo",
+    "name": "Leche descremada Colanta x1000ml",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-18",
+  "kind": "find",
+  "target": {
+   "id": "cmvps9c3q03ea1lgocahru91s",
+   "store": "exito",
+   "name": "Cereal FLIPS relleno de chocolate (400  gr)",
+   "brand": "FLIPS",
+   "size": {
+    "amount": 400,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphel3u052d3pgohlbgrbmp",
+    "store": "jumbo",
+    "name": "Cereal Flips Choco Avellanas 400g",
+    "brand": "FLIPS",
+    "size": {
+     "amount": 400,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphel6405403pgodcf1v4qg",
+    "store": "jumbo",
+    "name": "Cereal Flips choco avellanas x320g",
+    "brand": "FLIPS",
+    "size": {
+     "amount": 400,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphel6405403pgodcf1v4qg"
+ },
+ {
+  "id": "find-19",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5loc801k00ogo639krfgf",
+   "store": "carulla",
+   "name": "Palomita Mantequilla ACT II 80  gr",
+   "brand": "ACT II",
+   "size": {
+    "amount": 80,
+    "unit": "g"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheiaz03cn3pgon62gd4w6",
+    "store": "jumbo",
+    "name": "Palomitas Act ll mantequilla x80g",
+    "brand": "ACT II",
+    "size": {
+     "amount": 80,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvpheic103de3pgohh5lgpis",
+    "store": "jumbo",
+    "name": "Palomitas Act ll mantequilla extra x80g",
+    "brand": "ACT II",
+    "size": {
+     "amount": 80,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvpheiaz03cn3pgon62gd4w6"
+ },
+ {
+  "id": "find-20",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lnw901av0ogo7zuddt1s",
+   "store": "carulla",
+   "name": "Harina DONAREPA precocida de maíz amarillo (1000  gr)",
+   "brand": "DONAREPA",
+   "size": {
+    "amount": 1000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehp802xs3pgoyk1kr3rl",
+    "store": "jumbo",
+    "name": "Harina Doñarepa precocida maíz amarillo x1000g",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehq402yg3pgofjzyr1c5",
+    "store": "jumbo",
+    "name": "Harina Doñarepa extrafina maíz blanco x1000g",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehp802xs3pgoyk1kr3rl"
+ },
+ {
+  "id": "find-21",
+  "kind": "find",
+  "target": {
+   "id": "cmvps982a01721lgon9tto0en",
+   "store": "exito",
+   "name": "Atún PAN trozos en aceite (98  gr)",
+   "brand": "PAN",
+   "size": {
+    "amount": 150,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehfa02rs3pgopcmqjhxn",
+    "store": "jumbo",
+    "name": "Atún Pan trozos aceite x150g pn",
+    "brand": "PAN",
+    "size": {
+     "amount": 150,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehed02ra3pgoo5701j0j",
+    "store": "jumbo",
+    "name": "Atún Pan trozos agua x150g pn",
+    "brand": "PAN",
+    "size": {
+     "amount": 150,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehfa02rs3pgopcmqjhxn"
+ },
+ {
+  "id": "find-22",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfykcf009wmegoqyap3dkj",
+   "store": "jumbo",
+   "name": "Tamarindo roy puro x 500 gr",
+   "brand": "SM",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "produce"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lksd00ez0ogoeoh4ma6p",
+    "store": "carulla",
+    "name": "TAMARINDO SIN AZUCAR  500  gr",
+    "brand": "SM",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "produce"
+   },
+   {
+    "id": "cmvs5lmze00yi0ogockrgzeqr",
+    "store": "carulla",
+    "name": "Frijol   500  gr",
+    "brand": "SM",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "produce"
+   }
+  ],
+  "answer": "cmvs5lksd00ez0ogoeoh4ma6p"
+ },
+ {
+  "id": "find-23",
+  "kind": "find",
+  "target": {
+   "id": "cmvps98cv01dd1lgox7tq2bia",
+   "store": "exito",
+   "name": "Harina DONAREPA precocida de maíz amarillo (500  gr)",
+   "brand": "DONAREPA",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehpi02xy3pgosblf26a1",
+    "store": "jumbo",
+    "name": "Harina Doñarepa precocida maíz amarillo x500g",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehps02y73pgoa4pihjhe",
+    "store": "jumbo",
+    "name": "Harina Doñarepa extrafina maíz blanco x500g",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehpi02xy3pgosblf26a1"
+ },
+ {
+  "id": "find-24",
+  "kind": "find",
+  "target": {
+   "id": "cmvsteer5028q8tgo79d2gdwj",
+   "store": "carulla",
+   "name": "Atún ISABEL lomitos en aceite de girasol (104  gr)",
+   "brand": "ISABEL",
+   "size": {
+    "amount": 104,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehh302sv3pgokrnm2zqo",
+    "store": "jumbo",
+    "name": "Atún Isabel lomitos en aceite de girasol x160g",
+    "brand": "ISABEL",
+    "size": {
+     "amount": 104,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehei02rd3pgoq12agoit",
+    "store": "jumbo",
+    "name": "Atún Isabel claro lomitos agua x 160g",
+    "brand": "ISABEL",
+    "size": {
+     "amount": 104,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehh302sv3pgokrnm2zqo"
+ },
+ {
+  "id": "find-25",
+  "kind": "find",
+  "target": {
+   "id": "cmvpokl5001ge5jgobtdth4s4",
+   "store": "jumbo",
+   "name": "Sal marina Refisal bolsa x800g",
+   "brand": "REFISAL",
+   "size": {
+    "amount": 800,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lm4700kl0ogoit832lcw",
+    "store": "carulla",
+    "name": "Sal REFISAL marina (800  gr)",
+    "brand": "REFISAL",
+    "size": {
+     "amount": 800,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lm9700m80ogoxcyidcvn",
+    "store": "carulla",
+    "name": "Sal REFISAL baja en sodio con potasio (800  gr)",
+    "brand": "REFISAL",
+    "size": {
+     "amount": 800,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lm4700kl0ogoit832lcw"
+ },
+ {
+  "id": "find-26",
+  "kind": "find",
+  "target": {
+   "id": "cmvphehkf02uy3pgo5t7jz1db",
+   "store": "jumbo",
+   "name": "Sardina VIGILANTE tomate x 120 g",
+   "brand": "VIGILANTE",
+   "size": {
+    "amount": 120,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lnob017j0ogo172xu08k",
+    "store": "carulla",
+    "name": "Sardinas VIGILANTE picantes en tomate (88  gr)",
+    "brand": "VIGILANTE",
+    "size": {
+     "amount": 120,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lnoh017n0ogodqddbv1t",
+    "store": "carulla",
+    "name": "Sardinas VIGILANTE en aceite vegetal (88  gr)",
+    "brand": "VIGILANTE",
+    "size": {
+     "amount": 120,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lnob017j0ogo172xu08k"
+ },
+ {
+  "id": "find-27",
+  "kind": "find",
+  "target": {
+   "id": "cmvsikjd500hxmegojtbdld8d",
+   "store": "exito",
+   "name": "Pastas PAN conchas (250  gr)",
+   "brand": "PAN",
+   "size": {
+    "amount": 250,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphegxp02gm3pgoimd612px",
+    "store": "jumbo",
+    "name": "Pasta Pan Conchas x250G",
+    "brand": "PAN",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpheh0602i73pgo3feaadfc",
+    "store": "jumbo",
+    "name": "Pasta Pan Spaguetti x250G",
+    "brand": "PAN",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphegxp02gm3pgoimd612px"
+ },
+ {
+  "id": "find-28",
+  "kind": "find",
+  "target": {
+   "id": "cmvphef9001ed3pgonwone9c4",
+   "store": "jumbo",
+   "name": "Arroz Roa parbolizado x3000g",
+   "brand": "ROA",
+   "size": {
+    "amount": 3000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lk3b00100ogo3pjddrx2",
+    "store": "carulla",
+    "name": "Arroz ROA parbolizado (3000  gr)",
+    "brand": "ROA",
+    "size": {
+     "amount": 3000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lk6z002s0ogocg5uuxkh",
+    "store": "carulla",
+    "name": "Arroz ROA blanco fortiplus (3000  gr)",
+    "brand": "ROA",
+    "size": {
+     "amount": 3000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lk3b00100ogo3pjddrx2"
+ },
+ {
+  "id": "find-29",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lpd1025d0ogoeoetqevo",
+   "store": "carulla",
+   "name": "Suavizante SUAVITEL complete anochecer (1300  ml)",
+   "brand": "SUAVITEL",
+   "size": {
+    "amount": 1300,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejqu04ah3pgo6t8vw8f2",
+    "store": "jumbo",
+    "name": "Suavizante suavitel complete anochecer x1.3l",
+    "brand": "SUAVITEL",
+    "size": {
+     "amount": 1300,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvphejqy04ak3pgo9x6uov89",
+    "store": "jumbo",
+    "name": "Suavizante Suavitel Complete Fresca Primavera 1.3L",
+    "brand": "SUAVITEL",
+    "size": {
+     "amount": 1300,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvphejqu04ah3pgo6t8vw8f2"
+ },
+ {
+  "id": "none-3",
+  "kind": "none",
+  "target": {
+   "id": "cmvs5lo9201i90ogo5f2a0jh5",
+   "store": "carulla",
+   "name": "Tostaditas SUSANITA Mantequilla (250  gr)",
+   "brand": "CENCOSUD",
+   "size": {
+    "amount": 250,
+    "unit": "g"
+   },
+   "aisle": "bakery"
+  },
+  "candidates": [
+   {
+    "id": "cmvphegq802bj3pgoztvlbjsq",
+    "store": "jumbo",
+    "name": "Galletas Chocolate x 250g",
+    "brand": "CENCOSUD",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "bakery"
+   },
+   {
+    "id": "cmvphegsa02cy3pgor9ml3ph9",
+    "store": "jumbo",
+    "name": "Palets chocolate x 250g",
+    "brand": "CENCOSUD",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "bakery"
+   },
+   {
+    "id": "cmvphehzp03553pgoi9ine2tp",
+    "store": "jumbo",
+    "name": "Pan de espinaca x 250gr",
+    "brand": "CENCOSUD",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "bakery"
+   },
+   {
+    "id": "cmvphekbn04ls3pgoe394g0ly",
+    "store": "jumbo",
+    "name": "Galletas Blandas x 250g",
+    "brand": "CENCOSUD",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "bakery"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-30",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfy2wf004qmegoxgglxvxt",
+   "store": "jumbo",
+   "name": "Aguardiente Blanco del valle sin azúcar x 750 ml",
+   "brand": "BLANCO",
+   "size": {
+    "amount": 750,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvphdrx701bu3pgosepiocl2",
+    "store": "d1",
+    "name": "Aguardiente S/A Blanco del Valle 750 Ml",
+    "brand": "BLANCO",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvphdrvz01b03pgonqzc61zm",
+    "store": "d1",
+    "name": "Aguardiente Blanco Fiesta 24 Ga 750 Ml",
+    "brand": "BLANCO",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvphdrx701bu3pgosepiocl2"
+ },
+ {
+  "id": "find-31",
+  "kind": "find",
+  "target": {
+   "id": "cmvphdrvz01b03pgonqzc61zm",
+   "store": "d1",
+   "name": "Aguardiente Blanco Fiesta 24 Ga 750 Ml",
+   "brand": "BLANCO",
+   "size": {
+    "amount": 750,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvsfy2vg004kmegoyhcpkxe5",
+    "store": "jumbo",
+    "name": "Aguardiente blanco 24 grados fiesta botella x750ml",
+    "brand": "BLANCO",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvsfy2wf004qmegoxgglxvxt",
+    "store": "jumbo",
+    "name": "Aguardiente Blanco del valle sin azúcar x 750 ml",
+    "brand": "BLANCO",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvsfy2vg004kmegoyhcpkxe5"
+ },
+ {
+  "id": "find-32",
+  "kind": "find",
+  "target": {
+   "id": "cmvps98c401cy1lgoam0stad9",
+   "store": "exito",
+   "name": "Harina de trigo HARIN PARDO tradicional (1000  gr)",
+   "brand": "ROBINSON",
+   "size": {
+    "amount": 1000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehku02v73pgogizueqfp",
+    "store": "jumbo",
+    "name": "Harina Robinson tradicional x1kg",
+    "brand": "ROBINSON",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehlz02vs3pgolenb8sn4",
+    "store": "jumbo",
+    "name": "Harina Robinson leudante x1kg",
+    "brand": "ROBINSON",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehku02v73pgogizueqfp"
+ },
+ {
+  "id": "find-33",
+  "kind": "find",
+  "target": {
+   "id": "cmvphekcv04m73pgoedjrjhnx",
+   "store": "jumbo",
+   "name": "Galletas Mcvities Manzana 174g",
+   "brand": "MCVITIES",
+   "size": {
+    "amount": 174,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lpp702bz0ogosw5wkf3g",
+    "store": "carulla",
+    "name": "Galletas MC.VITIES de manzana (174  gr)",
+    "brand": "MCVITIES",
+    "size": {
+     "amount": 174,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lpp302bx0ogohup69qgg",
+    "store": "carulla",
+    "name": "Galletas MC.VITIES de fruta (174  gr)",
+    "brand": "MCVITIES",
+    "size": {
+     "amount": 174,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lpp702bz0ogosw5wkf3g"
+ },
+ {
+  "id": "find-34",
+  "kind": "find",
+  "target": {
+   "id": "cmvphdpyq00693pgoem1kcrwc",
+   "store": "d1",
+   "name": "Coca Cola sin Azúcar 1750 Ml",
+   "brand": "COCA COLA",
+   "size": {
+    "amount": 1750,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvphekne04rd3pgo4r6hlsno",
+    "store": "jumbo",
+    "name": "Gaseosa Coca-Cola Sabor Original 1.75L",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 1750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvphekph04st3pgohrmqzfkb",
+    "store": "jumbo",
+    "name": "Gaseosa Coca-Cola Zero 1.75 lt",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 1750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvphekph04st3pgohrmqzfkb"
+ },
+ {
+  "id": "find-35",
+  "kind": "find",
+  "target": {
+   "id": "cmvphekkc04pc3pgoektxujv5",
+   "store": "jumbo",
+   "name": "Gaseosa Pepsi x1500ml",
+   "brand": "PEPSI",
+   "size": {
+    "amount": 1500,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvps9bbx03191lgoye3njdyn",
+    "store": "exito",
+    "name": "Gaseosa PEPSI botella (1500  ml)",
+    "brand": "PEPSI",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvsj4dco00jxmego2u7vv9de",
+    "store": "exito",
+    "name": "Gaseosa PEPSI cero azúcar botella (1500  ml)",
+    "brand": "PEPSI",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvps9bbx03191lgoye3njdyn"
+ },
+ {
+  "id": "find-36",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lnaz01240ogonai4whpf",
+   "store": "carulla",
+   "name": "Pastas PASTAS EL DORADO lenteja roja (250  gr)",
+   "brand": "EL DORADO",
+   "size": {
+    "amount": 250,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheh9402oa3pgoy1483vs2",
+    "store": "jumbo",
+    "name": "Pasta El Dorado spaghetti lentejas rojas arroz x250g",
+    "brand": "EL DORADO",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpheh9j02oj3pgor92akih6",
+    "store": "jumbo",
+    "name": "Pasta el dorado coditos lentejas sin gluten Oliva x 250 g",
+    "brand": "EL DORADO",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvpheh9402oa3pgoy1483vs2"
+ },
+ {
+  "id": "find-37",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lpp302bx0ogohup69qgg",
+   "store": "carulla",
+   "name": "Galletas MC.VITIES de fruta (174  gr)",
+   "brand": "MCVITIES",
+   "size": {
+    "amount": 174,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphekcv04m73pgoedjrjhnx",
+    "store": "jumbo",
+    "name": "Galletas Mcvities Manzana 174g",
+    "brand": "MCVITIES",
+    "size": {
+     "amount": 174,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphekfy04my3pgobl5urkb6",
+    "store": "jumbo",
+    "name": "Galletas Mcvities Frutos Rojos 174g",
+    "brand": "MCVITIES",
+    "size": {
+     "amount": 174,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphekfy04my3pgobl5urkb6"
+ },
+ {
+  "id": "none-4",
+  "kind": "none",
+  "target": {
+   "id": "cmvs5lniv01540ogowdmaq769",
+   "store": "carulla",
+   "name": "Garbanzos SAN JORGE 180  gr",
+   "brand": "SAN JORGE",
+   "size": {
+    "amount": 300,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheh1q02j73pgo2h1cpcs5",
+    "store": "jumbo",
+    "name": "Frijol San Jorge Refrito 300g",
+    "brand": "SAN JORGE",
+    "size": {
+     "amount": 300,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpheh3h02kg3pgom8pl585h",
+    "store": "jumbo",
+    "name": "Frijol San Jorge Chile Carne x300G",
+    "brand": "SAN JORGE",
+    "size": {
+     "amount": 300,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "none-5",
+  "kind": "none",
+  "target": {
+   "id": "cmvphejo5048t3pgoxn365wyb",
+   "store": "jumbo",
+   "name": "Suavizante Aromatel Frambuesa 5lts",
+   "brand": "AROMATEL",
+   "size": {
+    "amount": 5000,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lpcj02550ogo2dh1gxzx",
+    "store": "carulla",
+    "name": "Suavizante AROMATEL fragancia floral (5000  ml)",
+    "brand": "AROMATEL",
+    "size": {
+     "amount": 5000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvs5lpdb025h0ogopyq4cvz2",
+    "store": "carulla",
+    "name": "Suavizante AROMATEL fragancia mandarina (5000  ml)",
+    "brand": "AROMATEL",
+    "size": {
+     "amount": 5000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-38",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lpxt02fh0ogotd8gz960",
+   "store": "carulla",
+   "name": "Gaseosa COCA COLA original (2500  ml)",
+   "brand": "COCA COLA",
+   "size": {
+    "amount": 2500,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvphekp404sl3pgo7f1umxst",
+    "store": "jumbo",
+    "name": "Coca-Cola Gaseosa Sabor Original 2.5L",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 2500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvpheklu04qb3pgoqh1e41us",
+    "store": "jumbo",
+    "name": "Gaseosa Coca-Cola Zero 2.5L",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 2500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvphekp404sl3pgo7f1umxst"
+ },
+ {
+  "id": "find-39",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lkcd005q0ogoo8kh6wd9",
+   "store": "carulla",
+   "name": "Aceite OLEOCALI vegetal (3000  ml)",
+   "brand": "OLEOCALI",
+   "size": {
+    "amount": 3000,
+    "unit": "ml"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphefh101j03pgo1ftht2g6",
+    "store": "jumbo",
+    "name": "Aceite Oleocali garrafa x3000ml",
+    "brand": "OLEOCALI",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphefh601j33pgou3p1rqbf",
+    "store": "jumbo",
+    "name": "Aceite Oleocali girasol x3000ml",
+    "brand": "OLEOCALI",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphefh101j03pgo1ftht2g6"
+ },
+ {
+  "id": "find-40",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lnc8012k0ogol0b8xpxj",
+   "store": "carulla",
+   "name": "Pastas PASTAS EL DORADO lentejas rojas coditos (250  gr)",
+   "brand": "EL DORADO",
+   "size": {
+    "amount": 250,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheh9402oa3pgoy1483vs2",
+    "store": "jumbo",
+    "name": "Pasta El Dorado spaghetti lentejas rojas arroz x250g",
+    "brand": "EL DORADO",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpheh9j02oj3pgor92akih6",
+    "store": "jumbo",
+    "name": "Pasta el dorado coditos lentejas sin gluten Oliva x 250 g",
+    "brand": "EL DORADO",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvpheh9j02oj3pgor92akih6"
+ },
+ {
+  "id": "find-41",
+  "kind": "find",
+  "target": {
+   "id": "cmvps98ad01by1lgoksxq3uxz",
+   "store": "exito",
+   "name": "Harina de maíz PROMASA amarillo (500  gr)",
+   "brand": "PROMASA",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehl302vd3pgoss55eokn",
+    "store": "jumbo",
+    "name": "Harina Promasa blanca x500g",
+    "brand": "PROMASA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehla02vg3pgolnwy16iy",
+    "store": "jumbo",
+    "name": "Harina Promasa amarilla x500g",
+    "brand": "PROMASA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehla02vg3pgolnwy16iy"
+ },
+ {
+  "id": "find-42",
+  "kind": "find",
+  "target": {
+   "id": "cmvphdr8n00wr3pgoha8yeu3k",
+   "store": "d1",
+   "name": "Jamón Pietrán Estandar 230 G",
+   "brand": "PIETRAN",
+   "size": {
+    "amount": 230,
+    "unit": "g"
+   },
+   "aisle": "meat"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheiux03qg3pgo26re2qo6",
+    "store": "jumbo",
+    "name": "Jamón de cerdo Pietrán x230g",
+    "brand": "PIETRAN",
+    "size": {
+     "amount": 230,
+     "unit": "g"
+    },
+    "aisle": "meat"
+   },
+   {
+    "id": "cmvpheixq03sd3pgo7foamy6x",
+    "store": "jumbo",
+    "name": "Jamón pechuga de pollo Pietrán x230g",
+    "brand": "PIETRAN",
+    "size": {
+     "amount": 230,
+     "unit": "g"
+    },
+    "aisle": "meat"
+   }
+  ],
+  "answer": "cmvpheiux03qg3pgo26re2qo6"
+ },
+ {
+  "id": "none-6",
+  "kind": "none",
+  "target": {
+   "id": "cmvs5lp4n020k0ogonp9ypkfy",
+   "store": "carulla",
+   "name": "Jabón de tocador DOVE granada (270  gr)",
+   "brand": "DOVE",
+   "size": {
+    "amount": 90,
+    "unit": "g"
+   },
+   "aisle": "personal"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejdl042d3pgoekj7ce05",
+    "store": "jumbo",
+    "name": "Jabón Dove Antibacterial Barra 90g",
+    "brand": "DOVE",
+    "size": {
+     "amount": 90,
+     "unit": "g"
+    },
+    "aisle": "personal"
+   },
+   {
+    "id": "cmvphejf6043f3pgobeowjhwa",
+    "store": "jumbo",
+    "name": "Jabón Dove Antibacterial Barra 90g",
+    "brand": "DOVE",
+    "size": {
+     "amount": 90,
+     "unit": "g"
+    },
+    "aisle": "personal"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-43",
+  "kind": "find",
+  "target": {
+   "id": "cmvps9aef02j31lgos6qqsdcl",
+   "store": "exito",
+   "name": "Lavaloza DERSA liquido desengrasante (750  ml)",
+   "brand": "DERSA",
+   "size": {
+    "amount": 750,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejhl044r3pgokllydezj",
+    "store": "jumbo",
+    "name": "Lavaloza liquido Dersa desinfectante botellax750ml",
+    "brand": "DERSA",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvphejjg04623pgondkdmezd",
+    "store": "jumbo",
+    "name": "Lavaloza Dersa + Jabon Rey x750ml",
+    "brand": "DERSA",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvphejjg04623pgondkdmezd"
+ },
+ {
+  "id": "find-44",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfxwuu0022megoa9umekji",
+   "store": "jumbo",
+   "name": "Yogur griego Alpina Natural 500g",
+   "brand": "ALPINA",
+   "size": {
+    "amount": 471,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lokn01oa0ogofzb802wm",
+    "store": "carulla",
+    "name": "Yogurt griego ALPINA natural (471  ml)",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 471,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvs5lomu01ph0ogoph0lvfbq",
+    "store": "carulla",
+    "name": "Yogurt griego ALPINA vainilla (471  ml)",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 471,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvs5lokn01oa0ogofzb802wm"
+ },
+ {
+  "id": "find-45",
+  "kind": "find",
+  "target": {
+   "id": "cmvphekpc04sr3pgovoadp8ir",
+   "store": "jumbo",
+   "name": "Coca-Cola Gaseosa Sabor Original 3L",
+   "brand": "COCA COLA",
+   "size": {
+    "amount": 3000,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lptf02e20ogozb1gsrdf",
+    "store": "carulla",
+    "name": "Gaseosa  COCA COLA original (3000  ml)",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvs5lpvx02ev0ogoooo01dqm",
+    "store": "carulla",
+    "name": "Gaseosa COCA COLA familiar (3000  ml)",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvs5lpvx02ev0ogoooo01dqm"
+ },
+ {
+  "id": "find-46",
+  "kind": "find",
+  "target": {
+   "id": "cmvso7b4e016f8tgop1vfeq2q",
+   "store": "jumbo",
+   "name": "Agua Cristal pet x600ml",
+   "brand": "CRISTAL",
+   "size": {
+    "amount": 600,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lq9q02lx0ogo13kgbckn",
+    "store": "carulla",
+    "name": "Agua CRISTAL lite limonada de coco cero azúcar (600  ml)",
+    "brand": "CRISTAL",
+    "size": {
+     "amount": 600,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvs5lqa202m50ogohg711ybz",
+    "store": "carulla",
+    "name": "Agua CRISTAL sin gas botella  (600  ml)",
+    "brand": "CRISTAL",
+    "size": {
+     "amount": 600,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvs5lqa202m50ogohg711ybz"
+ },
+ {
+  "id": "none-7",
+  "kind": "none",
+  "target": {
+   "id": "cmvsion7j00j9megodm7asyi5",
+   "store": "exito",
+   "name": "Shampoo MUSS manzanilla kids (400  ml)",
+   "brand": "MUSS",
+   "size": {
+    "amount": 400,
+    "unit": "ml"
+   },
+   "aisle": "personal"
+  },
+  "candidates": [
+   {
+    "id": "cmvphek3l04hz3pgofd9ix25y",
+    "store": "jumbo",
+    "name": "Shampoo Muss Kids Durazno 400ml",
+    "brand": "MUSS",
+    "size": {
+     "amount": 400,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   },
+   {
+    "id": "cmvphek4204i83pgoe3stgpje",
+    "store": "jumbo",
+    "name": "Shampoo Muss Kids Rizos 400ml",
+    "brand": "MUSS",
+    "size": {
+     "amount": 400,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   },
+   {
+    "id": "cmvphek5e04j23pgobj9xqxyh",
+    "store": "jumbo",
+    "name": "Shampoo Muss Baby Manzanilla 400ml",
+    "brand": "MUSS",
+    "size": {
+     "amount": 400,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-47",
+  "kind": "find",
+  "target": {
+   "id": "cmvphehed02ra3pgoo5701j0j",
+   "store": "jumbo",
+   "name": "Atún Pan trozos agua x150g pn",
+   "brand": "PAN",
+   "size": {
+    "amount": 150,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvps981301671lgohovkhkhz",
+    "store": "exito",
+    "name": "Atún PAN trozos en agua (98  gr)",
+    "brand": "PAN",
+    "size": {
+     "amount": 150,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvps982a01721lgon9tto0en",
+    "store": "exito",
+    "name": "Atún PAN trozos en aceite (98  gr)",
+    "brand": "PAN",
+    "size": {
+     "amount": 150,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvps981301671lgohovkhkhz"
+ },
+ {
+  "id": "none-8",
+  "kind": "none",
+  "target": {
+   "id": "cmvsion7p00jbmego6br35vea",
+   "store": "exito",
+   "name": "Shampoo MUSS rizos kids (400  ml)",
+   "brand": "MUSS",
+   "size": {
+    "amount": 400,
+    "unit": "ml"
+   },
+   "aisle": "personal"
+  },
+  "candidates": [
+   {
+    "id": "cmvphek3l04hz3pgofd9ix25y",
+    "store": "jumbo",
+    "name": "Shampoo Muss Kids Durazno 400ml",
+    "brand": "MUSS",
+    "size": {
+     "amount": 400,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   },
+   {
+    "id": "cmvphek6q04jt3pgo7rng0wjd",
+    "store": "jumbo",
+    "name": "Shampoo Muss Manzanilla Kids 400ml",
+    "brand": "MUSS",
+    "size": {
+     "amount": 400,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   },
+   {
+    "id": "cmvphek5e04j23pgobj9xqxyh",
+    "store": "jumbo",
+    "name": "Shampoo Muss Baby Manzanilla 400ml",
+    "brand": "MUSS",
+    "size": {
+     "amount": 400,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-48",
+  "kind": "find",
+  "target": {
+   "id": "cmvps984u018m1lgov6ohjzvm",
+   "store": "exito",
+   "name": "Sardinas VIGILANTE en aceite vegetal (88  gr)",
+   "brand": "VIGILANTE",
+   "size": {
+    "amount": 120,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehj202u43pgozerr81tq",
+    "store": "jumbo",
+    "name": "Sardinas aceite vegetal Vigilante x 120 g",
+    "brand": "VIGILANTE",
+    "size": {
+     "amount": 120,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehkf02uy3pgo5t7jz1db",
+    "store": "jumbo",
+    "name": "Sardina VIGILANTE tomate x 120 g",
+    "brand": "VIGILANTE",
+    "size": {
+     "amount": 120,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehj202u43pgozerr81tq"
+ },
+ {
+  "id": "find-49",
+  "kind": "find",
+  "target": {
+   "id": "cmvpheixq03sd3pgo7foamy6x",
+   "store": "jumbo",
+   "name": "Jamón pechuga de pollo Pietrán x230g",
+   "brand": "PIETRAN",
+   "size": {
+    "amount": 230,
+    "unit": "g"
+   },
+   "aisle": "meat"
+  },
+  "candidates": [
+   {
+    "id": "cmvshu4h300fdmegow9yxxupx",
+    "store": "exito",
+    "name": "Jamón PIETRAN pechuga de pollo (230  gr)",
+    "brand": "PIETRAN",
+    "size": {
+     "amount": 230,
+     "unit": "g"
+    },
+    "aisle": "meat"
+   },
+   {
+    "id": "cmvps99wr028o1lgo1633yiht",
+    "store": "exito",
+    "name": "Jamón  PIETRAN de cerdo (230  gr)",
+    "brand": "PIETRAN",
+    "size": {
+     "amount": 230,
+     "unit": "g"
+    },
+    "aisle": "meat"
+   }
+  ],
+  "answer": "cmvshu4h300fdmegow9yxxupx"
+ },
+ {
+  "id": "find-50",
+  "kind": "find",
+  "target": {
+   "id": "cmvsjwm2a00nrmegow03ypgsb",
+   "store": "exito",
+   "name": "Cereal FLIPS relleno choco avellanas (400  gr)",
+   "brand": "FLIPS",
+   "size": {
+    "amount": 400,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphel3u052d3pgohlbgrbmp",
+    "store": "jumbo",
+    "name": "Cereal Flips Choco Avellanas 400g",
+    "brand": "FLIPS",
+    "size": {
+     "amount": 400,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphel6405403pgodcf1v4qg",
+    "store": "jumbo",
+    "name": "Cereal Flips choco avellanas x320g",
+    "brand": "FLIPS",
+    "size": {
+     "amount": 400,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphel3u052d3pgohlbgrbmp"
+ },
+ {
+  "id": "find-51",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lnuy01a90ogo09dctjd9",
+   "store": "carulla",
+   "name": "Harina de trigo HAZ DE OROS tradicional (1000  gr)",
+   "brand": "HAZ DE OROS",
+   "size": {
+    "amount": 1000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehpw02ya3pgoxsnq7z6p",
+    "store": "jumbo",
+    "name": "Harina de trigo Haz De Oros tradicional x1000g",
+    "brand": "HAZ DE OROS",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehkp02v43pgohhvq7d89",
+    "store": "jumbo",
+    "name": "Harina de trigo Harina Haz De Oros x1000g",
+    "brand": "HAZ DE OROS",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehpw02ya3pgoxsnq7z6p"
+ },
+ {
+  "id": "find-52",
+  "kind": "find",
+  "target": {
+   "id": "cmvsijrq500hhmego28idu4nv",
+   "store": "exito",
+   "name": "Harina PROMASA blanca para preparar arepas (500  gr)",
+   "brand": "PROMASA",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehl302vd3pgoss55eokn",
+    "store": "jumbo",
+    "name": "Harina Promasa blanca x500g",
+    "brand": "PROMASA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehla02vg3pgolnwy16iy",
+    "store": "jumbo",
+    "name": "Harina Promasa amarilla x500g",
+    "brand": "PROMASA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehl302vd3pgoss55eokn"
+ },
+ {
+  "id": "find-53",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lpfy026t0ogouvjubtiv",
+   "store": "carulla",
+   "name": "Suavizante SUAVITEL complete fresca primavera (1300  ml)",
+   "brand": "SUAVITEL",
+   "size": {
+    "amount": 1300,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejqy04ak3pgo9x6uov89",
+    "store": "jumbo",
+    "name": "Suavizante Suavitel Complete Fresca Primavera 1.3L",
+    "brand": "SUAVITEL",
+    "size": {
+     "amount": 1300,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvphejqu04ah3pgo6t8vw8f2",
+    "store": "jumbo",
+    "name": "Suavizante suavitel complete anochecer x1.3l",
+    "brand": "SUAVITEL",
+    "size": {
+     "amount": 1300,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvphejqy04ak3pgo9x6uov89"
+ },
+ {
+  "id": "find-54",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lphg027r0ogod4gi6j9k",
+   "store": "carulla",
+   "name": "Crema dental ORALB infantil (75  ml)",
+   "brand": "ORAL-B",
+   "size": {
+    "amount": 75,
+    "unit": "ml"
+   },
+   "aisle": "personal"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejzp04g23pgobv6wuhau",
+    "store": "jumbo",
+    "name": "Crema Dental Oral-B 3D White Brilliant Fresh 75ml",
+    "brand": "ORAL B",
+    "size": {
+     "amount": 75,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   },
+   {
+    "id": "cmvsfxlyr001imegosmoadomo",
+    "store": "jumbo",
+    "name": "Crema de Dientes Infantil Oral-B Stages Frozen/Spiderman 75 ml",
+    "brand": "ORAL-B",
+    "size": {
+     "amount": 75,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   }
+  ],
+  "answer": "cmvsfxlyr001imegosmoadomo"
+ },
+ {
+  "id": "none-9",
+  "kind": "none",
+  "target": {
+   "id": "cmvps978c00pu1lgodi2ax6m9",
+   "store": "exito",
+   "name": "Pasta MONTICELLO farfalle (500  gr)",
+   "brand": "MONTICELLO",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvsoc14601ld8tgo742i971m",
+    "store": "jumbo",
+    "name": "Spaghetti N°5 Monticello",
+    "brand": "MONTICELLO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvsoc14a01lg8tgo8005wylb",
+    "store": "jumbo",
+    "name": "Spaghetti Integral N°5",
+    "brand": "MONTICELLO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "none-10",
+  "kind": "none",
+  "target": {
+   "id": "cmvq49ntv008mebgodf2e41bl",
+   "store": "exito",
+   "name": "Leche COLANTA entera en caja (1000  ml)",
+   "brand": "COLANTA",
+   "size": {
+    "amount": 1000,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5mncl00214vgocqvllyyx",
+    "store": "jumbo",
+    "name": "Leche Entera Colanta Pasteurizada x1lt",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvphefqh01p03pgoci6yiywq",
+    "store": "jumbo",
+    "name": "Leche descremada Colanta x1000ml",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 1000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-55",
+  "kind": "find",
+  "target": {
+   "id": "cmvphekkg04pf3pgoh3urcdwd",
+   "store": "jumbo",
+   "name": "Gaseosa Pepsi Cero Pet 1500ml",
+   "brand": "PEPSI",
+   "size": {
+    "amount": 1500,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvsj4dco00jxmego2u7vv9de",
+    "store": "exito",
+    "name": "Gaseosa PEPSI cero azúcar botella (1500  ml)",
+    "brand": "PEPSI",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvps9bbx03191lgoye3njdyn",
+    "store": "exito",
+    "name": "Gaseosa PEPSI botella (1500  ml)",
+    "brand": "PEPSI",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvsj4dco00jxmego2u7vv9de"
+ },
+ {
+  "id": "find-56",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lojq01nx0ogoj2c57hwu",
+   "store": "carulla",
+   "name": "Queso DEJAMU momposino (250  gr)",
+   "brand": "DEJAMU",
+   "size": {
+    "amount": 250,
+    "unit": "g"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheif003fb3pgocd34z2s7",
+    "store": "jumbo",
+    "name": "Queso Dejamu Momposino 250g",
+    "brand": "DEJAMU",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvphegfv024y3pgoylwyh6s7",
+    "store": "jumbo",
+    "name": "Mantequilla dejamu con sal x250g",
+    "brand": "DEJAMU",
+    "size": {
+     "amount": 250,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvpheif003fb3pgocd34z2s7"
+ },
+ {
+  "id": "find-57",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lpau024a0ogo4zdr5s0e",
+   "store": "carulla",
+   "name": "Lavaloza DERSA líquido máximo poder limón  (750  ml)",
+   "brand": "DERSA",
+   "size": {
+    "amount": 750,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejhl044r3pgokllydezj",
+    "store": "jumbo",
+    "name": "Lavaloza liquido Dersa desinfectante botellax750ml",
+    "brand": "DERSA",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvphejjg04623pgondkdmezd",
+    "store": "jumbo",
+    "name": "Lavaloza Dersa + Jabon Rey x750ml",
+    "brand": "DERSA",
+    "size": {
+     "amount": 750,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvphejhl044r3pgokllydezj"
+ },
+ {
+  "id": "find-58",
+  "kind": "find",
+  "target": {
+   "id": "cmvq16fmq0002ebgowrz5lrp4",
+   "store": "exito",
+   "name": "Arroz DIANA con sabor a coco (1000  gr)",
+   "brand": "DIANA",
+   "size": {
+    "amount": 1000,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphdpo7000x3pgodoymgi8o",
+    "store": "d1",
+    "name": "Arroz Sabor A Coco Diana 1.000 G",
+    "brand": "DIANA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphdpnz000u3pgor76fsz9n",
+    "store": "d1",
+    "name": "Arroz Integral Diana 1.000 G",
+    "brand": "DIANA",
+    "size": {
+     "amount": 1000,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphdpo7000x3pgodoymgi8o"
+ },
+ {
+  "id": "find-59",
+  "kind": "find",
+  "target": {
+   "id": "cmvphehps02y73pgoa4pihjhe",
+   "store": "jumbo",
+   "name": "Harina Doñarepa extrafina maíz blanco x500g",
+   "brand": "DONAREPA",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lnx001ba0ogo06q66kuz",
+    "store": "carulla",
+    "name": "Harina DONAREPA precocida de maíz blanco (500  gr)",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lnut01a70ogo0xwv1qqg",
+    "store": "carulla",
+    "name": "Harina DONAREPA precocida de maíz amarillo (500  gr)",
+    "brand": "DONAREPA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lnx001ba0ogo06q66kuz"
+ },
+ {
+  "id": "find-60",
+  "kind": "find",
+  "target": {
+   "id": "cmvphehei02rd3pgoq12agoit",
+   "store": "jumbo",
+   "name": "Atún Isabel claro lomitos agua x 160g",
+   "brand": "ISABEL",
+   "size": {
+    "amount": 104,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvsteer2028n8tgoy94y4qh6",
+    "store": "carulla",
+    "name": "Atún ISABEL lomitos en agua (104  gr)",
+    "brand": "ISABEL",
+    "size": {
+     "amount": 104,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvsteer5028q8tgo79d2gdwj",
+    "store": "carulla",
+    "name": "Atún ISABEL lomitos en aceite de girasol (104  gr)",
+    "brand": "ISABEL",
+    "size": {
+     "amount": 104,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvsteer2028n8tgoy94y4qh6"
+ },
+ {
+  "id": "find-61",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lp7e02260ogoo1yixizb",
+   "store": "carulla",
+   "name": "Lavaloza AXION crema lima limón (450  gr)",
+   "brand": "AXION",
+   "size": {
+    "amount": 450,
+    "unit": "g"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejlw047k3pgogh9qo62x",
+    "store": "jumbo",
+    "name": "Lavaloza Axion Blue en Crema 7 en 1 450g",
+    "brand": "AXION",
+    "size": {
+     "amount": 450,
+     "unit": "g"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvsfxly4001cmego0v2xa1dk",
+    "store": "jumbo",
+    "name": "Lavaplatos en Crema Axion Explosión Cítrica 450g",
+    "brand": "AXION",
+    "size": {
+     "amount": 450,
+     "unit": "g"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvsfxly4001cmego0v2xa1dk"
+ },
+ {
+  "id": "find-62",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfyq4g00a8megonnb0cofz",
+   "store": "jumbo",
+   "name": "Café Juan Valdez Cumbre Molido 454gr",
+   "brand": "JUAN VALDEZ",
+   "size": {
+    "amount": 454,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lmh900pu0ogooqy3bolb",
+    "store": "carulla",
+    "name": "Café JUAN VALDEZ molido (454  gr)",
+    "brand": "JUAN VALDEZ",
+    "size": {
+     "amount": 454,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5lmji00r10ogoftsj8wh2",
+    "store": "carulla",
+    "name": "Café JUAN VALDEZ finca grano (454  gr)",
+    "brand": "JUAN VALDEZ",
+    "size": {
+     "amount": 454,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5lmh900pu0ogooqy3bolb"
+ },
+ {
+  "id": "find-63",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lmr500ur0ogod4nb8ffv",
+   "store": "carulla",
+   "name": "Chocolate LYNE clásico (200  gr)",
+   "brand": "LYNE",
+   "size": {
+    "amount": 200,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvsfxyi20030mego9otq5br5",
+    "store": "jumbo",
+    "name": "Chocolate Lyne polvo clásico sin azúcar x200g",
+    "brand": "LYNE",
+    "size": {
+     "amount": 200,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvso6rr0013o8tgo1zu10d6i",
+    "store": "jumbo",
+    "name": "Chocolate Lyne polvo splenda x200g",
+    "brand": "LYNE",
+    "size": {
+     "amount": 200,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvsfxyi20030mego9otq5br5"
+ },
+ {
+  "id": "none-11",
+  "kind": "none",
+  "target": {
+   "id": "cmvsisltn00jhmego4u6i3uyq",
+   "store": "exito",
+   "name": "Yogurt griego COLANTA sabor natural cuchareable (900  gr)",
+   "brand": "COLANTA",
+   "size": {
+    "amount": 900,
+    "unit": "g"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheij803ih3pgoay33cxdm",
+    "store": "jumbo",
+    "name": "Yogurt Colanta mora bolsa x900g",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 900,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvpheijc03ik3pgoy9pac6xt",
+    "store": "jumbo",
+    "name": "Yogurt Colanta fresa bolsa x900g",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 900,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-64",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfxygw002qmegomv5jwi02",
+   "store": "jumbo",
+   "name": "Yogur griego Alpina Natural 1000g",
+   "brand": "ALPINA",
+   "size": {
+    "amount": 942,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lokh01o80ogo5v2b8wrr",
+    "store": "carulla",
+    "name": "Yogurt griego ALPINA natural (942  ml)",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 942,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvs5lonx01q30ogo8l0shzyl",
+    "store": "carulla",
+    "name": "Yogurt griego ALPINA vainilla (943  ml)",
+    "brand": "ALPINA",
+    "size": {
+     "amount": 943,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvs5lokh01o80ogo5v2b8wrr"
+ },
+ {
+  "id": "find-65",
+  "kind": "find",
+  "target": {
+   "id": "cmvsisluo00jpmegom7ag0hp7",
+   "store": "exito",
+   "name": "Yogurt griego COLANTA sabor natural cuchareable (450  gr)",
+   "brand": "COLANTA",
+   "size": {
+    "amount": 450,
+    "unit": "g"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheiip03i23pgoxsb40tfi",
+    "store": "jumbo",
+    "name": "Yogurt Colanta Griego Natural 450g",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 450,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvpheifz03g23pgoe20v0bgl",
+    "store": "jumbo",
+    "name": "Queso mozzarella Colanta x450g",
+    "brand": "COLANTA",
+    "size": {
+     "amount": 450,
+     "unit": "g"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvpheiip03i23pgoxsb40tfi"
+ },
+ {
+  "id": "none-12",
+  "kind": "none",
+  "target": {
+   "id": "cmvps98qn01m41lgo6ze3niuc",
+   "store": "exito",
+   "name": "Pastas PAN spaghetti (500  gr)",
+   "brand": "PAN",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehnm02ws3pgos7inqm89",
+    "store": "jumbo",
+    "name": "Harina PAN maíz blanco x500g",
+    "brand": "PAN",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphehq902yj3pgog7ob3t1p",
+    "store": "jumbo",
+    "name": "Harina PAN integral semillas nutritivas x500g",
+    "brand": "PAN",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-66",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lpym02ft0ogoqtiarc23",
+   "store": "carulla",
+   "name": "Gaseosa COCA COLA original (600  ml)",
+   "brand": "COCA COLA",
+   "size": {
+    "amount": 600,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvphekn204r53pgou8lisjxe",
+    "store": "jumbo",
+    "name": "Gaseosa Coca-Cola Sabor Original 600ml",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 600,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvphekkk04pi3pgoiwnqp450",
+    "store": "jumbo",
+    "name": "Gaseosa Coca-Cola Zero 600ml",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 600,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvphekn204r53pgou8lisjxe"
+ },
+ {
+  "id": "find-67",
+  "kind": "find",
+  "target": {
+   "id": "cmvphekly04qe3pgoujr5o7y4",
+   "store": "jumbo",
+   "name": "Gaseosa Quatro toronja zero 1.5L",
+   "brand": "QUATRO",
+   "size": {
+    "amount": 1500,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lpts02e60ogove29njo7",
+    "store": "carulla",
+    "name": "Gaseosa QUATRO toronja zero (1500  ml)",
+    "brand": "QUATRO",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvs5lpwr02f50ogo1lth56q4",
+    "store": "carulla",
+    "name": "Gaseosa QUATRO toronja original (1500  ml)",
+    "brand": "QUATRO",
+    "size": {
+     "amount": 1500,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvs5lpts02e60ogove29njo7"
+ },
+ {
+  "id": "find-68",
+  "kind": "find",
+  "target": {
+   "id": "cmvphdroa016c3pgohcyrcrgs",
+   "store": "d1",
+   "name": "Gaseosa Coca Cola 1750 Ml",
+   "brand": "COCA COLA",
+   "size": {
+    "amount": 1750,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvphekne04rd3pgo4r6hlsno",
+    "store": "jumbo",
+    "name": "Gaseosa Coca-Cola Sabor Original 1.75L",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 1750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvphekph04st3pgohrmqzfkb",
+    "store": "jumbo",
+    "name": "Gaseosa Coca-Cola Zero 1.75 lt",
+    "brand": "COCA COLA",
+    "size": {
+     "amount": 1750,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvphekne04rd3pgo4r6hlsno"
+ },
+ {
+  "id": "find-69",
+  "kind": "find",
+  "target": {
+   "id": "cmvq49nug008sebgo5jdwj2x8",
+   "store": "exito",
+   "name": "Leche PRIMMA tarro entera (2000  ml)",
+   "brand": "PRIMMA",
+   "size": {
+    "amount": 2000,
+    "unit": "ml"
+   },
+   "aisle": "dairy"
+  },
+  "candidates": [
+   {
+    "id": "cmvphefm601mc3pgotfqxuilh",
+    "store": "jumbo",
+    "name": "Leche Entera Primma x2000ml",
+    "brand": "PRIMMA",
+    "size": {
+     "amount": 2000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   },
+   {
+    "id": "cmvphefoj01nx3pgoupkktoim",
+    "store": "jumbo",
+    "name": "Leche semidescremada Primma x2000ml",
+    "brand": "PRIMMA",
+    "size": {
+     "amount": 2000,
+     "unit": "ml"
+    },
+    "aisle": "dairy"
+   }
+  ],
+  "answer": "cmvphefm601mc3pgotfqxuilh"
+ },
+ {
+  "id": "find-70",
+  "kind": "find",
+  "target": {
+   "id": "cmvps9app02ol1lgo82fnb7m2",
+   "store": "exito",
+   "name": "Suavizante ETERNA aroma floral (2000  ml)",
+   "brand": "ETERNA",
+   "size": {
+    "amount": 2000,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvphejq2049z3pgov7slrjo2",
+    "store": "jumbo",
+    "name": "Suavizante Eterna aroma floral x2000ml",
+    "brand": "ETERNA",
+    "size": {
+     "amount": 2000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvphej7903yd3pgowqa0s79a",
+    "store": "jumbo",
+    "name": "Detergente Eterna bioecologico x2l",
+    "brand": "ETERNA",
+    "size": {
+     "amount": 2000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvphejq2049z3pgov7slrjo2"
+ },
+ {
+  "id": "none-13",
+  "kind": "none",
+  "target": {
+   "id": "cmvps99nc024f1lgo18wj7pvn",
+   "store": "exito",
+   "name": "Salchicha PARISIENNE suiza (500  gr)",
+   "brand": "LA PARISIENNE",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "meat"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheiqm03nl3pgosckuti9c",
+    "store": "jumbo",
+    "name": "Salchicha Frankfurt La Parisienne x500g",
+    "brand": "LA PARISIENNE",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "meat"
+   },
+   {
+    "id": "cmvpheir603o03pgohdzu4qbl",
+    "store": "jumbo",
+    "name": "Salchicha alemana La Parisienne x500g",
+    "brand": "LA PARISIENNE",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "meat"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-71",
+  "kind": "find",
+  "target": {
+   "id": "cmvpx6p4q008e59gojjrhbf6q",
+   "store": "exito",
+   "name": "Gaseosa POSTOBON en lata sabor a manzana  (310  ml)",
+   "brand": "POSTOBON",
+   "size": {
+    "amount": 310,
+    "unit": "ml"
+   },
+   "aisle": "drinks"
+  },
+  "candidates": [
+   {
+    "id": "cmvphekmy04r23pgokqdclmuf",
+    "store": "jumbo",
+    "name": "Gaseosa Postobon Manzana Lata 310ml",
+    "brand": "POSTOBON",
+    "size": {
+     "amount": 310,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   },
+   {
+    "id": "cmvphekoo04s93pgo0lywij7y",
+    "store": "jumbo",
+    "name": "Gaseosa Postobon Manzana Cero Lata 310ml",
+    "brand": "POSTOBON",
+    "size": {
+     "amount": 310,
+     "unit": "ml"
+    },
+    "aisle": "drinks"
+   }
+  ],
+  "answer": "cmvphekmy04r23pgokqdclmuf"
+ },
+ {
+  "id": "find-72",
+  "kind": "find",
+  "target": {
+   "id": "cmvsfyq5m00akmego9jb6psrb",
+   "store": "jumbo",
+   "name": "Mantequilla Alma sabor tradicional spray x300g",
+   "brand": "ALMA",
+   "size": {
+    "amount": 300,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5locp01ke0ogonjixtpbu",
+    "store": "carulla",
+    "name": "MANTEQUILLA EN SPRAY ALMA 300  gr",
+    "brand": "ALMA",
+    "size": {
+     "amount": 300,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvs5locj01k80ogojehahjat",
+    "store": "carulla",
+    "name": "MANTEQUILLA AUTENTICA AJO  ALMA 300  gr",
+    "brand": "ALMA",
+    "size": {
+     "amount": 300,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvs5locp01ke0ogonjixtpbu"
+ },
+ {
+  "id": "find-73",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lk7o00360ogowmn1gsu1",
+   "store": "carulla",
+   "name": "Aceite DIANA Aceite Cocina (3000  ml)",
+   "brand": "DIANA",
+   "size": {
+    "amount": 3000,
+    "unit": "ml"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheff501hr3pgo8jt89k1a",
+    "store": "jumbo",
+    "name": "Aceite Diana vitaminas x3000ml",
+    "brand": "DIANA",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpokjta00zp5jgoi6p5jfia",
+    "store": "jumbo",
+    "name": "Aceite Diana Vitamor 3000ml",
+    "brand": "DIANA",
+    "size": {
+     "amount": 3000,
+     "unit": "ml"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvpokjta00zp5jgoi6p5jfia"
+ },
+ {
+  "id": "find-74",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lod101kk0ogox983dp4o",
+   "store": "carulla",
+   "name": "Pasabocas LA ESPECIAL mantequilla pop (150  gr)",
+   "brand": "LA ESPECIAL",
+   "size": {
+    "amount": 150,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheiau03ck3pgoiyw53saq",
+    "store": "jumbo",
+    "name": "Maní La Especial Mantequilla Pop 150g",
+    "brand": "LA ESPECIAL",
+    "size": {
+     "amount": 150,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpheimb03kn3pgoxe819s85",
+    "store": "jumbo",
+    "name": "Mix La Especial yogurt x150g",
+    "brand": "LA ESPECIAL",
+    "size": {
+     "amount": 150,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvpheiau03ck3pgoiyw53saq"
+ },
+ {
+  "id": "find-75",
+  "kind": "find",
+  "target": {
+   "id": "cmvs5lp3u01zx0ogo511qd2j8",
+   "store": "carulla",
+   "name": "Jabón íntimo NOSOTRAS sensitive (200  ml)",
+   "brand": "NOSOTRAS",
+   "size": {
+    "amount": 200,
+    "unit": "ml"
+   },
+   "aisle": "personal"
+  },
+  "candidates": [
+   {
+    "id": "cmvsfy1nx0044mego166md5bl",
+    "store": "jumbo",
+    "name": "Jabón Íntimo Nosotras sensitive x 200 ml",
+    "brand": "NOSOTRAS",
+    "size": {
+     "amount": 200,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   },
+   {
+    "id": "cmvphejd504213pgo2kfd9iw6",
+    "store": "jumbo",
+    "name": "Jabón Íntimo Nosotras Herbal x 200ml + Jabón Íntimo de Rosas x 130ml",
+    "brand": "NOSOTRAS",
+    "size": {
+     "amount": 200,
+     "unit": "ml"
+    },
+    "aisle": "personal"
+   }
+  ],
+  "answer": "cmvsfy1nx0044mego166md5bl"
+ },
+ {
+  "id": "find-76",
+  "kind": "find",
+  "target": {
+   "id": "cmvps95zk00dt1lgohnhhzxsm",
+   "store": "exito",
+   "name": "Azúcar RIOPAILA blanco (2500  gr)",
+   "brand": "RIOPAILA",
+   "size": {
+    "amount": 2500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphefzh01us3pgov7gv3bvf",
+    "store": "jumbo",
+    "name": "Azúcar Riopaila morena x2500g",
+    "brand": "RIOPAILA",
+    "size": {
+     "amount": 2500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphefzu01v13pgocv5dl9v7",
+    "store": "jumbo",
+    "name": "Azúcar Riopaila blanca x2500g",
+    "brand": "RIOPAILA",
+    "size": {
+     "amount": 2500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphefzu01v13pgocv5dl9v7"
+ },
+ {
+  "id": "find-77",
+  "kind": "find",
+  "target": {
+   "id": "cmvsijrqo00hnmegoyj7hicnj",
+   "store": "exito",
+   "name": "Endulzante INCAUCA LIFE mezcla azúcar blanca y stevia (850  gr)",
+   "brand": "INCAUCA",
+   "size": {
+    "amount": 850,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvpheg2p01wr3pgocp8j6a7s",
+    "store": "jumbo",
+    "name": "Azúcar Incauca blanca life x850g",
+    "brand": "INCAUCA",
+    "size": {
+     "amount": 850,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvpheg2x01wx3pgohqukk7fg",
+    "store": "jumbo",
+    "name": "Azúcar Incauca orgánica tetrapak x850g",
+    "brand": "INCAUCA",
+    "size": {
+     "amount": 850,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvpheg2p01wr3pgocp8j6a7s"
+ },
+ {
+  "id": "find-78",
+  "kind": "find",
+  "target": {
+   "id": "cmvphejqc04a53pgo9a2uq895",
+   "store": "jumbo",
+   "name": "Suavizante Eterna aroma floral x4000ml",
+   "brand": "ETERNA",
+   "size": {
+    "amount": 4000,
+    "unit": "ml"
+   },
+   "aisle": "home"
+  },
+  "candidates": [
+   {
+    "id": "cmvs5lpdf025j0ogo6e0xg1gx",
+    "store": "carulla",
+    "name": "Suavizante ETERNA aroma floral (4000  ml)",
+    "brand": "ETERNA",
+    "size": {
+     "amount": 4000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   },
+   {
+    "id": "cmvs5lov501v00ogo2f4uvvn3",
+    "store": "carulla",
+    "name": "Detergente líquido ETERNA ecológico (4000  ml)",
+    "brand": "ETERNA",
+    "size": {
+     "amount": 4000,
+     "unit": "ml"
+    },
+    "aisle": "home"
+   }
+  ],
+  "answer": "cmvs5lpdf025j0ogo6e0xg1gx"
+ },
+ {
+  "id": "none-14",
+  "kind": "none",
+  "target": {
+   "id": "cmvps978i00pw1lgoik4wppbl",
+   "store": "exito",
+   "name": "Pasta Fettucce Garofalo  (500  gr)",
+   "brand": "GAROFALO",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphegxh02gg3pgo4q909qcv",
+    "store": "jumbo",
+    "name": "Pasta Garofalo fusilli x500g",
+    "brand": "GAROFALO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphegxy02gs3pgo8cr5cl2a",
+    "store": "jumbo",
+    "name": "Pasta Garofalo spaghetti x500g",
+    "brand": "GAROFALO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphegy402gv3pgoekphk24y",
+    "store": "jumbo",
+    "name": "Pasta Garofalo rigatoni x500g",
+    "brand": "GAROFALO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphegyf02h13pgobqulhepe",
+    "store": "jumbo",
+    "name": "Pasta Garofalo farfalle x500g",
+    "brand": "GAROFALO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphegyj02h43pgowjx4bz9u",
+    "store": "jumbo",
+    "name": "Pasta Garofalo spaghettini x500g",
+    "brand": "GAROFALO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphegyu02ha3pgoufpuhhid",
+    "store": "jumbo",
+    "name": "Pasta Garofalo linguine x500g",
+    "brand": "GAROFALO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphegz702hj3pgonp6p118p",
+    "store": "jumbo",
+    "name": "Pasta Garofalo bucattini x500g",
+    "brand": "GAROFALO",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": null
+ },
+ {
+  "id": "find-79",
+  "kind": "find",
+  "target": {
+   "id": "cmvps98cq01db1lgoj4iqu9lf",
+   "store": "exito",
+   "name": "Harina para arepas AREPAREPA blanca (500  gr)",
+   "brand": "AREPA REPA",
+   "size": {
+    "amount": 500,
+    "unit": "g"
+   },
+   "aisle": "pantry"
+  },
+  "candidates": [
+   {
+    "id": "cmvphehqq02yv3pgobkwz7lrk",
+    "store": "jumbo",
+    "name": "Harina Arepa Repa Bla Ladrillo 500g 24",
+    "brand": "AREPA REPA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   },
+   {
+    "id": "cmvphei2p03783pgorwzia9b9",
+    "store": "jumbo",
+    "name": "Mezcla Arepa-Repa Sabor a Choclo 500g",
+    "brand": "AREPA REPA",
+    "size": {
+     "amount": 500,
+     "unit": "g"
+    },
+    "aisle": "pantry"
+   }
+  ],
+  "answer": "cmvphehqq02yv3pgobkwz7lrk"
+ }
+]

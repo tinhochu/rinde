@@ -20,10 +20,15 @@ import { judgeSameProduct } from "../same-product";
  *   MUSE_EVAL_BUILD=1 rebuilds eval/same-product.cases.json from the DB; otherwise the saved cases run.
  *   A person reads each disagreement into eval/same-product.review.json; MUSE_EVAL_REPORT=1 then rewrites
  *   RESULTS.md from the saved answers.
+ *   MUSE_EVAL_SET=heldout runs a second set built from other products (seed and files of its own). Tune the
+ *   prompt on the default set only; the held-out set says whether a change helps on products it never saw.
  */
 
 const EVAL_DIR = path.join(process.cwd(), "eval");
-const CASES = path.join(EVAL_DIR, "same-product.cases.json");
+const HELDOUT = process.env["MUSE_EVAL_SET"] === "heldout";
+const file = (kind: string) => path.join(EVAL_DIR, `same-product${HELDOUT ? ".heldout" : ""}.${kind}.json`);
+const CASES = file("cases");
+const REPORT = path.join(EVAL_DIR, HELDOUT ? "RESULTS-heldout.md" : "RESULTS.md");
 const FIND = 80;
 const NONE = 40;
 const PARALLEL = 6;
@@ -43,7 +48,7 @@ function seeded(seed: number) {
   return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32);
 }
 
-async function buildCases(): Promise<Case[]> {
+async function buildCases(seed: number, avoid: Set<string>): Promise<Case[]> {
   // Pairs of listings at two stores that share one product (one EAN) and are named differently.
   const pairs = await db().$queryRaw<{ a: string; b: string; bslug: RetailerSlug; brand: string; size: string; unit: "g" | "ml" | "unit" }[]>`
     SELECT ra.id AS a, rb.id AS b, sb.slug::text AS bslug, p.brand, p.size::text AS size, p.unit::text AS unit
@@ -53,7 +58,7 @@ async function buildCases(): Promise<Case[]> {
     JOIN "Product" p ON p.id = ra."productId"
     WHERE p.ean IS NOT NULL AND p.brand IS NOT NULL AND p.size IS NOT NULL AND p.unit IS NOT NULL
       AND lower(ra.name) <> lower(rb.name)`;
-  const random = seeded(20261029);
+  const random = seeded(seed);
   const order = pairs.map((p) => ({ p, r: random() })).sort((x, y) => x.r - y.r).map((x) => x.p);
 
   const cases: Case[] = [];
@@ -67,7 +72,7 @@ async function buildCases(): Promise<Case[]> {
       SELECT rp.id AS "listingId", rp."productId", r.slug, rp.name, p.brand, p.size::text AS size, p.unit, p.category
       FROM "RetailerProduct" rp JOIN "Product" p ON p.id = rp."productId" JOIN "Retailer" r ON r.id = rp."retailerId"
       WHERE rp.id = ${pair.a}`)[0];
-    if (!targetRow || usedProducts.has(targetRow.productId)) continue;
+    if (!targetRow || usedProducts.has(targetRow.productId) || avoid.has(targetRow.productId)) continue;
     const target = item(targetRow);
     const all = candidatesFor(target, pool.map(item));
     const twin = all.find((c) => c.id === pair.b);
@@ -75,7 +80,9 @@ async function buildCases(): Promise<Case[]> {
     // Listings of the target's own product at store B would also be right answers; keep cases with one twin.
     if (pool.filter((r) => r.productId === targetRow.productId).length !== 1) continue;
     const others = all.filter((c) => c.id !== pair.b);
-    if (find < FIND && others.length >= 1) {
+    // Every third case without the twin while both kinds still need cases, so neither runs out of products.
+    const wantNone = none < NONE && others.length >= 2 && (find >= FIND || none * 2 < find);
+    if (find < FIND && others.length >= 1 && !wantNone) {
       cases.push({ id: `find-${find}`, kind: "find", target, candidates: all, answer: twin.id });
       find++;
       usedProducts.add(targetRow.productId);
@@ -132,11 +139,11 @@ function report(outcomes: Outcome[], model: string, review: Review[]) {
   const museRight = (o: Outcome) => (o.muse === o.answer ? reviewed.get(o.id)?.verdict !== "muse-wrong" : reviewed.get(o.id)?.verdict === "muse-right");
   const wrongPicks = kept.filter((o) => o.muse !== null && !museRight(o)).length;
   const afterReview = review.length === 0 ? "" : `
-**After a person read every disagreement** (\`eval/same-product.review.json\`): ${kept.filter(museRight).length} of ${kept.length} right, **${pct(kept.filter(museRight).length, kept.length)}**, with ${wrongPicks} wrong products picked. ${outcomes.length - kept.length} cases were set aside because the stores' own names can't tell the products apart, and ${outcomes.filter((o) => o.muse !== o.answer && reviewed.get(o.id)?.verdict === "muse-right").length} counted for Muse because both listings are the same product under different barcodes.${unreviewed ? ` ${unreviewed} disagreements are not reviewed yet.` : ""}
+**After a person read every disagreement** (\`eval/${path.basename(file("review"))}\`): ${kept.filter(museRight).length} of ${kept.length} right, **${pct(kept.filter(museRight).length, kept.length)}**, with ${wrongPicks} wrong products picked. ${outcomes.length - kept.length} cases were set aside because the stores' own names can't tell the products apart, and ${outcomes.filter((o) => o.muse !== o.answer && reviewed.get(o.id)?.verdict === "muse-right").length} counted for Muse because both listings are the same product under different barcodes.${unreviewed ? ` ${unreviewed} disagreements are not reviewed yet.` : ""}
 `;
   const byId = (o: Outcome, id: string | null) => (id ? describeItem(o.candidates.find((c) => c.id === id)!) : "none");
 
-  return `# Meta Muse: same product across stores
+  return `# Meta Muse: same product across stores${HELDOUT ? " (held-out set)" : ""}
 
 Run ${new Date().toISOString().slice(0, 10)} with \`${model}\` on ${outcomes.length} cases (${m.finds} with the product in the other store's list, ${m.nones} without it).
 The answer key is the barcode: each case is a product two stores sell under one EAN. Muse sees names, brands and sizes only, never the barcode or a price, exactly as in the app.
@@ -157,19 +164,28 @@ ${mistakes.length === 0 ? "None." : mistakes.map((o) => `- **${o.id}**: ${descri
 
 Some "wrong" answers may be right: two listings can be the same product under different barcodes. Each is listed above so a person can check it.
 
-Cases: \`eval/same-product.cases.json\`. Run: \`MUSE_EVAL=1 INTEGRATION=1 npx vitest run src/server/eval\` in apps/web.
+Cases: \`eval/${path.basename(CASES)}\`. Run: \`MUSE_EVAL=1${HELDOUT ? " MUSE_EVAL_SET=heldout" : ""} INTEGRATION=1 npx vitest run src/server/eval\` in apps/web.
 `;
 }
 
 describe.skipIf(!process.env["MUSE_EVAL"])("Meta Muse accuracy: same product across stores", () => {
   it("scores Muse and the word rule against barcodes", async () => {
     mkdirSync(EVAL_DIR, { recursive: true });
-    if (process.env["MUSE_EVAL_BUILD"] || !existsSync(CASES)) writeFileSync(CASES, JSON.stringify(await buildCases(), null, 1) + "\n");
+    if (process.env["MUSE_EVAL_BUILD"] || !existsSync(CASES)) {
+      // The held-out set never shares a product with the tuning set.
+      const avoid = new Set<string>();
+      if (HELDOUT) {
+        const dev = JSON.parse(readFileSync(path.join(EVAL_DIR, "same-product.cases.json"), "utf8")) as Case[];
+        const ids = dev.flatMap((c) => [c.target.id, ...c.candidates.map((x) => x.id)]);
+        for (const r of await db().retailerProduct.findMany({ where: { id: { in: ids } }, select: { productId: true } })) avoid.add(r.productId);
+      }
+      writeFileSync(CASES, JSON.stringify(await buildCases(HELDOUT ? 4112026 : 20261029, avoid), null, 1) + "\n");
+    }
     const cases = JSON.parse(readFileSync(CASES, "utf8")) as Case[];
     expect(cases.length).toBeGreaterThan(0);
 
     const cfg = museConfig();
-    const saved = path.join(EVAL_DIR, "same-product.results.json");
+    const saved = file("results");
     // MUSE_EVAL_REPORT=1 rewrites the report from the last run's answers, after a review, without asking Muse again.
     const outcomes = process.env["MUSE_EVAL_REPORT"] ? (JSON.parse(readFileSync(saved, "utf8")) as Outcome[]) : await pool(cases, PARALLEL, async (c): Promise<Outcome> => {
       const start = Date.now();
@@ -182,9 +198,9 @@ describe.skipIf(!process.env["MUSE_EVAL"])("Meta Muse accuracy: same product acr
       };
     });
     writeFileSync(saved, JSON.stringify(outcomes, null, 1) + "\n");
-    const reviewFile = path.join(EVAL_DIR, "same-product.review.json");
+    const reviewFile = file("review");
     // The review belongs to these cases; a rebuild starts a fresh one.
     const review = existsSync(reviewFile) && !process.env["MUSE_EVAL_BUILD"] ? (JSON.parse(readFileSync(reviewFile, "utf8")) as Review[]) : [];
-    writeFileSync(path.join(EVAL_DIR, "RESULTS.md"), report(outcomes, cfg.model, review));
+    writeFileSync(REPORT, report(outcomes, cfg.model, review));
   }, 30 * 60_000);
 });
