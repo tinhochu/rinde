@@ -82,13 +82,27 @@ export async function candidatesFor(item: ItemRequest, stores: RetailerSlug[] = 
 }
 
 async function searchWithFallback(term: string, stores: RetailerSlug[]): Promise<ListingRow[]> {
-  const rows = await searchListings(term, { stores, perStore: PER_STORE });
-  const missing = stores.filter((s) => !rows.some((r) => r.slug === s));
+  // A store counts as covered only by a listing of the thing itself: D1's search for "pasta spaghetti"
+  // returns tomato paste, which leaves it as uncovered as no answer.
+  const uncovered = (rows: ListingRow[], among: RetailerSlug[]) => among.filter((s) => !rows.some((r) => r.slug === s && isRelevant(r, term)));
+  let rows = await searchListings(term, { stores, perStore: PER_STORE });
+  let missing = uncovered(rows, stores);
   if (missing.length === 0) return rows;
   // Live search records new observations; re-read so provenance is identical to the snapshot.
   const live = await searchLive(term, missing);
   const recovered = missing.filter((s) => !live.failed.includes(s));
-  return recovered.length ? [...rows, ...(await searchListings(term, { stores: recovered, perStore: PER_STORE }))] : rows;
+  if (recovered.length) rows = [...rows, ...(await searchListings(term, { stores: recovered, perStore: PER_STORE }))];
+  // Stores word things differently: "atún en lata" is sold as "Atún en agua", "pasta spaghetti" as
+  // "Spaghetti Capríssima". Drop trailing words, then try each later word alone, until each store has one.
+  const tokens = searchTokens(term);
+  const looser = [...tokens.slice(0, -1).map((_, n) => tokens.slice(0, tokens.length - 1 - n).join(" ")), ...tokens.slice(1)];
+  missing = uncovered(rows, stores);
+  for (const relaxed of looser) {
+    if (missing.length === 0) break;
+    rows = [...rows, ...(await searchListings(relaxed, { stores: missing, perStore: PER_STORE }))];
+    missing = uncovered(rows, missing);
+  }
+  return rows;
 }
 
 function matchesBrand(r: ListingRow, brandTokens: string[]) {
