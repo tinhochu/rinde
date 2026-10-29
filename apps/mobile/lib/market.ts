@@ -22,7 +22,8 @@ export function parseList(text: string): ListItem[] {
     else if (/^(g|gr)/.test(rawUnit)) unit = "g";
     else if (/^(l|lt|litro)/.test(rawUnit)) { quantity *= 1000; unit = "ml"; }
     else if (rawUnit === "ml" || rawUnit.startsWith("mililitro")) unit = "ml";
-    const name = (match ? line.slice(0, match.index) + line.slice((match.index || 0) + match[0].length) : line).replace(/^\s*(de\s+)?/i, "").replace(/\s+/g, " ").trim();
+    // "3 latas de atún" is three of "atún": the container only says how it's counted, and no store names tuna "latas".
+    const name = (match ? line.slice(0, match.index) + line.slice((match.index || 0) + match[0].length) : line).replace(/^\s*(de\s+)?/i, "").replace(/^(latas?|bolsas?|paquetes?|cajas?|botellas?|frascos?|tarros?|sobres?|bandejas?)\s+de\s+/i, "").replace(/\s+/g, " ").trim();
     return { id: `item-${index}-${Date.now()}`, name: name || line, quantity, unit, brand: "", allowSubstitution: true };
   });
 }
