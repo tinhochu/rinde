@@ -38,11 +38,12 @@ export function parsePackageSize(name: string): PackageSize | null {
   const best = measured ?? matches[0]!;
 
   // Éxito and Carulla end every name with the whole pack's net content in parentheses:
-  // "Salchicha RICA x30und (500  gr)" is 500 g in all, not 30 × 500 g.
+  // "Salchicha RICA x30und (500  gr)" is 500 g in all, not 30 × 500 g. There the dot is always a
+  // decimal point ("(953.289  ml)", "(110.5  gr)"), never a thousands separator.
   const net = name.match(/\((\d+(?:[.,]\d+)?)\s*([a-z]+)\)\s*$/i);
   const netUnit = net ? UNIT_FACTORS[net[2]!.toLowerCase()] : undefined;
   if (net && netUnit && netUnit[0] !== "unit") {
-    const size = { amount: round(parseAmount(net[1]!, netUnit[1]) * netUnit[1]), unit: netUnit[0] };
+    const size = { amount: round(Number(net[1]!.replace(",", ".")) * netUnit[1]), unit: netUnit[0] };
     if (plausibleSize(size)) return size;
   }
 

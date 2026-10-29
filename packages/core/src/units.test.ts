@@ -32,6 +32,9 @@ describe("parsePackageSize", () => {
     ["Agua con gas H2O saborizada surtido x6und (3600  ml)", 3600, "ml"],
     ["Leche entera ALPINA caja x4und 1l (4000  ml)", 4000, "ml"],
     ["Café  JUAN VALDEZ liofilizado sticks x30und (45  gr)", 45, "g"],
+    ["Yogurt griego ZORBA sin dulce (953.289  ml)", 953.289, "ml"],
+    ["Suavizante SUAVITEL frescura de manzana (2.3  lt)", 2300, "ml"],
+    ["Atún CARULLA lomitos en agua (110.5  gr)", 110.5, "g"],
   ])("%s → %d %s", (name, amount, unit) => {
     expect(parsePackageSize(name)).toEqual({ amount, unit });
   });
