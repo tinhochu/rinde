@@ -21,6 +21,9 @@ const STEP_SHOTS = [
   { light: receiptLight, dark: receiptDark, alt: 'receipt' },
 ] as const;
 
+// Jumbo's two candidates for Carulla's McVitie's, as the stores list them; Muse picked the second.
+const TICKET_OPTIONS = [['Galletas Mcvities Manzana 174g', false], ['Galletas Mcvities Frutos Rojos 174g', true]] as const;
+
 const Screen = ({ light, dark, alt, width, height, first = false }: { light: string; dark: string; alt: string; width: number; height: number; first?: boolean }) => (
   <picture className="shot">
     <source media="(prefers-color-scheme: dark)" srcSet={dark} />
@@ -115,6 +118,34 @@ const Index = ({ lang }: { lang: Lang }) => {
               <div className="receipt" role="region" aria-label={t.receiptLabel}>
                 <LiveReceipt t={t} lang={lang} />
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="same-product" className="match">
+          <div className="container grid-12">
+            <div className="match-proof">
+              {/* A real answer from the held-out test (apps/web/eval/RESULTS-heldout.md, find-37). */}
+              <figure className="receipt ticket" aria-label={t.ticketLabel}>
+                <p className="ticket-from">{t.ticketFrom}</p>
+                <p className="receipt-title ticket-item">Galletas MC.VITIES de fruta · 174 g</p>
+                <p className="ticket-ask">{t.ticketAsk}</p>
+                <ol className="ticket-options">
+                  {TICKET_OPTIONS.map(([name, picked]) => (
+                    <li key={name} className={picked ? 'picked' : undefined}>
+                      {picked ? <Check size={16} aria-hidden="true" /> : <span className="ticket-dot" aria-hidden="true" />}{name}
+                    </li>
+                  ))}
+                </ol>
+                <blockquote className="ticket-reason"><p>{t.ticketReason}</p></blockquote>
+                <figcaption className="ticket-by">{t.ticketBy}</figcaption>
+              </figure>
+            </div>
+            <div className="match-text">
+              <h2>{t.matchTitle.split('\n').map((line, i) => <span key={line}>{i > 0 && <br />}{line}</span>)}</h2>
+              <p className="lead">{t.matchIntro}</p>
+              <dl className="match-score">{t.matchScore.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+              <p className="small">{t.matchNote}</p>
             </div>
           </div>
         </section>

@@ -44,11 +44,15 @@ pasta spaghetti 1 kg
 
 **1:30. Over budget (30 s).** "I'm about $28 mil over budget." Scroll to the proposals. "It never hides the overage. Each proposal shows its exact saving, recalculated." Accept "Quitar café molido", then "Quitar plátanos verdes". The plan is now within budget, at about $147.500. If it's still over, accept "Quitar atún". In the rehearsal on 2026-10-29: $177.975 → $169.100 → $147.500.
 
-**2:00. The trip (45 s).** Results → "Planear mi ruta" → Carulla chip → "Usar mi ubicación" → the nearest Carulla → "A pie".
+**2:00. The trip (40 s).** Results → "Planear mi ruta" → Carulla chip → "Usar mi ubicación" → the nearest Carulla → "A pie".
 - "Is one extra stop worth it? Muse looks at the real street routes and the savings, and explains." Read the advice aloud.
 - Pick the "Carulla + D1" option. "Real streets, cold items at the last stop, and the net saving after the walk." Open "Navegar" → Google Maps opens with both stops.
 
-**2:45. Close (15 s).** "Muse reads lists, receipts and product names, and gives advice. It never produces a price. The prices come from the stores and the math comes from code. That's how Rinde can say exactly how much you save."
+**2:40. Close (20 s).** "Muse reads lists, receipts, product names and package photos, and gives advice. It never produces a price. The riskiest part is calling two listings the same product, so we measured it against barcodes. Reading the package photos, Muse picked the wrong product zero times in 95, against four with the names alone. It tells milk in a bag from milk in a carton. The prices come from the stores and the math comes from code. That's how Rinde can say exactly how much you save."
+
+## If a judge asks how we know it works
+
+Open the README section "Measured: the same product at every store". The table: Muse with names alone gets 84 % of the held-out set right, and with the package photos 98 %, with no wrong product picked. Then one example in Muse's words: Carulla's "Galletas MC.VITIES de fruta" against Jumbo's Manzana and Frutos Rojos, *"la galleta morada de frutos rojos, no la verde de manzana"*. Be straight about the caveats if asked: a third of the cases have near-identical photos (the gain holds without them), and both test sets have been looked at while tuning.
 
 ## If something fails
 
