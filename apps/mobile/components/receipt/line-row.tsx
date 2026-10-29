@@ -90,17 +90,18 @@ export function LineRow({ line, onChange, onPickProduct }: {
             )}
           </View>
 
-          <Pressable accessibilityRole="button" accessibilityLabel={line.match && !line.noMatch ? `Producto: ${line.match.name}. Cambiar producto` : "Elegir producto"} onPress={onPickProduct} style={({ pressed }) => [styles.match, pressed && styles.pressed]}>
+          <Pressable accessibilityRole="button" accessibilityLabel={line.match && !line.noMatch ? `Producto: ${line.match.name}. Cambiar producto` : "Elegir producto"} onPress={onPickProduct} style={({ pressed }) => [styles.match, line.match && !line.noMatch && styles.matchChosen, pressed && styles.pressed]}>
             {line.match && !line.noMatch ? (
               <>
-                {line.match.image
-                  ? <Image source={{ uri: line.match.image }} style={styles.thumb} />
-                  : <View style={[styles.thumb, styles.thumbEmpty]} />}
-                <View style={styles.matchBody}>
-                  <Text numberOfLines={1} style={styles.matchName}>{line.match.name}</Text>
-                  <Text style={styles.matchMeta}>{[line.match.size, line.match.by === "user" ? "elegido por ti" : null].filter(Boolean).join(" · ") || " "}</Text>
+                {/* Big enough to compare with the package in hand before sending the price. */}
+                {!!line.match.image && <Image source={{ uri: line.match.image }} resizeMode="contain" style={styles.hero} />}
+                <View style={styles.matchRow}>
+                  <View style={styles.matchBody}>
+                    <Text numberOfLines={2} style={styles.matchName}>{line.match.name}</Text>
+                    <Text style={styles.matchMeta}>{[line.match.size, line.match.by === "user" ? "elegido por ti" : null].filter(Boolean).join(" · ") || " "}</Text>
+                  </View>
+                  <Text style={styles.change}>Cambiar producto</Text>
                 </View>
-                <Text style={styles.change}>Cambiar producto</Text>
               </>
             ) : (
               <>
@@ -173,6 +174,9 @@ const styles = StyleSheet.create({
   pressed: { opacity: 0.7 },
   thumb: { width: 36, height: 36, borderRadius: 8, backgroundColor: colors.imageBg },
   thumbEmpty: { borderWidth: 1, borderStyle: "dashed", borderColor: colors.input, backgroundColor: "transparent" },
+  matchChosen: { flexDirection: "column", alignItems: "stretch" },
+  matchRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  hero: { width: "100%", height: 160, borderRadius: radius.sm, backgroundColor: "#FFFFFF" },
   matchBody: { flex: 1, minWidth: 0 },
   matchName: { fontSize: fontSize.body, fontWeight: "700", color: colors.foreground },
   matchMeta: { fontSize: fontSize.caption, color: colors.mutedForeground },

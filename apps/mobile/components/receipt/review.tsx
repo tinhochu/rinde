@@ -115,13 +115,16 @@ export function ReceiptReview({ draft, sending, onRetake, onSend }: {
               .map(option => {
                 const selected = !pickingLine.noMatch && pickingLine.match?.listingId === option.listingId && pickingLine.match?.name === option.name;
                 return (
-                  <Pressable key={`${option.listingId}:${option.name}`} accessibilityRole="button" onPress={() => choose(option)} style={({ pressed }) => [styles.option, selected && styles.optionSelected, pressed && styles.pressed]}>
-                    {option.image ? <Image source={{ uri: option.image }} style={styles.optionImage} /> : <View style={styles.optionImage} />}
-                    <View style={styles.optionBody}>
-                      <Text numberOfLines={2} style={styles.optionName}>{option.name}</Text>
-                      {!!option.size && <Text style={styles.optionMeta}>{option.size}</Text>}
+                  <Pressable key={`${option.listingId}:${option.name}`} accessibilityRole="button" accessibilityState={{ selected }} onPress={() => choose(option)} style={({ pressed }) => [styles.option, styles.optionStack, selected && styles.optionSelected, pressed && styles.pressed]}>
+                    {selected && !!option.image && <Image source={{ uri: option.image }} resizeMode="contain" style={styles.optionHero} />}
+                    <View style={styles.optionRow}>
+                      {!selected && (option.image ? <Image source={{ uri: option.image }} style={styles.optionImage} /> : <View style={styles.optionImage} />)}
+                      <View style={styles.optionBody}>
+                        <Text numberOfLines={2} style={styles.optionName}>{option.name}</Text>
+                        {!!option.size && <Text style={styles.optionMeta}>{option.size}</Text>}
+                      </View>
+                      {selected && <CheckCircle2 size={18} color={colors.primary} />}
                     </View>
-                    {selected && <CheckCircle2 size={18} color={colors.primary} />}
                   </Pressable>
                 );
               })}
@@ -239,6 +242,9 @@ const styles = StyleSheet.create({
   sheetEmpty: { fontSize: fontSize.body, color: colors.mutedForeground },
   option: { flexDirection: "row", alignItems: "center", gap: spacing.md, padding: spacing.sm, borderRadius: radius.md, borderWidth: 1, borderColor: colors.border },
   optionSelected: { borderColor: colors.primary, backgroundColor: colors.secondary },
+  optionStack: { flexDirection: "column", alignItems: "stretch" },
+  optionRow: { flexDirection: "row", alignItems: "center", gap: spacing.md },
+  optionHero: { width: "100%", height: 180, borderRadius: radius.sm, backgroundColor: "#FFFFFF" },
   pressed: { opacity: 0.7 },
   optionImage: { width: 44, height: 44, borderRadius: 8, backgroundColor: colors.imageBg },
   noneIcon: { alignItems: "center", justifyContent: "center", backgroundColor: colors.muted },
