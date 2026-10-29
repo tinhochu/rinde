@@ -88,6 +88,8 @@ export async function verifyPlan(
       const pending = lines.map((l) => l.candidate).filter((c) => c.priceStatus !== "reported" && !opts.skip?.has(c.listingId));
       if (pending.length === 0) return;
       let changed = 0;
+      // Announced before the call, so the person sees which stores are being checked right now.
+      opts.onProgress?.({ type: "progress", store: retailer, checked: 0, total: pending.length, changed: 0, failed: false });
       try {
         const live = await abortable(deps.fetchLive(retailer, pending.map((c) => c.listingId), opts.signal), opts.signal);
         for (const c of pending) {

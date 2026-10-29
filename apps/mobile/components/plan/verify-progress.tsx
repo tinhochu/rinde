@@ -14,16 +14,20 @@ export function VerifyProgressRows({ progress, stores, compact = false }: { prog
       {(stores ?? (progress.length ? progress.map(p => p.store) : DEFAULT_STORES)).map(store => {
         const p = progress.find(x => x.store === store);
         const name = STORE_NAME[store];
+        // A store's check is announced at 0/N when it starts, and reported once it ends.
+        const checking = !!p && !p.failed && p.checked < p.total;
         const text = !p
           ? "Buscando precios y armando tu ruta…"
           : p.failed
             ? `${name} no respondió: usamos su precio de catálogo más reciente`
-            : `Verificando ${name}… ${p.checked}/${p.total} ✓${p.changed ? ` · ${p.changed} ${p.changed === 1 ? "precio cambió" : "precios cambiaron"}` : ""}`;
+            : checking
+              ? `Verificando ${name}… ${p.total} ${p.total === 1 ? "precio" : "precios"} en vivo`
+              : `Verificando ${name}… ${p.checked}/${p.total} ✓${p.changed ? ` · ${p.changed} ${p.changed === 1 ? "precio cambió" : "precios cambiaron"}` : ""}`;
         return (
           <View key={store} style={[styles.row, compact && styles.rowCompact]}>
             <StoreLogo store={name} />
             <Text style={styles.text}>{text}</Text>
-            {!p ? <LoaderCircle size={17} color={colors.primary} /> : p.failed ? <AlertCircle size={17} color={colors.warnInk} /> : <CheckCircle2 size={17} color={colors.primary} />}
+            {!p || checking ? <LoaderCircle size={17} color={colors.primary} /> : p.failed ? <AlertCircle size={17} color={colors.warnInk} /> : <CheckCircle2 size={17} color={colors.primary} />}
           </View>
         );
       })}

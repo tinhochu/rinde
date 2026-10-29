@@ -64,6 +64,17 @@ describe("planAndVerify", () => {
     expect(progress).toContainEqual(expect.objectContaining({ store: "jumbo", failed: true }));
   });
 
+  it("announces each store's check when it starts, then reports it", async () => {
+    const progress: { store: string; checked: number; total: number }[] = [];
+    await planAndVerify([item("arroz", [cand("roa", "jumbo", 4890)])], OPTIONS, fakeDeps({ jumbo: { roa: 4890 } }), {
+      onProgress: (p) => progress.push(p),
+    });
+    expect(progress.slice(0, 2)).toEqual([
+      expect.objectContaining({ store: "jumbo", checked: 0, total: 1, failed: false }),
+      expect.objectContaining({ store: "jumbo", checked: 1, total: 1, failed: false }),
+    ]);
+  });
+
   it("drops a stale snapshot price when the retailer fails", async () => {
     const result = await planAndVerify([item("arroz", [cand("a", "jumbo", 4890, hoursAgo(40))])], OPTIONS, fakeDeps({ jumbo: "error" }));
     expect(lines(result)).toEqual([]);
