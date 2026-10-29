@@ -81,7 +81,7 @@
 ## 6. Release
 
 - [x] 6.1 Run the full checks: `pnpm -r typecheck`, the unit tests and the web integration tests. Verify: all pass, with outputs recorded in the summary.
-- [ ] 6.2 Deploy:
+- [x] 6.2 Deploy:
   - build the `rinde-*` images at the commit;
   - patch the compose and restart (migrate creates `ProductMatch`);
   - run ingest plus cross-fill once;
@@ -94,3 +94,5 @@
   - the product page check returns a state for every store.
 
   Status 2026-10-28: deployed; coverage improved (see 3.2); "leche alpina" shows Alpina at up to 3 stores and Latti marked similar; the check returns a state for every store. Still open: no Muse match yet, because Grupo Éxito answers 429 to the RindeBot User-Agent (a browser User-Agent gets 200), so Éxito and Carulla come back "unchecked".
+
+  Done 2026-10-29 (web and worker `713b600`). By product decision, Éxito and Carulla now get a browser User-Agent. A full snapshot plus cross-fill ran with no failed batches: cross-fill found 123 listings at Jumbo, 638 at Éxito and 674 at Carulla, and none at D1. Coverage of products with a barcode is now 2,447 / 1,514 / 898 / 39 at 1–4 stores (baseline 3,295 / 1,005 / 246 / 11). Muse match: Jumbo's "Arroz Diana fibra x1000g" matched D1's "Arroz Integral Diana 1.000 G" and Éxito's "Arroz DIANA integral (1000 gr)" with the reason "Mismo arroz Diana fibra integral de 1000 g; la tienda lo nombra solo como integral". Rejections carry reasons too ("Es leche deslactosada, no leche entera"), and Similares show reasons ("Leche entera de otra marca").
