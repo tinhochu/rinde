@@ -68,8 +68,32 @@ The same list, with café, panela, pasta, atún, plátano and lenteja marked opt
 
 Result: $135.520, $14.480 under budget, and no further proposals.
 
+## Rerun after the search and size fixes
+
+Recorded 2026-10-29 01:05 UTC on production (web `85f63cd`, worker `95ed660`), after the nightly snapshot of D1 and Jumbo. Same list, budget $200.000.
+
+All 15 items now have a price. Two stops, **$189.890**: D1 for 12 items ($142.760), Jumbo for 3 ($47.130).
+
+- **Atún en lata** comes from D1: 3 × Atún Rallado el Navío 170 Grs at $3.450 = $10.350. The search now relaxes "atún en lata" to "atún" for stores without a match.
+- **Tomate** comes from D1: Tomate Chonto X 1000 G, $5.900.
+- **Plátano verde** is bought by the piece: 4 × "Plátano verde a $3.000" at $2.990 = $11.960, instead of four 1 kg bags ($19.920).
+- The baseline is now all 15 items at Jumbo, $265.820, so the reported saving is $75.930.
+
+The total is higher than the first run's $178.750 because two more items are priced (atún and tomate, $16.250). It also reflects D1's snapshot picks: rice as 7 × 450 g, milk as 7 × 900 ml.
+
+### Over budget: $150.000, the demo path
+
+Everything is essential except café, panela, pasta, atún, plátano and lenteja. The plan starts **$39.890 over**. Accepting the three proposals a shopper would pick:
+
+1. Quitar café molido: proposed −$19.900. The plan becomes $169.380, −$20.510.
+2. Quitar plátano verde: −$11.960, to $157.420.
+3. Quitar atún en lata: −$10.350, to **$144.040**, $5.960 under budget. No further proposals.
+
+At step 1 the plan fell by $610 more than proposed. The replan picked D1's Panela Redonda ($5.990) over Panela Fraccionada ($6.600), and 6 × 1 L of Latti milk over 7 × 900 ml. See the first known gap below.
+
 ## Known gaps this run shows
 
-- **Atún and tomate** find no product at any store. These are search misses, not missing products.
-- **Plantains by the unit:** a list asking for 4 plantains gets 4 one-kilo bags. Items counted in units take one package per unit, and the per-plantain listing ("Plátano verde a $3.000", $2.990) has no stored size, so it isn't a candidate.
+- **First plan vs. replan (open):** Muse's kind filter runs again whenever an item's candidate set changes, and the first run of a list records new live listings. Muse can then keep a listing it dropped the first time, so a replan can come out cheaper by a few hundred pesos. Proposals never overstate a saving; the plan can only beat them.
+- ~~Atún and tomate find no product~~: fixed in `59dbd94` and after (the looser search).
+- ~~Plantains by the unit~~: fixed in `3725246`. Jumbo's per-piece listings are sized as 1 unit.
 - **Éxito and Carulla live checks** fail from production: Grupo Éxito answers 429 to Rinde's User-Agent. Their lines fall back to the stored price, labeled as such.
