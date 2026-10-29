@@ -1,0 +1,18 @@
+[
+ {"id": "find-12", "verdict": "muse-wrong", "note": "Same red wine (Blend = Otra Cepa); Muse's reason mixes it up with the white."},
+ {"id": "find-13", "verdict": "muse-wrong", "note": "Same Colanta sin sal 125 g; \"esparcible\" is only how one store describes it."},
+ {"id": "find-14", "verdict": "muse-wrong", "note": "Picked a different Café Quindío line (tostado y molido) for Buenavista."},
+ {"id": "find-18", "verdict": "unclear", "note": "Éxito and Carulla call three Karavansay flours just \"precocida\"; the name can't say which one."},
+ {"id": "find-20", "verdict": "muse-wrong", "note": "Vanilla notes, same brand and size: it is the same coffee."},
+ {"id": "find-21", "verdict": "unclear", "note": "Same vague \"precocida\" name as find-18."},
+ {"id": "find-38", "verdict": "muse-wrong", "note": "Picked the natural Fonce panela; the barcode twin is the organic one."},
+ {"id": "find-51", "verdict": "muse-wrong", "note": "Picked sin sal for a butter the other store sells as con sal."},
+ {"id": "find-76", "verdict": "unclear", "note": "Same vague \"integral precocida\" name; Jumbo calls it rice flour."},
+ {"id": "find-78", "verdict": "unclear", "note": "One store says yuca flour, the other tapioca for one barcode."},
+ {"id": "none-10", "verdict": "muse-right", "note": "S/A is sin azúcar: the same aguardiente, listed under another barcode."},
+ {"id": "none-22", "verdict": "muse-wrong", "note": "Gourmet Vitaplus and Gourmet Familia are different oils."},
+ {"id": "none-30", "verdict": "muse-wrong", "note": "Panela in tablets (pastilla) and round panela are different products."},
+ {"id": "none-31", "verdict": "muse-wrong", "note": "San Fernando and Latti are different brands."},
+ {"id": "none-32", "verdict": "muse-right", "note": "Same Alquería lactose-free litre; the other listing has another barcode."},
+ {"id": "none-34", "verdict": "muse-wrong", "note": "Diana Premium is a different rice line from Diana blanco."}
+]
