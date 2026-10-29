@@ -98,22 +98,29 @@ export function ReceiptReview({ draft, sending, signedIn, onRetake, onSend, onAc
       </ScrollView>
 
       <SafeAreaView edges={["bottom"]} style={styles.footer}>
-        {!signedIn && counted > 0 && (
-          <View style={styles.account}>
-            <Award size={20} color={colors.accent} />
-            <View style={styles.accountBody}>
-              <Text style={styles.accountTitle}>Gana puntos con tu cuenta</Text>
-              <Text style={styles.accountText}>Los puntos se guardan en tu cuenta, no en el celular. Sin cuenta, tus precios se envían gratis. Esta factura te espera mientras la creas.</Text>
-              <Button title="Crear cuenta y ganar puntos" variant="outline" onPress={onAccount} />
+        {!signedIn && counted > 0 ? (
+          <>
+            <View style={styles.account}>
+              <Award size={20} color={colors.accent} />
+              <View style={styles.accountBody}>
+                <Text style={styles.accountTitle}>Sin cuenta pierdes los puntos de esta factura</Text>
+                {/* 10 per line is the floor (rewards.ts POINTS.line); bonuses for first prices and produce come on top. */}
+                <Text style={styles.accountText}>Con cuenta ganas al menos {counted * 10} puntos. Se guardan en tu cuenta, así no se pierden si cambias de celular. Esta factura te espera mientras entras.</Text>
+              </View>
             </View>
-          </View>
+            <Button title="Crear cuenta o iniciar sesión" onPress={onAccount} />
+            <Pressable accessibilityRole="button" onPress={() => onSend(lines)} disabled={sending} hitSlop={6} style={({ pressed }) => [styles.free, (pressed || sending) && styles.freePressed]}>
+              <Text style={styles.freeText}>{sending ? "Enviando…" : "Enviar gratis y perder los puntos"}</Text>
+            </Pressable>
+          </>
+        ) : (
+          <Button
+            title={!counted ? "Ningún precio para enviar" : `Enviar ${counted} ${counted === 1 ? "precio" : "precios"}`}
+            disabled={!counted}
+            loading={sending}
+            onPress={() => onSend(lines)}
+          />
         )}
-        <Button
-          title={!counted ? "Ningún precio para enviar" : signedIn ? `Enviar ${counted} ${counted === 1 ? "precio" : "precios"}` : "Enviar gratis, sin puntos"}
-          disabled={!counted}
-          loading={sending}
-          onPress={() => onSend(lines)}
-        />
       </SafeAreaView>
 
       <Sheet visible={!!pickingLine} onClose={() => setPicking(null)}>
@@ -249,6 +256,9 @@ const styles = StyleSheet.create({
   accountBody: { flex: 1, gap: spacing.sm },
   accountTitle: { fontSize: fontSize.body, fontWeight: "800", color: colors.foreground },
   accountText: { fontSize: fontSize.caption, lineHeight: 17, color: colors.mutedForeground },
+  free: { alignItems: "center", justifyContent: "center", minHeight: 44, marginTop: spacing.xs },
+  freePressed: { opacity: 0.6 },
+  freeText: { fontSize: fontSize.body, fontWeight: "600", color: colors.mutedForeground, textDecorationLine: "underline" },
   footer: { paddingHorizontal: spacing.lg, paddingTop: spacing.md, paddingBottom: spacing.md, borderTopWidth: 1, borderTopColor: colors.border, backgroundColor: colors.background },
   sheetScroll: { maxHeight: 520 },
   sheet: { gap: spacing.sm, paddingHorizontal: spacing.lg, paddingBottom: spacing.md },

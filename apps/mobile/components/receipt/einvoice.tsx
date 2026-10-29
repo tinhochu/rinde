@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { AlertCircle, CheckCircle2, ChevronRight, Copy, FileUp, Mail, RefreshCw } from "lucide-react-native";
+import { AlertCircle, Award, CheckCircle2, ChevronRight, Copy, FileUp, Mail, RefreshCw } from "lucide-react-native";
 import { StoreLogo } from "@/components/brand";
 import { Button } from "@/components/ui";
 import type { Inbox, InboxDraft, InboxOutcome } from "@/lib/receipts";
@@ -43,8 +43,9 @@ export function PendingInvoices({ drafts, opening, onOpen }: { drafts: InboxDraf
  * "¿Te llegó la factura por correo?": the personal forwarding address (hidden while receiving email is
  * off), copy and replace, and the upload of the .zip, .xml or .pdf.
  */
-export function EmailInvoiceCard({ inbox, onCopy, onReplace, replacing, onUpload }: {
-  inbox: Inbox | null; onCopy: () => void; onReplace: () => void; replacing: boolean; onUpload: () => void;
+export function EmailInvoiceCard({ inbox, signedIn, onCopy, onReplace, replacing, onUpload, onAccount }: {
+  inbox: Inbox | null; /** Without an account, forwarded invoices are saved for free and earn no points */ signedIn: boolean;
+  onCopy: () => void; onReplace: () => void; replacing: boolean; onUpload: () => void; onAccount: () => void;
 }) {
   const address = inbox?.address ?? null;
   return (
@@ -75,6 +76,18 @@ export function EmailInvoiceCard({ inbox, onCopy, onReplace, replacing, onUpload
               <Text style={styles.copyText}>Copiar</Text>
             </Pressable>
           </View>
+          {!signedIn && (
+            <View style={styles.warn}>
+              <Award size={18} color={colors.accent} />
+              <View style={styles.rowBody}>
+                <Text style={styles.warnTitle}>Sin cuenta, pierdes los puntos</Text>
+                <Text style={styles.warnText}>Las facturas que reenvíes sin cuenta se guardan gratis, pero no suman puntos. Crea tu cuenta o inicia sesión antes de reenviarlas.</Text>
+                <Pressable accessibilityRole="button" onPress={onAccount} hitSlop={6} style={({ pressed }) => pressed && styles.pressed}>
+                  <Text style={styles.warnLink}>Crear cuenta o iniciar sesión</Text>
+                </Pressable>
+              </View>
+            </View>
+          )}
         </>
       ) : (
         <Text style={styles.cardText}>Sube el archivo que te llegó por correo de D1, Jumbo, Éxito o Carulla. Leemos los precios exactos, sin foto.</Text>
@@ -138,6 +151,10 @@ const styles = StyleSheet.create({
   titleRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   titleIcon: { width: 32, height: 32, borderRadius: 10, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center" },
   cardTitle: { fontSize: fontSize.subhead + 1, fontWeight: "800", color: colors.foreground },
+  warn: { flexDirection: "row", gap: spacing.sm, padding: spacing.md, borderRadius: radius.md, backgroundColor: colors.muted },
+  warnTitle: { fontSize: fontSize.body, fontWeight: "800", color: colors.foreground },
+  warnText: { fontSize: fontSize.caption, lineHeight: 17, color: colors.mutedForeground, marginTop: 2 },
+  warnLink: { fontSize: fontSize.body, fontWeight: "800", color: colors.primary, marginTop: spacing.sm },
   cardText: { fontSize: fontSize.body, lineHeight: 19, color: colors.mutedForeground },
   list: { marginTop: spacing.xs },
   row: { flexDirection: "row", alignItems: "center", gap: spacing.md, minHeight: 52, paddingVertical: spacing.sm },

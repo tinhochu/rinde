@@ -16,7 +16,7 @@ export function intakeReply(outcome: ReplyOutcome): { subject: string; text: str
   if (outcome.status === "accepted" && outcome.receiptId) {
     const link = `${appUrl()}/receipt?draft=${encodeURIComponent(outcome.receiptId)}`;
     const points = outcome.hasAccount === false
-      ? "Para ganar puntos, crea tu cuenta en Rinde antes de enviarla: los puntos se guardan en tu cuenta. Si prefieres, envíala gratis, sin cuenta: tus precios ayudan igual."
+      ? "Ojo: sin cuenta pierdes los puntos de esta factura. Crea tu cuenta o inicia sesión en Rinde antes de enviarla y los puntos quedan en tu cuenta. Si prefieres, envíala gratis, sin puntos: tus precios ayudan igual."
       : null;
     const text = [
       "Recibimos tu factura electrónica.",

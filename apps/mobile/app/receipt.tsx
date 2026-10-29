@@ -217,7 +217,7 @@ export default function ReceiptScreen() {
           onLibrary={() => pick(false)}
           onSample={s => upload({ sample: s })}
           einvoice={
-            <EmailInvoiceCard inbox={inbox} onCopy={copyAddress} onReplace={newAddress} replacing={replacing} onUpload={pickInvoice} />
+            <EmailInvoiceCard inbox={inbox} signedIn={!!user} onCopy={copyAddress} onReplace={newAddress} replacing={replacing} onUpload={pickInvoice} onAccount={() => router.push("/account")} />
           }
           pending={<PendingInvoices drafts={inbox?.drafts ?? []} opening={opening} onOpen={openDraft} />}
           recent={<RecentOutcomes recent={inbox?.recent ?? []} />}
