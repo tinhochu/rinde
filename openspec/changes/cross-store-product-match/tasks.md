@@ -29,7 +29,7 @@
 
 ## 3. Nightly cross-fill
 
-- [ ] 3.1 Add `crossFill()` in `apps/worker/src/crossfill.ts`:
+- [x] 3.1 Add `crossFill()` in `apps/worker/src/crossfill.ts`:
   - EANs with a current online observation, minus those already listed at each store;
   - patient `byEans` batches;
   - record with source `<slug>:cross-ean`;
@@ -38,7 +38,9 @@
   Run it after `ingestAll()` in the scheduled job and in `dist/ingest.mjs`. Verify:
   - a unit test with a stubbed client (one batch fails, the others record);
   - a local run logs per-store counts.
-- [ ] 3.2 Measure coverage on the local database before and after a cross-fill: products listed at 1, 2, 3 and 4 stores. Verify: the counts are recorded in the summary, and products at 1 store drop.
+- [x] 3.2 Measure coverage on the local database before and after a cross-fill: products listed at 1, 2, 3 and 4 stores. Verify: the counts are recorded in the summary, and products at 1 store drop.
+
+  Result (measured on production, 2026-10-28): 3,295 / 1,005 / 246 / 11 before, 3,183 / 1,086 / 393 / 15 after.
 
 ## 4. API
 
@@ -90,3 +92,5 @@
   - "leche alpina" shows Alpina products with more than one store, and Latti labeled "Similar";
   - a product page check matches at least one store by Muse, with its reason, and Similares show reasons;
   - the product page check returns a state for every store.
+
+  Status 2026-10-28: deployed; coverage improved (see 3.2); "leche alpina" shows Alpina at up to 3 stores and Latti marked similar; the check returns a state for every store. Still open: no Muse match yet, because Grupo Éxito answers 429 to the RindeBot User-Agent (a browser User-Agent gets 200), so Éxito and Carulla come back "unchecked".
