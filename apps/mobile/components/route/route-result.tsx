@@ -88,7 +88,7 @@ export function RouteResult({ options, advice, question, verified, mode, start, 
       <RouteMap route={option.route} stops={option.stops} start={options.startDropped ? null : start} />
       <View style={styles.summary}>
         {option.route && <Text style={styles.summaryText}>Recorrido {option.route.distance} · {option.route.minutes}{options.busEstimate ? " (estimado, sin horarios)" : ""}</Text>}
-        {shown > 0 && <Text style={styles.summaryText}>La parada extra suma {option.extraDistance} y {option.extraMinutes}{option.travelCost ? `, ${cop(option.travelCost)} de trayecto` : ""}</Text>}
+        {shown > 0 && <Text style={styles.summaryText}>La parada extra suma {option.extraDistance} y {option.extraMinutes}{option.walkBetween ? ": entre las tiendas vas a pie, sin otro pasaje" : option.travelCost ? `, ${cop(option.travelCost)} de trayecto` : ""}</Text>}
       </View>
 
       {option.stops.map((stop, i) => {

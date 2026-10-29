@@ -87,6 +87,8 @@ export interface ClientOption {
   extraDistance: string;
   extraMinutes: string;
   travelCost: number;
+  /** On a bus trip, the stores are close enough to walk between */
+  walkBetween: boolean;
   net: number;
   extraItems: string[];
   route: ClientRoute | null;
@@ -201,7 +203,7 @@ export function toClient(o: RouteOption, anchorPoint: LatLon, start: LatLon | nu
   return {
     key: o.key, label: o.label, stops, stopLines: o.stopLines.map((ls) => ls.map(clientLine)),
     goodsTotal: o.goodsTotal, saving: o.saving, extraDistance: formatDistance(o.extra.distanceM), extraMinutes: formatMinutes(o.extra.durationS),
-    travelCost: o.travelCost, net: o.net, extraItems: o.extraItems,
+    travelCost: o.travelCost, walkBetween: o.walkBetween, net: o.net, extraItems: o.extraItems,
     route: o.route ? clientRoute(o.route, start ? through : through.slice(1), start ?? anchorPoint) : null,
   };
 }

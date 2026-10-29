@@ -29,6 +29,11 @@ export function routeProfile(mode: TravelMode): "foot" | "car" {
 export const BUS_FACTOR = 1.6;
 export const BUS_WAIT_S = 8 * 60;
 
+/** On a bus trip, stores this close are walked between: no second fare, no second wait. */
+export const BUS_WALK_HOP_M = 600;
+/** An unhurried walk with bags, for hops walked on a bus trip. */
+export const WALK_MPS = 1.2;
+
 /** Travel time for a route in this mode. Bus waits once per ride. */
 export function tripDurationS(mode: TravelMode, routeDurationS: number, rides = 1): number {
   return mode === "bus" ? routeDurationS * BUS_FACTOR + BUS_WAIT_S * rides : routeDurationS;

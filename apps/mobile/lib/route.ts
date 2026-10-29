@@ -46,6 +46,8 @@ export interface RouteOption {
   extraDistance: string;
   extraMinutes: string;
   travelCost: number;
+  /** On a bus trip, the stores are close enough to walk between */
+  walkBetween: boolean;
   net: number;
   extraItems: string[];
   route: RouteGeometry | null;

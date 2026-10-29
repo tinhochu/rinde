@@ -92,7 +92,7 @@ export function describeOptions(options: RouteOption[], mode: TravelMode) {
     });
     const head = i === 0
       ? `Opción ${count(i)}: ${o.label}. Total de la compra ${peso(o.goodsTotal)}.`
-      : `Opción ${count(i)}: ${o.label}. Ahorro en productos ${peso(o.saving)}; trayecto extra ${dist(o.extra.distanceM)} y ${mins(o.extra.durationS)} ${MODE[mode]}; costo del trayecto ${peso(o.travelCost)}; ahorro neto ${peso(o.net)}.` +
+      : `Opción ${count(i)}: ${o.label}. Ahorro en productos ${peso(o.saving)}; trayecto extra ${dist(o.extra.distanceM)} y ${mins(o.extra.durationS)} ${o.walkBetween ? "a pie entre las tiendas" : MODE[mode]}; costo del trayecto ${peso(o.travelCost)}; ahorro neto ${peso(o.net)}.` +
         (o.extraItems.length ? ` Además consigue ${count(o.extraItems.length)} productos que tu tienda no tiene.` : "");
     return [head, ...stops].join("\n");
   });

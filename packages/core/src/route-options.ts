@@ -2,7 +2,7 @@ import { STORE_NAMES, optimize } from "./optimizer";
 import type { Plan, PlanItem, PlanLine, RetailerSlug } from "./optimizer";
 import { coldHeavyScore, orderLines } from "./route-items";
 import {
-  extraTrip, formatMinutes, routeProfile, shorterOrder, stopCost, tripDurationS, withinLimit, MINUTE_LIMITS,
+  extraTrip, formatMinutes, routeProfile, shorterOrder, stopCost, tripDurationS, withinLimit, BUS_WALK_HOP_M, MINUTE_LIMITS, WALK_MPS,
   type RouteLength, type StepInput, type TravelSettings,
 } from "./route-cost";
 
@@ -67,6 +67,8 @@ export interface RouteOption {
   /** What the extra stop adds to the whole trip, by route, in this mode (bus includes its wait) */
   extra: RouteLength;
   travelCost: number;
+  /** On a bus trip, the stores are close enough to walk between: no second fare or wait */
+  walkBetween: boolean;
   /** saving − travel cost */
   net: number;
   /** Items only the other chain carries */
@@ -130,7 +132,7 @@ export async function routeOptions(input: RouteOptionsInput): Promise<RouteOptio
   const anchorOption: RouteOption = {
     key: anchor.chain, label: `Solo en tu ${STORE_NAMES[anchor.chain]}`, stops: [anchorStop],
     stopLines: [orderLines(anchorPlan.stores.flatMap((s) => s.lines))], plan: anchorPlan,
-    goodsTotal: anchorPlan.total, saving: 0, extra: { distanceM: 0, durationS: 0 }, travelCost: 0, net: 0,
+    goodsTotal: anchorPlan.total, saving: 0, extra: { distanceM: 0, durationS: 0 }, travelCost: 0, walkBetween: false, net: 0,
     extraItems: [], route: base, otherOrder: null,
   };
   const covered = new Map(anchorPlan.stores.flatMap((s) => s.lines).map((l) => [l.itemId, l.lineTotal]));
@@ -199,16 +201,22 @@ export async function routeOptions(input: RouteOptionsInput): Promise<RouteOptio
     if (!start && !coldLast(best)) best = { stops: [stop, anchorStop], route: best.route };
     const other = start ? (orders.find((o) => o.route !== best.route) ?? null) : null;
     const baseLength = base ? { distanceM: base.distanceM, durationS: tripDurationS(travel.mode, base.durationS, 1) } : null;
-    const extra = extraTrip(baseLength, { distanceM: best.route.distanceM, durationS: tripDurationS(travel.mode, best.route.durationS, 2) });
+    // The legs between the stores: after the ride from home, or the whole anchor → B → anchor loop.
+    const hops = start ? best.route.legs.slice(1) : best.route.legs;
+    const walkBetween = travel.mode === "bus" && hops.length > 0 && hops.every((l) => l.distanceM <= BUS_WALK_HOP_M);
+    const withStopS = walkBetween
+      ? (start ? tripDurationS("bus", best.route.legs[0]!.durationS, 1) : 0) + hops.reduce((s, l) => s + l.distanceM / WALK_MPS, 0)
+      : tripDurationS(travel.mode, best.route.durationS, 2);
+    const extra = extraTrip(baseLength, { distanceM: best.route.distanceM, durationS: withStopS });
     if (!withinLimit(travel.mode, extra.durationS)) {
       leftOut.push({ chain, reason: `${name} suma ${formatMinutes(extra.durationS)}; el límite ${LIMIT_LABEL[travel.mode]} es ${MINUTE_LIMITS[travel.mode]} min` });
       continue;
     }
-    const travelCost = stopCost(travel, extra.distanceM);
+    const travelCost = walkBetween ? 0 : stopCost(travel, extra.distanceM);
     options.push({
       key: `${anchor.chain}+${chain}`, label: `${STORE_NAMES[anchor.chain]} + ${name}`, stops: best.stops,
       stopLines: best.stops.map((s) => orderLines(linesAt(s))), plan,
-      goodsTotal: plan.total, saving, extra, travelCost, net: saving - travelCost, extraItems,
+      goodsTotal: plan.total, saving, extra, travelCost, walkBetween, net: saving - travelCost, extraItems,
       route: best.route, otherOrder: other,
     });
   }

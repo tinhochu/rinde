@@ -85,6 +85,31 @@ describe("routeOptions", () => {
     expect(leftOut).toEqual([{ chain: "jumbo", reason: "Jumbo suma 51 min; el límite en bus es 30 min" }]);
   });
 
+  it("on a bus trip, walks a short hop between the stores: no second fare or wait", async () => {
+    const legs = (...l: [number, number][]): RouteLike => ({
+      distanceM: l.reduce((s, x) => s + x[0], 0), durationS: l.reduce((s, x) => s + x[1], 0), coordinates: [[0, 0], [1, 1]],
+      legs: l.map(([distanceM, durationS]) => ({ distanceM, durationS, steps: [] })),
+    });
+    const p = provider(
+      {
+        [key([HOME, pt(D1)])]: route(2000, 300),
+        // Home → D1 by bus, then 480 m to the Carulla on foot.
+        [key([HOME, pt(D1), pt(CARULLA)])]: legs([2000, 300], [480, 60]),
+        [key([HOME, pt(CARULLA), pt(D1)])]: legs([2400, 360], [480, 60]),
+      },
+      { [pt(CARULLA).join(",")]: 60 },
+    );
+    const { options } = await routeOptions(input(p, { start: HOME, branches: [CARULLA], travel: travel("bus") }));
+    // 480 m at 1,2 m/s is 400 s; the bus ride from home is the same as without the stop.
+    expect(options[1]).toMatchObject({ walkBetween: true, travelCost: 0, net: 12_300, extra: { distanceM: 480, durationS: 400 } });
+  });
+
+  it("on a bus trip, rides again to a store too far to walk", async () => {
+    const p = provider({ [key([pt(D1), pt(CARULLA), pt(D1)])]: route(2400, 300, 3) }, { [pt(CARULLA).join(",")]: 150 });
+    const { options } = await routeOptions(input(p, { branches: [CARULLA], travel: travel("bus") }));
+    expect(options[1]).toMatchObject({ walkBetween: false, travelCost: DEFAULT_TRAVEL.busFare });
+  });
+
   it("drops an option whose route fails, and says so", async () => {
     const p = provider({ [key([pt(D1), pt(CARULLA), pt(D1)])]: new Error("timeout") }, { [pt(CARULLA).join(",")]: 240 });
     const { options, leftOut } = await routeOptions(input(p, { branches: [CARULLA] }));
