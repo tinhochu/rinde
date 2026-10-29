@@ -106,6 +106,6 @@ It checks that every product matches what was asked for, that totals add up, and
 ## Data and its limits
 
 - **Prices are snapshots plus live checks.** The worker stores each store's staples catalog nightly. Before a plan is shown, the chosen products are re-checked live. A price that couldn't be checked is labeled with its date, and dropped after 36 hours.
-- **Requests are polite and identified.** They go one at a time, with pauses and a `RindeBot` User-Agent. Grupo Éxito (Éxito and Carulla) currently refuses that User-Agent from our server, so their lines use the latest stored price and say so.
+- **Requests are slow and polite.** They go one at a time, with pauses (5 s between requests to Grupo Éxito), and back off for minutes after any 429. D1 and Jumbo see a `RindeBot` User-Agent. Grupo Éxito (Éxito and Carulla) refuses every request with that User-Agent, so those two get a browser User-Agent. A price that couldn't be checked live uses the latest stored one and says so.
 - **Routes come from OpenStreetMap.** Bus times are estimates from the car route (×1.6 plus waits), labeled "estimado, sin horarios".
 - **No invented numbers.** Savings are always against a stated baseline ("comprar todo en Jumbo, sin cambios de marca"), over the items both options price.

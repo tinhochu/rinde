@@ -54,6 +54,8 @@ interface VtexConfig {
   privateLabelPrefix?: string;
   /** Slower pacing for hosts that rate-limit harder than the default allows */
   minIntervalMs?: number;
+  /** User-Agent for this store, when it refuses Rinde's own (default: the RindeBot UA). */
+  userAgent?: string;
   /** Stores on one backend share one rate limit (Éxito and Carulla): pace and cool down as one host. */
   rateGroup?: string;
   /**
@@ -99,7 +101,7 @@ export function createVtexClient(config: VtexConfig): RetailerClient {
       }
       await pace(origin, config.minIntervalMs);
       try {
-        const res = await fetch(url, { headers: { "User-Agent": USER_AGENT, Accept: "application/json" } });
+        const res = await fetch(url, { headers: { "User-Agent": config.userAgent ?? USER_AGENT, Accept: "application/json" } });
         if (res.status === 429) {
           lastError = new Error(`${config.slug} 429 ${url}`);
           // Rate limited: honor Retry-After, else cool down; only patient callers retry.

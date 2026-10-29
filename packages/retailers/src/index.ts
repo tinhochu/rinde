@@ -20,6 +20,11 @@ export const jumbo = createVtexClient({
   searchPath: "/api/catalog_system/pub/products/search",
 });
 
+// Grupo Éxito answers 429 to every request carrying the RindeBot User-Agent and 200 to a browser's.
+// By product decision (2026-10-29) Éxito and Carulla get a browser User-Agent; the slow 5 s pacing
+// and the shared 429 cooldown still apply, so the load stays that of one person browsing.
+const BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36";
+
 // Éxito disallows /api/ in robots.txt; its /api/ redirects to /io/api/, which we use.
 // Enabled by product decision (2026-10-26); INGEST_EXITO=0 turns it off.
 export const exito = createVtexClient({
@@ -31,6 +36,7 @@ export const exito = createVtexClient({
   minIntervalMs: 5000,
   // Éxito and Carulla are one backend (Grupo Éxito): a 429 at one is a 429 at both.
   rateGroup: "grupo-exito",
+  userAgent: BROWSER_UA,
   // Marketplace sellers list here too; only Éxito's own price counts.
   ownSellerId: "1",
 });
@@ -44,6 +50,7 @@ export const carulla = createVtexClient({
   searchPath: "/io/api/catalog_system/pub/products/search",
   minIntervalMs: 5000,
   rateGroup: "grupo-exito",
+  userAgent: BROWSER_UA,
   ownSellerId: "1",
 });
 
