@@ -6,14 +6,14 @@ import { db, type RetailerSlug } from "@rinde/db";
 import { aisleOf } from "../aisles";
 import { museConfig } from "../muse";
 import { listingsOfSize, type ListingRow } from "../offers";
-import { judgeSameProduct } from "../same-product";
+import { judgeSameProduct, type PhotoMode } from "../same-product";
 
 /**
  * How often Meta Muse finds the same product at another store, scored against barcodes.
  *
  * Products sold at two stores under one EAN give an answer key nobody labels by hand: Muse sees store
- * A's listing and store B's same-size, same-brand candidates (the pool matchByName builds), names and
- * sizes only, never the barcode. A "find" case has the barcode twin in the pool and must pick it; a
+ * A's listing and store B's same-size, same-brand candidates (the pool matchByName builds), names, sizes
+ * and the stores' photos, never the barcode. A "find" case has the barcode twin in the pool and must pick it; a
  * "none" case has it removed and must pick nothing. The strict word rule runs on the same cases.
  *
  *   MUSE_EVAL=1 INTEGRATION=1 npx vitest run src/server/eval   (needs META_API_KEY and the dev DB)
@@ -32,8 +32,10 @@ const REPORT = path.join(EVAL_DIR, HELDOUT ? "RESULTS-heldout.md" : "RESULTS.md"
 const FIND = 80;
 const NONE = 40;
 const PARALLEL = 6;
+/** When Muse also looks at the stores' product photos; the app's default unless MUSE_EVAL_PHOTOS says otherwise. */
+const PHOTOS = (process.env["MUSE_EVAL_PHOTOS"] || "multi") as PhotoMode;
 
-type Item = MatchItem & { store: RetailerSlug };
+type Item = MatchItem & { store: RetailerSlug; imageUrl?: string | null };
 type Case = { id: string; kind: "find" | "none"; target: Item; candidates: Item[]; answer: string | null };
 type Outcome = Case & { muse: string | null; museReason: string | null; museUnsure?: boolean; rules: string | null; ms: number };
 
@@ -112,6 +114,16 @@ const describeItem = (i: Item) => `${i.name} (${i.store})`;
 
 type Review = { id: string; verdict: "muse-right" | "muse-wrong" | "unclear"; note: string };
 
+/** When Muse looked at the photos. */
+function photoNote() {
+  return {
+    never: "Muse saw no photos.",
+    unsure: "Muse looked at the stores' product photos only when the names alone left it not sure.",
+    multi: "Muse looked at the stores' product photos whenever two or more listings could be it, as in the app.",
+    always: "Muse looked at the stores' product photos on every case.",
+  }[PHOTOS];
+}
+
 function report(outcomes: Outcome[], model: string, review: Review[]) {
   const score = (pick: (o: Outcome) => string | null) => {
     const finds = outcomes.filter((o) => o.kind === "find");
@@ -138,7 +150,8 @@ function report(outcomes: Outcome[], model: string, review: Review[]) {
   const reviewed = new Map(review.map((r) => [r.id, r]));
   const unreviewed = mistakes.filter((o) => !reviewed.has(o.id)).length;
   const kept = outcomes.filter((o) => reviewed.get(o.id)?.verdict !== "unclear");
-  const museRight = (o: Outcome) => (o.muse === o.answer ? reviewed.get(o.id)?.verdict !== "muse-wrong" : reviewed.get(o.id)?.verdict === "muse-right");
+  // A review judges a disagreement; when a later run agrees with the barcode, the old verdict no longer applies.
+  const museRight = (o: Outcome) => (o.muse === o.answer && !(o.museUnsure && o.answer !== null)) || reviewed.get(o.id)?.verdict === "muse-right";
   const wrongPicks = kept.filter((o) => o.muse !== null && !museRight(o)).length;
   const afterReview = review.length === 0 ? "" : `
 **After a person read every disagreement** (\`eval/${path.basename(file("review"))}\`): ${kept.filter(museRight).length} of ${kept.length} right, **${pct(kept.filter(museRight).length, kept.length)}**, with ${wrongPicks} wrong products picked. ${outcomes.length - kept.length} cases were set aside because the stores' own names can't tell the products apart, and ${outcomes.filter((o) => o.muse !== o.answer && reviewed.get(o.id)?.verdict === "muse-right").length} counted for Muse because both listings are the same product under different barcodes.${unreviewed ? ` ${unreviewed} disagreements are not reviewed yet.` : ""}
@@ -148,12 +161,14 @@ function report(outcomes: Outcome[], model: string, review: Review[]) {
   return `# Meta Muse: same product across stores${HELDOUT ? " (held-out set)" : ""}
 
 Run ${new Date().toISOString().slice(0, 10)} with \`${model}\` on ${outcomes.length} cases (${m.finds} with the product in the other store's list, ${m.nones} without it).
-The answer key is the barcode: each case is a product two stores sell under one EAN. Muse sees names, brands and sizes only, never the barcode or a price, exactly as in the app.
+The answer key is the barcode: each case is a product two stores sell under one EAN. Muse sees names, brands, sizes and the stores' product photos, never the barcode or a price, exactly as in the app.
 
 | Judge | Correct overall | Found the product | Said "none" when it wasn't there | Right when it picked one | Wrong products picked | Said "not sure" |
 | --- | --- | --- | --- | --- | --- | --- |
 ${row("Meta Muse", m, unsure.length)}
 ${row("Word rule (no AI)", r, "n/a")}
+
+${photoNote()} Two stores often show the same manufacturer photo; see \`eval/TUNING.md\` for the score on cases where the photos look different.
 
 "Not sure" shows no price for that store and says why; it is never a wrong price.${unsure.length ? ` Not sure on: ${unsure.map((o) => `${o.id} (${o.kind === "find" ? "product was there" : "product was not there"})`).join(", ")}.` : ""}
 
@@ -187,13 +202,17 @@ describe.skipIf(!process.env["MUSE_EVAL"])("Meta Muse accuracy: same product acr
     }
     const cases = JSON.parse(readFileSync(CASES, "utf8")) as Case[];
     expect(cases.length).toBeGreaterThan(0);
+    // Photos come from the DB at run time, as in the app; the saved cases hold names only.
+    const ids = cases.flatMap((c) => [c.target.id, ...c.candidates.map((x) => x.id)]);
+    const photo = new Map((await db().retailerProduct.findMany({ where: { id: { in: ids } }, select: { id: true, imageUrl: true } })).map((r) => [r.id, r.imageUrl]));
+    for (const c of cases) for (const i of [c.target, ...c.candidates]) i.imageUrl = photo.get(i.id) ?? null;
 
     const cfg = museConfig();
     const saved = file("results");
     // MUSE_EVAL_REPORT=1 rewrites the report from the last run's answers, after a review, without asking Muse again.
     const outcomes = process.env["MUSE_EVAL_REPORT"] ? (JSON.parse(readFileSync(saved, "utf8")) as Outcome[]) : await pool(cases, PARALLEL, async (c): Promise<Outcome> => {
       const start = Date.now();
-      const verdict = await judgeSameProduct(c.target, c.candidates, cfg);
+      const verdict = await judgeSameProduct(c.target, c.candidates, cfg, { photos: PHOTOS });
       return {
         ...c, ms: Date.now() - start,
         muse: verdict.by === "muse" ? verdict.pick?.id ?? null : null,

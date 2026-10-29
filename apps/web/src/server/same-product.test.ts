@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { MatchItem } from "@rinde/core";
 import type { MuseConfig } from "./muse";
-import { judgeSameProduct } from "./same-product";
+import { fetchStorePhoto, judgeSameProduct } from "./same-product";
 
 const reply = (text: string) =>
   new Response(JSON.stringify({ output: [{ type: "message", content: [{ type: "output_text", text }] }] }), { status: 200 });
@@ -62,6 +62,46 @@ describe("judgeSameProduct", () => {
   it("reads not sure about a single listing as none: there is nothing to choose between", async () => {
     const verdict = await judgeSameProduct(target(), [skim], cfg('{"pick":-2,"reason":"No sé"}'));
     expect(verdict).toEqual({ pick: null, by: "muse", reason: "No sé" });
+  });
+
+  it("looks at the photos when the names leave it not sure, and keeps the answer the photos give", async () => {
+    const t = { ...target(), imageUrl: "https://x.vteximg.com.br/arquivos/ids/1/a.jpg" };
+    const bag = { ...listing("i", "Leche Deslactosada Alpina Bolsa 1000 ml", "Alpina", 7700), imageUrl: "https://x.vteximg.com.br/arquivos/ids/2/b.jpg" };
+    const box = { ...abbreviated, id: "j", imageUrl: "https://x.vteximg.com.br/arquivos/ids/3/c.jpg" };
+    const bodies: { input: { content: { type: string; text?: string }[] }[] }[] = [];
+    // First not sure; then, with the photos, the bag listing by its number in the list.
+    const bagNumber = (text: string) => Number(/^(\d+): .*Bolsa/m.exec(text)![1]);
+    const cfgSeq: MuseConfig = {
+      ...cfg(""),
+      fetch: (async (_url: string, init: RequestInit) => {
+        const body = JSON.parse(init.body as string);
+        bodies.push(body);
+        return reply(bodies.length === 1 ? '{"pick":-2,"reason":"El nombre no dice si es en bolsa o en caja"}' : JSON.stringify({ pick: bagNumber(body.input[0].content[0].text), reason: "La foto muestra la misma bolsa" }));
+      }) as typeof fetch,
+    };
+    const fetched: string[] = [];
+    const fetchPhoto = async (url: string) => { fetched.push(url); return { data: new Uint8Array([1]), mime: "image/jpeg" }; };
+    const verdict = await judgeSameProduct(t, [box, bag], cfgSeq, { photos: "unsure", fetchPhoto });
+    expect(verdict).toEqual({ pick: bag, by: "muse", reason: "La foto muestra la misma bolsa" });
+    expect(bodies.map((b) => b.input[0]!.content.filter((c) => c.type === "input_image").length)).toEqual([0, 3]);
+    expect(fetched).toHaveLength(3);
+  });
+
+  it("stays not sure when the photo look fails", async () => {
+    const t = { ...target(), imageUrl: "https://x.vteximg.com.br/arquivos/ids/1/a.jpg" };
+    const bag = { ...listing("k", "Leche Deslactosada Alpina Bolsa 1000 ml", "Alpina", 7700), imageUrl: "https://x.vteximg.com.br/arquivos/ids/2/b.jpg" };
+    let n = 0;
+    const flaky: MuseConfig = {
+      ...cfg(""),
+      fetch: (async () => (n++ === 0 ? reply('{"pick":-2,"reason":"No se sabe"}') : new Response("", { status: 429 }))) as typeof fetch,
+    };
+    const verdict = await judgeSameProduct(t, [{ ...abbreviated, id: "l" }, bag], flaky, { photos: "unsure", fetchPhoto: async () => ({ data: new Uint8Array([1]), mime: "image/jpeg" }) });
+    expect(verdict).toMatchObject({ pick: null, unsure: true, reason: "No se sabe" });
+  });
+
+  it("fetches photos only from the stores' image hosts", async () => {
+    expect(await fetchStorePhoto("https://evil.example/arquivos/ids/1/a.jpg")).toBeNull();
+    expect(await fetchStorePhoto("http://x.vteximg.com.br/arquivos/ids/1/a.jpg")).toBeNull();
   });
 
   it("throws away a pick outside the list, such as the 900 ml listing it was never shown", async () => {

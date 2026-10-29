@@ -1,11 +1,10 @@
 import "server-only";
-import type { MatchItem } from "@rinde/core";
 import { db, ensureRetailer, recordOffer, type RetailerSlug } from "@rinde/db";
 import { retailerBySlug } from "@rinde/retailers";
 import { aisleOf } from "./aisles";
 import type { MuseConfig } from "./muse";
 import { listingsOfSize, withTimeout, type ListingRow } from "./offers";
-import { judgeSameProduct } from "./same-product";
+import { judgeSameProduct, type Pictured } from "./same-product";
 
 export const NAME_MATCH_TIMEOUT_MS = 15_000;
 
@@ -20,11 +19,11 @@ export type NameMatch =
 /** The store didn't answer the live search: nothing can be said about it. */
 export class StoreUnavailable extends Error {}
 
-type Listing = MatchItem & { productId: string };
+type Listing = Pictured & { productId: string };
 
 const toItem = (r: ListingRow): Listing => ({
   id: r.listingId, productId: r.productId, name: r.name, brand: r.brand,
-  size: r.size && r.unit ? { amount: Number(r.size), unit: r.unit } : null, aisle: aisleOf(r.category, r.name),
+  size: r.size && r.unit ? { amount: Number(r.size), unit: r.unit } : null, aisle: aisleOf(r.category, r.name), imageUrl: r.imageUrl,
 });
 
 /**
@@ -38,7 +37,9 @@ export async function matchByName(productId: string, store: RetailerSlug, opts: 
   const product = await db().product.findUniqueOrThrow({ where: { id: productId }, select: { id: true, name: true, brand: true, size: true, unit: true, category: true } });
   if (!product.brand || !product.size || !product.unit) return { state: "none", reason: null };
   const size = { amount: Number(product.size), unit: product.unit };
-  const target: MatchItem = { id: product.id, name: product.name, brand: product.brand, size, aisle: aisleOf(product.category, product.name) };
+  // The product's photo is any of its listings' photos: one barcode, one package.
+  const photo = await db().retailerProduct.findFirst({ where: { productId, imageUrl: { not: null } }, select: { imageUrl: true } });
+  const target: Pictured = { id: product.id, name: product.name, brand: product.brand, size, aisle: aisleOf(product.category, product.name), imageUrl: photo?.imageUrl };
 
   const pool = async () => (await listingsOfSize(size, product.brand!, [store])).filter((r) => r.productId !== productId).map(toItem);
   const stored = await pool();

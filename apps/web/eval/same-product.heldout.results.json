@@ -11,7 +11,8 @@
     "amount": 1000,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/884162/7506339332643-1.jpg?v=639034057616330000"
   },
   "candidates": [
    {
@@ -23,7 +24,8 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25676179/MEJORADORES-DE-TEJID-NA-DOWNY-80350281-3011071_a.jpg?v=639211463454630000"
    },
    {
     "id": "cmvs5lpg1026w0ogolpm1xpab",
@@ -34,13 +36,14 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26557429/Suavizante-de-ropa-DOWNY-Verano-Tropic-1000-ml-3916223_a.jpg?v=639270049121800000"
    }
   ],
   "answer": "cmvs5lpe5025v0ogoddtxa7oo",
-  "ms": 1681,
+  "ms": 3278,
   "muse": "cmvs5lpe5025v0ogoddtxa7oo",
-  "museReason": "Mismo suavizante Downy Brisa de Verano de 1 L",
+  "museReason": "Mismo suavizante Downy brisa de verano de 1 L; el 1 es Verano Tropic de empaque naranja",
   "museUnsure": false,
   "rules": "cmvs5lpe5025v0ogoddtxa7oo"
  },
@@ -56,7 +59,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099565/Manzana-15-Litros-836180_a.jpg?v=639239483397130000"
   },
   "candidates": [
    {
@@ -68,7 +72,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/944137/7702090029512-1.jpg?v=639210368542030000"
    },
    {
     "id": "cmvphekm704qk3pgojzrfaktn",
@@ -79,13 +84,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626600/7702090029529-1.jpg?v=638508888511030000"
    }
   ],
   "answer": "cmvpt2bal005c59godibcj0ar",
-  "ms": 2297,
+  "ms": 4190,
   "muse": "cmvpt2bal005c59godibcj0ar",
-  "museReason": "Misma gaseosa Postobón manzana de 1500 ml en botella PET",
+  "museReason": "Misma gaseosa Postobón manzana en botella de 1.5 L; la tienda la llama Pet",
   "museUnsure": false,
   "rules": "cmvpt2bal005c59godibcj0ar"
  },
@@ -101,7 +107,8 @@
     "amount": 5000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34385878/Arroz-Fortificado-Roa-Bolsa-X-5000g-722262_a.jpg?v=639211346672470000"
   },
   "candidates": [
    {
@@ -113,7 +120,8 @@
      "amount": 5000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/901026/7702552000516-1.jpg?v=639102272068530000"
    },
    {
     "id": "cmvphefbq01fo3pgocr0x5jtw",
@@ -124,13 +132,14 @@
      "amount": 5000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/448314/7702552010065.jpg?v=638076652323070000"
    }
   ],
   "answer": "cmvphef6g01d23pgoqw5bg41e",
-  "ms": 4922,
+  "ms": 3423,
   "muse": "cmvphef6g01d23pgoqw5bg41e",
-  "museReason": "Mismo arroz Roa blanco de 5 kg; la tienda omite decir fortiplus",
+  "museReason": "Mismo arroz Roa Fortiplus blanco de 5 kg; la tienda lo lista abreviado pero la foto muestra Fortiplus",
   "museUnsure": false,
   "rules": null
  },
@@ -146,7 +155,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34449945/Arroz-Flor-Huila-1000-gr-796712_a.jpg?v=639213686874230000"
   },
   "candidates": [
    {
@@ -158,7 +168,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186306/7702231000028.jpg?v=637813981802030000"
    },
    {
     "id": "cmvphefd001gf3pgopd2wkqqf",
@@ -169,13 +180,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186345/7702231000516.jpg?v=637813981919430000"
    }
   ],
   "answer": "cmvphef7f01dk3pgoc7wttqb6",
-  "ms": 2915,
+  "ms": 3596,
   "muse": "cmvphef7f01dk3pgoc7wttqb6",
-  "museReason": "Mismo arroz blanco Florhuila de 1 kg; la tienda solo lo abrevia como Arroz Florhuila",
+  "museReason": "Mismo arroz Florhuila blanco de 1 kg; el otro listado es integral",
   "museUnsure": false,
   "rules": null
  },
@@ -191,7 +203,8 @@
     "amount": 900,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26000202/Detergente-liquido-ropa-oscura-x-900-ml-1456890_a.jpg?v=639227682386930000"
   },
   "candidates": [
    {
@@ -203,7 +216,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626494/7702626217079-1.jpg?v=638508888055200000"
    },
    {
     "id": "cmvpheja104013pgoim03x0tq",
@@ -214,13 +228,14 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/900852/7702626217765-1.jpg?v=639102128316270000"
    }
   ],
   "answer": "cmvsfydot0082mego3vx5aw36",
-  "ms": 2317,
+  "ms": 2744,
   "muse": "cmvsfydot0082mego3vx5aw36",
-  "museReason": "Es el mismo detergente líquido Woolite para ropa oscura de 900 ml",
+  "museReason": "Mismo Woolite detergente líquido ropa oscura de 900 ml que la foto del comprador",
   "museUnsure": false,
   "rules": "cmvsfydot0082mego3vx5aw36"
  },
@@ -236,7 +251,8 @@
     "amount": 1000,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927651/7702129001809-1.jpg?v=639155856928970000"
   },
   "candidates": [
    {
@@ -248,7 +264,8 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562822/Leche-Entera-En-Bolsa-X-1-Litro-70142_a.jpg?v=639270711287300000"
    },
    {
     "id": "cmvshkthn002kbzgop9m1dv1s",
@@ -259,13 +276,14 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673813/Leche-Uht-Entera-Tetra-Edge-COLANTA-1000-Mililitro-1740550_a.jpg?v=639211448527170000"
    }
   ],
   "answer": null,
-  "ms": 2322,
+  "ms": 4116,
   "muse": null,
-  "museReason": "Ninguna es descremada, las dos son leche entera Colanta",
+  "museReason": "Ambas son leche entera Colanta en bolsa y caja, no descremada Slight",
   "museUnsure": false,
   "rules": null
  },
@@ -281,7 +299,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34450631/Panela-Pulverizada-X-500-gr-468982_a.jpg?v=639213694284670000"
   },
   "candidates": [
    {
@@ -293,7 +312,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212074/7707192730311.jpg?v=637814230846630000"
    },
    {
     "id": "cmvpheg4801xu3pgoz5gd6o8o",
@@ -304,13 +324,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212075/7707192730366.jpg?v=637814230851630000"
    }
   ],
   "answer": null,
-  "ms": 2212,
+  "ms": 2840,
   "muse": null,
-  "museReason": "Las opciones son de limón y maracuyá, no pulverizada natural",
+  "museReason": "La buscada es panela natural sin sabor, las opciones son saborizadas a limón y a maracuyá",
   "museUnsure": false,
   "rules": null
  },
@@ -326,7 +347,8 @@
     "amount": 1100,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927661/7702129003650-1.jpg?v=639155856945700000"
   },
   "candidates": [
    {
@@ -338,7 +360,8 @@
      "amount": 1100,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25276336/Leche-Entera-Bolsa-COLANTA-1100-Mililitro-64937_a.jpg?v=639166161588030000"
    },
    {
     "id": "cmvs5lkg3007s0ogo84xj5hzc",
@@ -349,13 +372,14 @@
      "amount": 1100,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25732925/Leche-Semidescremada-Bolsa-COLANTA-1100-ml-64993_a.jpg?v=639213823905800000"
    }
   ],
   "answer": "cmvshkti0002mbzgof7x53vah",
-  "ms": 2202,
+  "ms": 2811,
   "muse": "cmvshkti0002mbzgof7x53vah",
-  "museReason": "Misma leche Colanta entera de 1100 ml; la tienda solo agrega que es en bolsa",
+  "museReason": "Misma leche Colanta entera Maxilitro de 1100 ml en bolsa",
   "museUnsure": false,
   "rules": "cmvshkti0002mbzgof7x53vah"
  },
@@ -371,7 +395,8 @@
     "amount": 200,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025673/LECHE-DESLACTOSAD-CAJA-749563_a.jpg?v=639232685967970000"
   },
   "candidates": [
    {
@@ -383,7 +408,8 @@
      "amount": 200,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/195620/7702001044481-leche-deslactosada-caja-200ml.jpg?v=637814059596470000"
    },
    {
     "id": "cmvphefn701n03pgoec8056cl",
@@ -394,13 +420,14 @@
      "amount": 200,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/195613/7702001045204-leche-entera-caja-200ml.jpg?v=637814059575830000"
    }
   ],
   "answer": "cmvpheflx01m63pgop0wn9w6b",
-  "ms": 2250,
+  "ms": 3718,
   "muse": "cmvpheflx01m63pgop0wn9w6b",
-  "museReason": "Misma leche Alpina deslactosada de 200 ml; que no diga caja no cambia el producto",
+  "museReason": "Misma leche Alpina deslactosada en caja de 200 ml que pide el comprador.",
   "museUnsure": false,
   "rules": "cmvpheflx01m63pgop0wn9w6b"
  },
@@ -416,7 +443,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/214889/7702511073889.jpg?v=637814280657700000"
   },
   "candidates": [
    {
@@ -428,7 +456,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733660/ARROZ-JAZMIN-CASTELLANO-500-Gramo-1787148_a.jpg?v=639213829553170000"
    },
    {
     "id": "cmvs5lk1y000h0ogoxqjiilhw",
@@ -439,13 +468,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733657/ARROZ-BASMATI-CASTELLANO-500-Gramo-1787141_a.jpg?v=639213829519300000"
    }
   ],
   "answer": "cmvs5lk3t00160ogo66shtsby",
-  "ms": 4008,
+  "ms": 3472,
   "muse": "cmvs5lk3t00160ogo66shtsby",
-  "museReason": "Mismo arroz Castellano jazmín de 500 g; la tienda solo omite 'Premium'",
+  "museReason": "Mismo arroz Castellano Premium jazmín de 500 g; solo cambia el color de la bolsa en la foto",
   "museUnsure": false,
   "rules": null
  },
@@ -461,7 +491,8 @@
     "amount": 1,
     "unit": "unit"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/799584/7702026147471-1.jpg?v=638854270876170000"
   },
   "candidates": [
    {
@@ -473,7 +504,8 @@
      "amount": 1,
      "unit": "unit"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26022341/Papel-Higienico-Acolchamax-Mega-FAMILIA-296-mts-3373995_a.jpg?v=639232623526900000"
    },
    {
     "id": "cmvs5lopt01r40ogo9svpa3i8",
@@ -484,13 +516,14 @@
      "amount": 1,
      "unit": "unit"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25689442/Papel-Higienico-Extra-Pack-15-FAMILIA-1-und-3562572_a.jpg?v=639211581550030000"
    }
   ],
   "answer": "cmvs5losy01ti0ogok0z4cyfm",
-  "ms": 1643,
+  "ms": 3831,
   "muse": "cmvs5losy01ti0ogok0z4cyfm",
-  "museReason": "Mismo papel Familia AcolchaMax Megarollo de 1 rollo; la tienda solo agrega los metros",
+  "museReason": "Mismo papel Familia AcolchaMAX Megarollo de 1 rollo; la tienda solo agrega los metros",
   "museUnsure": false,
   "rules": null
  },
@@ -506,7 +539,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34446121/ARROZ-INTEGRAL-846408_a.jpg?v=639213637112900000"
   },
   "candidates": [
    {
@@ -518,7 +552,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186345/7702231000516.jpg?v=637813981919430000"
    },
    {
     "id": "cmvphef7f01dk3pgoc7wttqb6",
@@ -529,13 +564,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186306/7702231000028.jpg?v=637813981802030000"
    }
   ],
   "answer": "cmvphefd001gf3pgopd2wkqqf",
-  "ms": 1819,
+  "ms": 2807,
   "muse": "cmvphefd001gf3pgopd2wkqqf",
-  "museReason": "Mismo arroz Florhuila integral de 1 kg en ambas tiendas",
+  "museReason": "Mismo arroz Florhuila integral de 1 kg; el empaque y el nombre coinciden",
   "museUnsure": false,
   "rules": null
  },
@@ -551,7 +587,8 @@
     "amount": 200,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/18613988/Leche-entera-caja-200-ml-157649_a.jpg?v=638682601301130000"
   },
   "candidates": [
    {
@@ -563,7 +600,8 @@
      "amount": 200,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/195613/7702001045204-leche-entera-caja-200ml.jpg?v=637814059575830000"
    },
    {
     "id": "cmvpheflx01m63pgop0wn9w6b",
@@ -574,13 +612,14 @@
      "amount": 200,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/195620/7702001044481-leche-deslactosada-caja-200ml.jpg?v=637814059596470000"
    }
   ],
   "answer": "cmvphefn701n03pgoec8056cl",
-  "ms": 1614,
+  "ms": 3011,
   "muse": "cmvphefn701n03pgoec8056cl",
-  "museReason": "Misma leche Alpina entera de 200 ml; que no diga caja no la hace diferente",
+  "museReason": "Misma leche Alpina entera en caja de 200 ml que se ve en la foto",
   "museUnsure": false,
   "rules": "cmvphefn701n03pgoec8056cl"
  },
@@ -596,7 +635,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34487990/Harina-Blanca-Perlada-791935_a.jpg?v=639215346573000000"
   },
   "candidates": [
    {
@@ -608,7 +648,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569248/7702020212021_a.jpg?v=638429355555330000"
    },
    {
     "id": "cmvphehq402yg3pgofjzyr1c5",
@@ -619,13 +660,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569250/7702020212052_a.jpg?v=638429356892330000"
    }
   ],
   "answer": "cmvphehq402yg3pgofjzyr1c5",
-  "ms": 5073,
+  "ms": 5484,
   "muse": "cmvphehq402yg3pgofjzyr1c5",
-  "museReason": "Misma harina Doñarepa de maíz blanco precocida; la tienda solo agrega 'extrafina' como descripción",
+  "museReason": "Misma harina Doñarepa de maíz blanco precocida de 1 kg; extrafina solo describe la molienda",
   "museUnsure": false,
   "rules": null
  },
@@ -641,7 +683,8 @@
     "amount": 200,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752393/7703812408615-1.jpg?v=638735951629400000"
   },
   "candidates": [
    {
@@ -653,7 +696,8 @@
      "amount": 200,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25737912/SAL-ROSADA-HIMALAYA-FINA-REFISAL-200-gr-3484124_a.jpg?v=639213865796600000"
    },
    {
     "id": "cmvs5lm9z00mg0ogo491vlepv",
@@ -664,13 +708,14 @@
      "amount": 200,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587389/Sal-REFISAL-ROSADA-HIMALAYA-GRANULADO-200-gr-3775235_a.jpg?v=639270875823400000"
    }
   ],
   "answer": "cmvs5lm8v00m30ogo9di887a5",
-  "ms": 1953,
+  "ms": 2254,
   "muse": "cmvs5lm8v00m30ogo9di887a5",
-  "museReason": "Misma sal Refisal rosada del Himalaya fina de 200 g; la tienda la describe como grano fino",
+  "museReason": "Misma sal Refisal rosada del Himalaya fina de 200 g; la otra es en cristal grueso",
   "museUnsure": false,
   "rules": null
  },
@@ -686,7 +731,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36235725/Gaseosa-184661_a.jpg?v=639271744970830000"
   },
   "candidates": [
    {
@@ -698,7 +744,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/562222/7702535011706_1.jpg?v=638421332325300000"
    },
    {
     "id": "cmvphekly04qe3pgoujr5o7y4",
@@ -709,13 +756,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/562226/7702535022689_1.jpg?v=638421333888670000"
    }
   ],
   "answer": "cmvsfyc6d007amegozkobgoj1",
-  "ms": 1742,
+  "ms": 2130,
   "muse": "cmvsfyc6d007amegozkobgoj1",
-  "museReason": "Misma gaseosa Quatro toronja original de 1.5 L; la tienda solo cambia el orden de las palabras",
+  "museReason": "Misma gaseosa Quatro toronja sabor original de 1.5 L; la foto e etiqueta coinciden",
   "museUnsure": false,
   "rules": null
  },
@@ -731,7 +779,8 @@
     "amount": 2500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34450109/Azucar-Morena-25-kg-729976_a.jpg?v=639213689139570000"
   },
   "candidates": [
    {
@@ -743,7 +792,8 @@
      "amount": 2500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185688/7702127010025---Riopaila-Morena-25K-baja.jpg?v=637813979813570000"
    },
    {
     "id": "cmvphefzu01v13pgocv5dl9v7",
@@ -754,13 +804,14 @@
      "amount": 2500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185659/7702127110022--Riopaila-Suprema-25K-baja.jpg?v=637813979734070000"
    }
   ],
   "answer": "cmvphefzh01us3pgov7gv3bvf",
-  "ms": 1403,
+  "ms": 2292,
   "muse": "cmvphefzh01us3pgov7gv3bvf",
-  "museReason": "Misma azúcar Riopaila morena de 2500 g; la tienda solo cambia el formato del nombre",
+  "museReason": "Mismo azúcar Riopaila morena de 2,5 kg; solo cambia el diseño del empaque",
   "museUnsure": false,
   "rules": "cmvphefzh01us3pgov7gv3bvf"
  },
@@ -776,7 +827,8 @@
     "amount": 3000,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/534156/7702191164495.jpg?v=638332456883630000"
   },
   "candidates": [
    {
@@ -788,7 +840,8 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25684973/Detergente-Liquido-Ultra-FAB-3-ml-3429202_a.jpg?v=639211543484500000"
    },
    {
     "id": "cmvs5lozd01xc0ogowyv7t9xm",
@@ -799,13 +852,14 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25684955/Detergente-Liq-Ultra-Color-FAB-3-ml-3429328_a.jpg?v=639211543420100000"
    }
   ],
   "answer": "cmvs5lox601vw0ogol9nk3qd9",
-  "ms": 1777,
+  "ms": 2050,
   "muse": "cmvs5lox601vw0ogol9nk3qd9",
-  "museReason": "Mismo detergente líquido FAB Ultra Flash de 3000 ml; la tienda solo lo nombra sin decir botella.",
+  "museReason": "Mismo detergente líquido FAB Ultra Flash de 3 L; la tienda lo nombra igual",
   "museUnsure": false,
   "rules": "cmvs5lox601vw0ogol9nk3qd9"
  },
@@ -821,7 +875,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/214891/7702511400760.jpg?v=637814280669430000"
   },
   "candidates": [
    {
@@ -833,7 +888,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733657/ARROZ-BASMATI-CASTELLANO-500-Gramo-1787141_a.jpg?v=639213829519300000"
    },
    {
     "id": "cmvs5lk3t00160ogo66shtsby",
@@ -844,13 +900,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733660/ARROZ-JAZMIN-CASTELLANO-500-Gramo-1787148_a.jpg?v=639213829553170000"
    }
   ],
   "answer": "cmvs5lk1y000h0ogoxqjiilhw",
-  "ms": 3691,
+  "ms": 2106,
   "muse": "cmvs5lk1y000h0ogoxqjiilhw",
-  "museReason": "Mismo arroz Castellano basmati de 500 g; la tienda omite 'Premium'",
+  "museReason": "Mismo arroz Castellano Premium basmati de 500 g; la tienda lo nombra sin Premium",
   "museUnsure": false,
   "rules": null
  },
@@ -866,7 +923,8 @@
     "amount": 1800,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/495380/7703812402545.jpg?v=638233904143430000"
   },
   "candidates": [
    {
@@ -878,7 +936,8 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25675448/DETERGENTE-BLANCO-BLANCOX-SIN-REF-1786756_a.jpg?v=639211457470770000"
    },
    {
     "id": "cmvs5loz601x60ogoz3lntmbf",
@@ -889,14 +948,15 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26063804/Detergente-multiusos-BLANCOX-Multiusos-Bicarbonato-18-lt-3891573_a.jpg?v=639235469130300000"
    }
   ],
   "answer": "cmvs5loy101we0ogo44bg1k4b",
-  "ms": 2818,
-  "muse": null,
-  "museReason": "El nombre no dice si es blancos radiantes o multiusos bicarbonato",
-  "museUnsure": true,
+  "ms": 3646,
+  "muse": "cmvs5loy101we0ogo44bg1k4b",
+  "museReason": "Mismo detergente líquido Blancox blancos radiantes / ropa blanca de 1.8 L; solo cambia la foto del empaque",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -911,7 +971,8 @@
     "amount": 1000,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562822/Leche-Entera-En-Bolsa-X-1-Litro-70142_a.jpg?v=639270711287300000"
   },
   "candidates": [
    {
@@ -923,7 +984,8 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927663/7702129004237-1.jpg?v=639155856949070000"
    },
    {
     "id": "cmvphefqh01p03pgoci6yiywq",
@@ -934,13 +996,14 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927651/7702129001809-1.jpg?v=639155856928970000"
    }
   ],
   "answer": null,
-  "ms": 1919,
-  "muse": "cmvpr8piz00bsx9gof0to20ky",
-  "museReason": "Misma leche Colanta entera de 1 L; tetrapak solo lo dice la tienda y pasteurizada es descriptivo",
+  "ms": 3773,
+  "muse": null,
+  "museReason": "La tuya es entera en bolsa, la 0 es entera en caja Tetrapak y la 1 es descremada",
   "museUnsure": false,
   "rules": null
  },
@@ -956,7 +1019,8 @@
     "amount": 400,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34674941/Cereal-De-Chocolate-FLIPS-400-gr-1862049_a.jpg?v=639221663572170000"
   },
   "candidates": [
    {
@@ -968,7 +1032,8 @@
      "amount": 400,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/868820/7702807662520-1.png?v=638967612269330000"
    },
    {
     "id": "cmvphel6405403pgodcf1v4qg",
@@ -979,13 +1044,14 @@
      "amount": 400,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/868828/7702807414112-1.jpg?v=638967636848470000"
    }
   ],
   "answer": "cmvphel6405403pgodcf1v4qg",
-  "ms": 1818,
-  "muse": null,
-  "museReason": "Los disponibles son de choco avellanas, no relleno de chocolate",
+  "ms": 6882,
+  "muse": "cmvphel6405403pgodcf1v4qg",
+  "museReason": "Mismo cereal Flips relleno de chocolate de 400 g; la foto dice CHOCOLATE como el tuyo aunque el nombre diga avellanas",
   "museUnsure": false,
   "rules": null
  },
@@ -1001,7 +1067,8 @@
     "amount": 80,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25671355/Crispetas-Mantequilla-ACT-II-80-Gramo-1653154_a.jpg?v=639211430284100000"
   },
   "candidates": [
    {
@@ -1013,7 +1080,8 @@
      "amount": 80,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/829701/7501006559019-1.png?v=638913793100630000"
    },
    {
     "id": "cmvpheic103de3pgohh5lgpis",
@@ -1024,13 +1092,14 @@
      "amount": 80,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/829702/7501006559026-1.png?v=638913793241500000"
    }
   ],
   "answer": "cmvpheiaz03cn3pgon62gd4w6",
-  "ms": 2039,
+  "ms": 3024,
   "muse": "cmvpheiaz03cn3pgon62gd4w6",
-  "museReason": "Mismas palomitas ACT II sabor mantequilla de 80 g; la tienda solo lo escribe en plural",
+  "museReason": "Mismas palomitas ACT II sabor mantequilla de 80 g; la 1 es sabor mantequilla extra",
   "museUnsure": false,
   "rules": null
  },
@@ -1046,7 +1115,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26548587/Harina-Amarilla-13629_a.jpg?v=639269888232030000"
   },
   "candidates": [
    {
@@ -1058,7 +1128,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569248/7702020212021_a.jpg?v=638429355555330000"
    },
    {
     "id": "cmvphehq402yg3pgofjzyr1c5",
@@ -1069,13 +1140,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569250/7702020212052_a.jpg?v=638429356892330000"
    }
   ],
   "answer": "cmvphehp802xs3pgoyk1kr3rl",
-  "ms": 3531,
+  "ms": 3122,
   "muse": "cmvphehp802xs3pgoyk1kr3rl",
-  "museReason": "Misma harina Doñarepa precocida de maíz amarillo de 1000 g; solo cambia la escritura de la ñ",
+  "museReason": "Misma harina Doñarepa precocida de maíz amarillo de 1 kg; el empaque amarillo lo confirma",
   "museUnsure": false,
   "rules": "cmvphehp802xs3pgoyk1kr3rl"
  },
@@ -1091,7 +1163,8 @@
     "amount": 150,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34928530/Trozos-Atun-En-Aceite-PAN-150-gr-3510243_a.jpg?v=639232671415430000"
   },
   "candidates": [
    {
@@ -1103,7 +1176,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/643976/7702084900148-1.png?v=638557352202500000"
    },
    {
     "id": "cmvphehed02ra3pgoo5701j0j",
@@ -1114,13 +1188,14 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/643977/7702084900131-1.png?v=638557354226030000"
    }
   ],
   "answer": "cmvphehfa02rs3pgopcmqjhxn",
-  "ms": 2299,
+  "ms": 2018,
   "muse": "cmvphehfa02rs3pgopcmqjhxn",
-  "museReason": "Mismo atún PAN en trozos en aceite de 150 g; la tienda lo abrevia",
+  "museReason": "Mismo atún PAN en trozos en aceite de 150 g; la foto confirma que es en aceite",
   "museUnsure": false,
   "rules": null
  },
@@ -1136,7 +1211,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "produce"
+   "aisle": "produce",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/204477/7704212732089.jpg?v=637814197477530000"
   },
   "candidates": [
    {
@@ -1148,7 +1224,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "produce"
+    "aisle": "produce",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25668281/TAMARINDO-SIN-AZUCAR-323210_a.jpg?v=639211398377870000"
    },
    {
     "id": "cmvs5lmze00yi0ogockrgzeqr",
@@ -1159,13 +1236,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "produce"
+    "aisle": "produce",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26550354/FRIJOL-BOLA-ROJA-1357_a.jpg?v=639269910831330000"
    }
   ],
   "answer": "cmvs5lksd00ez0ogoeoh4ma6p",
-  "ms": 7653,
+  "ms": 7341,
   "muse": null,
-  "museReason": "Ninguno es tamarindo roy puro; el 0 es sin azúcar y el 1 es fríjol",
+  "museReason": "El tuyo es tamarindo momposino puro y las opciones son un tamarindo F.B. sin azúcar y un fríjol.",
   "museUnsure": false,
   "rules": null
  },
@@ -1181,7 +1259,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35890119/Harina-Amarilla-13628_a.jpg?v=639269888215400000"
   },
   "candidates": [
    {
@@ -1193,7 +1272,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569246/7702020211024_a.jpg?v=638429354766800000"
    },
    {
     "id": "cmvphehps02y73pgoa4pihjhe",
@@ -1204,13 +1284,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569244/7702020211017_a.jpg?v=638429354128070000"
    }
   ],
   "answer": "cmvphehpi02xy3pgosblf26a1",
-  "ms": 3239,
+  "ms": 2496,
   "muse": "cmvphehpi02xy3pgosblf26a1",
-  "museReason": "Misma harina DONAREPA precocida de maíz amarillo de 500 g; la tienda la escribe Doñarepa",
+  "museReason": "Misma harina Doñarepa precocida de maíz amarillo de 500 g; el empaque también dice maíz amarillo",
   "museUnsure": false,
   "rules": "cmvphehpi02xy3pgosblf26a1"
  },
@@ -1226,7 +1307,8 @@
     "amount": 104,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25664975/Atun-Lomitos-En-Aceite-Girasol-1243749_a.jpg?v=639211363764730000"
   },
   "candidates": [
    {
@@ -1238,7 +1320,8 @@
      "amount": 104,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/926099/8410111009489-1.jpg?v=639148793802370000"
    },
    {
     "id": "cmvphehei02rd3pgoq12agoit",
@@ -1249,13 +1332,14 @@
      "amount": 104,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/926101/8410111009472-1.jpg?v=639148794228770000"
    }
   ],
   "answer": "cmvphehh302sv3pgokrnm2zqo",
-  "ms": 2058,
+  "ms": 2810,
   "muse": "cmvphehh302sv3pgokrnm2zqo",
-  "museReason": "Mismo atún Isabel lomitos en aceite de girasol; la tienda solo agrega el peso total de 160 g",
+  "museReason": "Mismo atún Isabel lomitos en aceite de girasol, igual empaque y etiqueta",
   "museUnsure": false,
   "rules": "cmvphehh302sv3pgokrnm2zqo"
  },
@@ -1271,7 +1355,8 @@
     "amount": 800,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752375/7703812007559-1.jpg?v=638735951580300000"
   },
   "candidates": [
    {
@@ -1283,7 +1368,8 @@
      "amount": 800,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26588084/Sal-Marin-REFISAL-800-Gramo-552739_a.jpg?v=639270880586300000"
    },
    {
     "id": "cmvs5lm9700m80ogoxcyidcvn",
@@ -1294,13 +1380,14 @@
      "amount": 800,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587348/Sal-Ligera-Sodio-REFISAL-800-gr-3515331_a.jpg?v=639270875011730000"
    }
   ],
   "answer": "cmvs5lm4700kl0ogoit832lcw",
-  "ms": 1841,
+  "ms": 2328,
   "muse": "cmvs5lm4700kl0ogoit832lcw",
-  "museReason": "Misma sal Refisal marina de 800 g; que no diga bolsa no la hace distinta",
+  "museReason": "Misma sal Refisal Marina de 800 g; el empaque dice lo mismo",
   "museUnsure": false,
   "rules": "cmvs5lm4700kl0ogoit832lcw"
  },
@@ -1316,7 +1403,8 @@
     "amount": 120,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/205087/8410234241056-20-1.jpg?v=637814199143430000"
   },
   "candidates": [
    {
@@ -1328,7 +1416,8 @@
      "amount": 120,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/27049514/Sardina-En-Tomate-120-gr-542332_a.jpg?v=639286191821900000"
    },
    {
     "id": "cmvs5lnoh017n0ogodqddbv1t",
@@ -1339,13 +1428,14 @@
      "amount": 120,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/27049510/Sardinas-En-Aceite-Vegetal-120-gr-362562_a.jpg?v=639286191775000000"
    }
   ],
   "answer": "cmvs5lnob017j0ogo172xu08k",
-  "ms": 1645,
+  "ms": 2759,
   "muse": null,
-  "museReason": "La buscada es en tomate sin picante, pero una es picante y la otra en aceite vegetal",
+  "museReason": "Ninguna es la de tomate natural: la 0 es picante en tomate y la 1 es en aceite vegetal",
   "museUnsure": false,
   "rules": null
  },
@@ -1361,7 +1451,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34928954/Pastas-PAN-Alimenticias-Conchas-250-gr-3669670_a.jpg?v=639232674639830000"
   },
   "candidates": [
    {
@@ -1373,7 +1464,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/791587/7702084900124-1.jpg?v=638823243942700000"
    },
    {
     "id": "cmvpheh0602i73pgo3feaadfc",
@@ -1384,13 +1476,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/791583/7702084900087-1.jpg?v=638823243928770000"
    }
   ],
   "answer": "cmvphegxp02gm3pgoimd612px",
-  "ms": 1099,
+  "ms": 2617,
   "muse": "cmvphegxp02gm3pgoimd612px",
-  "museReason": "Misma pasta PAN conchas de 250 g; la tienda la escribe en singular",
+  "museReason": "Misma pasta PAN conchas de 250 g; la tienda solo abrevia el nombre",
   "museUnsure": false,
   "rules": "cmvphegxp02gm3pgoimd612px"
  },
@@ -1406,7 +1499,8 @@
     "amount": 3000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/448316/7702552010041.jpg?v=638076653200870000"
   },
   "candidates": [
    {
@@ -1418,7 +1512,8 @@
      "amount": 3000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25717379/Arroz-Parbolizado-1188802_a.jpg?v=639213687920200000"
    },
    {
     "id": "cmvs5lk6z002s0ogocg5uuxkh",
@@ -1429,13 +1524,14 @@
      "amount": 3000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25662710/Arroz-Blanco-Fortificado-X-3000-G-694991_a.jpg?v=639211346678270000"
    }
   ],
   "answer": "cmvs5lk3b00100ogo3pjddrx2",
-  "ms": 1394,
+  "ms": 2031,
   "muse": "cmvs5lk3b00100ogo3pjddrx2",
-  "museReason": "Mismo arroz ROA parbolizado de 3000 g; la tienda solo cambia el orden del nombre",
+  "museReason": "Mismo arroz Roa parbolizado de 3000 g; nombre y empaque iguales",
   "museUnsure": false,
   "rules": "cmvs5lk3b00100ogo3pjddrx2"
  },
@@ -1451,7 +1547,8 @@
     "amount": 1300,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25143715/Suavizante-SUAVITEL-Todo-En-Uno-1300-ml-3582541_a.jpg?v=639148778424570000"
   },
   "candidates": [
    {
@@ -1463,7 +1560,8 @@
      "amount": 1300,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/813242/7509546072104-1.jpg?v=638870758383430000"
    },
    {
     "id": "cmvphejqy04ak3pgo9x6uov89",
@@ -1474,13 +1572,14 @@
      "amount": 1300,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959875/7509546072081-1.png?v=639262206682430000"
    }
   ],
   "answer": "cmvphejqu04ah3pgo6t8vw8f2",
-  "ms": 1723,
+  "ms": 2369,
   "muse": "cmvphejqu04ah3pgo6t8vw8f2",
-  "museReason": "Es el mismo Suavitel Complete Anochecer de 1.3 L",
+  "museReason": "Mismo Suavitel Complete Anochecer de 1.3 L en ambas fotos y nombres",
   "museUnsure": false,
   "rules": "cmvphejqu04ah3pgo6t8vw8f2"
  },
@@ -1496,7 +1595,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "bakery"
+   "aisle": "bakery",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25730871/Tostada-De-Mantequilla-X-250-gr-862776_a.jpg?v=639213808244900000"
   },
   "candidates": [
    {
@@ -1508,7 +1608,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/203628/2500331000000.jpg?v=637814195035700000"
    },
    {
     "id": "cmvphegsa02cy3pgor9ml3ph9",
@@ -1519,7 +1620,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/203627/2500330000001.jpg?v=637814195033170000"
    },
    {
     "id": "cmvphehzp03553pgoi9ine2tp",
@@ -1530,7 +1632,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200361/2501617000004.jpg?v=637814145954530000"
    },
    {
     "id": "cmvphekbn04ls3pgoe394g0ly",
@@ -1541,13 +1644,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/203630/2500336000005.jpg?v=637814195040230000"
    }
   ],
   "answer": null,
-  "ms": 2444,
+  "ms": 2525,
   "muse": null,
-  "museReason": "Ninguna es tostadita de mantequilla; son galletas de chocolate, blandas o pan de espinaca",
+  "museReason": "Ninguno es tostaditas Susanita con mantequilla; son galletas con chocolate, pan de espinaca y galletas blandas",
   "museUnsure": false,
   "rules": null
  },
@@ -1563,7 +1667,8 @@
     "amount": 750,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207243/7702055000716.jpg?v=637814204367070000"
   },
   "candidates": [
    {
@@ -1575,7 +1680,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206823/aguardiente-s-a-blanco-del-valle-750-ml-12002882-01.png?v=639250106981530000"
    },
    {
     "id": "cmvphdrvz01b03pgonqzc61zm",
@@ -1586,13 +1692,14 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206824/aguardiente-blanco-fiesta-24-ga-750-ml-12005179-01.png?v=639250108335000000"
    }
   ],
   "answer": "cmvphdrx701bu3pgosepiocl2",
-  "ms": 1779,
+  "ms": 2291,
   "muse": "cmvphdrx701bu3pgosepiocl2",
-  "museReason": "Mismo aguardiente Blanco del Valle sin azúcar de 750 ml; la tienda lo abrevia como S/A",
+  "museReason": "Mismo aguardiente Blanco del Valle sin azúcar de 750 ml; S/A significa sin azúcar",
   "museUnsure": false,
   "rules": null
  },
@@ -1608,7 +1715,8 @@
     "amount": 750,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206824/aguardiente-blanco-fiesta-24-ga-750-ml-12005179-01.png?v=639250108335000000"
   },
   "candidates": [
    {
@@ -1620,7 +1728,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/219563/7702055001690.jpg?v=637816521146970000"
    },
    {
     "id": "cmvsfy2wf004qmegoxgglxvxt",
@@ -1631,13 +1740,14 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207243/7702055000716.jpg?v=637814204367070000"
    }
   ],
   "answer": "cmvsfy2vg004kmegoyhcpkxe5",
-  "ms": 2511,
+  "ms": 2019,
   "muse": "cmvsfy2vg004kmegoyhcpkxe5",
-  "museReason": "Mismo aguardiente Blanco Fiesta 24 grados de 750 ml; la tienda solo agrega botella",
+  "museReason": "Mismo aguardiente Blanco del Valle Fiesta 24 grados; la tienda solo agrega botella",
   "museUnsure": false,
   "rules": null
  },
@@ -1653,7 +1763,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34445764/HARINA-DE-TRIGO-ROBINSON-TRADI-HARIN-PARDO-1000-gr-695184_a.jpg?v=639213633853200000"
   },
   "candidates": [
    {
@@ -1665,7 +1776,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/204603/7707197617846.jpg?v=637814197807870000"
    },
    {
     "id": "cmvphehlz02vs3pgolenb8sn4",
@@ -1676,13 +1788,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/205339/7707197613404.jpg?v=637814199777230000"
    }
   ],
   "answer": "cmvphehku02v73pgogizueqfp",
-  "ms": 5513,
+  "ms": 2067,
   "muse": "cmvphehku02v73pgogizueqfp",
-  "museReason": "Misma harina Robinson tradicional de 1 kg; la otra es leudante",
+  "museReason": "Misma harina Robinson tradicional de 1 kg; el empaque verde lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -1698,7 +1811,8 @@
     "amount": 174,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/877906/5000168038391-1.jpg?v=639005392801170000"
   },
   "candidates": [
    {
@@ -1710,7 +1824,8 @@
      "amount": 174,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25690019/Galleta-MCVITIES-Paquete-174-gr-3569472_a.jpg?v=639211586244100000"
    },
    {
     "id": "cmvs5lpp302bx0ogohup69qgg",
@@ -1721,13 +1836,14 @@
      "amount": 174,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/24392555/Galleta-MCVITIES-Paquete-174-gr-3569473_a.jpg?v=639051379128270000"
    }
   ],
   "answer": "cmvs5lpp702bz0ogosw5wkf3g",
-  "ms": 1561,
+  "ms": 2641,
   "muse": "cmvs5lpp702bz0ogosw5wkf3g",
-  "museReason": "Mismas galletas MCVITIES de manzana de 174 g",
+  "museReason": "Misma galleta McVitie's Go Ahead Crispy Slices de manzana de 174 g; el empaque verde de Apple es igual",
   "museUnsure": false,
   "rules": null
  },
@@ -1743,7 +1859,8 @@
     "amount": 1750,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/200771/gaseosa-zero-coca-cola-1750ml-12002693-01.png.png?v=639179668663500000"
   },
   "candidates": [
    {
@@ -1755,7 +1872,8 @@
      "amount": 1750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/879198/7702535025482-1.jpg?v=639015200334600000"
    },
    {
     "id": "cmvphekph04st3pgohrmqzfkb",
@@ -1766,13 +1884,14 @@
      "amount": 1750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/872370/7702535018675-1.png?v=638981280418800000"
    }
   ],
   "answer": "cmvphekph04st3pgohrmqzfkb",
-  "ms": 2360,
+  "ms": 2105,
   "muse": "cmvphekph04st3pgohrmqzfkb",
-  "museReason": "Misma Coca-Cola sin azúcar de 1.75 L; la tienda la llama Zero",
+  "museReason": "Es la misma Coca-Cola Zero sin azúcar de 1.75 L; la foto también dice Zero",
   "museUnsure": false,
   "rules": null
  },
@@ -1788,7 +1907,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/707200/7702192282983-1.jpg?v=638696342151830000"
   },
   "candidates": [
    {
@@ -1800,7 +1920,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048808/Gaseosa-PEPSI-1500-ml-3540021_a.jpg?v=639239498401100000"
    },
    {
     "id": "cmvsj4dco00jxmego2u7vv9de",
@@ -1811,11 +1932,12 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048682/Bebida-Gaseosa-Cero-Azucar-PEPSI-1500-ml-1165525_a.jpg?v=639239483958730000"
    }
   ],
   "answer": "cmvps9bbx03191lgoye3njdyn",
-  "ms": 3252,
+  "ms": 3586,
   "muse": "cmvps9bbx03191lgoye3njdyn",
   "museReason": "Misma gaseosa Pepsi regular de 1500 ml; la tienda solo agrega que es botella",
   "museUnsure": false,
@@ -1833,7 +1955,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25681905/Spaghetti-Lenteja-Rojas-y-Arroz-EL-DORADO-250-gr-3287801_a.jpg?v=639211513476270000"
   },
   "candidates": [
    {
@@ -1845,7 +1968,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/402071/7709867857361.jpg?v=637970324956230000"
    },
    {
     "id": "cmvpheh9j02oj3pgor92akih6",
@@ -1856,14 +1980,15 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207518/7709990080438.jpg?v=637814205359500000"
    }
   ],
   "answer": "cmvpheh9402oa3pgoy1483vs2",
-  "ms": 9561,
-  "muse": null,
-  "museReason": "El nombre no dice si es spaghetti o coditos y ambos podrían ser de lenteja roja",
-  "museUnsure": true,
+  "ms": 2928,
+  "muse": "cmvpheh9402oa3pgoy1483vs2",
+  "museReason": "Misma pasta El Dorado spaghetti de lentejas rojas con arroz de 250 g que se ve en la foto",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -1878,7 +2003,8 @@
     "amount": 174,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/24392555/Galleta-MCVITIES-Paquete-174-gr-3569473_a.jpg?v=639051379128270000"
   },
   "candidates": [
    {
@@ -1890,7 +2016,8 @@
      "amount": 174,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/877906/5000168038391-1.jpg?v=639005392801170000"
    },
    {
     "id": "cmvphekfy04my3pgobl5urkb6",
@@ -1901,14 +2028,15 @@
      "amount": 174,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/877907/5000168038438-1.jpg?v=639005392914970000"
    }
   ],
   "answer": "cmvphekfy04my3pgobl5urkb6",
-  "ms": 1520,
-  "muse": null,
-  "museReason": "Solo dice de fruta y no aclara si es de manzana o de frutos rojos",
-  "museUnsure": true,
+  "ms": 3849,
+  "muse": "cmvphekfy04my3pgobl5urkb6",
+  "museReason": "La foto del comprador es la galleta morada de frutos rojos, igual a la del listado 1, no la verde de manzana",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -1923,7 +2051,8 @@
     "amount": 300,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25691608/Garbanzos-SAN-JORGE-300-gr-3607177_a.jpg?v=639211594573700000"
   },
   "candidates": [
    {
@@ -1935,7 +2064,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959799/7702014107937-1.png?v=639262132389870000"
    },
    {
     "id": "cmvpheh3h02kg3pgom8pl585h",
@@ -1946,13 +2076,14 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/791477/7702014485400-1.jpg?v=638823180036970000"
    }
   ],
   "answer": null,
-  "ms": 1389,
+  "ms": 3437,
   "muse": null,
-  "museReason": "Las opciones son frijol refrito y con chile, no garbanzos.",
+  "museReason": "Busca garbanzos San Jorge y las opciones son frijol refrito y chile con carne",
   "museUnsure": false,
   "rules": null
  },
@@ -1968,7 +2099,8 @@
     "amount": 5000,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/956207/7702191164822-1.jpg?v=639255948117030000"
   },
   "candidates": [
    {
@@ -1980,7 +2112,8 @@
      "amount": 5000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26410545/Suavizante-Floral-AROMATEL-5000-ml-3489613_a.jpg?v=639258825293200000"
    },
    {
     "id": "cmvs5lpdb025h0ogopyq4cvz2",
@@ -1991,13 +2124,14 @@
      "amount": 5000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26410546/Suavizante-Mandarina-AROMATEL-5000-ml-3489085_a.jpg?v=639258825313900000"
    }
   ],
   "answer": null,
-  "ms": 1445,
+  "ms": 2275,
   "muse": null,
-  "museReason": "El buscado es fragancia frambuesa, las opciones son floral y mandarina",
+  "museReason": "El buscado es fragancia frambuesa y flor de cerezo; las opciones son floral y mandarina",
   "museUnsure": false,
   "rules": null
  },
@@ -2013,7 +2147,8 @@
     "amount": 2500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099583/BEBIDA-GASEOSA-ORIGINAL-1554891_a.jpg?v=639239483579970000"
   },
   "candidates": [
    {
@@ -2025,7 +2160,8 @@
      "amount": 2500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/945099/7702535024430-1.jpg?v=639216515059600000"
    },
    {
     "id": "cmvpheklu04qb3pgoqh1e41us",
@@ -2036,13 +2172,14 @@
      "amount": 2500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/945077/7702535007914-1.jpg?v=639216512229030000"
    }
   ],
   "answer": "cmvphekp404sl3pgo7f1umxst",
-  "ms": 2056,
+  "ms": 2040,
   "muse": "cmvphekp404sl3pgo7f1umxst",
-  "museReason": "Misma gaseosa Coca-Cola original de 2.5 L; la tienda solo lo escribe en otro orden",
+  "museReason": "Misma Coca-Cola sabor original de 2.5 L; la tienda solo cambia el orden de las palabras",
   "museUnsure": false,
   "rules": null
  },
@@ -2058,7 +2195,8 @@
     "amount": 3000,
     "unit": "ml"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26548771/Aceite-Oleocali-3000-ml-6015_a.jpg?v=639269892625600000"
   },
   "candidates": [
    {
@@ -2070,7 +2208,8 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/192266/7701018005072.jpg?v=637814018795530000"
    },
    {
     "id": "cmvphefh601j33pgou3p1rqbf",
@@ -2081,13 +2220,14 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/192260/7701018063348.jpg?v=637814018763300000"
    }
   ],
   "answer": "cmvphefh101j03pgo1ftht2g6",
-  "ms": 3056,
+  "ms": 2410,
   "muse": "cmvphefh101j03pgo1ftht2g6",
-  "museReason": "Mismo aceite Oleocali vegetal de 3000 ml; la tienda solo aclara que viene en garrafa",
+  "museReason": "Mismo aceite Oleocali vegetal de 3000 ml; garrafa solo describe el envase",
   "museUnsure": false,
   "rules": null
  },
@@ -2103,7 +2243,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25667797/CODITOS-LENTEJAS-ROJAS-1173298_a.jpg?v=639211390245900000"
   },
   "candidates": [
    {
@@ -2115,7 +2256,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/402071/7709867857361.jpg?v=637970324956230000"
    },
    {
     "id": "cmvpheh9j02oj3pgor92akih6",
@@ -2126,13 +2268,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207518/7709990080438.jpg?v=637814205359500000"
    }
   ],
   "answer": "cmvpheh9j02oj3pgor92akih6",
-  "ms": 8861,
-  "muse": null,
-  "museReason": "Ninguno es igual: el 0 es spaghetti con arroz y el 1 es coditos con oliva, no coditos de lentejas rojas",
+  "ms": 3702,
+  "muse": "cmvpheh9j02oj3pgor92akih6",
+  "museReason": "Mismos coditos El Dorado de lentejas rojas de 250 g; la foto lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -2148,7 +2291,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34392328/Harina-de-maiz-amarilla-x-500-g-562822_a.jpg?v=639211414036200000"
   },
   "candidates": [
    {
@@ -2160,7 +2304,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/191152/7702084127217.jpg?v=637814011396570000"
    },
    {
     "id": "cmvphehla02vg3pgolnwy16iy",
@@ -2171,13 +2316,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/191157/7702084127309.jpg?v=637814011426430000"
    }
   ],
   "answer": "cmvphehla02vg3pgolnwy16iy",
-  "ms": 2092,
+  "ms": 2952,
   "muse": "cmvphehla02vg3pgolnwy16iy",
-  "museReason": "Misma harina Promasa amarilla de 500 g; la otra es blanca",
+  "museReason": "Misma harina Promasa de maíz amarillo de 500 g que la buscada",
   "museUnsure": false,
   "rules": null
  },
@@ -2193,7 +2339,8 @@
     "amount": 230,
     "unit": "g"
    },
-   "aisle": "meat"
+   "aisle": "meat",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/202576/jamon-de-cerdo-pietran-230gr-12006001-01.png.png?v=639179730259800000"
   },
   "candidates": [
    {
@@ -2205,7 +2352,8 @@
      "amount": 230,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207341/7701101356098-1.jpg?v=637814204881970000"
    },
    {
     "id": "cmvpheixq03sd3pgo7foamy6x",
@@ -2216,13 +2364,14 @@
      "amount": 230,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207361/7701101356197-1.jpg?v=637814204934230000"
    }
   ],
   "answer": "cmvpheiux03qg3pgo26re2qo6",
-  "ms": 5219,
+  "ms": 4517,
   "muse": "cmvpheiux03qg3pgo26re2qo6",
-  "museReason": "Mismo jamón Pietrán estándar de cerdo de 230 g; el otro es de pechuga de pollo",
+  "museReason": "Mismo jamón Pietrán de cerdo de 230 g; el otro es de pechuga de pollo",
   "museUnsure": false,
   "rules": null
  },
@@ -2238,7 +2387,8 @@
     "amount": 90,
     "unit": "g"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25679880/Jabon-Granada-X3-Unds-DOVE-270-gr-3206711_a.jpg?v=639211493716300000"
   },
   "candidates": [
    {
@@ -2250,7 +2400,8 @@
      "amount": 90,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/690223/7891150076051-1.jpg?v=638659219052470000"
    },
    {
     "id": "cmvphejf6043f3pgobeowjhwa",
@@ -2261,13 +2412,14 @@
      "amount": 90,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/690230/7891150076068-1.jpg?v=638659219070500000"
    }
   ],
   "answer": null,
-  "ms": 2484,
+  "ms": 2103,
   "muse": null,
-  "museReason": "Busca Dove de granada y las opciones son Dove antibacterial, otra variedad.",
+  "museReason": "El buscado es Dove revigorizante de granada y verbena, no antibacterial",
   "museUnsure": false,
   "rules": null
  },
@@ -2283,7 +2435,8 @@
     "amount": 750,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35731535/Lavaloza-DERSA-LIQUIDO-DESENGRASANTE-JABN-RE-750-ml-3580810_a.jpg?v=639265695814030000"
   },
   "candidates": [
    {
@@ -2295,7 +2448,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588803/7702166066120.jpg?v=638467106151400000"
    },
    {
     "id": "cmvphejjg04623pgondkdmezd",
@@ -2306,13 +2460,14 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/707702/7702166066199-1.jpg?v=638697063627430000"
    }
   ],
   "answer": "cmvphejjg04623pgondkdmezd",
-  "ms": 1830,
-  "muse": null,
-  "museReason": "Ninguno es desengrasante: uno es desinfectante y el otro es con Jabón Rey",
+  "ms": 2620,
+  "muse": "cmvphejjg04623pgondkdmezd",
+  "museReason": "La foto del comprador es Dersa desengrasante + Jabón Rey igual que el 1; el 0 es aroma limón",
   "museUnsure": false,
   "rules": null
  },
@@ -2328,7 +2483,8 @@
     "amount": 471,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/952811/7702001163885-1.jpg?v=639240580037470000"
   },
   "candidates": [
    {
@@ -2340,7 +2496,8 @@
      "amount": 471,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25735200/Yogurt-Griego-Sabor-Natural-ALPINA-471-ml-3310405_a.jpg?v=639213841068970000"
    },
    {
     "id": "cmvs5lomu01ph0ogoph0lvfbq",
@@ -2351,13 +2508,14 @@
      "amount": 471,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25687309/Yogurt-Griego-Vainilla-Entero-Sin-Dulce-ALPINA-500-gr-3528076_a.jpg?v=639211563668270000"
    }
   ],
   "answer": "cmvs5lokn01oa0ogofzb802wm",
-  "ms": 1450,
+  "ms": 2169,
   "muse": "cmvs5lokn01oa0ogofzb802wm",
-  "museReason": "Mismo yogurt griego Alpina natural de 471 ml",
+  "museReason": "Mismo yogur griego Alpina sabor natural de 500 g; solo cambia cómo listan el contenido",
   "museUnsure": false,
   "rules": null
  },
@@ -2373,7 +2531,8 @@
     "amount": 3000,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/945101/7702535024447-1.jpg?v=639216515221400000"
   },
   "candidates": [
    {
@@ -2385,7 +2544,8 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099646/Bebida-Gaseosa-Original-COCA-COLA-3000-ml-3095370_a.jpg?v=639239484067930000"
    },
    {
     "id": "cmvs5lpvx02ev0ogoooo01dqm",
@@ -2396,13 +2556,14 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099670/GASEOSA-COCACOLA-COCA-COLA-3000-ml-3133440_a.jpg?v=639239484188030000"
    }
   ],
   "answer": "cmvs5lpvx02ev0ogoooo01dqm",
-  "ms": 5022,
-  "muse": "cmvs5lptf02e20ogozb1gsrdf",
-  "museReason": "Misma gaseosa Coca-Cola sabor original de 3 L; la tienda la nombra igual",
+  "ms": 4401,
+  "muse": "cmvs5lpvx02ev0ogoooo01dqm",
+  "museReason": "Misma Coca-Cola sabor original de 3 L en botella grande; 'familiar' solo describe el tamaño",
   "museUnsure": false,
   "rules": null
  },
@@ -2418,7 +2579,8 @@
     "amount": 600,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626582/7702090022711-1.jpg?v=638508888468730000"
   },
   "candidates": [
    {
@@ -2430,7 +2592,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25728939/Limonada-CRISTAL-Bebida-600-ml-3649447_a.jpg?v=639213782475570000"
    },
    {
     "id": "cmvs5lqa202m50ogohg711ybz",
@@ -2441,13 +2604,14 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26020535/Agua-Normal-600-ml-973621_a.jpg?v=639232605504430000"
    }
   ],
   "answer": "cmvs5lqa202m50ogohg711ybz",
-  "ms": 3248,
+  "ms": 3371,
   "muse": "cmvs5lqa202m50ogohg711ybz",
-  "museReason": "Misma agua Cristal en botella de 600 ml; la tienda aclara que es sin gas",
+  "museReason": "Misma agua Cristal sin gas en botella PET de 600 ml; la 0 es Cristalite sabor limonada de coco",
   "museUnsure": false,
   "rules": null
  },
@@ -2463,7 +2627,8 @@
     "amount": 400,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34472190/Shampoo-Manzanilla-Kids-MUSS-400-ml-3266689_a.jpg?v=639213839056100000"
   },
   "candidates": [
    {
@@ -2475,7 +2640,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/629972/7702113042399-1.jpg?v=638520932142200000"
    },
    {
     "id": "cmvphek4204i83pgoe3stgpje",
@@ -2486,7 +2652,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/791591/7702113047844-1.jpg?v=638823243958000000"
    },
    {
     "id": "cmvphek5e04j23pgobj9xqxyh",
@@ -2497,13 +2664,14 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/629766/7702113042337-1.jpg?v=638520930672030000"
    }
   ],
   "answer": null,
-  "ms": 2627,
+  "ms": 3083,
   "muse": null,
-  "museReason": "Ninguno es Kids de manzanilla: uno es de durazno, otro para rizos y otro es línea Baby, no Kids.",
+  "museReason": "Ninguno es Kids de manzanilla: el 0 es de durazno, el 1 es de rizos y el 2 es Baby manzanilla y seda",
   "museUnsure": false,
   "rules": null
  },
@@ -2519,7 +2687,8 @@
     "amount": 150,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/643977/7702084900131-1.png?v=638557354226030000"
   },
   "candidates": [
    {
@@ -2531,7 +2700,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34928531/Trozos-Atun-En-Agua-PAN-150-gr-3510244_a.jpg?v=639232671428200000"
    },
    {
     "id": "cmvps982a01721lgon9tto0en",
@@ -2542,13 +2712,14 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34928530/Trozos-Atun-En-Aceite-PAN-150-gr-3510243_a.jpg?v=639232671415430000"
    }
   ],
   "answer": "cmvps981301671lgohovkhkhz",
-  "ms": 2043,
+  "ms": 2469,
   "muse": "cmvps981301671lgohovkhkhz",
-  "museReason": "Mismo atún PAN en trozos en agua de 150 g; la tienda solo agrega el peso escurrido",
+  "museReason": "Mismo atún PAN trozos en agua de 150 g; la tienda solo agrega el peso escurrido",
   "museUnsure": false,
   "rules": null
  },
@@ -2564,7 +2735,8 @@
     "amount": 400,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/33025732/Muss-MUSS-Rizos-Kids-400-ml-3696313_a.jpg?v=639253348613330000"
   },
   "candidates": [
    {
@@ -2576,7 +2748,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/629972/7702113042399-1.jpg?v=638520932142200000"
    },
    {
     "id": "cmvphek6q04jt3pgo7rng0wjd",
@@ -2587,7 +2760,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/629984/7702113042429-1.jpg?v=638520932176130000"
    },
    {
     "id": "cmvphek5e04j23pgobj9xqxyh",
@@ -2598,13 +2772,14 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/629766/7702113042337-1.jpg?v=638520930672030000"
    }
   ],
   "answer": null,
-  "ms": 1825,
+  "ms": 2502,
   "muse": null,
-  "museReason": "El buscado es para rizos, los listados son de durazno y de manzanilla",
+  "museReason": "El buscado es para rizos y los listados son de durazno, manzanilla kids y baby manzanilla",
   "museUnsure": false,
   "rules": null
  },
@@ -2620,7 +2795,8 @@
     "amount": 120,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36636261/Sardinas-En-Aceite-Vegetal-120-gr-362562_a.jpg?v=639286191785570000"
   },
   "candidates": [
    {
@@ -2632,7 +2808,8 @@
      "amount": 120,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/191556/8410234211059-1.jpg?v=637814014130330000"
    },
    {
     "id": "cmvphehkf02uy3pgo5t7jz1db",
@@ -2643,13 +2820,14 @@
      "amount": 120,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/205087/8410234241056-20-1.jpg?v=637814199143430000"
    }
   ],
   "answer": "cmvphehj202u43pgozerr81tq",
-  "ms": 1295,
+  "ms": 2099,
   "muse": "cmvphehj202u43pgozerr81tq",
-  "museReason": "Mismas sardinas Vigilante en aceite vegetal de 120 g; la tienda lo escribe abreviado",
+  "museReason": "Mismas sardinas Vigilante en aceite vegetal de 120 g; la otra es en tomate",
   "museUnsure": false,
   "rules": "cmvphehj202u43pgozerr81tq"
  },
@@ -2665,7 +2843,8 @@
     "amount": 230,
     "unit": "g"
    },
-   "aisle": "meat"
+   "aisle": "meat",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207361/7701101356197-1.jpg?v=637814204934230000"
   },
   "candidates": [
    {
@@ -2677,7 +2856,8 @@
      "amount": 230,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35890199/Jamon-De-Pollo-Pietran-X-230g-36278_a.jpg?v=639269890946470000"
    },
    {
     "id": "cmvps99wr028o1lgo1633yiht",
@@ -2688,13 +2868,14 @@
      "amount": 230,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34386431/Jamon-Estandar-Libre-De-Grasa-Reducido-En-Sodio-X-230g-342208_a.jpg?v=639211352281830000"
    }
   ],
   "answer": "cmvshu4h300fdmegow9yxxupx",
-  "ms": 2542,
+  "ms": 2903,
   "muse": "cmvshu4h300fdmegow9yxxupx",
-  "museReason": "Mismo jamón Pietrán de pechuga de pollo de 230 g; la tienda solo cambia el orden",
+  "museReason": "Mismo jamón Pietrán pechuga de pollo de 230 g; solo cambia la edición de la etiqueta",
   "museUnsure": false,
   "rules": "cmvshu4h300fdmegow9yxxupx"
  },
@@ -2710,7 +2891,8 @@
     "amount": 400,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34927122/Cereal-FLIPS-EXPANDIDO-ARROZ-TRIGO-AVENA-400-gr-3712280_a.jpg?v=639232635270730000"
   },
   "candidates": [
    {
@@ -2722,7 +2904,8 @@
      "amount": 400,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/868820/7702807662520-1.png?v=638967612269330000"
    },
    {
     "id": "cmvphel6405403pgodcf1v4qg",
@@ -2733,13 +2916,14 @@
      "amount": 400,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/868828/7702807414112-1.jpg?v=638967636848470000"
    }
   ],
   "answer": "cmvphel3u052d3pgohlbgrbmp",
-  "ms": 2874,
+  "ms": 3221,
   "muse": "cmvphel3u052d3pgohlbgrbmp",
-  "museReason": "Mismo cereal FLIPS choco avellanas de 400 g; la tienda omite 'relleno'",
+  "museReason": "Mismo cereal Flips relleno choco avellanas de 400 g; la otra foto dice solo chocolate",
   "museUnsure": false,
   "rules": null
  },
@@ -2755,7 +2939,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562734/Harina-De-Trigo-Base-Cuadrada-95411_a.jpg?v=639270709557230000"
   },
   "candidates": [
    {
@@ -2767,7 +2952,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569242/7702020011310_a.jpg?v=638429353203530000"
    },
    {
     "id": "cmvphehkp02v43pgohhvq7d89",
@@ -2778,13 +2964,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569236/7702020011211_a.jpg?v=638429350343430000"
    }
   ],
   "answer": "cmvphehpw02ya3pgoxsnq7z6p",
-  "ms": 4296,
+  "ms": 6835,
   "muse": "cmvphehpw02ya3pgoxsnq7z6p",
-  "museReason": "Misma harina de trigo Haz de Oros tradicional de 1000 g",
+  "museReason": "Misma harina Haz de Oros Tradicional de 1 kg; nombre y empaque coinciden",
   "museUnsure": false,
   "rules": "cmvphehpw02ya3pgoxsnq7z6p"
  },
@@ -2800,7 +2987,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34924416/Harina-Blanca-X-500-gr-562823_a.jpg?v=639232606342030000"
   },
   "candidates": [
    {
@@ -2812,7 +3000,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/191152/7702084127217.jpg?v=637814011396570000"
    },
    {
     "id": "cmvphehla02vg3pgolnwy16iy",
@@ -2823,13 +3012,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/191157/7702084127309.jpg?v=637814011426430000"
    }
   ],
   "answer": "cmvphehl302vd3pgoss55eokn",
-  "ms": 1326,
+  "ms": 2210,
   "muse": "cmvphehl302vd3pgoss55eokn",
-  "museReason": "Misma harina Promasa blanca de 500 g; la tienda solo omite \"para preparar arepas\"",
+  "museReason": "Misma harina Promasa blanca precocida para arepas de 500 g que muestra el empaque",
   "museUnsure": false,
   "rules": null
  },
@@ -2845,7 +3035,8 @@
     "amount": 1300,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25690393/SUAVITEL-SUAVITEL-SUAVITEL-1300-ml-3583676_a.jpg?v=639211590555070000"
   },
   "candidates": [
    {
@@ -2857,7 +3048,8 @@
      "amount": 1300,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959875/7509546072081-1.png?v=639262206682430000"
    },
    {
     "id": "cmvphejqu04ah3pgo6t8vw8f2",
@@ -2868,13 +3060,14 @@
      "amount": 1300,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/813242/7509546072104-1.jpg?v=638870758383430000"
    }
   ],
   "answer": "cmvphejqy04ak3pgo9x6uov89",
-  "ms": 1473,
+  "ms": 2095,
   "muse": "cmvphejqy04ak3pgo9x6uov89",
-  "museReason": "Mismo suavizante Suavitel Complete Fresca Primavera de 1300 ml",
+  "museReason": "Mismo Suavitel Complete Fresca Primavera de 1.3 L; solo cambia el diseño de la etiqueta",
   "museUnsure": false,
   "rules": "cmvphejqy04ak3pgo9x6uov89"
  },
@@ -2890,7 +3083,8 @@
     "amount": 75,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26125061/Pasta-Dental-OraL-B-PrO-Salud-Stages-Frozen-100-G-386529_a.jpg?v=639244725945930000"
   },
   "candidates": [
    {
@@ -2902,7 +3096,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/849326/7506309838441-1.jpg?v=638941432993770000"
    },
    {
     "id": "cmvsfxlyr001imegosmoadomo",
@@ -2913,13 +3108,14 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/728714/7506339398427-1.jpg?v=638720300172370000"
    }
   ],
   "answer": "cmvsfxlyr001imegosmoadomo",
-  "ms": 2332,
+  "ms": 4139,
   "muse": "cmvsfxlyr001imegosmoadomo",
-  "museReason": "Misma crema dental infantil Oral-B de 75 ml; la tienda detalla que es Stages Frozen/Spiderman",
+  "museReason": "Misma crema infantil Oral-B Stages sabor frutas Frozen de 75 ml; la tienda la lista como Frozen/Spiderman",
   "museUnsure": false,
   "rules": null
  },
@@ -2935,7 +3131,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34929647/Pasta-MONTICELLO-Farfalle-500-gr-3829468_a.jpg?v=639232679586530000"
   },
   "candidates": [
    {
@@ -2947,7 +3144,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/826880/7702085243022-1.jpg?v=638901699245030000"
    },
    {
     "id": "cmvsoc14a01lg8tgo8005wylb",
@@ -2958,13 +3156,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/826864/7702085021668-2.jpg?v=638901697647470000"
    }
   ],
   "answer": null,
-  "ms": 1693,
+  "ms": 2072,
   "muse": null,
-  "museReason": "Ninguno es farfalle, ambos son spaghetti Monticello",
+  "museReason": "Las opciones son spaghetti, no farfalle",
   "museUnsure": false,
   "rules": null
  },
@@ -2980,7 +3179,8 @@
     "amount": 1000,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34397786/Leche-Uht-Entera-Tetra-Edge-COLANTA-1000-Mililitro-1740550_a.jpg?v=639211448531770000"
   },
   "candidates": [
    {
@@ -2992,7 +3192,8 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927649/7702129001052-1.jpg?v=639155856925430000"
    },
    {
     "id": "cmvphefqh01p03pgoci6yiywq",
@@ -3003,13 +3204,14 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927651/7702129001809-1.jpg?v=639155856928970000"
    }
   ],
   "answer": null,
-  "ms": 1579,
-  "muse": "cmvs5mncl00214vgocqvllyyx",
-  "museReason": "Misma leche Colanta entera de 1 L; pasteurizada solo la describe y no cambia el empaque",
+  "ms": 2860,
+  "muse": null,
+  "museReason": "La buscada es entera en caja y la 0 es en bolsa, la 1 es descremada",
   "museUnsure": false,
   "rules": null
  },
@@ -3025,7 +3227,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/779408/7702192067320-1.jpg.jpg?v=638808623577870000"
   },
   "candidates": [
    {
@@ -3037,7 +3240,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048682/Bebida-Gaseosa-Cero-Azucar-PEPSI-1500-ml-1165525_a.jpg?v=639239483958730000"
    },
    {
     "id": "cmvps9bbx03191lgoye3njdyn",
@@ -3048,13 +3252,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048808/Gaseosa-PEPSI-1500-ml-3540021_a.jpg?v=639239498401100000"
    }
   ],
   "answer": "cmvsj4dco00jxmego2u7vv9de",
-  "ms": 2385,
+  "ms": 2266,
   "muse": "cmvsj4dco00jxmego2u7vv9de",
-  "museReason": "Misma Pepsi Cero de 1500 ml en botella; la tienda la llama cero azúcar",
+  "museReason": "Misma gaseosa Pepsi Cero de 1500 ml; cero azúcar es lo mismo y botella es PET",
   "museUnsure": false,
   "rules": null
  },
@@ -3070,7 +3275,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25734152/Queso-Momposino-DEJA-MU-250-gr-3057704_a.jpg?v=639213833302500000"
   },
   "candidates": [
    {
@@ -3082,7 +3288,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/790536/7707365171798-1.jpg.jpg?v=638820746853300000"
    },
    {
     "id": "cmvphegfv024y3pgoylwyh6s7",
@@ -3093,13 +3300,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/846935/7707365176373-1.jpg?v=638936267898430000"
    }
   ],
   "answer": "cmvpheif003fb3pgocd34z2s7",
-  "ms": 1217,
+  "ms": 2336,
   "muse": "cmvpheif003fb3pgocd34z2s7",
-  "museReason": "Mismo queso Dejamu momposino de 250 g",
+  "museReason": "Mismo queso Dejamu momposino de 250 g; el empaque y la marca coinciden",
   "museUnsure": false,
   "rules": "cmvpheif003fb3pgocd34z2s7"
  },
@@ -3115,7 +3323,8 @@
     "amount": 750,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26505713/Lavaloza-Liquido-DERSA-SIN-REF-3469568_a.jpg?v=639265695475570000"
   },
   "candidates": [
    {
@@ -3127,7 +3336,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588803/7702166066120.jpg?v=638467106151400000"
    },
    {
     "id": "cmvphejjg04623pgondkdmezd",
@@ -3138,13 +3348,14 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/707702/7702166066199-1.jpg?v=638697063627430000"
    }
   ],
   "answer": "cmvphejhl044r3pgokllydezj",
-  "ms": 1546,
-  "muse": null,
-  "museReason": "Ninguno es máximo poder limón: uno es desinfectante y el otro con Jabón Rey",
+  "ms": 2466,
+  "muse": "cmvphejhl044r3pgokllydezj",
+  "museReason": "Mismo lavaloza Dersa máximo poder desengrasante limón de 750 ml; la foto lo confirma aunque lo llamen desinfectante",
   "museUnsure": false,
   "rules": null
  },
@@ -3160,7 +3371,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34385885/Arroz-Diana-Premium-Coco-635927_a.jpg?v=639211346724070000"
   },
   "candidates": [
    {
@@ -3172,7 +3384,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/202044/arroz-sabor-a-coco-diana-1000gr-12004677-01.png.png?v=639179701554600000"
    },
    {
     "id": "cmvphdpnz000u3pgor76fsz9n",
@@ -3183,13 +3396,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/201417/arroz-integral-diana-1000gr-12003653-01.png.png?v=639179689104300000"
    }
   ],
   "answer": "cmvphdpo7000x3pgodoymgi8o",
-  "ms": 1475,
+  "ms": 2582,
   "muse": "cmvphdpo7000x3pgodoymgi8o",
-  "museReason": "Mismo arroz Diana con sabor a coco de 1000 g; la tienda lo nombra en otro orden",
+  "museReason": "Mismo arroz Diana sabor a coco de 1000 g que el buscado",
   "museUnsure": false,
   "rules": "cmvphdpo7000x3pgodoymgi8o"
  },
@@ -3205,7 +3419,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/569244/7702020211017_a.jpg?v=638429354128070000"
   },
   "candidates": [
    {
@@ -3217,7 +3432,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26548579/Harina-Blanca-13627_a.jpg?v=639269888163870000"
    },
    {
     "id": "cmvs5lnut01a70ogo0xwv1qqg",
@@ -3228,13 +3444,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26548583/Harina-Amarilla-13628_a.jpg?v=639269888198700000"
    }
   ],
   "answer": "cmvs5lnx001ba0ogo06q66kuz",
-  "ms": 3709,
+  "ms": 3660,
   "muse": "cmvs5lnx001ba0ogo06q66kuz",
-  "museReason": "Misma harina Donarepa de maíz blanco de 500 g; precocida y extrafina describen la misma harina",
+  "museReason": "Misma harina DOÑAREPA de maíz blanco de 500 g; extrafina y precocida describen el mismo producto",
   "museUnsure": false,
   "rules": null
  },
@@ -3250,7 +3467,8 @@
     "amount": 104,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/926101/8410111009472-1.jpg?v=639148794228770000"
   },
   "candidates": [
    {
@@ -3262,7 +3480,8 @@
      "amount": 104,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025574/Atun-Claro-Lomitos-En-Agua-1243750_a.jpg?v=639232685168500000"
    },
    {
     "id": "cmvsteer5028q8tgo79d2gdwj",
@@ -3273,13 +3492,14 @@
      "amount": 104,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25664975/Atun-Lomitos-En-Aceite-Girasol-1243749_a.jpg?v=639211363764730000"
    }
   ],
   "answer": "cmvsteer2028n8tgoy94y4qh6",
-  "ms": 3061,
+  "ms": 2455,
   "muse": "cmvsteer2028n8tgoy94y4qh6",
-  "museReason": "Mismo atún Isabel lomitos en agua de 104 g; \"claro\" solo lo describe",
+  "museReason": "Mismo atún Isabel lomitos en agua; el empaque de la foto lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -3295,7 +3515,8 @@
     "amount": 450,
     "unit": "g"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25723399/Lavaplatos-Crema-Lima-Limon-AXION-61019135-3179706_a.jpg?v=639213734059000000"
   },
   "candidates": [
    {
@@ -3307,7 +3528,8 @@
      "amount": 450,
      "unit": "g"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/869371/7509546698748-1.jpg?v=638972490197230000"
    },
    {
     "id": "cmvsfxly4001cmego0v2xa1dk",
@@ -3318,13 +3540,14 @@
      "amount": 450,
      "unit": "g"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/960926/7509546700786-1.png?v=639269761384730000"
    }
   ],
   "answer": "cmvsfxly4001cmego0v2xa1dk",
-  "ms": 2560,
-  "muse": null,
-  "museReason": "Ninguno es lima limón: uno es Blue 7 en 1 y el otro es Explosión Cítrica",
+  "ms": 3978,
+  "muse": "cmvsfxly4001cmego0v2xa1dk",
+  "museReason": "Misma crema Axion Explosión Cítrica de 450 g; lima-limón describe su sabor cítrico",
   "museUnsure": false,
   "rules": null
  },
@@ -3340,7 +3563,8 @@
     "amount": 454,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/813727/7707284458406-1.jpg?v=638871718907430000"
   },
   "candidates": [
    {
@@ -3352,7 +3576,8 @@
      "amount": 454,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25722098/Cafe-Molido-Cumbre-JUAN-VALDEZ-454-gr-3054603_a.jpg?v=639213724312600000"
    },
    {
     "id": "cmvs5lmji00r10ogoftsj8wh2",
@@ -3363,13 +3588,14 @@
      "amount": 454,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26024407/Cafe-Tostado-Grano-Limonaria-Kiwi-M-JUAN-VALDEZ-454-gr-3409948_a.jpg?v=639232670599770000"
    }
   ],
   "answer": "cmvs5lmh900pu0ogooqy3bolb",
-  "ms": 4090,
+  "ms": 2918,
   "muse": "cmvs5lmh900pu0ogooqy3bolb",
-  "museReason": "Mismo café Juan Valdez molido de 454 g; la tienda omite la línea Cumbre",
+  "museReason": "Mismo café Juan Valdez Cumbre molido de 454 g; la foto confirma que es Cumbre aunque el nombre lo omite",
   "museUnsure": false,
   "rules": null
  },
@@ -3385,7 +3611,8 @@
     "amount": 200,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26143015/Chocolate-LYNE-200-gr-3537589_a.jpg?v=639245554500130000"
   },
   "candidates": [
    {
@@ -3397,7 +3624,8 @@
      "amount": 200,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/485462/7702007077834.jpg?v=638197708473970000"
    },
    {
     "id": "cmvso6rr0013o8tgo1zu10d6i",
@@ -3408,13 +3636,14 @@
      "amount": 200,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/485468/7702007077995.jpg?v=638197708495630000"
    }
   ],
   "answer": "cmvsfxyi20030mego9otq5br5",
-  "ms": 5501,
-  "muse": null,
-  "museReason": "El buscado es el clásico regular y las dos opciones son versiones sin azúcar y con splenda",
+  "ms": 3131,
+  "muse": "cmvsfxyi20030mego9otq5br5",
+  "museReason": "Mismo chocolate Lyne clásico sin azúcar sin endulzar de 200 g que se ve en la foto",
   "museUnsure": false,
   "rules": null
  },
@@ -3430,7 +3659,8 @@
     "amount": 900,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34927257/Yogur-COLANTA-ENTERO-GRIEGO-NATURAL-CUCHAREA-900-gr-3746836_a.jpg?v=639232637564230000"
   },
   "candidates": [
    {
@@ -3442,7 +3672,8 @@
      "amount": 900,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927674/7702129004602-1.jpg?v=639155856967630000"
    },
    {
     "id": "cmvpheijc03ik3pgoy9pac6xt",
@@ -3453,13 +3684,14 @@
      "amount": 900,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927673/7702129004596-1.jpg?v=639155856965070000"
    }
   ],
   "answer": null,
-  "ms": 1950,
+  "ms": 1854,
   "muse": null,
-  "museReason": "El buscado es yogur griego natural, los listados son de mora y de fresa",
+  "museReason": "Busca yogur griego sabor natural y las opciones son yogur entero con mora y con fresa",
   "museUnsure": false,
   "rules": null
  },
@@ -3475,7 +3707,8 @@
     "amount": 942,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/952814/7702001163892-1.jpg?v=639240580227800000"
   },
   "candidates": [
    {
@@ -3487,7 +3720,8 @@
      "amount": 942,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25735203/Yogurt-Griego-Sabor-Natural-ALPINA-942-ml-3310419_a.jpg?v=639213841094300000"
    },
    {
     "id": "cmvs5lonx01q30ogo8l0shzyl",
@@ -3498,13 +3732,14 @@
      "amount": 943,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25687311/Yogurt-Griego-Vainilla-Enter-Sin-Dulc-ALPINA-1000-gr-3526605_a.jpg?v=639211563691470000"
    }
   ],
   "answer": "cmvs5lokh01o80ogo5v2b8wrr",
-  "ms": 1430,
+  "ms": 3251,
   "muse": "cmvs5lokh01o80ogo5v2b8wrr",
-  "museReason": "Mismo yogurt griego ALPINA natural de 942 ml",
+  "museReason": "Mismo yogur griego Alpina sabor natural de 1000 g; la tienda lo lista en ml",
   "museUnsure": false,
   "rules": null
  },
@@ -3520,7 +3755,8 @@
     "amount": 450,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34927255/Yogur-COLANTA-ENTERO-GRIEGO-NATURAL-CUCHAREA-450-gr-3746835_a.jpg?v=639232637551430000"
   },
   "candidates": [
    {
@@ -3532,7 +3768,8 @@
      "amount": 450,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927734/7702129025904-1.jpg?v=639155857055830000"
    },
    {
     "id": "cmvpheifz03g23pgoe20v0bgl",
@@ -3543,13 +3780,14 @@
      "amount": 450,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927723/7702129020305-1.jpg?v=639155857038530000"
    }
   ],
   "answer": "cmvpheiip03i23pgoxsb40tfi",
-  "ms": 1372,
+  "ms": 3382,
   "muse": "cmvpheiip03i23pgoxsb40tfi",
-  "museReason": "Mismo yogurt Colanta griego natural de 450 g; cuchareable solo describe que es para comer con cuchara",
+  "museReason": "Mismo yogur Colanta griego sabor natural cuchareable de 450 g",
   "museUnsure": false,
   "rules": null
  },
@@ -3565,7 +3803,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34461913/Pastas-PAN-Alimenticias-Spaghetti-500-gr-3669668_a.jpg?v=639213783073330000"
   },
   "candidates": [
    {
@@ -3577,7 +3816,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752569/7702084127330-1.jpg?v=638738397838800000"
    },
    {
     "id": "cmvphehq902yj3pgog7ob3t1p",
@@ -3588,13 +3828,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752573/7702084137988-1.jpg?v=638738397851270000"
    }
   ],
   "answer": null,
-  "ms": 1352,
+  "ms": 2802,
   "muse": null,
-  "museReason": "Son harinas PAN de maíz, no pasta spaghetti PAN",
+  "museReason": "El buscado es pasta spaghetti PAN, las dos opciones son harinas de maíz PAN",
   "museUnsure": false,
   "rules": null
  },
@@ -3610,7 +3851,8 @@
     "amount": 600,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099538/Gaseosa-Coca-Cola-Pet-600-ml-370169_a.jpg?v=639239483200470000"
   },
   "candidates": [
    {
@@ -3622,7 +3864,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/945071/7702535001752-1.jpg?v=639216511731730000"
    },
    {
     "id": "cmvphekkk04pi3pgoiwnqp450",
@@ -3633,13 +3876,14 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/945075/7702535006764-1.jpg?v=639216512058100000"
    }
   ],
   "answer": "cmvphekn204r53pgou8lisjxe",
-  "ms": 1527,
+  "ms": 2490,
   "muse": "cmvphekn204r53pgou8lisjxe",
-  "museReason": "Misma gaseosa Coca-Cola original de 600 ml; la tienda solo agrega la palabra Sabor",
+  "museReason": "Misma gaseosa Coca-Cola sabor original de 600 ml; la foto confirma que es sabor original, no Zero",
   "museUnsure": false,
   "rules": null
  },
@@ -3655,7 +3899,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/562226/7702535022689_1.jpg?v=638421333888670000"
   },
   "candidates": [
    {
@@ -3667,7 +3912,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099698/Bebida-Gaseosa-Toronja-QUATRO-1500-ml-3195620_a.jpg?v=639239498093970000"
    },
    {
     "id": "cmvs5lpwr02f50ogo1lth56q4",
@@ -3678,13 +3924,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26709152/Gaseosa-184661_a.jpg?v=639271744952500000"
    }
   ],
   "answer": "cmvs5lpts02e60ogove29njo7",
-  "ms": 1488,
+  "ms": 2319,
   "muse": "cmvs5lpts02e60ogove29njo7",
-  "museReason": "Misma gaseosa QUATRO toronja zero de 1500 ml",
+  "museReason": "Misma gaseosa QUATRO toronja zero de 1.5 L; la foto también dice TORONJA ZERO",
   "museUnsure": false,
   "rules": "cmvs5lpts02e60ogove29njo7"
  },
@@ -3700,7 +3947,8 @@
     "amount": 1750,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/200479/gaseosa-coca-cola-1750ml-12002106-01.png.png?v=639179661999670000"
   },
   "candidates": [
    {
@@ -3712,7 +3960,8 @@
      "amount": 1750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/879198/7702535025482-1.jpg?v=639015200334600000"
    },
    {
     "id": "cmvphekph04st3pgohrmqzfkb",
@@ -3723,13 +3972,14 @@
      "amount": 1750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/872370/7702535018675-1.png?v=638981280418800000"
    }
   ],
   "answer": "cmvphekne04rd3pgo4r6hlsno",
-  "ms": 3053,
+  "ms": 2975,
   "muse": "cmvphekne04rd3pgo4r6hlsno",
-  "museReason": "Misma gaseosa Coca Cola de 1.75 L; la tienda aclara que es sabor original",
+  "museReason": "Misma Coca-Cola Sabor Original de 1.75 L; la foto del producto lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -3745,7 +3995,8 @@
     "amount": 2000,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34445677/LECHE-ENTERA-FRESCA-678487_a.jpg?v=639213633107200000"
   },
   "candidates": [
    {
@@ -3757,7 +4008,8 @@
      "amount": 2000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/192903/7703043111803-LECHE-PRIMMA-ENTERA-GFA-X-2000-LEDESA.jpg?v=637814022643530000"
    },
    {
     "id": "cmvphefoj01nx3pgoupkktoim",
@@ -3768,13 +4020,14 @@
      "amount": 2000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/192904/7703043121802.jpg?v=637814022648530000"
    }
   ],
   "answer": "cmvphefm601mc3pgotfqxuilh",
-  "ms": 1868,
+  "ms": 3207,
   "muse": "cmvphefm601mc3pgotfqxuilh",
-  "museReason": "Misma leche Primma entera de 2000 ml; que no diga tarro no la hace diferente",
+  "museReason": "Misma leche Primma entera pasteurizada de 2 L en tarro; foto y nombre coinciden",
   "museUnsure": false,
   "rules": "cmvphefm601mc3pgotfqxuilh"
  },
@@ -3790,7 +4043,8 @@
     "amount": 2000,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34410899/Suavizante-Aroma-Floral-ETERNA-2000-ml-3480813_a.jpg?v=639211553396370000"
   },
   "candidates": [
    {
@@ -3802,7 +4056,8 @@
      "amount": 2000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/525685/7702037915168.jpg?v=638312861217300000"
    },
    {
     "id": "cmvphej7903yd3pgowqa0s79a",
@@ -3813,13 +4068,14 @@
      "amount": 2000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/217482/7702037914376.jpg?v=637814295409500000"
    }
   ],
   "answer": "cmvphejq2049z3pgov7slrjo2",
-  "ms": 1130,
+  "ms": 1583,
   "muse": "cmvphejq2049z3pgov7slrjo2",
-  "museReason": "Mismo suavizante Eterna aroma floral de 2000 ml; solo cambia el formato del nombre",
+  "museReason": "Mismo suavizante Eterna aroma floral de 2 L; la tienda lo nombra igual",
   "museUnsure": false,
   "rules": "cmvphejq2049z3pgov7slrjo2"
  },
@@ -3835,7 +4091,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "meat"
+   "aisle": "meat",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/33682186/SALCHICHA-SUIZA-PARISIENNE-978985_a.jpg?v=639166324401300000"
   },
   "candidates": [
    {
@@ -3847,7 +4104,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/278571/7700468001757.jpg?v=637830773507670000"
    },
    {
     "id": "cmvpheir603o03pgohdzu4qbl",
@@ -3858,13 +4116,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/278569/7700468000118.jpg?v=637830773495970000"
    }
   ],
   "answer": null,
-  "ms": 1992,
+  "ms": 2162,
   "muse": null,
-  "museReason": "La buscada es salchicha suiza, las opciones son Frankfurt y alemana",
+  "museReason": "La buscada es salchicha suiza, no Frankfurt ni alemana",
   "museUnsure": false,
   "rules": null
  },
@@ -3880,7 +4139,8 @@
     "amount": 310,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048835/Gaseosa-POSTOBON-En-Lata-310-ml-3706374_a.jpg?v=639239498682900000"
   },
   "candidates": [
    {
@@ -3892,7 +4152,8 @@
      "amount": 310,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/846263/7702090000818-1.jpg?v=638935358763870000"
    },
    {
     "id": "cmvphekoo04s93pgo0lywij7y",
@@ -3903,13 +4164,14 @@
      "amount": 310,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/865022/7702090000849-1.jpg?v=638956256693200000"
    }
   ],
   "answer": "cmvphekmy04r23pgokqdclmuf",
-  "ms": 1637,
+  "ms": 2452,
   "muse": "cmvphekmy04r23pgokqdclmuf",
-  "museReason": "Misma gaseosa Postobón sabor manzana en lata de 310 ml",
+  "museReason": "Misma gaseosa Postobón manzana en lata de 310 ml; la otra es Cero calorías",
   "museUnsure": false,
   "rules": null
  },
@@ -3925,7 +4187,8 @@
     "amount": 300,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/544414/7707237070013-1.jpg?v=638349894233830000"
   },
   "candidates": [
    {
@@ -3937,7 +4200,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25664853/Mantequilla-En-Spray-842026_a.jpg?v=639211362968000000"
    },
    {
     "id": "cmvs5locj01k80ogojehahjat",
@@ -3948,13 +4212,14 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562871/Mantequilla-Autentica-Ajo-79128_a.jpg?v=639270712119270000"
    }
   ],
   "answer": "cmvs5locp01ke0ogonjixtpbu",
-  "ms": 1991,
+  "ms": 1886,
   "muse": "cmvs5locp01ke0ogonjixtpbu",
-  "museReason": "Misma mantequilla Alma en spray de 300 g; tradicional solo la describe",
+  "museReason": "Misma mantequilla Alma sabor tradicional en spray de 300 g",
   "museUnsure": false,
   "rules": null
  },
@@ -3970,7 +4235,8 @@
     "amount": 3000,
     "unit": "ml"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25341969/Aceite-DIANA-Aceite-Cocina-3000-ml-3862487_a.jpg?v=639173950463870000"
   },
   "candidates": [
    {
@@ -3982,7 +4248,8 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/209046/7702028000378.jpg?v=637814209562570000"
    },
    {
     "id": "cmvpokjta00zp5jgoi6p5jfia",
@@ -3993,13 +4260,14 @@
      "amount": 3000,
      "unit": "ml"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/962539/7702206759234-1.jpg?v=639277555116330000"
    }
   ],
   "answer": "cmvpokjta00zp5jgoi6p5jfia",
-  "ms": 4594,
-  "muse": "cmvpheff501hr3pgo8jt89k1a",
-  "museReason": "Mismo aceite Diana de cocina de 3000 ml; la tienda solo aclara que tiene vitaminas",
+  "ms": 8332,
+  "muse": "cmvpokjta00zp5jgoi6p5jfia",
+  "museReason": "Mismo aceite Diana Vitamor de 3000 ml; el listado 0 es otra versión con vitaminas y omega",
   "museUnsure": false,
   "rules": null
  },
@@ -4015,7 +4283,8 @@
     "amount": 150,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26028866/Pasabocas-LA-ESPECIAL-Mantequilla-150-gr-3705617_a.jpg?v=639232712540400000"
   },
   "candidates": [
    {
@@ -4027,7 +4296,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/865867/7702007087741-1.jpg?v=638959672883370000"
    },
    {
     "id": "cmvpheimb03kn3pgoxe819s85",
@@ -4038,13 +4308,14 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/382371/7702007073430.jpg?v=637926446153000000"
    }
   ],
   "answer": "cmvpheiau03ck3pgoiyw53saq",
-  "ms": 4037,
+  "ms": 2967,
   "muse": "cmvpheiau03ck3pgoiyw53saq",
-  "museReason": "Mismo pasabocas Maní La Especial mantequilla pop de 150 g; la tienda lo nombra como maní",
+  "museReason": "Mismo snack La Especial Mantequilla Pop de 150 g; la tienda lo llama maní como en el empaque",
   "museUnsure": false,
   "rules": null
  },
@@ -4060,7 +4331,8 @@
     "amount": 200,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25715076/Jabon-Intimo-Sensitive-1326635_a.jpg?v=639213669340700000"
   },
   "candidates": [
    {
@@ -4072,7 +4344,8 @@
      "amount": 200,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/444899/7702026177546.jpg?v=638070669338570000"
    },
    {
     "id": "cmvphejd504213pgo2kfd9iw6",
@@ -4083,13 +4356,14 @@
      "amount": 200,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/463278/7702026183004.jpg?v=638125228362700000"
    }
   ],
   "answer": "cmvsfy1nx0044mego166md5bl",
-  "ms": 1591,
+  "ms": 2211,
   "muse": "cmvsfy1nx0044mego166md5bl",
-  "museReason": "Es el mismo jabón íntimo Nosotras Sensitive de 200 ml",
+  "museReason": "Mismo jabón íntimo Nosotras Sensit-V extracto de algodón de 200 ml de la foto",
   "museUnsure": false,
   "rules": "cmvsfy1nx0044mego166md5bl"
  },
@@ -4105,7 +4379,8 @@
     "amount": 2500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34450110/Azucar-Blanco-Especial-25-kg-735316_a.jpg?v=639213689150030000"
   },
   "candidates": [
    {
@@ -4117,7 +4392,8 @@
      "amount": 2500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185688/7702127010025---Riopaila-Morena-25K-baja.jpg?v=637813979813570000"
    },
    {
     "id": "cmvphefzu01v13pgocv5dl9v7",
@@ -4128,13 +4404,14 @@
      "amount": 2500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185659/7702127110022--Riopaila-Suprema-25K-baja.jpg?v=637813979734070000"
    }
   ],
   "answer": "cmvphefzu01v13pgocv5dl9v7",
-  "ms": 1448,
+  "ms": 3077,
   "muse": "cmvphefzu01v13pgocv5dl9v7",
-  "museReason": "Misma azúcar Riopaila blanca de 2500 g; blanco y blanca es lo mismo",
+  "museReason": "Misma azúcar blanca Riopaila Suprema de 2,5 kg que en la foto del comprador",
   "museUnsure": false,
   "rules": null
  },
@@ -4150,7 +4427,8 @@
     "amount": 850,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34458472/Mezcla-Endulz-Azucar-y-Stevia-INCAUCA-085-gr-3349975_a.jpg?v=639213754267670000"
   },
   "candidates": [
    {
@@ -4162,7 +4440,8 @@
      "amount": 850,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/516223/7702059603432.jpg?v=638303923063370000"
    },
    {
     "id": "cmvpheg2x01wx3pgohqukk7fg",
@@ -4173,13 +4452,14 @@
      "amount": 850,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/444166/7702059301048.jpg?v=638061993511100000"
    }
   ],
   "answer": "cmvpheg2p01wr3pgocp8j6a7s",
-  "ms": 2349,
+  "ms": 2675,
   "muse": "cmvpheg2p01wr3pgocp8j6a7s",
-  "museReason": "Misma azúcar Incauca Life de 850 g, mezcla de azúcar blanca con stevia; la tienda la abrevia como blanca life",
+  "museReason": "Mismo endulzante Incauca Life blanca con stevia de 850 g; la tienda lo llama azúcar",
   "museUnsure": false,
   "rules": null
  },
@@ -4195,7 +4475,8 @@
     "amount": 4000,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/525686/7702037915175.jpg?v=638312861222800000"
   },
   "candidates": [
    {
@@ -4207,7 +4488,8 @@
      "amount": 4000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25686126/Suavizante-Aroma-Floral-ETERNA-4000-ml-3480814_a.jpg?v=639211553402200000"
    },
    {
     "id": "cmvs5lov501v00ogo2f4uvvn3",
@@ -4218,13 +4500,14 @@
      "amount": 4000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25687269/Detergente-Bio-ETERNA-4000-ml-3526567_a.jpg?v=639211563358600000"
    }
   ],
   "answer": "cmvs5lpdf025j0ogo6e0xg1gx",
-  "ms": 1630,
+  "ms": 1811,
   "muse": "cmvs5lpdf025j0ogo6e0xg1gx",
-  "museReason": "Mismo suavizante Eterna aroma floral de 4000 ml",
+  "museReason": "Mismo suavizante Eterna aroma floral de 4 L en ambas fotos y nombres",
   "museUnsure": false,
   "rules": "cmvs5lpdf025j0ogo6e0xg1gx"
  },
@@ -4240,7 +4523,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34925793/Pasta-Fettucce-Garofalo-500-gr-1866918_a.jpg?v=639232619329200000"
   },
   "candidates": [
    {
@@ -4252,7 +4536,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/358477/8000139910227.jpg?v=637846827321570000"
    },
    {
     "id": "cmvphegxy02gs3pgo8cr5cl2a",
@@ -4263,7 +4548,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/358473/8000139910142.jpg?v=637846827308300000"
    },
    {
     "id": "cmvphegy402gv3pgoekphk24y",
@@ -4274,7 +4560,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/358476/8000139910197.jpg?v=637846827318430000"
    },
    {
     "id": "cmvphegyf02h13pgobqulhepe",
@@ -4285,7 +4572,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/358479/8000139910241.jpg?v=637846827327370000"
    },
    {
     "id": "cmvphegyj02h43pgowjx4bz9u",
@@ -4296,7 +4584,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/358482/8000139910319.jpg?v=637846827336100000"
    },
    {
     "id": "cmvphegyu02ha3pgoufpuhhid",
@@ -4307,7 +4596,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/358474/8000139910159.jpg?v=637846827312030000"
    },
    {
     "id": "cmvphegz702hj3pgonp6p118p",
@@ -4318,13 +4608,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/358475/8000139910166.jpg?v=637846827315300000"
    }
   ],
   "answer": null,
-  "ms": 1739,
+  "ms": 3045,
   "muse": null,
-  "museReason": "Ninguna es fettuccine; solo hay fusilli, spaghetti, rigatoni y otras formas distintas",
+  "museReason": "La buscada es fettuccine Garofalo y la tienda solo tiene fusilli, spaghetti, rigatoni, farfalle, spaghettini, linguine y bucatini",
   "museUnsure": false,
   "rules": null
  },
@@ -4340,7 +4631,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34488321/Harina-para-arepas-AREPAREPA-500-gr-3791592_a.jpg?v=639215349264100000"
   },
   "candidates": [
    {
@@ -4352,7 +4644,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/878349/7702910305185-1.png?v=639009078391000000"
    },
    {
     "id": "cmvphei2p03783pgorwzia9b9",
@@ -4363,13 +4656,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/878353/7702910578664-1.jpg?v=639009078710770000"
    }
   ],
   "answer": "cmvphehqq02yv3pgobkwz7lrk",
-  "ms": 2746,
+  "ms": 9708,
   "muse": "cmvphehqq02yv3pgobkwz7lrk",
-  "museReason": "Misma harina Arepa Repa blanca de 500 g; la tienda abrevia blanca como Bla",
+  "museReason": "Misma harina Arepa Repa de maíz blanco de 500 g; la tienda abrevia Bla",
   "museUnsure": false,
   "rules": null
  }

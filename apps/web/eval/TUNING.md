@@ -19,3 +19,27 @@ What it shows:
 - One rule made things worse and was fixed: telling Muse that packaging words only describe a product made it match milk in a bag with milk in a carton, which are different products at different prices.
 
 The shipped prompt keeps low effort (same speed as before) with the brand, line, variety and packaging rules, which are right on their own terms even where they don't move the score.
+
+## Product photos, 29 October 2026
+
+Muse can also see the stores' own product photos (made small, 400 px, by the stores' image server). Three ways to use them, on the same cases:
+
+| When Muse sees the photos | Tuning set: correct | wrong picks | Held-out: correct | wrong picks | Median time |
+| --- | --- | --- | --- | --- | --- |
+| Never (names only, with "not sure") | 89.2 % | 4 | 84.2 % | 4 | 2.0 s |
+| Only when the names leave it not sure | 93.3 % | 4 | 88.4 % | 3 | 2.0 s |
+| Whenever two or more listings could be it (shipped) | **99.2 %** | **1** | **97.9 %** | **0** | 2.8 s |
+
+The one wrong pick left on the tuning set is none-10, which a person had already marked as Muse being right (the same aguardiente under another barcode). The held-out set's two misses: a tamarind whose two stores name different brands, and sardines "picantes en tomate" against plain "tomate".
+
+Two stores often show the same manufacturer photo, which makes a case easy. Comparing the photos by how they look (a difference hash after trimming the white background, 6 bits or fewer of 64 counted as the same picture), the gain holds where the photos differ:
+
+| Cases (find) | Names only | Photos when not sure | Photos on two or more |
+| --- | --- | --- | --- |
+| Tuning set, photos look different (47) | 41 | 45 | 47 |
+| Tuning set, photos look the same (32) | 28 | 29 | 32 |
+| Held-out, photos look different (42) | 35 | 36 | 40 |
+| Held-out, photos look the same (36) | 30 | 33 | 36 |
+| Cases without the product, tuning set (40) and held-out (15) | 37 and 13 | 37 and 13 | 39 and 15 |
+
+The photo look happened after the prompt work above, and it was chosen on both sets at once, so both have now been seen. The photos fix the mistakes the names could not: milk in a bag against a carton, the Karavansay flours the stores all call "precocida", Café Quindío lines. They cost about 0.8 s more per judgment, and only when two or more listings could be it.

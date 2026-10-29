@@ -11,7 +11,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25722824/GARBANZO-X-500-GR-X-25und-DIANA-500-gr-3091912_A.jpg?v=639213728351830000"
   },
   "candidates": [
    {
@@ -23,7 +24,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212077/7702206732626.jpg?v=637814230862130000"
    },
    {
     "id": "cmvphef7v01ds3pgogrt2o14p",
@@ -34,7 +36,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/400435/7702511000014.jpg?v=637962799114230000"
    },
    {
     "id": "cmvpheh1102is3pgot9qvdd3s",
@@ -45,7 +48,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200369/7702511003497.jpg?v=637814146005700000"
    },
    {
     "id": "cmvpheh1i02j13pgoxthpa6sr",
@@ -56,7 +60,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200368/7702511003572.jpg?v=637814145998800000"
    },
    {
     "id": "cmvpheh2h02jp3pgodt5cpw7l",
@@ -67,7 +72,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200362/7702511003015.jpg?v=637814145963130000"
    },
    {
     "id": "cmvpheh2w02k13pgollm4togh",
@@ -78,7 +84,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200366/7702511003251.jpg?v=637814145985530000"
    },
    {
     "id": "cmvpheh6m02mg3pgo9odhovap",
@@ -89,7 +96,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200370/7702511002933.jpg?v=637814146011970000"
    },
    {
     "id": "cmvphehoa02xa3pgom68aw2ks",
@@ -100,13 +108,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/222367/7702206942216.jpg?v=637816528376400000"
    }
   ],
   "answer": "cmvpheh9z02os3pgoufq8xxtg",
-  "ms": 1937,
+  "ms": 3795,
   "muse": "cmvpheh9z02os3pgoufq8xxtg",
-  "museReason": "Mismo garbanzo DIANA seleccionados de 500 g; “cuidadosamente” solo lo describe",
+  "museReason": "Mismo garbanzo Diana seleccionados de 500 g; solo cambia la redacción",
   "museUnsure": false,
   "rules": null
  },
@@ -122,7 +131,8 @@
     "amount": 1700,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/955682/7702001155286-1.png?v=639250158303600000"
   },
   "candidates": [
    {
@@ -134,7 +144,8 @@
      "amount": 1700,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733814/YOGURT-MELOCOTON-SDULCE-FINESSE-1700-Gramo-3006404_a.jpg?v=639213830525300000"
    },
    {
     "id": "cmvs5loks01oc0ogo3qrpzt22",
@@ -145,7 +156,8 @@
      "amount": 1700,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733806/YOGURT-NATURAL-SIN-DULCE-FINESSE-1700-Gramo-3006403_a.jpg?v=639213830484870000"
    },
    {
     "id": "cmvs5lomf01p90ogotxsr29so",
@@ -156,13 +168,14 @@
      "amount": 1700,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733791/YOGURT-FRESA-SDULCE-GFA-FINESSE-1700-Gramo-3006401_a.jpg?v=639213830402070000"
    }
   ],
   "answer": "cmvs5lol801ol0ogowhbv62yv",
-  "ms": 2675,
+  "ms": 3175,
   "muse": "cmvs5lol801ol0ogowhbv62yv",
-  "museReason": "Mismo yogur Finesse de melocotón de 1700 g; botella solo describe el envase",
+  "museReason": "Mismo yogurt Alpina Finesse de melocotón en botella de 1700 g; la foto también dice melocotón",
   "museUnsure": false,
   "rules": null
  },
@@ -178,7 +191,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34404335/Suavitel-Suavitel-SUAVITEL-61024394-3204456_a.jpg?v=639211491890170000"
   },
   "candidates": [
    {
@@ -190,7 +204,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/868663/7509546700984-1.jpg?v=638966819653830000"
    },
    {
     "id": "cmvphejp9049h3pgoraxsa59e",
@@ -201,7 +216,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959923/7702010283147-1.png?v=639262208896970000"
    },
    {
     "id": "cmvphejsb04bh3pgolzeq1cv6",
@@ -212,7 +228,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959883/7509546655543-1.png?v=639262207067700000"
    },
    {
     "id": "cmvphejsv04bw3pgoxp7yiaxr",
@@ -223,13 +240,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/849197/7702010283154-1.jpg?v=638941386472930000"
    }
   ],
   "answer": "cmvphejpn049q3pgowghkuit3",
-  "ms": 5490,
+  "ms": 4064,
   "muse": "cmvphejpn049q3pgowghkuit3",
-  "museReason": "Mismo Suavitel de jazmín de 1,5 L; la tienda lo nombra Brisa de Jazmín",
+  "museReason": "Mismo Suavitel Brisa de Jazmín de 1.5 L que se ve en la foto",
   "museUnsure": false,
   "rules": null
  },
@@ -245,7 +263,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36235864/Spaguetti-Vermicelli-1000-gr-196010_a.jpg?v=639271748404230000"
   },
   "candidates": [
    {
@@ -257,7 +276,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/495698/7702020052740.jpg?v=638234692382530000"
    },
    {
     "id": "cmvphegv002ep3pgoxliyrvlz",
@@ -268,7 +288,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/822883/7702020052245-1.jpg?v=638894004969130000"
    },
    {
     "id": "cmvphegzn02hv3pgobofc9eqy",
@@ -279,13 +300,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/478760/7702020052085.jpg?v=638173594076130000"
    }
   ],
   "answer": "cmvpheh0102i43pgol22xxolu",
-  "ms": 2675,
+  "ms": 3131,
   "muse": "cmvpheh0102i43pgol22xxolu",
-  "museReason": "Misma pasta Conzazoni vermicelli de 1000 g; larga solo describe que es larga",
+  "museReason": "Misma pasta Conzazoni vermicelli de 1000 g que pide el comprador",
   "museUnsure": false,
   "rules": null
  },
@@ -301,7 +323,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/204010/gaseosa-kola-roman-1500-ml-01.png?v=639188998272470000"
   },
   "candidates": [
    {
@@ -313,7 +336,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/627975/7702609010079-1.jpg?v=638518196719230000"
    },
    {
     "id": "cmvphekog04s33pgonztv13rt",
@@ -324,13 +348,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/627963/7702609001886-1.jpg?v=638518196675300000"
    }
   ],
   "answer": "cmvphekog04s33pgonztv13rt",
-  "ms": 1914,
+  "ms": 3549,
   "muse": "cmvphekog04s33pgonztv13rt",
-  "museReason": "Misma gaseosa Kola Román sabor original de 1500 ml; 'Sabor Original' solo la describe",
+  "museReason": "Misma Kola Román regular de 1.5 L; la tienda agrega “Sabor Original” para distinguirla de la Zero",
   "museUnsure": false,
   "rules": null
  },
@@ -346,7 +371,8 @@
     "amount": 1050,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206832/aguardiente-antioqueno-24-ga-tetra-1050-ml-12005180-01.png?v=639250113898870000"
   },
   "candidates": [
    {
@@ -358,7 +384,8 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690164/Aguardiente-Verde-24-1374572_a.jpg?v=639288106078870000"
    },
    {
     "id": "cmvsijrpz00hfmego8066ams1",
@@ -369,7 +396,8 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690147/Aguardiente-Antioqueno-Caja-X-1-lt-411225_a.jpg?v=639288105737630000"
    },
    {
     "id": "cmvsijrqb00hjmego861lllhs",
@@ -380,13 +408,14 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690148/Aguardiente-Antioqueno-Sin-Azucar-Tetra-X-1000ml-238329_a.jpg?v=639288105757000000"
    }
   ],
   "answer": "cmvsijrpe00h9megojlww2h9f",
-  "ms": 5825,
+  "ms": 8315,
   "muse": "cmvsijrpe00h9megojlww2h9f",
-  "museReason": "Mismo Aguardiente Antioqueño verde de 24 grados en caja tetra de 1050 ml; la tienda aclara que es sin azúcar",
+  "museReason": "Mismo aguardiente Antioqueño verde de 24 grados en tetra de 1050 ml; la foto es igual al buscado",
   "museUnsure": false,
   "rules": null
  },
@@ -402,7 +431,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185657/7702127108029---Riopaila-Suprema-1K.jpg?v=637813979727800000"
   },
   "candidates": [
    {
@@ -414,7 +444,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25713626/AZUCAR-BLANCA-736436_a.jpg?v=639213631886570000"
    },
    {
     "id": "cmvs5lkwr00gz0ogo5hok8cba",
@@ -425,13 +456,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25717486/Azucar-Morena-1-kg-724863_a.jpg?v=639213689122870000"
    }
   ],
   "answer": "cmvs5lkty00fu0ogojp98gztt",
-  "ms": 1690,
+  "ms": 2867,
   "muse": "cmvs5lkty00fu0ogojp98gztt",
-  "museReason": "Misma azúcar Riopaila blanca de 1000 g; la tienda solo cambia el orden del nombre",
+  "museReason": "Misma azúcar blanca Riopaila Suprema de 1 kg; solo cambia el diseño del empaque",
   "museUnsure": false,
   "rules": "cmvs5lkty00fu0ogojp98gztt"
  },
@@ -447,7 +479,8 @@
     "amount": 2800,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/922569/7500435011891-1.jpg?v=639142897410870000"
   },
   "candidates": [
    {
@@ -459,7 +492,8 @@
      "amount": 2800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25674832/Detergente-Liquido-Ariel-Doble-Poder-Concentrado-x-284-L-1763545_a.jpg?v=639211452847670000"
    },
    {
     "id": "cmvs5lovz01ve0ogo8o4iy039",
@@ -470,13 +504,14 @@
      "amount": 2800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25693146/Detergente-ARIEL-Liquido-Color-2800-ml-3642162_a.jpg?v=639211600660330000"
    }
   ],
   "answer": "cmvs5lozx01xl0ogoeiria9wd",
-  "ms": 2858,
+  "ms": 2452,
   "muse": "cmvs5lozx01xl0ogoeiria9wd",
-  "museReason": "Mismo detergente líquido Ariel limpieza profunda; la tienda solo anota distinto el contenido en el nombre",
+  "museReason": "Mismo detergente líquido Ariel Limpieza Profunda de 2,8 L en envase blanco; el otro es Revitacolor azul",
   "museUnsure": false,
   "rules": "cmvs5lozx01xl0ogoeiria9wd"
  },
@@ -492,7 +527,8 @@
     "amount": 2300,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25684836/Suavitel-Manzana-SUAVITEL-61037180-3422705_a.jpg?v=639211542576530000"
   },
   "candidates": [
    {
@@ -504,7 +540,8 @@
      "amount": 2300,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959899/7509546689036-1.png?v=639262207942930000"
    },
    {
     "id": "cmvphejrl04az3pgoqdh8t1r4",
@@ -515,7 +552,8 @@
      "amount": 2300,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959915/7509546698069-1.png?v=639262208578800000"
    },
    {
     "id": "cmvphejtl04ce3pgoog9x8xrr",
@@ -526,13 +564,14 @@
      "amount": 2300,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/849144/7509546667683-1.jpg?v=638941383906630000"
    }
   ],
   "answer": "cmvphejop04953pgo8twt0oed",
-  "ms": 3226,
+  "ms": 7694,
   "muse": "cmvphejop04953pgo8twt0oed",
-  "museReason": "Mismo suavizante Suavitel Frescura de Manzana de 2.3 L; solo cambia el orden de las palabras",
+  "museReason": "Mismo Suavitel frescura de manzana de 2,3 L; la foto de la tienda es una edición de etiqueta distinta",
   "museUnsure": false,
   "rules": "cmvphejop04953pgo8twt0oed"
  },
@@ -548,7 +587,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34385876/Arroz-Roa-1-Kilo-715788_a.jpg?v=639211346660730000"
   },
   "candidates": [
    {
@@ -560,7 +600,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186310/7702552000141.jpg?v=637813981811270000"
    },
    {
     "id": "cmvphefav01f63pgow0eceb3i",
@@ -571,7 +612,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186341/7702552300111.jpg?v=637813981907500000"
    },
    {
     "id": "cmvphefbw01fr3pgo3qdos9ak",
@@ -582,13 +624,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/448313/7702552010027.jpg?v=638076650732370000"
    }
   ],
   "answer": "cmvphef7401de3pgogzu31g32",
-  "ms": 4282,
+  "ms": 3798,
   "muse": "cmvphef7401de3pgogzu31g32",
-  "museReason": "Mismo arroz blanco Roa Fortiplus de 1 kg; la tienda lo abrevia como Arroz Roa",
+  "museReason": "Mismo arroz blanco Roa fortificado Fortiplus de 1 kg; la tienda lo lista sin la línea y con etiqueta anterior",
   "museUnsure": false,
   "rules": null
  },
@@ -604,7 +647,8 @@
     "amount": 125,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/956270/7702001020355-1.jpg?v=639256108822130000"
   },
   "candidates": [
    {
@@ -616,7 +660,8 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26550854/Mantequilla-Con-Sal-Barra-X-125-gr-23252_a.jpg?v=639269946860570000"
    },
    {
     "id": "cmvs5loby01ju0ogoaqjf7xe0",
@@ -627,7 +672,8 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26550849/Mantequilla-Sin-Sal-Barra-X-125-gr-20670_a.jpg?v=639269946817600000"
    },
    {
     "id": "cmvs5lok101o20ogovl65nusc",
@@ -638,13 +684,14 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/23289245/Queso-ALPINA-Gruyere-125-gr-3635977_a.jpg?v=638937220226900000"
    }
   ],
   "answer": "cmvs5lob001ja0ogock5d8icu",
-  "ms": 1543,
+  "ms": 2102,
   "muse": "cmvs5lob001ja0ogock5d8icu",
-  "museReason": "Misma mantequilla Alpina con sal de 125 g",
+  "museReason": "Misma mantequilla Alpina con sal de 125 g en nombre y empaque",
   "museUnsure": false,
   "rules": "cmvs5lob001ja0ogock5d8icu"
  },
@@ -660,7 +707,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/24893772/Cafe-PALOMA-RIVERA-Cafe-Molido-250-gr-3836048_a.jpg?v=639113700152000000"
   },
   "candidates": [
    {
@@ -672,7 +720,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/961334/7709721678231-1.png?v=639271597539700000"
    },
    {
     "id": "cmvsfyt5b00bamego3hqxeria",
@@ -683,13 +732,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/961320/7708484000303-1.png?v=639271596016700000"
    }
   ],
   "answer": "cmvsfywdx00bomego4zxfuq2n",
-  "ms": 7885,
+  "ms": 3421,
   "muse": "cmvsfywdx00bomego4zxfuq2n",
-  "museReason": "Mismo café Paloma Rivera molido de 250 g; la tienda solo agrega Origen",
+  "museReason": "Mismo café Paloma Rivera Origen molido de 250 g; el empaque del comprador lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -705,7 +755,8 @@
     "amount": 750,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/931516/5602154102484-1.jpg?v=639168055309170000"
   },
   "candidates": [
    {
@@ -717,7 +768,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/32669212/Vino-CONVENTO-DA-VILA-TINTO-ALENTEJANO-Otra-Cepa-750-ml-3713491_a.jpg?v=639082514479770000"
    },
    {
     "id": "cmvps97lu00xq1lgofgm4td0y",
@@ -728,13 +780,14 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/32669210/Vino-CONVENTO-DA-VILA-BLANCO-ALENTEJANO-Otra-Cepa-750-ml-3713490_a.jpg?v=639082514467070000"
    }
   ],
   "answer": "cmvps97kl00x51lgos25wc9c9",
-  "ms": 2611,
-  "muse": null,
-  "museReason": "El tinto disponible es Otra Cepa, no Blend, y el otro es vino blanco",
+  "ms": 4846,
+  "muse": "cmvps97kl00x51lgos25wc9c9",
+  "museReason": "Mismo vino tinto Convento da Vila alentejano de 750 ml; la foto es idéntica y Otra Cepa es como la tienda lo nombra",
   "museUnsure": false,
   "rules": null
  },
@@ -750,7 +803,8 @@
     "amount": 125,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927739/7702129030267-1.jpg?v=639155857062430000"
   },
   "candidates": [
    {
@@ -762,7 +816,8 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34930638/Mantequilla-SSal-COLANTA-125-Gramo-112619_a.jpg?v=639232686123400000"
    },
    {
     "id": "cmvsislux00jrmegoao6smwte",
@@ -773,13 +828,14 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34925777/Yogur-Griego-Fresa-COLANTA-125-gr-1865469_a.jpg?v=639232619214730000"
    }
   ],
   "answer": "cmvsisluh00jnmego2t2wunbo",
-  "ms": 1494,
+  "ms": 2655,
   "muse": "cmvsisluh00jnmego2t2wunbo",
-  "museReason": "Misma mantequilla Colanta sin sal de 125 g; esparcible solo la describe",
+  "museReason": "Misma mantequilla Colanta sin sal de 125 g; 'esparcible' solo la describe",
   "museUnsure": false,
   "rules": null
  },
@@ -795,7 +851,8 @@
     "amount": 340,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789300/7702728232390-1.jpg.jpg?v=638815547003700000"
   },
   "candidates": [
    {
@@ -807,7 +864,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021324/Cafe-Organico-Molido-x-340-g-701550_a.jpg?v=639232611915800000"
    },
    {
     "id": "cmvs5lme000o80ogo6c9tkd7e",
@@ -818,7 +876,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25661485/Cafe-Especial-Origen-Genova-961061_a.jpg?v=639211335752370000"
    },
    {
     "id": "cmvs5lmf300oq0ogovx0a0h34",
@@ -829,7 +888,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25729358/Cafe-CAFE-QUINDIO-Molido-Especial-Origen-340-gr-3725297_a.jpg?v=639213785779400000"
    },
    {
     "id": "cmvs5lmfk00ow0ogoh6tpm5cz",
@@ -840,7 +900,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/21743361/Cafe-Organico-Grano-CAFE-QUINDIO-340-gr-1861365_a.jpg?v=638876757284900000"
    },
    {
     "id": "cmvs5lmh000po0ogo83xtcw2v",
@@ -851,7 +912,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025127/Cafe-CAFE-QUINDIO-MOLIDO-GOURMET-ESPRESSO-INTENS-340-gr-3775361_a.jpg?v=639232678157800000"
    },
    {
     "id": "cmvs5lmct00ns0ogopnx3lqyv",
@@ -862,7 +924,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25726646/Cafe-Descafeinado-CAFE-QUINDIO-340-gr-3425526_a.jpg?v=639213763903970000"
    },
    {
     "id": "cmvs5lmf900os0ogocr3ejifu",
@@ -873,7 +936,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/21742170/Cafe-Genova-Grano-CAFE-QUINDIO-340-gr-1861363_a.jpg?v=638876679081800000"
    },
    {
     "id": "cmvs5lmgv00pl0ogo6g1y7rre",
@@ -884,13 +948,14 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/24073512/Cafe-CAFE-QUINDIO-GRANO-GOURMET-ESPRESSO-INTENSO-340-gr-3775362_a.jpg?v=638991745643330000"
    }
   ],
   "answer": "cmvs5lmf300oq0ogovx0a0h34",
-  "ms": 4920,
-  "muse": null,
-  "museReason": "Ninguno es de la línea Buenavista; son orgánico, especial, espresso, descafeinado o genérico",
+  "ms": 4478,
+  "muse": "cmvs5lmf300oq0ogovx0a0h34",
+  "museReason": "Mismo café Quindío Buenavista molido; la tienda lo describe como especial de origen",
   "museUnsure": false,
   "rules": null
  },
@@ -906,7 +971,8 @@
     "amount": 400,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626620/7702090031942-1.jpg?v=638508888559930000"
   },
   "candidates": [
    {
@@ -918,7 +984,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048567/Gaseosa-Pet-Uva-400-ml-232802_a.jpg?v=639239483060170000"
    },
    {
     "id": "cmvps9bfr033b1lgo86176nh9",
@@ -929,7 +996,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048647/Gaseosa-Pet-Naranja-POSTOBON-400-ml-232764_a.jpg?v=639239483680070000"
    },
    {
     "id": "cmvpx6p45008a59got4j906n8",
@@ -940,13 +1008,14 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048605/Manzana-Pet-400-1058118_a.jpg?v=639239483339570000"
    }
   ],
   "answer": "cmvsikno400inmego80o3omi9",
-  "ms": 1549,
+  "ms": 2060,
   "muse": "cmvsikno400inmego80o3omi9",
-  "museReason": "Misma gaseosa Postobón de uva de 400 ml; la tienda solo agrega que es botella",
+  "museReason": "Misma gaseosa Postobón sabor uva en botella de 400 ml",
   "museUnsure": false,
   "rules": "cmvsikno400inmego80o3omi9"
  },
@@ -962,7 +1031,8 @@
     "amount": 210,
     "unit": "g"
    },
-   "aisle": "meat"
+   "aisle": "meat",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34474654/Jamon-York-CATALAN-210-gr-3325629_a.jpg?v=639213859115700000"
   },
   "candidates": [
    {
@@ -974,7 +1044,8 @@
      "amount": 210,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/456220/7707205993801.jpg?v=638090605011970000"
    },
    {
     "id": "cmvs3yjun02krwvgoqym04ad0",
@@ -985,13 +1056,14 @@
      "amount": 210,
      "unit": "g"
     },
-    "aisle": "meat"
+    "aisle": "meat",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/460337/7707205991234.jpg?v=638110262244670000"
    }
   ],
   "answer": "cmvpheiwm03rm3pgowv0224i4",
-  "ms": 7336,
+  "ms": 3660,
   "muse": "cmvpheiwm03rm3pgowv0224i4",
-  "museReason": "Mismo jamón Catalan york 100% de cerdo de 210 g; la tienda lo llama york",
+  "museReason": "Mismo jamón York Catalán 100% de cerdo de 210 g; el otro es con especias",
   "museUnsure": false,
   "rules": null
  },
@@ -1007,7 +1079,8 @@
     "amount": 750,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186974/7702049000531.jpg?v=637813983705430000"
   },
   "candidates": [
    {
@@ -1019,7 +1092,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206833/aguardiente-antioqueno-sin-azucar-750-ml-12002708-01.png?v=639250115356100000"
    },
    {
     "id": "cmvphdrw301b33pgo486gyaby",
@@ -1030,7 +1104,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206793/aguardiente-real-antioqueno-750-ml-12007654-01.png?v=639250095964600000"
    },
    {
     "id": "cmvphdrwg01bc3pgosv8sw7w3",
@@ -1041,13 +1116,14 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206825/aguardiente-antioqueno-verde-s-a-750-ml-12006183-01.png?v=639250109525330000"
    }
   ],
   "answer": "cmvphdpzs006u3pgoztoyy6ob",
-  "ms": 5996,
+  "ms": 3970,
   "muse": "cmvphdpzs006u3pgoztoyy6ob",
-  "museReason": "Mismo Aguardiente Antioqueño sin azúcar de 750 ml que busca el comprador",
+  "museReason": "Mismo Aguardiente Antioqueño azul Sin Azúcar de 750 ml que el buscado",
   "museUnsure": false,
   "rules": null
  },
@@ -1063,7 +1139,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26942034/HARINA-DE-QUINUA-389859_a.jpg?v=639280970103070000"
   },
   "candidates": [
    {
@@ -1075,7 +1152,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708465/7707357440314-1.jpg?v=638700370085030000"
    },
    {
     "id": "cmvphehmh02w13pgomfs73b87",
@@ -1086,7 +1164,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708460/7707357440338-1.jpg?v=638700370069730000"
    },
    {
     "id": "cmvphehn502wg3pgomb6o8t7d",
@@ -1097,14 +1176,15 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708467/7707357440383-1.jpg?v=638700370092230000"
    }
   ],
   "answer": "cmvphehmh02w13pgomfs73b87",
-  "ms": 3152,
-  "muse": null,
-  "museReason": "El nombre solo dice precocida y no aclara si es de garbanzo, quinua o arroz integral",
-  "museUnsure": true,
+  "ms": 5757,
+  "muse": "cmvphehmh02w13pgomfs73b87",
+  "museReason": "Misma harina de quinua Karavansay precocida de 500 g; la tienda la nombra solo como quinua",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -1119,7 +1199,8 @@
     "amount": 110,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35948622/Sal-Marina-Salero-115-gr-405999_a.jpg?v=639270880101170000"
   },
   "candidates": [
    {
@@ -1131,7 +1212,8 @@
      "amount": 110,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752378/7703812012935-1.jpg?v=638735951587830000"
    },
    {
     "id": "cmvphegbk022b3pgozcu9458a",
@@ -1142,13 +1224,14 @@
      "amount": 110,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752377/7703812012805-1.jpg?v=638735951585500000"
    }
   ],
   "answer": "cmvsfyi8s009imegoy68ynflq",
-  "ms": 4176,
+  "ms": 5448,
   "muse": "cmvsfyi8s009imegoy68ynflq",
-  "museReason": "Misma sal marina Refisal de 110 g; la tienda detalla que es cristal fino en salero",
+  "museReason": "Misma sal Refisal Marina de 110 g en salero; la tienda la describe como cristal fino",
   "museUnsure": false,
   "rules": null
  },
@@ -1164,7 +1247,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789295/7702728232161-1.jpg.jpg?v=638815546216500000"
   },
   "candidates": [
    {
@@ -1176,7 +1260,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25729695/Cafe-CAFE-QUINDIO-TOSTADO-MOLIDO-COSECHA-ESPECIA-250-gr-3775364_a.jpg?v=639213788525900000"
    },
    {
     "id": "cmvs5lmh400pr0ogogeb6h8oo",
@@ -1187,7 +1272,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26024611/Cafe-CAFE-QUINDIO-MOLIDO-NOTAS-VAINILLA-DULCE-CR-250-gr-3573759_a.jpg?v=639232672852930000"
    },
    {
     "id": "cmvs5lmd000nu0ogotgq9rt10",
@@ -1198,7 +1284,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25661557/Cafe-Quindio-715872_a.jpg?v=639211336069300000"
    },
    {
     "id": "cmvs5lmd900ny0ogoury3o3yw",
@@ -1209,7 +1296,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021841/Cafe-Gourmet-Grano-CAFE-QUINDIO-250-gr-1861364_a.jpg?v=639232617958900000"
    },
    {
     "id": "cmvs5lmen00oj0ogopqe120qf",
@@ -1220,13 +1308,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26024607/Cafe-CAFE-QUINDIO-NOTAS-CHOCOLATE-LECHE-C-250-gr-3573755_a.jpg?v=639232672823430000"
    }
   ],
   "answer": "cmvs5lmh400pr0ogogeb6h8oo",
-  "ms": 13331,
-  "muse": null,
-  "museReason": "Ninguno es a la vez vainilla y cosecha especial molido; el 0 es solo cosecha y el 1 es solo vainilla.",
+  "ms": 7125,
+  "muse": "cmvs5lmh400pr0ogogeb6h8oo",
+  "museReason": "Mismo Café Quindío Sweet Vainilla molido de 250 g; la tienda lo describe como notas vainilla dulce",
   "museUnsure": false,
   "rules": null
  },
@@ -1242,7 +1331,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36497660/HARINA-GARBANZO-NAT-1059582_a.jpg?v=639280970246170000"
   },
   "candidates": [
    {
@@ -1254,7 +1344,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708465/7707357440314-1.jpg?v=638700370085030000"
    },
    {
     "id": "cmvphehmh02w13pgomfs73b87",
@@ -1265,7 +1356,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708460/7707357440338-1.jpg?v=638700370069730000"
    },
    {
     "id": "cmvphehn502wg3pgomb6o8t7d",
@@ -1276,14 +1368,15 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708467/7707357440383-1.jpg?v=638700370092230000"
    }
   ],
   "answer": "cmvpheh9u02op3pgozy3gz5ny",
-  "ms": 3220,
-  "muse": null,
-  "museReason": "El nombre no dice si es de garbanzo, quinua o arroz",
-  "museUnsure": true,
+  "ms": 5187,
+  "muse": "cmvpheh9u02op3pgozy3gz5ny",
+  "museReason": "Misma harina de garbanzo Karavansay precocida de 500 g; la otra tienda solo omite la palabra precocida",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -1298,7 +1391,8 @@
     "amount": 175,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35122763/MANTEQUILLA-CLARIF-ALBAHACA-Karavansay-175-Gramo-3002251_a.jpg?v=639244951195700000"
   },
   "candidates": [
    {
@@ -1310,7 +1404,8 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708470/7707357444039-1.jpg?v=638700370102370000"
    },
    {
     "id": "cmvsfys9n00b0mego0mtlc8wd",
@@ -1321,7 +1416,8 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708463/7707357444220-1.jpg?v=638700370079300000"
    },
    {
     "id": "cmvsfywe200bqmego2m72lt22",
@@ -1332,13 +1428,14 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/710794/7709768133427-1.jpg?v=638701265440470000"
    }
   ],
   "answer": "cmvsfys9u00b2mego76yubeyx",
-  "ms": 1502,
+  "ms": 2616,
   "muse": "cmvsfys9u00b2mego76yubeyx",
-  "museReason": "Misma mantequilla Karavansay clarificada de orégano de 175 g; la tienda solo agrega Ghee",
+  "museReason": "Misma mantequilla clarificada ghee Karavansay de orégano de 175 g",
   "museUnsure": false,
   "rules": null
  },
@@ -1354,7 +1451,8 @@
     "amount": 100,
     "unit": "g"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25712542/Crema-Dental-Rapido-Alivio-1480388_a.jpg?v=639213621358500000"
   },
   "candidates": [
    {
@@ -1366,7 +1464,8 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927554/7794640172472-1.jpg?v=639155004116700000"
    },
    {
     "id": "cmvphejvc04dn3pgoi2s7pfbf",
@@ -1377,7 +1476,8 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927549/7794640171550-1.jpg?v=639155003967470000"
    },
    {
     "id": "cmvphek0o04gk3pgode0uvo2f",
@@ -1388,7 +1488,8 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927543/7794640170720-1.jpg?v=639155003829400000"
    },
    {
     "id": "cmvphejxo04ez3pgoxbj5l0jn",
@@ -1399,7 +1500,8 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927518/7501065064578-1.jpg?v=639155001758730000"
    },
    {
     "id": "cmvphejy304f53pgohtj3go5g",
@@ -1410,13 +1512,14 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927537/7794640170133-1.jpg?v=639155003679300000"
    }
   ],
   "answer": "cmvphejxv04f23pgon7abrmxd",
-  "ms": 2136,
+  "ms": 2945,
   "muse": "cmvphejxv04f23pgon7abrmxd",
-  "museReason": "Es la misma crema Sensodyne Rápido Alivio Blanqueador, solo agrega alivio de la sensibilidad dental",
+  "museReason": "Misma crema Sensodyne Rápido Alivio Blanqueador de 100 g; la foto y el nombre coinciden",
   "museUnsure": false,
   "rules": null
  },
@@ -1432,7 +1535,8 @@
     "amount": 400,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099727/Gaseosa-PEPSI-400-ml-3540023_a.jpg?v=639239498416500000"
   },
   "candidates": [
    {
@@ -1444,7 +1548,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/707201/7702192741749-1.jpg?v=638696342154070000"
    },
    {
     "id": "cmvphekn604r83pgoufekblar",
@@ -1455,13 +1560,14 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/779409/7702192084570-1.jpg.jpg?v=638808623715800000"
    }
   ],
   "answer": "cmvphekjz04p33pgo8drsafhv",
-  "ms": 1459,
+  "ms": 2188,
   "muse": "cmvphekjz04p33pgo8drsafhv",
-  "museReason": "Misma gaseosa Pepsi regular de 400 ml; la otra opción es Pepsi Cero",
+  "museReason": "Misma gaseosa Pepsi regular de 400 ml; la tienda solo omite 'pet'",
   "museUnsure": false,
   "rules": "cmvphekjz04p33pgo8drsafhv"
  },
@@ -1477,7 +1583,8 @@
     "amount": 1800,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25683628/Detergente-Liquido-ARIEL-18-ml-3362316_a.jpg?v=639211528498270000"
   },
   "candidates": [
    {
@@ -1489,7 +1596,8 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/922593/7500435160544-1.jpg?v=639142897999230000"
    },
    {
     "id": "cmvphejau040g3pgoxc7upzul",
@@ -1500,13 +1608,14 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/712306/7500435149815-1.jpg?v=638702345249770000"
    }
   ],
   "answer": "cmvpokocj02qq5jgosbuxf52d",
-  "ms": 1660,
+  "ms": 2464,
   "muse": "cmvpokocj02qq5jgosbuxf52d",
-  "museReason": "Mismo detergente líquido Ariel Limpieza Profunda de 1800 ml",
+  "museReason": "Mismo detergente Ariel Limpieza Profunda líquido de 1,8 L; la foto es idéntica",
   "museUnsure": false,
   "rules": "cmvpokocj02qq5jgosbuxf52d"
  },
@@ -1522,7 +1631,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25683098/Suavizante-Eterna-Primavera-DERSA-Suavizante-Eterna-Primavera-3333588_a.jpg?v=639211524564500000"
   },
   "candidates": [
    {
@@ -1534,7 +1644,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588779/7702166051263.jpg?v=638467106070770000"
    },
    {
     "id": "cmvphejsf04bk3pgodavx8zov",
@@ -1545,7 +1656,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588784/7702166052512.jpg?v=638467106084970000"
    },
    {
     "id": "cmvphejtc04c83pgo446jnnxh",
@@ -1556,7 +1668,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588785/7702166052765.jpg?v=638467106087930000"
    },
    {
     "id": "cmvpheji404533pgorhpzddst",
@@ -1567,7 +1680,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/899522/7702166066236-1.jpg?v=639094631414000000"
    },
    {
     "id": "cmvphejit045k3pgo5ngwqmrc",
@@ -1578,13 +1692,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/899523/7702166066243-1.jpg?v=639094631550870000"
    }
   ],
   "answer": "cmvphejrt04b53pgols6jg8u0",
-  "ms": 1461,
+  "ms": 2973,
   "muse": "cmvphejrt04b53pgols6jg8u0",
-  "museReason": "Mismo suavizante Dersa eterna primavera de 1500 ml; la tienda solo añade doypack",
+  "museReason": "Mismo suavizante Dersa eterna primavera de 1500 ml en doypack, solo cambia el diseño de la etiqueta",
   "museUnsure": false,
   "rules": "cmvphejrt04b53pgols6jg8u0"
  },
@@ -1600,7 +1715,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959951/7702025152056-1.png?v=639262998801200000"
   },
   "candidates": [
    {
@@ -1612,7 +1728,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025055/Galletas-DUX-Integral-2502-gr-3752771_a.jpg?v=639232677404070000"
    },
    {
     "id": "cmvs5lpo902bf0ogoe39ujbzy",
@@ -1623,13 +1740,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25738512/Galletas-DUX-Original-2502-gr-3752415_a.jpg?v=639213870436300000"
    }
   ],
   "answer": "cmvs5lpo902bf0ogoe39ujbzy",
-  "ms": 2964,
+  "ms": 2664,
   "muse": "cmvs5lpo902bf0ogoe39ujbzy",
-  "museReason": "Misma galleta Dux salada; la tienda la llama original y la otra es integral",
+  "museReason": "Mismas galletas Dux Original saladas Pague 9 Lleve 12; la otra es integral",
   "museUnsure": false,
   "rules": null
  },
@@ -1645,7 +1763,8 @@
     "amount": 2500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562751/Azucar-Mayaguez-42852_a.jpg?v=639270709925730000"
   },
   "candidates": [
    {
@@ -1657,7 +1776,8 @@
      "amount": 2500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/829995/7707007200466-1.jpg?v=638913840970530000"
    },
    {
     "id": "cmvphefzq01uy3pgo4vpb6el6",
@@ -1668,13 +1788,14 @@
      "amount": 2500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/829993/7707007200428-1.jpg?v=638913840715600000"
    }
   ],
   "answer": "cmvphefy601u23pgomovb4n4p",
-  "ms": 2470,
+  "ms": 1999,
   "muse": "cmvphefy601u23pgomovb4n4p",
-  "museReason": "Misma azúcar blanca Mayaguez de 2500 g; solo cambia blanco por blanca",
+  "museReason": "Misma azúcar Mayagüez Blanco Especial de 2,5 kg que se ve en la foto",
   "museUnsure": false,
   "rules": null
  },
@@ -1690,7 +1811,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34406352/LENTEJA-DIANA-1000G-1861677_a.jpg?v=639211510885700000"
   },
   "candidates": [
    {
@@ -1702,7 +1824,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/438033/7702511002964.jpg?v=638035199721200000"
    },
    {
     "id": "cmvphef8i01e43pgoh6bo2zh4",
@@ -1713,7 +1836,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186299/7702511000021.jpg?v=637813981775570000"
    },
    {
     "id": "cmvphefaq01f33pgo5lc4uo7p",
@@ -1724,7 +1848,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207564/7702511003695.jpg?v=637814205479700000"
    },
    {
     "id": "cmvphefcj01g63pgomz2o181z",
@@ -1735,7 +1860,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186319/7702511002209.jpg?v=637813981842570000"
    },
    {
     "id": "cmvphehab02oy3pgopa88sxch",
@@ -1746,7 +1872,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212076/7702511654064.jpg?v=637814230856330000"
    },
    {
     "id": "cmvphehni02wp3pgopp77z7ug",
@@ -1757,7 +1884,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/392197/7702511081457.jpg?v=637943810624000000"
    },
    {
     "id": "cmvsfyc6o007emegoouexcs59",
@@ -1768,13 +1896,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186339/7702511000427.jpg?v=637813981903130000"
    }
   ],
   "answer": "cmvpheh8c02np3pgonevchdz4",
-  "ms": 2066,
+  "ms": 8642,
   "muse": "cmvpheh8c02np3pgonevchdz4",
-  "museReason": "Mismas lentejas Diana seleccionadas de 1000 g; solo cambia cuidadosamente seleccionadas por seleccionadas",
+  "museReason": "Mismas lentejas Diana cuidadosamente seleccionadas de 1000 g; la etiqueta nueva agrega Vital+Premium",
   "museUnsure": false,
   "rules": null
  },
@@ -1790,7 +1919,8 @@
     "amount": 850,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34450103/Azucar-Organica-850-gr-94154_a.jpg?v=639213689071270000"
   },
   "candidates": [
    {
@@ -1802,7 +1932,8 @@
      "amount": 850,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/790266/7702104018921-1.jpg.jpg?v=638818049627070000"
    },
    {
     "id": "cmvpheg2h01wl3pgo4ckksfu7",
@@ -1813,13 +1944,14 @@
      "amount": 850,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/790267/7702104018952-1.jpg.jpg?v=638818049786630000"
    }
   ],
   "answer": "cmvphefzd01up3pgoc37o03v4",
-  "ms": 3365,
+  "ms": 2315,
   "muse": "cmvphefzd01up3pgoc37o03v4",
-  "museReason": "Misma azúcar Providencia orgánica de 850 g, escrita igual",
+  "museReason": "Misma azúcar Providencia orgánica de 850 g; la otra es variedad Morena con empaque rojo",
   "museUnsure": false,
   "rules": "cmvphefzd01up3pgoc37o03v4"
  },
@@ -1835,7 +1967,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025737/CAFE-DESCAFEINADO-L-SELECTA-792157_a.jpg?v=639232686549530000"
   },
   "candidates": [
    {
@@ -1847,7 +1980,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/866196/7702747000529-1.jpg?v=638961581496600000"
    },
    {
     "id": "cmvsfyg7q008emegoc0wxtg00",
@@ -1858,13 +1992,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/866194/7702747000420-1.jpg?v=638961580740130000"
    }
   ],
   "answer": "cmvsfyg8d008kmego1swkzy94",
-  "ms": 1521,
+  "ms": 2255,
   "muse": "cmvsfyg8d008kmego1swkzy94",
-  "museReason": "Mismo café OMA descafeinado de 250 g; tostado y molido es solo descripción",
+  "museReason": "Mismo café Oma Selecta descafeinado de 250 g; la tienda lo abrevia",
   "museUnsure": false,
   "rules": null
  },
@@ -1880,7 +2015,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/204384/azucar-blanca-1000-grs-12000249.png?v=639190439827730000"
   },
   "candidates": [
    {
@@ -1892,7 +2028,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669518/Azucar-Blanco-Especial-x-1000-g-874775_a.jpg?v=639211416246030000"
    },
    {
     "id": "cmvs5lkvq00gn0ogocd44fwle",
@@ -1903,13 +2040,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562752/Azucar-Mayaguez-1000g-Morena-N-42869_a.jpg?v=639270709955500000"
    }
   ],
   "answer": "cmvs5lks600ev0ogo9swiq0sd",
-  "ms": 3905,
+  "ms": 7486,
   "muse": "cmvs5lks600ev0ogo9swiq0sd",
-  "museReason": "Misma azúcar blanca Mayagüez (Maya) de 1000 g; la otra es morena",
+  "museReason": "Misma azúcar Mayagüez blanca de 1 kg; la otra es morena natural",
   "museUnsure": false,
   "rules": null
  },
@@ -1925,7 +2063,8 @@
     "amount": 907,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25738353/Azucar-MANUELITA-Azucar-Dorada-Manuelita-907-gr-3579655_a.jpg?v=639213869295300000"
   },
   "candidates": [
    {
@@ -1937,7 +2076,8 @@
      "amount": 907,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/707722/7702406179139-1.jpg?v=638697063684800000"
    },
    {
     "id": "cmvpheg3101x03pgos3l1gq7l",
@@ -1948,13 +2088,14 @@
      "amount": 907,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/707724/7702406672678-1.jpg?v=638697063690370000"
    }
   ],
   "answer": "cmvpheg1d01vy3pgofy3i7ua5",
-  "ms": 1790,
+  "ms": 2619,
   "muse": "cmvpheg1d01vy3pgofy3i7ua5",
-  "museReason": "Misma azúcar Manuelita dorada de 907 g; la tienda agrega \"Natural\" como descripción",
+  "museReason": "Misma azúcar Manuelita dorada natural de 907 g; ambas fotos dicen Golden Brown Sugar",
   "museUnsure": false,
   "rules": null
  },
@@ -1970,7 +2111,8 @@
     "amount": 75,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/587255/7702314502548.jpg?v=638464003575100000"
   },
   "candidates": [
    {
@@ -1982,7 +2124,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25728006/Crema-Dental-Sensitive-PROQUIDENT-75-ml-3536889_a.jpg?v=639213775034470000"
    },
    {
     "id": "cmvs5lplj029v0ogo5q3kmo5k",
@@ -1993,13 +2136,14 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25674513/CREMA-DENTAL-KIDS-SN-FLUOR-NAT-PROQUIDENT-SIN-REF-1751057_a.jpg?v=639211450903700000"
    }
   ],
   "answer": "cmvs5lphc027p0ogoigi3v8q5",
-  "ms": 3261,
+  "ms": 1753,
   "muse": "cmvs5lphc027p0ogoigi3v8q5",
-  "museReason": "Misma crema PROQUIDENT Sensitive de 75 ml; la tienda omite la palabra Menta",
+  "museReason": "Misma crema Proquident Sensitive con flúor sabor a menta; la tienda solo abrevia el nombre",
   "museUnsure": false,
   "rules": null
  },
@@ -2015,7 +2159,8 @@
     "amount": 120,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/753088/7703812409063-1.jpg.jpg?v=638742951482830000"
   },
   "candidates": [
    {
@@ -2027,7 +2172,8 @@
      "amount": 120,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587344/Sal-Ligera-Sodio-Salero-REFISAL-120-gr-3501937_a.jpg?v=639270874939500000"
    },
    {
     "id": "cmvs5lm6m00lf0ogolhwy0w3q",
@@ -2038,7 +2184,8 @@
      "amount": 120,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587391/Alimento-REFISAL-GRANULADO-SALINO-GRANO-FINO-120-gr-3775236_a.jpg?v=639270875857800000"
    },
    {
     "id": "cmvs5lmbn00na0ogo7g8n04kv",
@@ -2049,13 +2196,14 @@
      "amount": 120,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26588118/SAL-ROSADA-HIMALAYA-FINA-REFISAL-120-gr-3484123_a.jpg?v=639270880948300000"
    }
   ],
   "answer": "cmvs5lm9h00ma0ogolutd3okb",
-  "ms": 3355,
+  "ms": 2250,
   "muse": "cmvs5lm9h00ma0ogolutd3okb",
-  "museReason": "Misma sal Refisal ligera baja en sodio de 120 g; la tienda la describe como con potasio",
+  "museReason": "Misma sal Refisal Ligera en Sodio / baja en sodio de 120 g grano fino; la foto lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -2071,7 +2219,8 @@
     "amount": 1050,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/187008/7702049001507.jpg?v=637813983805170000"
   },
   "candidates": [
    {
@@ -2083,7 +2232,8 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690164/Aguardiente-Verde-24-1374572_a.jpg?v=639288106078870000"
    },
    {
     "id": "cmvsijrpz00hfmego8066ams1",
@@ -2094,7 +2244,8 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690147/Aguardiente-Antioqueno-Caja-X-1-lt-411225_a.jpg?v=639288105737630000"
    },
    {
     "id": "cmvsijrqb00hjmego861lllhs",
@@ -2105,14 +2256,15 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690148/Aguardiente-Antioqueno-Sin-Azucar-Tetra-X-1000ml-238329_a.jpg?v=639288105757000000"
    }
   ],
   "answer": "cmvsijrpz00hfmego8066ams1",
-  "ms": 3378,
-  "muse": null,
-  "museReason": "El nombre no dice si es verde, rojo o azul sin azúcar",
-  "museUnsure": true,
+  "ms": 2883,
+  "muse": "cmvsijrpz00hfmego8066ams1",
+  "museReason": "Mismo Aguardiente Antioqueño rojo tradicional en caja de 1050 ml; el verde y el azul son sin azúcar",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -2127,7 +2279,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34464522/Azucar-Morena-Bolsa-X-1kg-935824_a.jpg?v=639213809348300000"
   },
   "candidates": [
    {
@@ -2139,7 +2292,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/900047/7702406090335-1.jpg?v=639100521963600000"
    },
    {
     "id": "cmvpheg2d01wi3pgoc70xi5d8",
@@ -2150,13 +2304,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/900044/7702406000143-1.jpg?v=639100520619970000"
    }
   ],
   "answer": "cmvphefz801um3pgo0wh4tlq0",
-  "ms": 1820,
+  "ms": 1437,
   "muse": "cmvphefz801um3pgo0wh4tlq0",
-  "museReason": "Misma azúcar Manuelita morena de 1 kg",
+  "museReason": "Misma azúcar Manuelita morena de 1 kg sabor de caña",
   "museUnsure": false,
   "rules": "cmvphefz801um3pgo0wh4tlq0"
  },
@@ -2172,7 +2327,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26123183/PANELA-PULVERIZADA-ORGANICA-1382647_a.jpg?v=639244095237830000"
   },
   "candidates": [
    {
@@ -2184,7 +2340,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/196844/7709903823107.jpg?v=637814132777800000"
    },
    {
     "id": "cmvpheg8702093pgovz4bybyp",
@@ -2195,13 +2352,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/201846/7709439551086.jpg?v=637814155224570000"
    }
   ],
   "answer": "cmvpheg7v02003pgoltll45g9",
-  "ms": 4361,
-  "muse": "cmvpheg8702093pgovz4bybyp",
-  "museReason": "Misma panela Fonce pulverizada natural de 500 g; DORIGENN abrevia de origen natural",
+  "ms": 12070,
+  "muse": "cmvpheg7v02003pgoltll45g9",
+  "museReason": "Misma panela Fonce orgánica pulverizada de 500 g que se ve en la foto del comprador",
   "museUnsure": false,
   "rules": null
  },
@@ -2217,7 +2375,8 @@
     "amount": 125,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/956258/7702001020096-1.jpg?v=639256108803800000"
   },
   "candidates": [
    {
@@ -2229,7 +2388,8 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26550849/Mantequilla-Sin-Sal-Barra-X-125-gr-20670_a.jpg?v=639269946817600000"
    },
    {
     "id": "cmvs5lob001ja0ogock5d8icu",
@@ -2240,7 +2400,8 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26550854/Mantequilla-Con-Sal-Barra-X-125-gr-23252_a.jpg?v=639269946860570000"
    },
    {
     "id": "cmvs5lok101o20ogovl65nusc",
@@ -2251,13 +2412,14 @@
      "amount": 125,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/23289245/Queso-ALPINA-Gruyere-125-gr-3635977_a.jpg?v=638937220226900000"
    }
   ],
   "answer": "cmvs5loby01ju0ogoaqjf7xe0",
-  "ms": 1567,
+  "ms": 1924,
   "muse": "cmvs5loby01ju0ogoaqjf7xe0",
-  "museReason": "Misma mantequilla Alpina sin sal de 125 g",
+  "museReason": "Misma mantequilla Alpina sin sal de 125 g; el empaque lo confirma",
   "museUnsure": false,
   "rules": "cmvs5loby01ju0ogoaqjf7xe0"
  },
@@ -2273,7 +2435,8 @@
     "amount": 141,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/952808/7702001163878-1.jpg?v=639240579907670000"
   },
   "candidates": [
    {
@@ -2285,7 +2448,8 @@
      "amount": 141,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25735196/Yogurt-Griego-Sabor-Natural-ALPINA-141-ml-3310396_a.jpg?v=639213841041800000"
    },
    {
     "id": "cmvs5loo001q50ogoi8p5a6pp",
@@ -2296,7 +2460,8 @@
      "amount": 141,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26020850/Yogurt-Liquido-Melocoton-Vaso-818743_a.jpg?v=639232608162700000"
    },
    {
     "id": "cmvs5loof01qd0ogo6sivccjp",
@@ -2307,13 +2472,14 @@
      "amount": 141,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26020849/Yogurt-Original-Trozos-De-Fruta-Vaso-X-150g-805391_a.jpg?v=639232608152100000"
    }
   ],
   "answer": "cmvs5long01pt0ogoh7nfm193",
-  "ms": 1315,
+  "ms": 3923,
   "muse": "cmvs5long01pt0ogoh7nfm193",
-  "museReason": "Mismo yogur griego Alpina natural de 141 ml",
+  "museReason": "Mismo yogur griego Alpina sabor natural de 150 g; solo cambia el color de la franja lateral",
   "museUnsure": false,
   "rules": null
  },
@@ -2329,7 +2495,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200368/7702511003572.jpg?v=637814145998800000"
   },
   "candidates": [
    {
@@ -2341,7 +2508,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673995/FRIJOL-ZARAGOZA-DIANA-500-gr-1744351_a.jpg?v=639211449785330000"
    },
    {
     "id": "cmvs5ln0600yv0ogos21nqe85",
@@ -2352,7 +2520,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673994/FRIJOL-CARGAMANTO-DIANA-500-gr-1744336_a.jpg?v=639211449772600000"
    },
    {
     "id": "cmvs5ln6q010v0ogo5eq0wuov",
@@ -2363,7 +2532,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25720700/Frijol-Calima-Lima-DIANA-500-gr-1744343_a.jpg?v=639213712878870000"
    },
    {
     "id": "cmvs5ln78010z0ogo37mqcw5v",
@@ -2374,7 +2544,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25720561/Frijol-DIANA-500-gr-1408941_a.jpg?v=639213711859700000"
    },
    {
     "id": "cmvs5lna4011u0ogofqh5vle8",
@@ -2385,7 +2556,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669734/LENTEJA-X500-GR-DIANA-500-gr-1408940_a.jpg?v=639211419373200000"
    },
    {
     "id": "cmvs5lnho014k0ogoxzeyc60i",
@@ -2396,13 +2568,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25722824/GARBANZO-X-500-GR-X-25und-DIANA-500-gr-3091912_A.jpg?v=639213728351830000"
    }
   ],
   "answer": "cmvs5ln2a00zj0ogo9msd0fcp",
-  "ms": 1442,
+  "ms": 5368,
   "muse": "cmvs5ln2a00zj0ogo9msd0fcp",
-  "museReason": "Mismo frijol DIANA Zaragoza de 500 g, solo cambia el formato del nombre",
+  "museReason": "Mismo frijol Diana zaragoza de 500 g; solo cambia la edición del empaque",
   "museUnsure": false,
   "rules": "cmvs5ln2a00zj0ogo9msd0fcp"
  },
@@ -2418,7 +2591,8 @@
     "amount": 300,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185709/7702193172009.jpg?v=637813979871970000"
   },
   "candidates": [
    {
@@ -2430,7 +2604,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26020651/Avena-Hojuela-Vainilla-X-300-gr-272967_a.jpg?v=639232606386330000"
    },
    {
     "id": "cmvs5lo1201dk0ogoctnlqf0x",
@@ -2441,7 +2616,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26709193/Avena-Instantanea-Vainilla-X-300-gr-152164_a.jpg?v=639271746044700000"
    },
    {
     "id": "cmvs5lo1v01e50ogo2mnk6mm5",
@@ -2452,7 +2628,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26020650/Avena-Hojuela-ManzanA-Canela-X-300-gr-235940_a.jpg?v=639232606374970000"
    },
    {
     "id": "cmvs5lo2b01ei0ogo3kczijvp",
@@ -2463,13 +2640,14 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562738/Avena-Instantanea-De-Fresa-Doy-Pack-X-300-G-72792_a.jpg?v=639270709632770000"
    }
   ],
   "answer": "cmvs5lo1r01e20ogo4cd6hna8",
-  "ms": 1539,
+  "ms": 2626,
   "muse": "cmvs5lo1r01e20ogo4cd6hna8",
-  "museReason": "Misma avena Quaker en hojuelas sabor vainilla de 300 g",
+  "museReason": "Misma avena Quaker en hojuelas sabor vainilla de 300 g; solo cambia el diseño del empaque",
   "museUnsure": false,
   "rules": "cmvs5lo1r01e20ogo4cd6hna8"
  },
@@ -2485,7 +2663,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/956262/7702001020133-1.jpg?v=639256108808300000"
   },
   "candidates": [
    {
@@ -2497,7 +2676,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26550914/MANTEQUILLA-SIN-SAL-20672_a.jpg?v=639269947909870000"
    },
    {
     "id": "cmvs5loax01j80ogo83ooix6d",
@@ -2508,13 +2688,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25731404/Mantequilla-C-Sal-1054130_a.jpg?v=639213811009500000"
    }
   ],
   "answer": "cmvs5lmco00nq0ogodem3qzb0",
-  "ms": 1330,
+  "ms": 1980,
   "muse": "cmvs5lmco00nq0ogodem3qzb0",
-  "museReason": "Misma mantequilla Alpina sin sal de 250 g",
+  "museReason": "Misma mantequilla Alpina sin sal de 250 g que en la foto dice SIN SAL",
   "museUnsure": false,
   "rules": "cmvs5lmco00nq0ogodem3qzb0"
  },
@@ -2530,7 +2711,8 @@
     "amount": 500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34395367/REFRESCO-FRUTAL-MANGO-FRESA-1687472_a.jpg?v=639211433141500000"
   },
   "candidates": [
    {
@@ -2542,7 +2724,8 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572251/7702535023730_1.jpg?v=638436933880500000"
    },
    {
     "id": "cmvphektq04vb3pgocb8e4kg4",
@@ -2553,7 +2736,8 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572249/7702535022511_1.jpg?v=638436933872100000"
    },
    {
     "id": "cmvpheksw04ut3pgo4ju2m80u",
@@ -2564,7 +2748,8 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572252/7702535027066_1.jpg?v=638436933887370000"
    },
    {
     "id": "cmvphektf04v53pgo6l643yfv",
@@ -2575,7 +2760,8 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572258/7702535030721_1.jpg?v=638436933922700000"
    },
    {
     "id": "cmvphekw304wy3pgote9k6sfy",
@@ -2586,13 +2772,14 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572250/7702535022535_1.jpg?v=638436933876270000"
    }
   ],
   "answer": "cmvphekuu04w23pgo3t2ty6l3",
-  "ms": 3133,
+  "ms": 2101,
   "muse": "cmvphekuu04w23pgo3t2ty6l3",
-  "museReason": "Mismo Del Valle mango-fresa de 500 ml; la tienda lo llama Jugo Frutal",
+  "museReason": "Mismo refresco Del Valle mango y fresa de 500 ml; la tienda lo llama Jugo Frutal Mango-Fresa",
   "museUnsure": false,
   "rules": null
  },
@@ -2608,7 +2795,8 @@
     "amount": 1800,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26410547/Suavizante-Floral-AROMATEL-1800-ml-3491158_a.jpg?v=639258825333600000"
   },
   "candidates": [
    {
@@ -2620,7 +2808,8 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/956201/7702191164112-1.jpg?v=639255946192600000"
    },
    {
     "id": "cmvphejof048z3pgo4py8c7g4",
@@ -2631,13 +2820,14 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/678462/7702191164839-1.jpg?v=638640906205130000"
    }
   ],
   "answer": "cmvphejrx04b83pgoejetq37g",
-  "ms": 2905,
+  "ms": 3456,
   "muse": "cmvphejrx04b83pgoejetq37g",
-  "museReason": "Mismo suavizante Aromatel floral de 1.8 L; lo de 10x más fragancia solo lo describe",
+  "museReason": "Mismo suavizante Aromatel fragancia floral de 1,8 L; lo de 10x es solo descripción",
   "museUnsure": false,
   "rules": null
  },
@@ -2653,7 +2843,8 @@
     "amount": 600,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733733/BEBIDA-SABORIZADA-MANZANA-BRISA-600-Mililitro-3003704_a.jpg?v=639213830021670000"
   },
   "candidates": [
    {
@@ -2665,7 +2856,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/654940/7702535013212-1.jpg?v=638588219821330000"
    },
    {
     "id": "cmvpheky304ya3pgov5xc5j4v",
@@ -2676,7 +2868,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/654937/7702535010341-1.jpg?v=638588218023000000"
    },
    {
     "id": "cmvphekys04ys3pgoul8yzqdw",
@@ -2687,13 +2880,14 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/654936/7702535010327-1.jpg?v=638588217583500000"
    }
   ],
   "answer": "cmvsfyc6j007cmegop482qmgp",
-  "ms": 3315,
+  "ms": 2094,
   "muse": "cmvsfyc6j007cmegop482qmgp",
-  "museReason": "Misma agua BRISA con gas sabor manzana de 600 ml; la tienda la llama saborizada",
+  "museReason": "Misma agua Brisa con gas sabor manzana de 600 ml; nombre y foto iguales",
   "museUnsure": false,
   "rules": null
  },
@@ -2709,7 +2903,8 @@
     "amount": 1200,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34393551/Detergente-Liquido-Ariel-Concentrado-Toque-de-Downy-x-12-Litros-1547562_a.jpg?v=639211425934800000"
   },
   "candidates": [
    {
@@ -2721,7 +2916,8 @@
      "amount": 1200,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/922585/7500435126946-1.jpg?v=639142897792670000"
    },
    {
     "id": "cmvphej9r03zv3pgopqyi4vu1",
@@ -2732,13 +2928,14 @@
      "amount": 1200,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/922577/7500435122016-1.jpg?v=639142897579230000"
    }
   ],
   "answer": "cmvphejb7040p3pgo8jyw4hfd",
-  "ms": 1405,
+  "ms": 3133,
   "muse": "cmvphejb7040p3pgo8jyw4hfd",
-  "museReason": "Mismo detergente líquido Ariel toque de Downy de 1200 ml; solo cambia el orden y la abreviatura",
+  "museReason": "Mismo Ariel líquido con toque de Downy de 1,2 L; lo de aroma irresistible es solo descripción",
   "museUnsure": false,
   "rules": "cmvphejb7040p3pgo8jyw4hfd"
  },
@@ -2754,7 +2951,8 @@
     "amount": 300,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562738/Avena-Instantanea-De-Fresa-Doy-Pack-X-300-G-72792_a.jpg?v=639270709632770000"
   },
   "candidates": [
    {
@@ -2766,7 +2964,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185718/7702193154005.jpg?v=637813979902330000"
    },
    {
     "id": "cmvphehuh031e3pgonigpvieb",
@@ -2777,7 +2976,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185709/7702193172009.jpg?v=637813979871970000"
    },
    {
     "id": "cmvphehwh032t3pgo27cj2fx1",
@@ -2788,7 +2988,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/191172/7702193151097.jpg?v=637814011522070000"
    },
    {
     "id": "cmvsfy903006emegol9ebtd0g",
@@ -2799,13 +3000,14 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/185717/7702193149162.jpg?v=637813979897670000"
    }
   ],
   "answer": "cmvsfy90s006kmego7trprfqr",
-  "ms": 1688,
+  "ms": 2119,
   "muse": "cmvsfy90s006kmego7trprfqr",
-  "museReason": "Misma avena Quaker instantánea de fresa de 300 g; doypack es solo el empaque que agrega la tienda",
+  "museReason": "Misma avena Quaker instantánea sabor fresa de 300 g; solo cambia el diseño del empaque",
   "museUnsure": false,
   "rules": null
  },
@@ -2821,7 +3023,8 @@
     "amount": 1800,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/678462/7702191164839-1.jpg?v=638640906205130000"
   },
   "candidates": [
    {
@@ -2833,7 +3036,8 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26410549/SUAVIZANTE-AROMATEL-FRAMBUESA-1800-ml-3594406_a.jpg?v=639258825374670000"
    },
    {
     "id": "cmvs5lpek02630ogo5p5y4tni",
@@ -2844,7 +3048,8 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26410547/Suavizante-Floral-AROMATEL-1800-ml-3491158_a.jpg?v=639258825333600000"
    },
    {
     "id": "cmvs5lpfh026g0ogotq25o17r",
@@ -2855,13 +3060,14 @@
      "amount": 1800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26410544/Suavizante-Manzana-AROMATEL-1800-ml-3491533_a.jpg?v=639258825274270000"
    }
   ],
   "answer": "cmvs5lpc2024y0ogopvwlhq47",
-  "ms": 1497,
+  "ms": 4378,
   "muse": "cmvs5lpc2024y0ogopvwlhq47",
-  "museReason": "Mismo suavizante Aromatel frambuesa de 1800 ml; la tienda solo cambia el orden",
+  "museReason": "Mismo suavizante Aromatel de frambuesa de 1800 ml; la tienda lo detalla como frambuesa y flor de cerezo",
   "museUnsure": false,
   "rules": "cmvs5lpc2024y0ogopvwlhq47"
  },
@@ -2877,7 +3083,8 @@
     "amount": 113,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34397689/Yogurt-sin-dulc-sabor-vainilla-113-g-1740500_a.jpg?v=639211447671970000"
   },
   "candidates": [
    {
@@ -2889,7 +3096,8 @@
      "amount": 113,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/505724/7702001148578.jpg?v=638272985751230000"
    },
    {
     "id": "cmvpheiko03jh3pgoewkpb99h",
@@ -2900,13 +3108,14 @@
      "amount": 113,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/505723/7702001148561.jpg?v=638272985748730000"
    }
   ],
   "answer": "cmvpheikj03je3pgop7j8l11u",
-  "ms": 2065,
+  "ms": 4424,
   "muse": "cmvpheikj03je3pgop7j8l11u",
-  "museReason": "Mismo yogurt BABYGU vainilla de 113 g; que no diga vaso no lo hace diferente",
+  "museReason": "Mismo yogurt Baby Gü sabor vainilla de 113 g; la tienda solo lo escribe distinto",
   "museUnsure": false,
   "rules": null
  },
@@ -2922,7 +3131,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34464959/Mantequilla-C-Sal-Barra-197556_a.jpg?v=639213811000230000"
   },
   "candidates": [
    {
@@ -2934,7 +3144,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927738/7702129030250-1.jpg?v=639155857061070000"
    },
    {
     "id": "cmvphegfd024m3pgobryr2z74",
@@ -2945,14 +3156,15 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927736/7702129030236-1.jpg?v=639155857058800000"
    }
   ],
   "answer": "cmvphegfd024m3pgobryr2z74",
-  "ms": 3369,
-  "muse": null,
-  "museReason": "El nombre no dice si es con sal o sin sal",
-  "museUnsure": true,
+  "ms": 2195,
+  "muse": "cmvphegfd024m3pgobryr2z74",
+  "museReason": "Misma mantequilla Colanta con sal en barra de 250 g; la foto del producto lo confirma y esparcible es solo descripción",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -2967,7 +3179,8 @@
     "amount": 300,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25713676/PANELA-EN-CUBOS-NARANJA-451784_a.jpg?v=639213632388470000"
   },
   "candidates": [
    {
@@ -2979,7 +3192,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/780089/7707192730038-1.jpg.jpg?v=638811250243000000"
    },
    {
     "id": "cmvpheg4d01xx3pgohdnac3o7",
@@ -2990,7 +3204,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/780084/7707192730014-1.jpg.jpg?v=638811249939170000"
    },
    {
     "id": "cmvpheg4i01y03pgoonzqisoj",
@@ -3001,7 +3216,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/780090/7707192730069-1.jpg.jpg?v=638811250407500000"
    },
    {
     "id": "cmvpheg4z01y93pgo9rw3w2r7",
@@ -3012,13 +3228,14 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/780091/7707192730076-1.jpg.jpg?v=638811250563330000"
    }
   ],
   "answer": "cmvpheg4n01y33pgo9fww04u0",
-  "ms": 2186,
+  "ms": 3930,
   "muse": "cmvpheg4n01y33pgo9fww04u0",
-  "museReason": "Misma panela Doña Panela en cubos de naranja de 300 g; la tienda indica 48 cubos",
+  "museReason": "Misma panela Doña Panela en cubos con sabor a naranja de 300 g; la tienda la presenta como infusión",
   "museUnsure": false,
   "rules": "cmvpheg4n01y33pgo9fww04u0"
  },
@@ -3034,7 +3251,8 @@
     "amount": 180,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025821/YOGURT-FRESA-SDULCE-VASO-FINESSE-180-Gramo-3006392_a.jpg?v=639232687183500000"
   },
   "candidates": [
    {
@@ -3046,7 +3264,8 @@
      "amount": 180,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/952757/7702001155149-1.jpg?v=639240572845370000"
    },
    {
     "id": "cmvsfxwwt002gmegowjycz5o3",
@@ -3057,13 +3276,14 @@
      "amount": 180,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/952766/7702001155170-1.jpg?v=639240573830130000"
    }
   ],
   "answer": "cmvsfxwx2002imegogu54br40",
-  "ms": 2216,
+  "ms": 5605,
   "muse": "cmvsfxwx2002imegogu54br40",
-  "museReason": "Mismo yogur Finesse de fresa de 180 g; la tienda solo agrega Alpina en el nombre",
+  "museReason": "Mismo yogur Finesse de fresa; el otro es de frutos rojos",
   "museUnsure": false,
   "rules": null
  },
@@ -3079,7 +3299,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207564/7702511003695.jpg?v=637814205479700000"
   },
   "candidates": [
    {
@@ -3091,7 +3312,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25662716/Arroz-Integral-1244239_a.jpg?v=639211346729070000"
    },
    {
     "id": "cmvs5lk6r002m0ogo3hu8kwcu",
@@ -3102,7 +3324,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25662684/Arroz-Premium-1000-gr-730954_a.jpg?v=639211346514100000"
    },
    {
     "id": "cmvs5lk7f00310ogopf5haasq",
@@ -3113,7 +3336,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25662713/Arroz-Diana-1000-gr-552155_a.jpg?v=639211346700870000"
    },
    {
     "id": "cmvs5ln5x010l0ogo2cj414ew",
@@ -3124,7 +3348,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25681693/FRIJOL-DIANA-BOLA-ROJA-1000-GR-1861676_a.jpg?v=639211510869030000"
    },
    {
     "id": "cmvs5ln7h01110ogoa4xe60b6",
@@ -3135,7 +3360,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25727934/Frijol-Diana-Cargamanto-Rojo-DIANA-1000-gr-3533993_a.jpg?v=639213774474700000"
    },
    {
     "id": "cmvs5ln9g011o0ogoalblbqkh",
@@ -3146,7 +3372,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25681694/LENTEJA-DIANA-1000G-1861677_a.jpg?v=639211510881200000"
    },
    {
     "id": "cmvs5lni8014s0ogoaldhvzxp",
@@ -3157,7 +3384,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25725132/GARBANZO-X-1000-GR-DIANA-1000-gr-3315092_a.jpg?v=639213750574200000"
    },
    {
     "id": "cmvs5lnrl01930ogokmxwl7gs",
@@ -3168,13 +3396,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021844/Harina-Maiz-Blanco-DIANA-1000-gr-3064250_a.jpg?v=639232617987800000"
    }
   ],
   "answer": "cmvs3uvun000egogo9pwkfbq6",
-  "ms": 1645,
+  "ms": 2191,
   "muse": "cmvs3uvun000egogo9pwkfbq6",
-  "museReason": "Mismo arroz Diana integral de 1000 g; la tienda lo nombra igual",
+  "museReason": "Mismo arroz Diana integral de 1000 g en ambas fotos y nombres",
   "museUnsure": false,
   "rules": "cmvs3uvun000egogo9pwkfbq6"
  },
@@ -3190,7 +3419,8 @@
     "amount": 1100,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/956633/7702001161072-1.jpg?v=639256131131070000"
   },
   "candidates": [
    {
@@ -3202,7 +3432,8 @@
      "amount": 1100,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025893/Crema-Leche-Semi-Entera-Bolsa-ALPINA-1100-ml-3139143_a.jpg?v=639232687799370000"
    },
    {
     "id": "cmvs5lkjl009t0ogowvobjajn",
@@ -3213,13 +3444,14 @@
      "amount": 1100,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25663855/Leche-Entera-En-Bolsa-X-1100-ml-501480_a.jpg?v=639211355293770000"
    }
   ],
   "answer": "cmvsgkjyf000mbzgo4vvu2au1",
-  "ms": 2050,
+  "ms": 2328,
   "muse": "cmvsgkjyf000mbzgo4vvu2au1",
-  "museReason": "Misma crema de leche Alpina semientera de 1100 ml; bolsa solo aclara el empaque",
+  "museReason": "Misma crema de leche Alpina semientera de 1100 ml en bolsa en ambas fotos y nombres",
   "museUnsure": false,
   "rules": null
  },
@@ -3235,7 +3467,8 @@
     "amount": 175,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708463/7707357444220-1.jpg?v=638700370079300000"
   },
   "candidates": [
    {
@@ -3247,7 +3480,8 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26133173/MANTEQUILLA-CLARIFICADA-AJO-Karavansay-175-Gramo-3002253_a.jpg?v=639244951228100000"
    },
    {
     "id": "cmvs5lobr01jq0ogotwmab53d",
@@ -3258,7 +3492,8 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26133213/MANTEQUILLA-CLARIF-ALBAHACA-Karavansay-175-Gramo-3002347_a.jpg?v=639244951350630000"
    },
    {
     "id": "cmvs5locb01k20ogo5bqitera",
@@ -3269,13 +3504,14 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26133167/MANTEQUILLA-CLARIF-ALBAHACA-Karavansay-175-Gramo-3002251_a.jpg?v=639244951180600000"
    }
   ],
   "answer": "cmvs5lobv01js0ogoaa15jq1o",
-  "ms": 1381,
+  "ms": 2424,
   "muse": "cmvs5lobv01js0ogoaa15jq1o",
-  "museReason": "Misma mantequilla Karavansay clarificada (ghee) de ajo de 175 g",
+  "museReason": "Misma mantequilla clarificada ghee Karavansay de ajo de 175 g; la tienda solo cambia el orden",
   "museUnsure": false,
   "rules": null
  },
@@ -3291,7 +3527,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752569/7702084127330-1.jpg?v=638738397838800000"
   },
   "candidates": [
    {
@@ -3303,7 +3540,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25731152/Pan-Harina-Maiz-Blanca-X-500-gr-646137_a.jpg?v=639213808760800000"
    },
    {
     "id": "cmvs5lnvl01ak0ogom0ttmhnz",
@@ -3314,7 +3552,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025436/Harina-Pan-Integral-Blanca-X-500-gr-419944_a.jpg?v=639232682856600000"
    },
    {
     "id": "cmvs5lo3o01fa0ogodxnd3gba",
@@ -3325,7 +3564,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25731137/Harina-Dulce-Amarilla-X-500-gr-814744_a.jpg?v=639213808656930000"
    },
    {
     "id": "cmvs5lnu8019z0ogo1ybnrheg",
@@ -3336,13 +3576,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26024191/HARINA-SEMILLAS-NUTRITIVAS-PAN-35-gr-3045661_a.jpg?v=639232668343130000"
    }
   ],
   "answer": "cmvs5lntu019t0ogoim4cl00n",
-  "ms": 1736,
+  "ms": 12260,
   "muse": "cmvs5lntu019t0ogoim4cl00n",
-  "museReason": "Misma harina PAN de maíz blanco de 500 g",
+  "museReason": "Misma harina PAN de maíz blanco precocida de 500 g que muestra el empaque",
   "museUnsure": false,
   "rules": "cmvs5lntu019t0ogoim4cl00n"
  },
@@ -3358,7 +3599,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34925095/HARINA-AMARILLA-723804_a.jpg?v=639232611763230000"
   },
   "candidates": [
    {
@@ -3370,7 +3612,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752575/7702084137605-1.jpg?v=638738397856830000"
    },
    {
     "id": "cmvpheho502x73pgoc9aeblb2",
@@ -3381,13 +3624,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752570/7702084137414-1.jpg?v=638738397842100000"
    }
   ],
   "answer": "cmvphehnq02wv3pgo8grnzh7q",
-  "ms": 3399,
+  "ms": 2501,
   "muse": "cmvphehnq02wv3pgo8grnzh7q",
-  "museReason": "Misma harina Promasa amarilla de 1000 g; la tienda solo agrega 'precocida' como descripción",
+  "museReason": "Misma harina Promasa precocida de maíz amarillo de 1 kg; el empaque lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -3403,7 +3647,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/201846/7709439551086.jpg?v=637814155224570000"
   },
   "candidates": [
    {
@@ -3415,7 +3660,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26123183/PANELA-PULVERIZADA-ORGANICA-1382647_a.jpg?v=639244095237830000"
    },
    {
     "id": "cmvs5llzs00j30ogoztsfsc6a",
@@ -3426,13 +3672,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25718367/PANELA-PULVERIZAD-NATURAL-FONCE-500-gr-1123602_a.jpg?v=639213698199270000"
    }
   ],
   "answer": "cmvs5llzs00j30ogoztsfsc6a",
-  "ms": 3274,
+  "ms": 2479,
   "muse": "cmvs5llzs00j30ogoztsfsc6a",
-  "museReason": "Misma panela Fonce pulverizada natural de 500 g; la tienda solo la abrevia y cambia el orden",
+  "museReason": "Misma panela Fonce pulverizada natural; la foto coincide y la otra es orgánica",
   "museUnsure": false,
   "rules": null
  },
@@ -3448,7 +3695,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752396/7703812408981-1.jpg?v=638735951637070000"
   },
   "candidates": [
    {
@@ -3460,7 +3708,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587332/Sal-Ligera-Sodio-Doypack-REFISAL-500-gr-3483392_a.jpg?v=639270874690900000"
    },
    {
     "id": "cmvs5lm3z00kh0ogodatqc56h",
@@ -3471,7 +3720,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26588127/Sal-REFISAL-Parrillera-500-gr-3728885_a.jpg?v=639270881071730000"
    },
    {
     "id": "cmvs5lm5p00l10ogo93atflat",
@@ -3482,7 +3732,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587376/Alimento-REFISAL-Granulado-Salino-Marina-Natura-500-gr-3728884_a.jpg?v=639270875581500000"
    },
    {
     "id": "cmvs5lm6000l60ogo0he31ryx",
@@ -3493,7 +3744,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669500/Sal-REFISAL-500-Gramo-696692_a.jpg?v=639211414651830000"
    },
    {
     "id": "cmvs5lm7a00lh0ogown28gh7v",
@@ -3504,7 +3756,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587385/Sal-REFISAL-PARRILLERA-AHUMADA-500-gr-3775218_a.jpg?v=639270875749370000"
    },
    {
     "id": "cmvs5lmaf00mm0ogoei19m8pq",
@@ -3515,7 +3768,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26587387/Sal-REFISAL-PARRILLERA-BBQ-GRANO-GRUESO-500-gr-3775219_a.jpg?v=639270875787800000"
    },
    {
     "id": "cmvs5lmcd00nl0ogoamfb2phb",
@@ -3526,13 +3780,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26588025/Sal-Premium-Bolsa-Cristales-370-gr-181066_a.jpg?v=639270879933370000"
    }
   ],
   "answer": "cmvs5lm9q00md0ogoj2552spw",
-  "ms": 2498,
+  "ms": 2061,
   "muse": "cmvs5lm9q00md0ogoj2552spw",
-  "museReason": "Misma sal Refisal ligera baja en sodio de 500 g; la tienda la describe como con potasio",
+  "museReason": "Misma sal Refisal Ligera en Sodio de 500 g en doypack; la tienda la describe como baja en sodio con potasio",
   "museUnsure": false,
   "rules": null
  },
@@ -3548,7 +3803,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/829992/7707007200411-1.jpg?v=638913840573970000"
   },
   "candidates": [
    {
@@ -3560,7 +3816,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562752/Azucar-Mayaguez-1000g-Morena-N-42869_a.jpg?v=639270709955500000"
    },
    {
     "id": "cmvs5lks600ev0ogo9swiq0sd",
@@ -3571,13 +3828,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669518/Azucar-Blanco-Especial-x-1000-g-874775_a.jpg?v=639211416246030000"
    }
   ],
   "answer": "cmvs5lkvq00gn0ogocd44fwle",
-  "ms": 1580,
+  "ms": 2064,
   "muse": "cmvs5lkvq00gn0ogocd44fwle",
-  "museReason": "Misma azúcar Mayaguez morena de 1000 g; solo cambia el orden y formato",
+  "museReason": "Mismo azúcar Mayagüez morena natural de 1 kg; la foto también dice Morena Natural",
   "museUnsure": false,
   "rules": "cmvs5lkvq00gn0ogocd44fwle"
  },
@@ -3593,7 +3851,8 @@
     "amount": 454,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34458866/Cafe-Gourmet-Arabica-Premium-Excels-CAFE-QUINDIO-454-gr-3388426_a.jpg?v=639213758235300000"
   },
   "candidates": [
    {
@@ -3605,7 +3864,8 @@
      "amount": 454,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789289/7702728231898-1.jpg.jpg?v=638815545248200000"
    },
    {
     "id": "cmvsfydo3007smegokhgzzwx9",
@@ -3616,13 +3876,14 @@
      "amount": 454,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789288/7702728231881-1.jpg.jpg?v=638815545098800000"
    }
   ],
   "answer": "cmvsfydo9007umego4cxmoshx",
-  "ms": 1929,
+  "ms": 2574,
   "muse": "cmvsfydo9007umego4cxmoshx",
-  "museReason": "Mismo café Quindío gourmet tostado en grano de 454 g; el otro es molido",
+  "museReason": "Mismo Café Quindío Gourmet tostado en grano de 454 g; el empaque lo confirma",
   "museUnsure": false,
   "rules": "cmvsfydo9007umego4cxmoshx"
  },
@@ -3638,7 +3899,8 @@
     "amount": 340,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789279/7702728230426-1.jpg.jpg?v=638815543329830000"
   },
   "candidates": [
    {
@@ -3650,7 +3912,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021324/Cafe-Organico-Molido-x-340-g-701550_a.jpg?v=639232611915800000"
    },
    {
     "id": "cmvs5lme000o80ogo6c9tkd7e",
@@ -3661,7 +3924,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25661485/Cafe-Especial-Origen-Genova-961061_a.jpg?v=639211335752370000"
    },
    {
     "id": "cmvs5lmf300oq0ogovx0a0h34",
@@ -3672,7 +3936,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25729358/Cafe-CAFE-QUINDIO-Molido-Especial-Origen-340-gr-3725297_a.jpg?v=639213785779400000"
    },
    {
     "id": "cmvs5lmfk00ow0ogoh6tpm5cz",
@@ -3683,7 +3948,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/21743361/Cafe-Organico-Grano-CAFE-QUINDIO-340-gr-1861365_a.jpg?v=638876757284900000"
    },
    {
     "id": "cmvs5lmh000po0ogo83xtcw2v",
@@ -3694,7 +3960,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26025127/Cafe-CAFE-QUINDIO-MOLIDO-GOURMET-ESPRESSO-INTENS-340-gr-3775361_a.jpg?v=639232678157800000"
    },
    {
     "id": "cmvs5lmct00ns0ogopnx3lqyv",
@@ -3705,7 +3972,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25726646/Cafe-Descafeinado-CAFE-QUINDIO-340-gr-3425526_a.jpg?v=639213763903970000"
    },
    {
     "id": "cmvs5lmf900os0ogocr3ejifu",
@@ -3716,7 +3984,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/21742170/Cafe-Genova-Grano-CAFE-QUINDIO-340-gr-1861363_a.jpg?v=638876679081800000"
    },
    {
     "id": "cmvs5lmgv00pl0ogo6g1y7rre",
@@ -3727,13 +3996,14 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/24073512/Cafe-CAFE-QUINDIO-GRANO-GOURMET-ESPRESSO-INTENSO-340-gr-3775362_a.jpg?v=638991745643330000"
    }
   ],
   "answer": "cmvs5lmdq00o60ogopwqhj5a3",
-  "ms": 3613,
+  "ms": 3231,
   "muse": "cmvs5lmdq00o60ogopwqhj5a3",
-  "museReason": "Mismo café Café Quindío orgánico molido de 340 g en ambas listas",
+  "museReason": "Mismo café Quindío orgánico molido de 340 g; la foto muestra el mismo empaque orgánico molido",
   "museUnsure": false,
   "rules": "cmvs5lmdq00o60ogopwqhj5a3"
  },
@@ -3749,7 +4019,8 @@
     "amount": 90,
     "unit": "g"
    },
-   "aisle": "bakery"
+   "aisle": "bakery",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34929980/Tostaditas-Con-Mantequilla-90-gr-507501_a.jpg?v=639232682709330000"
   },
   "candidates": [
    {
@@ -3761,7 +4032,8 @@
      "amount": 90,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/474982/7703517852393.jpg?v=638159025585900000"
    },
    {
     "id": "cmvsfyuoj00bemego249angh6",
@@ -3772,13 +4044,14 @@
      "amount": 90,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/475005/7709455050235.jpg?v=638159040600730000"
    }
   ],
   "answer": "cmvphei8q03b83pgof01fj7vt",
-  "ms": 1995,
+  "ms": 1973,
   "muse": "cmvphei8q03b83pgof01fj7vt",
-  "museReason": "Misma tostadita Susanita de mantequilla de 90 g; la tienda la llama Tostada",
+  "museReason": "Mismas tostaditas Susanita con mantequilla de 90 g; la tienda las nombra tostada mantequilla",
   "museUnsure": false,
   "rules": null
  },
@@ -3794,7 +4067,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/21684611/Lenteja-Corriente-MARITZA-1000-gr-3073026_a.jpg?v=638864603297330000"
   },
   "candidates": [
    {
@@ -3806,7 +4080,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/211158/7707335280871.jpg?v=637814217944100000"
    },
    {
     "id": "cmvpheh4702kv3pgo2cqc23cs",
@@ -3817,7 +4092,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/198918/7707335283445.jpg?v=637814139063600000"
    },
    {
     "id": "cmvpheh0k02ig3pgo8ulxeskc",
@@ -3828,7 +4104,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/198922/7707335283483.jpg?v=637814139072700000"
    },
    {
     "id": "cmvpheh1m02j43pgohp83u4u7",
@@ -3839,13 +4116,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/198921/7707335283476.jpg?v=637814139068130000"
    }
   ],
   "answer": "cmvpheh7b02my3pgo8hap6vik",
-  "ms": 1521,
+  "ms": 2892,
   "muse": "cmvpheh7b02my3pgo8hap6vik",
-  "museReason": "Misma lenteja Maritza premium de 1000 g; la tienda solo la escribe distinto",
+  "museReason": "Misma lenteja Maritza línea premium de 1000 g en nombre y empaque",
   "museUnsure": false,
   "rules": "cmvpheh7b02my3pgo8hap6vik"
  },
@@ -3861,7 +4139,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186339/7702511000427.jpg?v=637813981903130000"
   },
   "candidates": [
    {
@@ -3873,7 +4152,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34385854/Arroz-Premium-1000-gr-730954_a.jpg?v=639211346518930000"
    },
    {
     "id": "cmvpxufml009h59gom4z265qi",
@@ -3884,7 +4164,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34385883/Arroz-Diana-1000-gr-552155_a.jpg?v=639211346705770000"
    },
    {
     "id": "cmvps98b101cc1lgo2ey2b0ld",
@@ -3895,7 +4176,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34925675/Harina-Maiz-Blanco-DIANA-1000-gr-3064250_a.jpg?v=639232617999170000"
    },
    {
     "id": "cmvps97j000wc1lgo5csefi5w",
@@ -3906,13 +4188,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34406352/LENTEJA-DIANA-1000G-1861677_a.jpg?v=639211510885700000"
    }
   ],
   "answer": "cmvsjojgs00lnmegoqrx2xv0e",
-  "ms": 1859,
+  "ms": 3683,
   "muse": "cmvsjojgs00lnmegoqrx2xv0e",
-  "museReason": "Mismo arroz Diana blanco premium de 1000 g, la tienda solo cambia el orden de las palabras",
+  "museReason": "Mismo arroz Diana blanco Premium de 1000 g; ambas fotos son Premium 5 veces seleccionado",
   "museUnsure": false,
   "rules": "cmvsjojgs00lnmegoqrx2xv0e"
  },
@@ -3928,7 +4211,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34488004/Pasta-Espaguetti-1000-gr-662201_a.jpg?v=639215346649230000"
   },
   "candidates": [
    {
@@ -3940,7 +4224,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/478760/7702020052085.jpg?v=638173594076130000"
    },
    {
     "id": "cmvphegv002ep3pgoxliyrvlz",
@@ -3951,7 +4236,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/822883/7702020052245-1.jpg?v=638894004969130000"
    },
    {
     "id": "cmvpheh0102i43pgol22xxolu",
@@ -3962,13 +4248,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/495698/7702020052740.jpg?v=638234692382530000"
    }
   ],
   "answer": "cmvphegzn02hv3pgobofc9eqy",
-  "ms": 1511,
+  "ms": 1592,
   "muse": "cmvphegzn02hv3pgobofc9eqy",
-  "museReason": "Misma pasta spaghetti Conzazoni de 1000 g; la tienda omite el número 12",
+  "museReason": "Misma pasta Conzazoni spaghetti #12 de 1000 g; la tienda la nombra igual",
   "museUnsure": false,
   "rules": "cmvphegzn02hv3pgobofc9eqy"
  },
@@ -3984,7 +4271,8 @@
     "amount": 150,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26022224/Yogurt-Semidesc-Dulce-Melocoton-ALQUERIA-1415-ml-3314647_a.jpg?v=639232622425530000"
   },
   "candidates": [
    {
@@ -3996,7 +4284,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/794657/7707331407739-1.jpg?v=638838776109770000"
    },
    {
     "id": "cmvpheii003hk3pgogg3gp8ea",
@@ -4007,7 +4296,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/794658/7707331407746-1.jpg?v=638838776268100000"
    },
    {
     "id": "cmvpheii403hn3pgo6766kklb",
@@ -4018,7 +4308,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/794656/7707331407722-1.jpg?v=638838775967830000"
    },
    {
     "id": "cmvpheil403jt3pgo7k6aac2q",
@@ -4029,13 +4320,14 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/794660/7707529520134-1.jpg?v=638838776601670000"
    }
   ],
   "answer": "cmvpheihw03hh3pgoib3rnqgg",
-  "ms": 2291,
+  "ms": 3480,
   "muse": "cmvpheihw03hh3pgoib3rnqgg",
-  "museReason": "Mismo yogurt Alqueria de melocotón dulce de 150 g; la tienda omite 'dulce'",
+  "museReason": "Mismo yogurt Alquería sabor melocotón de 150 g; la foto lo confirma",
   "museUnsure": false,
   "rules": null
  },
@@ -4051,7 +4343,8 @@
     "amount": 300,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/780084/7707192730014-1.jpg.jpg?v=638811249939170000"
   },
   "candidates": [
    {
@@ -4063,7 +4356,8 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25718007/Cubitos-Panela-Inst-Limon-451783_a.jpg?v=639213694289670000"
    },
    {
     "id": "cmvs5lkyr00ho0ogoss1p57ne",
@@ -4074,13 +4368,14 @@
      "amount": 300,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25713676/PANELA-EN-CUBOS-NARANJA-451784_a.jpg?v=639213632388470000"
    }
   ],
   "answer": "cmvs5lkyl00hm0ogo3srkbpml",
-  "ms": 1782,
+  "ms": 1993,
   "muse": "cmvs5lkyl00hm0ogo3srkbpml",
-  "museReason": "Misma panela Doña Panela en cubitos de limón de 300 g; la tienda la describe como instantánea",
+  "museReason": "Misma panela Doña Panela infusión limón de 48 cubos; la tienda la abrevia como cubitos instantáneos",
   "museUnsure": false,
   "rules": null
  },
@@ -4096,7 +4391,8 @@
     "amount": 1000,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25663857/Leche-Entera-En-Caja-X-1-Litro-329564_a.jpg?v=639211355314300000"
   },
   "candidates": [
    {
@@ -4108,7 +4404,8 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/505620/7702001045051.jpg?v=638272985428170000"
    },
    {
     "id": "cmvphefnb01n33pgoe0552ry7",
@@ -4119,7 +4416,8 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/505622/7702001045310.jpg?v=638272985433970000"
    },
    {
     "id": "cmvs3ygr7015awvgoh3t9bc3d",
@@ -4130,13 +4428,14 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/505621/7702001045075.jpg?v=638272985431130000"
    }
   ],
   "answer": "cmvs5m320001f4vgoffpagsl9",
-  "ms": 6276,
+  "ms": 2796,
   "muse": "cmvs5m320001f4vgoffpagsl9",
-  "museReason": "Misma leche Alpina entera de 1 L en caja que busca el comprador",
+  "museReason": "Misma leche Alpina entera de 1 L en caja; la foto confirma que es entera",
   "museUnsure": false,
   "rules": "cmvs5m320001f4vgoffpagsl9"
  },
@@ -4152,7 +4451,8 @@
     "amount": 400,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048647/Gaseosa-Pet-Naranja-POSTOBON-400-ml-232764_a.jpg?v=639239483680070000"
   },
   "candidates": [
    {
@@ -4164,7 +4464,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/944158/7702090031935-1.jpg?v=639210368594630000"
    },
    {
     "id": "cmvphekmu04qz3pgoncksh4ao",
@@ -4175,7 +4476,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626620/7702090031942-1.jpg?v=638508888559930000"
    },
    {
     "id": "cmvphekna04rb3pgoz7m0560r",
@@ -4186,7 +4488,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626658/7702090043051-1.jpg?v=638508888653830000"
    },
    {
     "id": "cmvpt6mux005k59gopcl14l7t",
@@ -4197,13 +4500,14 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/944155/7702090031928-1.jpg?v=639210368587370000"
    }
   ],
   "answer": "cmvsfy4x2005amego8y88unph",
-  "ms": 2588,
+  "ms": 1959,
   "muse": "cmvsfy4x2005amego8y88unph",
-  "museReason": "Misma gaseosa Postobón naranja de 400 ml; la tienda indica botella PET",
+  "museReason": "Misma gaseosa Postobón naranja en botella de 400 ml; la tienda solo agrega Pet",
   "museUnsure": false,
   "rules": "cmvsfy4x2005amego8y88unph"
  },
@@ -4219,7 +4523,8 @@
     "amount": 900,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669765/PANELA-PASTILLA-FONCE-900-gr-1104406_a.jpg?v=639211419602730000"
   },
   "candidates": [
    {
@@ -4231,7 +4536,8 @@
      "amount": 900,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/201840/7709439551000.jpg?v=637814155191670000"
    },
    {
     "id": "cmvpheg5p01yo3pgo9i7wd4hg",
@@ -4242,7 +4548,8 @@
      "amount": 900,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/201848/7709507213335.jpg?v=637814155237530000"
    },
    {
     "id": "cmvpheg6k01z63pgo2bbsab4i",
@@ -4253,13 +4560,14 @@
      "amount": 900,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/201843/7709319883955.jpg?v=637814155208570000"
    }
   ],
   "answer": "cmvpheg5g01yi3pgo91r2fhx0",
-  "ms": 1506,
+  "ms": 2201,
   "muse": "cmvpheg5g01yi3pgo91r2fhx0",
-  "museReason": "Misma panela Fonce en pastilla de 900 g; las otras son redonda",
+  "museReason": "Misma panela Fonce en pastilla de 900 g; las otras dos son panela redonda",
   "museUnsure": false,
   "rules": "cmvpheg5g01yi3pgo91r2fhx0"
  },
@@ -4275,7 +4583,8 @@
     "amount": 160,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021370/Yogurt-griego-de-coco-x-160g-1275188_a.jpg?v=639232612288500000"
   },
   "candidates": [
    {
@@ -4287,7 +4596,8 @@
      "amount": 160,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/769088/7707365170760-1.jpg?v=638779242932770000"
    },
    {
     "id": "cmvpheijf03in3pgo742e0urm",
@@ -4298,7 +4608,8 @@
      "amount": 160,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/769085/7707365170586-1.jpg?v=638779242922300000"
    },
    {
     "id": "cmvpheijk03iq3pgob4r9wsyj",
@@ -4309,7 +4620,8 @@
      "amount": 160,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/769089/7707365170883-1.jpg?v=638779242935100000"
    },
    {
     "id": "cmvpheijy03iz3pgo4net1i4r",
@@ -4320,7 +4632,8 @@
      "amount": 160,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/769078/7707365170272-1.jpg?v=638779242902500000"
    },
    {
     "id": "cmvpheik203j23pgorj934w5a",
@@ -4331,7 +4644,8 @@
      "amount": 160,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/769080/7707365170296-1.jpg?v=638779242907830000"
    },
    {
     "id": "cmvpheims03kz3pgo24gr9tar",
@@ -4342,7 +4656,8 @@
      "amount": 160,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/769079/7707365170289-1.jpg?v=638779242905330000"
    },
    {
     "id": "cmvphein803lb3pgoomzgud97",
@@ -4353,13 +4668,14 @@
      "amount": 160,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/769082/7707365170326-1.jpg?v=638779242913770000"
    }
   ],
   "answer": "cmvpheil803jw3pgolknp3tov",
-  "ms": 1446,
+  "ms": 3166,
   "muse": "cmvpheil803jw3pgolknp3tov",
-  "museReason": "Mismo yogurt griego Deja-Mu sabor coco de 160 g",
+  "museReason": "Mismo yogur griego Dejamu de coco de 160 g; la foto y el nombre coinciden",
   "museUnsure": false,
   "rules": "cmvpheil803jw3pgolknp3tov"
  },
@@ -4375,7 +4691,8 @@
     "amount": 340,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34459556/Cafe-Descafeinado-CAFE-QUINDIO-340-gr-3425526_a.jpg?v=639213763909300000"
   },
   "candidates": [
    {
@@ -4387,7 +4704,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789290/7702728231911-1.jpg.jpg?v=638815545416100000"
    },
    {
     "id": "cmvsfydoi007ymego6exi1chr",
@@ -4398,7 +4716,8 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789279/7702728230426-1.jpg.jpg?v=638815543329830000"
    },
    {
     "id": "cmvsfyg7y008gmegohjfah28k",
@@ -4409,13 +4728,14 @@
      "amount": 340,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789300/7702728232390-1.jpg.jpg?v=638815547003700000"
    }
   ],
   "answer": "cmvsfydoo0080megopjhetelj",
-  "ms": 1778,
+  "ms": 1920,
   "muse": "cmvsfydoo0080megopjhetelj",
-  "museReason": "Mismo café Quindío descafeinado de 340 g; molido solo describe la presentación",
+  "museReason": "Mismo Café Quindío descafeinado molido de 340 g; la tienda solo agrega molido",
   "museUnsure": false,
   "rules": null
  },
@@ -4431,7 +4751,8 @@
     "amount": 600,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34749276/Shampoo-Restaura-Max-Sin-Sal-ULTRA-NUTRIT-600-ml-3403399_a.jpg?v=639222478006530000"
   },
   "candidates": [
    {
@@ -4443,7 +4764,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/867442/7702277471653-1.jpg?v=638962471460100000"
    },
    {
     "id": "cmvphei6o039t3pgo5i7sc52h",
@@ -4454,7 +4776,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/851584/7702277945925-1.jpg?v=638944912262300000"
    },
    {
     "id": "cmvphek4c04ie3pgo3r97wbs6",
@@ -4465,7 +4788,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/494969/7702277770428.jpg?v=638230666234170000"
    },
    {
     "id": "cmvphek4l04ik3pgoeshqahq6",
@@ -4476,7 +4800,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/494970/7702277866770.jpg?v=638230666237830000"
    },
    {
     "id": "cmvphek7f04k83pgouf4xeiq9",
@@ -4487,7 +4812,8 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/707715/7702277931720-1.jpg?v=638697063664030000"
    },
    {
     "id": "cmvphek9d04ky3pgoxmxukt48",
@@ -4498,13 +4824,14 @@
      "amount": 600,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/494974/7702277970286.jpg?v=638230666252100000"
    }
   ],
   "answer": "cmvphek4l04ik3pgoeshqahq6",
-  "ms": 5362,
+  "ms": 2627,
   "muse": "cmvphek4l04ik3pgoeshqahq6",
-  "museReason": "Mismo shampoo Nutrit Restauramax de 600 ml; la tienda omite decir sin sal",
+  "museReason": "Mismo shampoo Nutrit Restauramax sin sal de 600 ml que se ve en la foto",
   "museUnsure": false,
   "rules": null
  },
@@ -4520,7 +4847,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26942040/HARINA-ARROZ-INTEGR-1059583_a.jpg?v=639280970138970000"
   },
   "candidates": [
    {
@@ -4532,7 +4860,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708467/7707357440383-1.jpg?v=638700370092230000"
    },
    {
     "id": "cmvpheh9u02op3pgozy3gz5ny",
@@ -4543,7 +4872,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708465/7707357440314-1.jpg?v=638700370085030000"
    },
    {
     "id": "cmvphehmh02w13pgomfs73b87",
@@ -4554,14 +4884,15 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708460/7707357440338-1.jpg?v=638700370069730000"
    }
   ],
   "answer": "cmvphehn502wg3pgomb6o8t7d",
-  "ms": 2621,
-  "muse": null,
-  "museReason": "El nombre no dice si es de arroz, garbanzo o quinua",
-  "museUnsure": true,
+  "ms": 4147,
+  "muse": "cmvphehn502wg3pgomb6o8t7d",
+  "museReason": "Misma harina Karavansay de arroz integral precocida de 500 g; la tienda omite precocida en el nombre",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -4576,7 +4907,8 @@
     "amount": 440,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/686482/7701101361573-1.jpg?v=638653848779030000"
   },
   "candidates": [
    {
@@ -4588,7 +4920,8 @@
      "amount": 440,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25727785/Palitos-Queso-ZENU-440-gr-3526095_a.jpg?v=639213773081470000"
    },
    {
     "id": "cmvs5lni2014q0ogob36rls1y",
@@ -4599,13 +4932,14 @@
      "amount": 440,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25733605/GARBANZO-EN-LATA-ZENU-440-Gramo-1752313_a.jpg?v=639213829095700000"
    }
   ],
   "answer": "cmvs5lojl01nv0ogopg6hrcio",
-  "ms": 1520,
+  "ms": 8270,
   "muse": "cmvs5lojl01nv0ogopg6hrcio",
-  "museReason": "Mismos palitos de queso Zenú de 440 g; solo cambia singular por plural",
+  "museReason": "Mismos palitos de queso Zenú de 440 g; ambas fotos muestran el mismo empaque y peso",
   "museUnsure": false,
   "rules": "cmvs5lojl01nv0ogopg6hrcio"
  },
@@ -4621,7 +4955,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36497678/Harina-tapioca-yuca-x-500-gr-1722639_a.jpg?v=639280970388270000"
   },
   "candidates": [
    {
@@ -4633,7 +4968,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/210235/7708988131725.jpg?v=637814212805130000"
    },
    {
     "id": "cmvpheho202x43pgomtj6e3m2",
@@ -4644,7 +4980,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/210236/7709219197428.jpg?v=637814212809200000"
    },
    {
     "id": "cmvphehqi02yp3pgo11tjanj1",
@@ -4655,7 +4992,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/210234/7709113505640.jpg?v=637814212800400000"
    },
    {
     "id": "cmvpheh2d02jm3pgo7953rfwo",
@@ -4666,7 +5004,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212653/7709113505664.jpg?v=637814234212230000"
    },
    {
     "id": "cmvphehvj03253pgozpicnp4c",
@@ -4677,7 +5016,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/197479/7709791349512.jpg?v=637814134798270000"
    },
    {
     "id": "cmvsfyuoo00bgmegogc21o8zf",
@@ -4688,13 +5028,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212654/7709312646045.jpg?v=637814234218170000"
    }
   ],
   "answer": "cmvsfyuoo00bgmegogc21o8zf",
-  "ms": 2098,
-  "muse": null,
-  "museReason": "Ninguna es harina de yuca; solo hay de lentejas, plátano, arroz, frijol, avena y tapioca.",
+  "ms": 2894,
+  "muse": "cmvsfyuoo00bgmegogc21o8zf",
+  "museReason": "Misma tapioca (almidón de yuca) Bio Plaza de 500 g; ambas fotos dicen TAPIOCA ALMIDÓN DE YUCA",
   "museUnsure": false,
   "rules": null
  },
@@ -4710,7 +5051,8 @@
     "amount": 91,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26023931/ATUN-DELITUN-ACEITE-1476355_a.jpg?v=639232665952170000"
   },
   "candidates": [
    {
@@ -4722,7 +5064,8 @@
      "amount": 91,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/199116/7700618020430.jpg?v=637814139623830000"
    },
    {
     "id": "cmvphehck02qa3pgo4obhipzr",
@@ -4733,13 +5076,14 @@
      "amount": 91,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/199114/7700618020423.jpg?v=637814139616330000"
    }
   ],
   "answer": "cmvphefjj01ko3pgoyeagwy8w",
-  "ms": 4296,
+  "ms": 2118,
   "muse": "cmvphefjj01ko3pgoyeagwy8w",
-  "museReason": "Mismo atún Alamar en aceite; la tienda solo agrega 'Bocados' en el nombre",
+  "museReason": "Mismo atún Alamar bocados en aceite de 140 g neto / 91 g drenado",
   "museUnsure": false,
   "rules": null
  },
@@ -4755,7 +5099,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34925672/Cafe-Gourmet-Grano-CAFE-QUINDIO-250-gr-1861364_a.jpg?v=639232617963930000"
   },
   "candidates": [
    {
@@ -4767,7 +5112,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789291/7702728232123-1.jpg.jpg?v=638815545579200000"
    },
    {
     "id": "cmvsfyg8r008qmegokrddfon7",
@@ -4778,13 +5124,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789295/7702728232161-1.jpg.jpg?v=638815546216500000"
    }
   ],
   "answer": null,
-  "ms": 1609,
+  "ms": 2126,
   "muse": null,
-  "museReason": "Ninguno es gourmet en grano; los dos son molidos saborizados a chocolate y vainilla",
+  "museReason": "Es café Gourmet en grano, no molido sabor a chocolate ni a vainilla",
   "museUnsure": false,
   "rules": null
  },
@@ -4800,7 +5147,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/20932154/arroz-blanco-diana-arroba-x-500-gr-x-25-libras.jpg?v=638404424582170000"
   },
   "candidates": [
    {
@@ -4812,7 +5160,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/222367/7702206942216.jpg?v=637816528376400000"
    },
    {
     "id": "cmvpheh1102is3pgot9qvdd3s",
@@ -4823,7 +5172,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200369/7702511003497.jpg?v=637814146005700000"
    },
    {
     "id": "cmvpheh1i02j13pgoxthpa6sr",
@@ -4834,7 +5184,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200368/7702511003572.jpg?v=637814145998800000"
    },
    {
     "id": "cmvpheh2h02jp3pgodt5cpw7l",
@@ -4845,7 +5196,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200362/7702511003015.jpg?v=637814145963130000"
    },
    {
     "id": "cmvpheh2w02k13pgollm4togh",
@@ -4856,7 +5208,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200366/7702511003251.jpg?v=637814145985530000"
    },
    {
     "id": "cmvpheh6m02mg3pgo9odhovap",
@@ -4867,7 +5220,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200370/7702511002933.jpg?v=637814146011970000"
    },
    {
     "id": "cmvpheh9z02os3pgoufq8xxtg",
@@ -4878,13 +5232,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212077/7702206732626.jpg?v=637814230862130000"
    }
   ],
   "answer": null,
-  "ms": 1694,
+  "ms": 1948,
   "muse": null,
-  "museReason": "Ninguno es arroz blanco, solo hay harina, frijoles, lenteja y garbanzo Diana.",
+  "museReason": "Buscas arroz blanco Diana y las opciones son harina, frijoles, lenteja y garbanzo, no arroz",
   "museUnsure": false,
   "rules": null
  },
@@ -4900,7 +5255,8 @@
     "amount": 4800,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25209822/SUAVITEL-SUAVITEL-SUAVITEL-4800-ml-3633563_a.jpg?v=639155973938430000"
   },
   "candidates": [
    {
@@ -4912,7 +5268,8 @@
      "amount": 4800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/849179/7509546693903-1.jpg?v=638941385018500000"
    },
    {
     "id": "cmvphejou04983pgoocy9cher",
@@ -4923,13 +5280,14 @@
      "amount": 4800,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/919188/7509546693606-1.png?v=639138459867030000"
    }
   ],
   "answer": null,
-  "ms": 1442,
+  "ms": 2160,
   "muse": null,
-  "museReason": "Ninguno es vainilla Cuidado Superior: uno es Fresca Primavera y el otro es manzana.",
+  "museReason": "El buscado es de vainilla y las opciones son Fresca Primavera y Manzana",
   "museUnsure": false,
   "rules": null
  },
@@ -4945,7 +5303,8 @@
     "amount": 150,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021847/Yogurt-Frutas-Fresa-ALQUERIA-150-gr-3065408_a.jpg?v=639232618029770000"
   },
   "candidates": [
    {
@@ -4957,7 +5316,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/794657/7707331407739-1.jpg?v=638838776109770000"
    },
    {
     "id": "cmvpheii003hk3pgogg3gp8ea",
@@ -4968,7 +5328,8 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/794658/7707331407746-1.jpg?v=638838776268100000"
    },
    {
     "id": "cmvpheil403jt3pgo7k6aac2q",
@@ -4979,13 +5340,14 @@
      "amount": 150,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/794660/7707529520134-1.jpg?v=638838776601670000"
    }
   ],
   "answer": null,
-  "ms": 2582,
+  "ms": 3292,
   "muse": null,
-  "museReason": "No hay sabor a fresa, solo hay de melocotón, mora y surtido",
+  "museReason": "Ninguno es solo de fresa: son de melocotón, de mora y un surtido de tres sabores",
   "museUnsure": false,
   "rules": null
  },
@@ -5001,7 +5363,8 @@
     "amount": 50,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/869576/7702024015345-1.jpg?v=638972508687770000"
   },
   "candidates": [
    {
@@ -5013,7 +5376,8 @@
      "amount": 50,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34450507/Base-Para-Salsa-Bolognesa-50-gr-876428_a.jpg?v=639213693264500000"
    },
    {
     "id": "cmvsibtux00g9mego80ra711y",
@@ -5024,13 +5388,14 @@
      "amount": 50,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34450517/Salsa-Bechamel-50-gr-349174_a.jpg?v=639213693366730000"
    }
   ],
   "answer": null,
-  "ms": 1091,
+  "ms": 2123,
   "muse": null,
-  "museReason": "Ninguna es salsa carbonara, solo hay boloñesa y bechamel",
+  "museReason": "La que buscas es carbonara y las dos opciones son boloñesa y bechamel",
   "museUnsure": false,
   "rules": null
  },
@@ -5046,7 +5411,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25696754/Lavaplatos-AXION-Liquido-1500-ml-3722856_a.jpg?v=639211620338530000"
   },
   "candidates": [
    {
@@ -5058,7 +5424,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/823738/7509546695891-1.jpg?v=638899177413900000"
    },
    {
     "id": "cmvsfxlxm0018megosj9yinq9",
@@ -5069,14 +5436,15 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/694983/7509546683898-1.jpg?v=638669425361530000"
    }
   ],
   "answer": null,
-  "ms": 3236,
+  "ms": 2295,
   "muse": null,
-  "museReason": "El nombre no dice si es Explosión Cítrica o Xtreme, son variedades distintas",
-  "museUnsure": true,
+  "museReason": "El del comprador es Axion 7en1 con bicarbonato, no Explosión Cítrica ni X-treme",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -5091,7 +5459,8 @@
     "amount": 400,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048857/Gaseosa-Manzana-Sin-Calorias-X-400-ml-1054507_a.jpg?v=639239498971100000"
   },
   "candidates": [
    {
@@ -5103,7 +5472,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/944155/7702090031928-1.jpg?v=639210368587370000"
    },
    {
     "id": "cmvphekmu04qz3pgoncksh4ao",
@@ -5114,7 +5484,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626620/7702090031942-1.jpg?v=638508888559930000"
    },
    {
     "id": "cmvsfy4x2005amego8y88unph",
@@ -5125,13 +5496,14 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/944158/7702090031935-1.jpg?v=639210368594630000"
    }
   ],
   "answer": null,
-  "ms": 3808,
+  "ms": 4495,
   "muse": null,
-  "museReason": "La manzana Postobón de 400 ml es regular, no es sin azúcar",
+  "museReason": "La opción 0 es manzana Postobón regular, no la versión sin azúcar buscada",
   "museUnsure": false,
   "rules": null
  },
@@ -5147,7 +5519,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752571/7702084137520-1.jpg?v=638738397844600000"
   },
   "candidates": [
    {
@@ -5159,7 +5532,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34930002/Harina-Pan-Maiz-Amarillo-X-1000-gr-108290_a.jpg?v=639232682837900000"
    },
    {
     "id": "cmvsikjcw00hvmegoa9os6zr0",
@@ -5170,13 +5544,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34461985/Pasta-PAN-Spaghetti-Tamano-Familiar-1000-gr-3677888_a.jpg?v=639213783503200000"
    }
   ],
   "answer": null,
-  "ms": 4061,
+  "ms": 2533,
   "muse": null,
-  "museReason": "La buscada es harina de maíz blanco, pero una es de maíz amarillo y la otra es pasta spaghetti.",
+  "museReason": "Ninguna es harina de maíz blanco: una es harina de maíz amarillo y la otra es spaghetti",
   "museUnsure": false,
   "rules": null
  },
@@ -5192,7 +5567,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25690401/LAVAPLATOS-AXION-LIQUIDO-1500-ml-3584462_a.jpg?v=639211590583500000"
   },
   "candidates": [
    {
@@ -5204,7 +5580,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/869379/7509546698755-1.jpg?v=638972490334930000"
    },
    {
     "id": "cmvsfxlxm0018megosj9yinq9",
@@ -5215,13 +5592,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/694983/7509546683898-1.jpg?v=638669425361530000"
    }
   ],
   "answer": null,
-  "ms": 3080,
+  "ms": 2248,
   "muse": null,
-  "museReason": "Ninguno es explosión cítrica; las opciones son Blue 7 en 1 y Xtreme, variedades distintas.",
+  "museReason": "Ninguno es Explosión Cítrica Multiusos: el 0 es 7 en 1 Blue y el 1 es X-Treme",
   "museUnsure": false,
   "rules": null
  },
@@ -5237,7 +5615,8 @@
     "amount": 100,
     "unit": "g"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34448171/Sensodyne-Rapido-Alivio-100-Grs-480009_a.jpg?v=639213670709500000"
   },
   "candidates": [
    {
@@ -5249,7 +5628,8 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927554/7794640172472-1.jpg?v=639155004116700000"
    },
    {
     "id": "cmvphejxo04ez3pgoxbj5l0jn",
@@ -5260,7 +5640,8 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927518/7501065064578-1.jpg?v=639155001758730000"
    },
    {
     "id": "cmvphejy304f53pgohtj3go5g",
@@ -5271,7 +5652,8 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927537/7794640170133-1.jpg?v=639155003679300000"
    },
    {
     "id": "cmvphek0o04gk3pgode0uvo2f",
@@ -5282,13 +5664,14 @@
      "amount": 100,
      "unit": "g"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/927543/7794640170720-1.jpg?v=639155003829400000"
    }
   ],
   "answer": null,
-  "ms": 4105,
+  "ms": 2763,
   "muse": null,
-  "museReason": "La 0 es Rápido Alivio blanqueador, no el Rápido Alivio original, y las otras son de líneas distintas",
+  "museReason": "El buscado es Rápido Alivio original, el 0 es Rápido Alivio Blanqueador y los demás son otras líneas",
   "museUnsure": false,
   "rules": null
  },
@@ -5304,7 +5687,8 @@
     "amount": 1050,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/205389/aguardiente-sin-azucar-antioqueno-1050-ml-01.png?v=639210401631500000"
   },
   "candidates": [
    {
@@ -5316,7 +5700,8 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690164/Aguardiente-Verde-24-1374572_a.jpg?v=639288106078870000"
    },
    {
     "id": "cmvsijrpz00hfmego8066ams1",
@@ -5327,13 +5712,14 @@
      "amount": 1050,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690147/Aguardiente-Antioqueno-Caja-X-1-lt-411225_a.jpg?v=639288105737630000"
    }
   ],
   "answer": null,
-  "ms": 2094,
+  "ms": 6713,
   "muse": "cmvsijrpe00h9megojlww2h9f",
-  "museReason": "Mismo Aguardiente Antioqueño verde sin azúcar de 1050 ml; la tienda aclara verde y caja",
+  "museReason": "Es el mismo Aguardiente Antioqueño sin azúcar en caja de 1050 ml; la tienda lo llama verde por su etiqueta nueva",
   "museUnsure": false,
   "rules": null
  },
@@ -5349,7 +5735,8 @@
     "amount": 700,
     "unit": "g"
    },
-   "aisle": "bakery"
+   "aisle": "bakery",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/33053641/PAN-6-GRANOS-INTEGRAL-692623_a.jpg?v=639117654335670000"
   },
   "candidates": [
    {
@@ -5361,7 +5748,8 @@
      "amount": 700,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/204548/7707179880084-1.jpg?v=637814197655700000"
    },
    {
     "id": "cmvphehwl032w3pgop4bvjxtk",
@@ -5372,7 +5760,8 @@
      "amount": 700,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/204552/7707179880114.jpg?v=637814197667970000"
    },
    {
     "id": "cmvphehx203383pgobmg32kez",
@@ -5383,13 +5772,14 @@
      "amount": 700,
      "unit": "g"
     },
-    "aisle": "bakery"
+    "aisle": "bakery",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/204562/7707179880732.jpg?v=637814197696130000"
    }
   ],
   "answer": null,
-  "ms": 1496,
+  "ms": 2315,
   "muse": null,
-  "museReason": "Ninguno es pan 6 granos integral; los listados son 3 granos, kosako y con avena",
+  "museReason": "Ninguno es pan seis granos; son de tres granos, kosako y con avena",
   "museUnsure": false,
   "rules": null
  },
@@ -5405,7 +5795,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673994/FRIJOL-CARGAMANTO-DIANA-500-gr-1744336_a.jpg?v=639211449772600000"
   },
   "candidates": [
    {
@@ -5417,7 +5808,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200369/7702511003497.jpg?v=637814146005700000"
    },
    {
     "id": "cmvpheh1i02j13pgoxthpa6sr",
@@ -5428,7 +5820,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200368/7702511003572.jpg?v=637814145998800000"
    },
    {
     "id": "cmvpheh2h02jp3pgodt5cpw7l",
@@ -5439,7 +5832,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200362/7702511003015.jpg?v=637814145963130000"
    },
    {
     "id": "cmvphef7v01ds3pgogrt2o14p",
@@ -5450,7 +5844,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/400435/7702511000014.jpg?v=637962799114230000"
    },
    {
     "id": "cmvpheh6m02mg3pgo9odhovap",
@@ -5461,7 +5856,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200370/7702511002933.jpg?v=637814146011970000"
    },
    {
     "id": "cmvpheh9z02os3pgoufq8xxtg",
@@ -5472,7 +5868,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212077/7702206732626.jpg?v=637814230862130000"
    },
    {
     "id": "cmvphehoa02xa3pgom68aw2ks",
@@ -5483,13 +5880,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/222367/7702206942216.jpg?v=637816528376400000"
    }
   ],
   "answer": null,
-  "ms": 1710,
+  "ms": 4599,
   "muse": null,
-  "museReason": "Ninguno es frijol cargamanto; los frijoles son calima, Zaragoza o bola roja y el resto otros productos",
+  "museReason": "La que buscas es frijol cargamanto y no hay ninguno; solo hay calima, zaragoza y bola roja",
   "museUnsure": false,
   "rules": null
  },
@@ -5505,7 +5903,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34389494/Suavizante-Complete-Lavanda-1500-Litros-1509082_a.jpg?v=639211382385600000"
   },
   "candidates": [
    {
@@ -5517,7 +5916,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/959883/7509546655543-1.png?v=639262207067700000"
    },
    {
     "id": "cmvphejpn049q3pgowghkuit3",
@@ -5528,7 +5928,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/868663/7509546700984-1.jpg?v=638966819653830000"
    },
    {
     "id": "cmvphejsv04bw3pgoxp7yiaxr",
@@ -5539,13 +5940,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/849197/7702010283154-1.jpg?v=638941386472930000"
    }
   ],
   "answer": null,
-  "ms": 2211,
+  "ms": 2255,
   "muse": null,
-  "museReason": "Ninguno es Complete lavanda, son Fresca Primavera o Brisa de Jazmín, aromas distintos",
+  "museReason": "El buscado es Suavitel Complete Lavanda y los otros son Fresca Primavera, Brisa de Jazmín y Cuidado Superior",
   "museUnsure": false,
   "rules": null
  },
@@ -5561,7 +5963,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/791585/7702084900100-1.jpg?v=638823243934530000"
   },
   "candidates": [
    {
@@ -5573,7 +5976,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34464312/Harina-Pan-Maiz-Blanca-X-1000-gr-200963_a.jpg?v=639213808726770000"
    },
    {
     "id": "cmvps98bc01cj1lgo103r04e9",
@@ -5584,13 +5988,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34930002/Harina-Pan-Maiz-Amarillo-X-1000-gr-108290_a.jpg?v=639232682837900000"
    }
   ],
   "answer": null,
-  "ms": 1564,
+  "ms": 1452,
   "muse": null,
-  "museReason": "Son harinas de maíz PAN, no pasta spaghetti PAN",
+  "museReason": "Lo buscado es pasta Spaghetti PAN, no harina de maíz blanco ni amarilla",
   "museUnsure": false,
   "rules": null
  },
@@ -5606,7 +6011,8 @@
     "amount": 400,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26099557/Manzana-Pet-400-1058118_a.jpg?v=639239483334330000"
   },
   "candidates": [
    {
@@ -5618,7 +6024,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626658/7702090043051-1.jpg?v=638508888653830000"
    },
    {
     "id": "cmvphekmu04qz3pgoncksh4ao",
@@ -5629,7 +6036,8 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/626620/7702090031942-1.jpg?v=638508888559930000"
    },
    {
     "id": "cmvsfy4x2005amego8y88unph",
@@ -5640,13 +6048,14 @@
      "amount": 400,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/944158/7702090031935-1.jpg?v=639210368594630000"
    }
   ],
   "answer": null,
-  "ms": 2105,
+  "ms": 2726,
   "muse": null,
-  "museReason": "Ninguna es manzana regular: la de manzana es cero y las otras son de uva y naranja",
+  "museReason": "Ninguna es la manzana regular; la 0 es manzana cero, la 1 es de uva y la 2 es de naranja",
   "museUnsure": false,
   "rules": null
  },
@@ -5662,7 +6071,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34930609/HARINA-DE-TRIGO-LA-NIEVE-500-gr-851427_a.jpg?v=639232685989570000"
   },
   "candidates": [
    {
@@ -5674,7 +6084,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/704443/7707237414053-1.jpg?v=638677055891570000"
    },
    {
     "id": "cmvphei3x037z3pgo3fcbjz9t",
@@ -5685,13 +6096,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/704444/7707237414084-1.jpg?v=638677056146730000"
    }
   ],
   "answer": null,
-  "ms": 1621,
+  "ms": 1910,
   "muse": null,
-  "museReason": "Ninguna es harina de trigo, las dos son harina de maíz precocida para arepa",
+  "museReason": "El buscado es harina de trigo tradicional, los dos son harina precocida de maíz para arepa",
   "museUnsure": false,
   "rules": null
  },
@@ -5707,7 +6119,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200370/7702511002933.jpg?v=637814146011970000"
   },
   "candidates": [
    {
@@ -5719,7 +6132,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673994/FRIJOL-CARGAMANTO-DIANA-500-gr-1744336_a.jpg?v=639211449772600000"
    },
    {
     "id": "cmvs5ln2a00zj0ogo9msd0fcp",
@@ -5730,7 +6144,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673995/FRIJOL-ZARAGOZA-DIANA-500-gr-1744351_a.jpg?v=639211449785330000"
    },
    {
     "id": "cmvs5ln6q010v0ogo5eq0wuov",
@@ -5741,7 +6156,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25720700/Frijol-Calima-Lima-DIANA-500-gr-1744343_a.jpg?v=639213712878870000"
    },
    {
     "id": "cmvs5ln78010z0ogo37mqcw5v",
@@ -5752,7 +6168,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25720561/Frijol-DIANA-500-gr-1408941_a.jpg?v=639213711859700000"
    },
    {
     "id": "cmvs5lnho014k0ogoxzeyc60i",
@@ -5763,13 +6180,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25722824/GARBANZO-X-500-GR-X-25und-DIANA-500-gr-3091912_A.jpg?v=639213728351830000"
    }
   ],
   "answer": null,
-  "ms": 1577,
+  "ms": 1573,
   "muse": null,
-  "museReason": "Ninguno es lenteja, todos son frijol o garbanzo Diana",
+  "museReason": "La buscada es lenteja Diana y las opciones son frijoles y garbanzo, no lenteja",
   "museUnsure": false,
   "rules": null
  },
@@ -5785,7 +6203,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021844/Harina-Maiz-Blanco-DIANA-1000-gr-3064250_a.jpg?v=639232617987800000"
   },
   "candidates": [
    {
@@ -5797,7 +6216,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186299/7702511000021.jpg?v=637813981775570000"
    },
    {
     "id": "cmvsfyc6o007emegoouexcs59",
@@ -5808,7 +6228,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186339/7702511000427.jpg?v=637813981903130000"
    },
    {
     "id": "cmvphefaq01f33pgo5lc4uo7p",
@@ -5819,7 +6240,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/207564/7702511003695.jpg?v=637814205479700000"
    },
    {
     "id": "cmvphefcj01g63pgomz2o181z",
@@ -5830,7 +6252,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186319/7702511002209.jpg?v=637813981842570000"
    },
    {
     "id": "cmvpheh8c02np3pgonevchdz4",
@@ -5841,7 +6264,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/438033/7702511002964.jpg?v=638035199721200000"
    },
    {
     "id": "cmvphehab02oy3pgopa88sxch",
@@ -5852,13 +6276,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/212076/7702511654064.jpg?v=637814230856330000"
    }
   ],
   "answer": null,
-  "ms": 1426,
+  "ms": 1588,
   "muse": null,
-  "museReason": "Ninguno es harina de maíz blanco; solo hay arroz, lentejas y garbanzos Diana.",
+  "museReason": "Ningún listado es harina de maíz blanco; todos son arroz, lentejas o garbanzo",
   "museUnsure": false,
   "rules": null
  },
@@ -5874,7 +6299,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26024607/Cafe-CAFE-QUINDIO-NOTAS-CHOCOLATE-LECHE-C-250-gr-3573755_a.jpg?v=639232672823430000"
   },
   "candidates": [
    {
@@ -5886,7 +6312,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789280/7702728230532-1.jpg.jpg?v=638815543488400000"
    },
    {
     "id": "cmvsfyg8r008qmegokrddfon7",
@@ -5897,13 +6324,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/789295/7702728232161-1.jpg.jpg?v=638815546216500000"
    }
   ],
   "answer": null,
-  "ms": 2109,
+  "ms": 2245,
   "muse": null,
-  "museReason": "Ninguno es sabor milk chocolate; uno es gourmet en grano y el otro es de vainilla molido",
+  "museReason": "Ninguno es milk chocolate: el 0 es Gourmet en grano y el 1 es de vainilla",
   "museUnsure": false,
   "rules": null
  },
@@ -5919,7 +6347,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669500/Sal-REFISAL-500-Gramo-696692_a.jpg?v=639211414651830000"
   },
   "candidates": [
    {
@@ -5931,7 +6360,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752372/7703812002578-1.jpg?v=638735951569330000"
    },
    {
     "id": "cmvsfyi8h009emegoz91bn0je",
@@ -5942,13 +6372,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/752396/7703812408981-1.jpg?v=638735951637070000"
    }
   ],
   "answer": null,
-  "ms": 4457,
+  "ms": 2114,
   "muse": null,
-  "museReason": "Ninguna es alta pureza: una es sal en cristales y la otra es ligera baja en sodio",
+  "museReason": "Ninguna es Alta Pureza: la 0 es Sal Marina Cristales y la 1 es Ligera baja en sodio",
   "museUnsure": false,
   "rules": null
  },
@@ -5964,7 +6395,8 @@
     "amount": 140,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34930729/Lomitos-De-Atun-En-Agua-LA-SOBERANA-140-gr-1059566_a.jpg?v=639232686470230000"
   },
   "candidates": [
    {
@@ -5976,7 +6408,8 @@
      "amount": 140,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/779377/7702910035846-1.jpg.jpg?v=638808615607430000"
    },
    {
     "id": "cmvphehg002s73pgo45e6nj97",
@@ -5987,13 +6420,14 @@
      "amount": 140,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/779387/7862910032396-1.jpg.jpg?v=638808617177970000"
    }
   ],
   "answer": null,
-  "ms": 1868,
+  "ms": 1587,
   "muse": null,
-  "museReason": "El buscado es atún en agua, no en aceite ni ahumado.",
+  "museReason": "El buscado es lomitos en agua; el 0 es en aceite de soya y el 1 es ahumado",
   "museUnsure": false,
   "rules": null
  },
@@ -6009,7 +6443,8 @@
     "amount": 900,
     "unit": "ml"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/29609885/Mezcla-GOURMET-Aceites-Vegetales-Vitaplus-900-ml-3595191_a.jpg?v=638906031717500000"
   },
   "candidates": [
    {
@@ -6021,7 +6456,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/705836/7702141966568.png?v=638694044076430000"
    },
    {
     "id": "cmvphefhj01jc3pgow5jrrhm5",
@@ -6032,7 +6468,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/705835/7702141704993.png?v=638694043766530000"
    },
    {
     "id": "cmvphefhn01jf3pgobmbq267k",
@@ -6043,13 +6480,14 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/497856/7702141641915-1.jpg?v=638248783051500000"
    }
   ],
   "answer": null,
-  "ms": 3157,
+  "ms": 2844,
   "muse": null,
-  "museReason": "Ninguno es Vitaplus; son Familia, Line y canola, líneas o variedades distintas.",
+  "museReason": "Ninguno es Vitaplus: el 0 es Multiusos, el 1 es Line y el 2 es Canola",
   "museUnsure": false,
   "rules": null
  },
@@ -6065,7 +6503,8 @@
     "amount": 50,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/869559/7702024014911-1.jpg?v=638972508624830000"
   },
   "candidates": [
    {
@@ -6077,7 +6516,8 @@
      "amount": 50,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25717902/Base-Para-Salsa-Carbonara-50-gr-874969_a.jpg?v=639213693429270000"
    },
    {
     "id": "cmvs5lmz100y90ogoxm0vzknc",
@@ -6088,13 +6528,14 @@
      "amount": 50,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25717882/Base-Para-Salsa-Bolognesa-50-gr-876428_a.jpg?v=639213693247670000"
    }
   ],
   "answer": null,
-  "ms": 1298,
+  "ms": 2213,
   "muse": null,
-  "museReason": "Pides salsa Bechamel y solo hay Carbonara y Bolognesa, que son sabores distintos.",
+  "museReason": "La buscada es base bechamel y las opciones son carbonara y boloñesa",
   "museUnsure": false,
   "rules": null
  },
@@ -6110,7 +6551,8 @@
     "amount": 140,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34930799/Atun-LomosAceite-LA-SOBERANA-140-Gramo-377550_a.jpg?v=639232686668330000"
   },
   "candidates": [
    {
@@ -6122,7 +6564,8 @@
      "amount": 140,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/779378/7702910037482-1.jpg.jpg?v=638808615765400000"
    },
    {
     "id": "cmvphehg002s73pgo45e6nj97",
@@ -6133,13 +6576,14 @@
      "amount": 140,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/779387/7862910032396-1.jpg.jpg?v=638808617177970000"
    }
   ],
   "answer": null,
-  "ms": 1306,
+  "ms": 3481,
   "muse": null,
-  "museReason": "El buscado es lomos en aceite; las opciones son en agua y ahumado",
+  "museReason": "El buscado es lomitos en aceite de soya; las opciones son en agua y ahumado",
   "museUnsure": false,
   "rules": null
  },
@@ -6155,7 +6599,8 @@
     "amount": 500,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/200369/7702511003497.jpg?v=637814146005700000"
   },
   "candidates": [
    {
@@ -6167,7 +6612,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673994/FRIJOL-CARGAMANTO-DIANA-500-gr-1744336_a.jpg?v=639211449772600000"
    },
    {
     "id": "cmvs5ln2a00zj0ogo9msd0fcp",
@@ -6178,7 +6624,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25673995/FRIJOL-ZARAGOZA-DIANA-500-gr-1744351_a.jpg?v=639211449785330000"
    },
    {
     "id": "cmvs5ln78010z0ogo37mqcw5v",
@@ -6189,7 +6636,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25720561/Frijol-DIANA-500-gr-1408941_a.jpg?v=639213711859700000"
    },
    {
     "id": "cmvs5lna4011u0ogofqh5vle8",
@@ -6200,7 +6648,8 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669734/LENTEJA-X500-GR-DIANA-500-gr-1408940_a.jpg?v=639211419373200000"
    },
    {
     "id": "cmvs5lnho014k0ogoxzeyc60i",
@@ -6211,13 +6660,14 @@
      "amount": 500,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25722824/GARBANZO-X-500-GR-X-25und-DIANA-500-gr-3091912_A.jpg?v=639213728351830000"
    }
   ],
   "answer": null,
-  "ms": 1696,
+  "ms": 5963,
   "muse": null,
-  "museReason": "Ninguno es frijol calima; son variedades distintas: cargamanto, zaragoza, radical, lenteja y garbanzo",
+  "museReason": "Ninguno es frijol calima Diana; las opciones son cargamanto, zaragoza, radical, lenteja y garbanzo",
   "museUnsure": false,
   "rules": null
  },
@@ -6233,7 +6683,8 @@
     "amount": 175,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35122808/MANTEQUILLA-CLARIF-ALBAHACA-Karavansay-175-Gramo-3002347_a.jpg?v=639244951365800000"
   },
   "candidates": [
    {
@@ -6245,7 +6696,8 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708463/7707357444220-1.jpg?v=638700370079300000"
    },
    {
     "id": "cmvsfys9u00b2mego76yubeyx",
@@ -6256,13 +6708,14 @@
      "amount": 175,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/708470/7707357444039-1.jpg?v=638700370102370000"
    }
   ],
   "answer": null,
-  "ms": 1725,
+  "ms": 1837,
   "muse": null,
-  "museReason": "La buscada es de albahaca y solo hay de ajo y de orégano, que son sabores diferentes",
+  "museReason": "La buscada es de albahaca y las opciones son de ajo y de orégano",
   "museUnsure": false,
   "rules": null
  },
@@ -6278,7 +6731,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35048635/BEBIDA-GASEOSA-ORIGINAL-1554892_a.jpg?v=639239483611900000"
   },
   "candidates": [
    {
@@ -6290,7 +6744,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/894136/7702535034781-1.jpg?v=639071068546670000"
    },
    {
     "id": "cmvpheko004rs3pgo1y925fer",
@@ -6301,13 +6756,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/945089/7702535011799-1.jpg?v=639216514292800000"
    }
   ],
   "answer": null,
-  "ms": 2766,
+  "ms": 3154,
   "muse": null,
-  "museReason": "Ninguna es solo Coca-Cola original: la 0 es un combo con Quatro y la 1 es Zero",
+  "museReason": "Ninguna es solo Coca-Cola Original: la 0 es combo con Quatro y la 1 es Zero",
   "museUnsure": false,
   "rules": null
  },
@@ -6323,7 +6779,8 @@
     "amount": 75,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34467272/CREMA-LUMINOUS-WHITE-CARBON-1621322_a.jpg?v=639213821139030000"
   },
   "candidates": [
    {
@@ -6335,7 +6792,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/823667/7509546054650-1.jpg?v=638899174409000000"
    },
    {
     "id": "cmvphejyo04fh3pgos3quuc91",
@@ -6346,7 +6804,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/810652/7509546667577-1.jpg?v=638862836718870000"
    },
    {
     "id": "cmvphejxi04ew3pgo7dbwnv4k",
@@ -6357,7 +6816,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/724549/7509546683799-1.jpg?v=638718754814830000"
    },
    {
     "id": "cmvphejua04cw3pgoj0njgc5l",
@@ -6368,7 +6828,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/893983/7509546698007-1.jpg?v=639070309710200000"
    },
    {
     "id": "cmvphejvl04dt3pgopi2w59xm",
@@ -6379,7 +6840,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/935235/7509546702599-1.png?v=639180143594700000"
    },
    {
     "id": "cmvphejyu04fk3pgoeft4dcsn",
@@ -6390,7 +6852,8 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/776308/7509546066776-1.jpg?v=638798013338270000"
    },
    {
     "id": "cmvphek0204g83pgoyxx69mxf",
@@ -6401,13 +6864,14 @@
      "amount": 75,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/849127/99176480310-1.jpg?v=638941383385630000"
    }
   ],
   "answer": null,
-  "ms": 2665,
+  "ms": 3301,
   "muse": null,
-  "museReason": "Ninguna es Luminous con carbón; las Luminous son Brilliant y Café y la de carbón es línea Total",
+  "museReason": "Ninguna es Luminous White Carbón Activado; son Brilliant, Lovers Café, línea Total o infantiles",
   "museUnsure": false,
   "rules": null
  },
@@ -6423,7 +6887,8 @@
     "amount": 150,
     "unit": "ml"
    },
-   "aisle": "personal"
+   "aisle": "personal",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26708951/Crema-Dental-Triple-Accion-X-150-ml-147120_a.jpg?v=639271742338800000"
   },
   "candidates": [
    {
@@ -6435,7 +6900,8 @@
      "amount": 150,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/766776/7509546690919-1.jpg.jpg?v=638775649613600000"
    },
    {
     "id": "cmvphejud04cz3pgoyxa36w8m",
@@ -6446,7 +6912,8 @@
      "amount": 150,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/893977/7509546697970-1.jpg?v=639070309488200000"
    },
    {
     "id": "cmvphejwi04ee3pgos288u6bx",
@@ -6457,7 +6924,8 @@
      "amount": 150,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/724560/7509546683829-1.jpg?v=638718754847100000"
    },
    {
     "id": "cmvphek0704gb3pgoojuqmglj",
@@ -6468,13 +6936,14 @@
      "amount": 150,
      "unit": "ml"
     },
-    "aisle": "personal"
+    "aisle": "personal",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/849135/7501035911376-1.jpg?v=638941383635870000"
    }
   ],
   "answer": null,
-  "ms": 3654,
+  "ms": 2843,
   "muse": null,
-  "museReason": "La 0 es Triple Acción Xtra Blancura, no la Triple Acción clásica, y las demás son línea Total",
+  "museReason": "La buscada es Triple Acción original; la 0 es Xtra Blancura y las otras son línea Total",
   "museUnsure": false,
   "rules": null
  },
@@ -6490,7 +6959,8 @@
     "amount": 450,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25669766/PANELA-PASTILLA-FONCE-450-gr-1104407_a.jpg?v=639211419611830000"
   },
   "candidates": [
    {
@@ -6502,7 +6972,8 @@
      "amount": 450,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/858549/7709463137409-1.jpg?v=638948309392100000"
    },
    {
     "id": "cmvpheg7201zi3pgo1awnvm5f",
@@ -6513,7 +6984,8 @@
      "amount": 450,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/201856/7709507213366.jpg?v=637814155282570000"
    },
    {
     "id": "cmvpheg8302063pgofgfxno09",
@@ -6524,13 +6996,14 @@
      "amount": 450,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/858543/770946313749-1.jpg?v=638948308292770000"
    }
   ],
   "answer": null,
-  "ms": 5880,
+  "ms": 2974,
   "muse": null,
-  "museReason": "No hay panela Fonce regular en pastilla; la pastilla es orgánica y las otras son redondas",
+  "museReason": "La buscada es panela en pastilla convencional; la 0 es orgánica y la 1 y 2 son redondas",
   "museUnsure": false,
   "rules": null
  },
@@ -6546,7 +7019,8 @@
     "amount": 900,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/209633/7703032107572.jpg?v=637814211265500000"
   },
   "candidates": [
    {
@@ -6558,7 +7032,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/202354/leche-deslactosada-latti-900ml-12005757-01.png.png?v=639179726428470000"
    },
    {
     "id": "cmvphdpvq004r3pgodiv403pz",
@@ -6569,7 +7044,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/199194/leche-deslactosada-latti-900ml-12000245-01.png.png?v=639179635419670000"
    },
    {
     "id": "cmvphdpsx00393pgo3eobd7xq",
@@ -6580,7 +7056,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/202394/leche-equilibrio-latti-900ml-12005778-01.png.png?v=639179726879300000"
    },
    {
     "id": "cmvphdpt3003c3pgo66vforul",
@@ -6591,7 +7068,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/203076/leche-entera-25proteina-super-cremosa-latti-900ml-12006667-01.png.png?v=639179831760230000"
    },
    {
     "id": "cmvphdpub003x3pgonqs8i660",
@@ -6602,7 +7080,8 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/199818/leche-entera-latti-900ml-12000543-01.png.png?v=639179647707170000"
    },
    {
     "id": "cmvphdpuv00493pgo6cc7pfmf",
@@ -6613,14 +7092,15 @@
      "amount": 900,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/198962/leche-entera-latti-900ml-12000094-01.png.png?v=639179630422500000"
    }
   ],
   "answer": null,
-  "ms": 6942,
+  "ms": 6566,
   "muse": null,
-  "museReason": "No dice si es en bolsa o en caja y hay leche Latti deslactosada de 900 ml en ambas presentaciones",
-  "museUnsure": true,
+  "museReason": "La del comprador es San Fernando descremada deslactosada en caja y las Latti son semidescremadas o enteras de otra marca/línea",
+  "museUnsure": false,
   "rules": null
  },
  {
@@ -6635,7 +7115,8 @@
     "amount": 1000,
     "unit": "ml"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26562824/Leche-Deslactosada-En-Caja-X-1-Litro-81933_a.jpg?v=639270711353800000"
   },
   "candidates": [
    {
@@ -6647,7 +7128,8 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/888234/7702177024041-1.jpg?v=639044218462830000"
    },
    {
     "id": "cmvphefkt01lf3pgoljdip0x8",
@@ -6658,13 +7140,14 @@
      "amount": 1000,
      "unit": "ml"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/888235/7702177024393-1.jpg?v=639044218614200000"
    }
   ],
   "answer": null,
-  "ms": 1855,
-  "muse": "cmvphefl101ll3pgo69emrkuw",
-  "museReason": "Misma leche Alquería deslactosada de 1000 ml; que no diga caja no la hace distinta",
+  "ms": 3833,
+  "muse": null,
+  "museReason": "Ninguna es igual: la buscada es en caja y la 0 viene en bolsa, y la 1 es sabor original no deslactosada",
   "museUnsure": false,
   "rules": "cmvphefl101ll3pgo69emrkuw"
  },
@@ -6680,7 +7163,8 @@
     "amount": 1500,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35731928/Lavaloza-DERSA-Liquido-Jabon-Rey-Desinfect-1500-ml-3823360_a.jpg?v=639265696137000000"
   },
   "candidates": [
    {
@@ -6692,7 +7176,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/899522/7702166066236-1.jpg?v=639094631414000000"
    },
    {
     "id": "cmvphejrt04b53pgols6jg8u0",
@@ -6703,7 +7188,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588779/7702166051263.jpg?v=638467106070770000"
    },
    {
     "id": "cmvphejsf04bk3pgodavx8zov",
@@ -6714,7 +7200,8 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588784/7702166052512.jpg?v=638467106084970000"
    },
    {
     "id": "cmvphejtc04c83pgo446jnnxh",
@@ -6725,13 +7212,14 @@
      "amount": 1500,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588785/7702166052765.jpg?v=638467106087930000"
    }
   ],
   "answer": null,
-  "ms": 2103,
+  "ms": 2597,
   "muse": null,
-  "museReason": "Ninguno es lavaloza Jabón Rey desinfectante; el 0 es de limón y los otros son suavizantes",
+  "museReason": "El buscado es lavaloza con Jabón Rey, no es limón ni suavizante",
   "museUnsure": false,
   "rules": null
  },
@@ -6747,7 +7235,8 @@
     "amount": 1000,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/186299/7702511000021.jpg?v=637813981775570000"
   },
   "candidates": [
    {
@@ -6759,7 +7248,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25662684/Arroz-Premium-1000-gr-730954_a.jpg?v=639211346514100000"
    },
    {
     "id": "cmvs3uvun000egogo9pwkfbq6",
@@ -6770,7 +7260,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25662716/Arroz-Integral-1244239_a.jpg?v=639211346729070000"
    },
    {
     "id": "cmvs5lnrl01930ogokmxwl7gs",
@@ -6781,7 +7272,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/26021844/Harina-Maiz-Blanco-DIANA-1000-gr-3064250_a.jpg?v=639232617987800000"
    },
    {
     "id": "cmvs5ln5x010l0ogo2cj414ew",
@@ -6792,7 +7284,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25681693/FRIJOL-DIANA-BOLA-ROJA-1000-GR-1861676_a.jpg?v=639211510869030000"
    },
    {
     "id": "cmvs5ln7h01110ogoa4xe60b6",
@@ -6803,7 +7296,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25727934/Frijol-Diana-Cargamanto-Rojo-DIANA-1000-gr-3533993_a.jpg?v=639213774474700000"
    },
    {
     "id": "cmvs5ln9g011o0ogoalblbqkh",
@@ -6814,7 +7308,8 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25681694/LENTEJA-DIANA-1000G-1861677_a.jpg?v=639211510881200000"
    },
    {
     "id": "cmvs5lni8014s0ogoaldhvzxp",
@@ -6825,13 +7320,14 @@
      "amount": 1000,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://carulla.vteximg.com.br/arquivos/ids/25725132/GARBANZO-X-1000-GR-DIANA-1000-gr-3315092_a.jpg?v=639213750574200000"
    }
   ],
   "answer": null,
-  "ms": 6310,
-  "muse": "cmvs5lk6r002m0ogo3hu8kwcu",
-  "museReason": "Mismo arroz DIANA blanco de 1 kg; la tienda solo agrega premium al nombre",
+  "ms": 3781,
+  "muse": null,
+  "museReason": "Ninguno es el arroz Diana blanco VitAmor; el blanco listado es línea Premium",
   "museUnsure": false,
   "rules": null
  },
@@ -6847,7 +7343,8 @@
     "amount": 250,
     "unit": "g"
    },
-   "aisle": "dairy"
+   "aisle": "dairy",
+   "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/791716/7707365170418-1.jpg?v=638823306843470000"
   },
   "candidates": [
    {
@@ -6859,7 +7356,8 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/199889/queso-sabanero-en-tajadas-250gr-12000676-01.png.png?v=639179648938330000"
    },
    {
     "id": "cmvphdr2900so3pgop23lq1iq",
@@ -6870,13 +7368,14 @@
      "amount": 250,
      "unit": "g"
     },
-    "aisle": "dairy"
+    "aisle": "dairy",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/202694/queso-mozzarella-latti-250gr-12006207-01.png.png?v=639179735310130000"
    }
   ],
   "answer": null,
-  "ms": 1484,
+  "ms": 3552,
   "muse": null,
-  "museReason": "Ninguno es queso Dejamu Siete Cueros semigraso: son sabanero y mozzarella",
+  "museReason": "El buscado es queso Sietecueros, no sabanero ni mozzarella",
   "museUnsure": false,
   "rules": null
  },
@@ -6892,7 +7391,8 @@
     "amount": 750,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/36690292/Aguardiente-ANTIOQUENO-24-Grados-Amarillo-750-ml-3636836_a.jpg?v=639288107634800000"
   },
   "candidates": [
    {
@@ -6904,7 +7404,8 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206833/aguardiente-antioqueno-sin-azucar-750-ml-12002708-01.png?v=639250115356100000"
    },
    {
     "id": "cmvphdrwg01bc3pgosv8sw7w3",
@@ -6915,13 +7416,14 @@
      "amount": 750,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://d1tiendas.vteximg.com.br/arquivos/ids/206825/aguardiente-antioqueno-verde-s-a-750-ml-12006183-01.png?v=639250109525330000"
    }
   ],
   "answer": null,
-  "ms": 5224,
+  "ms": 3137,
   "muse": null,
-  "museReason": "El buscado es el amarillo y los dos son Sin Azúcar, uno de ellos verde.",
+  "museReason": "El buscado es el Real amarillo de la foto, no el Sin Azúcar tradicional ni el Verde",
   "museUnsure": false,
   "rules": null
  },
@@ -6937,7 +7439,8 @@
     "amount": 4000,
     "unit": "ml"
    },
-   "aisle": "home"
+   "aisle": "home",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35731612/Lavaloza-DERSA-Liquido-Jabon-Rey-4000-ml-3599158_a.jpg?v=639265695855870000"
   },
   "candidates": [
    {
@@ -6949,7 +7452,8 @@
      "amount": 4000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588802/7702166066069.jpg?v=638467106148770000"
    },
    {
     "id": "cmvpokoc202qh5jgokimt4wic",
@@ -6960,7 +7464,8 @@
      "amount": 4000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/803184/7702166060517-1.jpg?v=638858618406570000"
    },
    {
     "id": "cmvphejqk04ab3pgoae8uro6a",
@@ -6971,13 +7476,14 @@
      "amount": 4000,
      "unit": "ml"
     },
-    "aisle": "home"
+    "aisle": "home",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/588783/7702166052505.jpg?v=638467106082170000"
    }
   ],
   "answer": null,
-  "ms": 2239,
+  "ms": 2953,
   "muse": null,
-  "museReason": "Ninguno es lavaloza jabón rey: uno es desinfectante, otro detergente manzana y otro suavizante",
+  "museReason": "El buscado es lavaloza Jabón Rey, el 0 es lavaloza limón y los otros son detergente y suavizante",
   "museUnsure": false,
   "rules": null
  },
@@ -6993,7 +7499,8 @@
     "amount": 500,
     "unit": "ml"
    },
-   "aisle": "drinks"
+   "aisle": "drinks",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/34389675/Refresco-Frutal-Pi-A-Mandarina-1487765_a.jpg?v=639211383752570000"
   },
   "candidates": [
    {
@@ -7005,7 +7512,8 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572252/7702535027066_1.jpg?v=638436933887370000"
    },
    {
     "id": "cmvphektf04v53pgo6l643yfv",
@@ -7016,7 +7524,8 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572258/7702535030721_1.jpg?v=638436933922700000"
    },
    {
     "id": "cmvphektq04vb3pgocb8e4kg4",
@@ -7027,7 +7536,8 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572249/7702535022511_1.jpg?v=638436933872100000"
    },
    {
     "id": "cmvphekuu04w23pgo3t2ty6l3",
@@ -7038,13 +7548,14 @@
      "amount": 500,
      "unit": "ml"
     },
-    "aisle": "drinks"
+    "aisle": "drinks",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/572251/7702535023730_1.jpg?v=638436933880500000"
    }
   ],
   "answer": null,
-  "ms": 1354,
+  "ms": 2049,
   "muse": null,
-  "museReason": "Ninguno es piña y mandarina; son mora, salpicón, mango y mango-fresa",
+  "museReason": "El buscado es de piña y mandarina y las opciones son de mora, salpicón, mango y mango-fresa",
   "museUnsure": false,
   "rules": null
  },
@@ -7060,7 +7571,8 @@
     "amount": 90,
     "unit": "g"
    },
-   "aisle": "pantry"
+   "aisle": "pantry",
+   "imageUrl": "https://exitocol.vteximg.com.br/arquivos/ids/35896004/Sardinillas-JAVIMAR-En-Ac-De-Girasol-90-gr-3717867_a.jpg?v=639269991508700000"
   },
   "candidates": [
    {
@@ -7072,7 +7584,8 @@
      "amount": 90,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/406725/8423013093289.jpg?v=637986769806830000"
    },
    {
     "id": "cmvphehjr02uj3pgo47o34iac",
@@ -7083,7 +7596,8 @@
      "amount": 90,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/219064/8423013091858.jpg?v=637816519205270000"
    },
    {
     "id": "cmvphehir02ty3pgoq3h82q4l",
@@ -7094,13 +7608,14 @@
      "amount": 90,
      "unit": "g"
     },
-    "aisle": "pantry"
+    "aisle": "pantry",
+    "imageUrl": "https://jumbocolombiaio.vteximg.com.br/arquivos/ids/406724/8423013091322.jpg?v=637986769802300000"
    }
   ],
   "answer": null,
-  "ms": 1743,
+  "ms": 5104,
   "muse": null,
-  "museReason": "Ninguna es en aceite de girasol natural; son picantes, en aceite de oliva y en salsa de tomate",
+  "museReason": "Ninguno es igual: el 0 es picante, el 1 es en aceite de oliva y el 2 es en salsa de tomate",
   "museUnsure": false,
   "rules": null
  }
