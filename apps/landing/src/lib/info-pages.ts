@@ -71,7 +71,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
           'Guardamos tu nombre y tu correo para que tus puntos y tus facturas te acompañen en otros dispositivos. Los códigos de acceso llegan por correo, enviados por Resend. Puedes eliminar tu cuenta en Perfil → Mi cuenta; tus aportes de precios quedan anónimos.',
         ] },
         { heading: 'Lo que no hacemos', paragraphs: [
-          `No vendemos datos, no mostramos publicidad y no compartimos tu información con las tiendas. La app cuenta instalaciones de forma anónima, sin identificarte. Para preguntas o para borrar tus datos, escribe a ${CONTACT_EMAIL}.`,
+          `No vendemos datos, no mostramos publicidad y no compartimos tu información con las tiendas. La app cuenta instalaciones de forma anónima, sin identificarte. Para saber cuántas personas visitan este sitio y la app usamos Plausible, una analítica sin cookies que corre en un servidor nuestro: cuenta visitas y páginas vistas sin identificarte ni seguirte a otros sitios. Para preguntas o para borrar tus datos, escribe a ${CONTACT_EMAIL}.`,
         ] },
       ],
     },
@@ -132,7 +132,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
           'We keep your name and email so your points and receipts follow you to other devices. Sign-in codes arrive by email, sent through Resend. You can delete your account in Perfil → Mi cuenta; your price contributions stay anonymous.',
         ] },
         { heading: 'What we don’t do', paragraphs: [
-          `We don’t sell data, show ads or share your information with the stores. The app counts installs anonymously, without identifying you. For questions or to delete your data, write to ${CONTACT_EMAIL}.`,
+          `We don’t sell data, show ads or share your information with the stores. The app counts installs anonymously, without identifying you. To know how many people visit this site and the app we use Plausible, cookieless analytics running on our own server: it counts visits and page views without identifying you or following you to other sites. For questions or to delete your data, write to ${CONTACT_EMAIL}.`,
         ] },
       ],
     },
