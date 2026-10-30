@@ -45,6 +45,9 @@ a, button { -webkit-tap-highlight-color: transparent; }
 /* The banner over the bar; the bar slides away while reading down and comes back on the way up (client.ts). */
 .hint { padding: var(--space-xs) var(--gutter); background: var(--color-paper-3); text-align: center; font-size: var(--text-sm); }
 .banner { padding: var(--space-xs) var(--gutter); background: var(--color-field); color: var(--color-on-field); text-align: center; font-size: var(--text-sm); }
+.banner a { color: inherit; font-weight: 600; text-underline-offset: 3px; }
+.banner a:hover { text-decoration-thickness: 2px; }
+.banner a:focus-visible { outline-color: var(--color-on-field); }
 .bar { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-paper); border-bottom: var(--rule-hair) solid var(--color-rule); transition: transform var(--dur-long) var(--ease-out); }
 .bar[data-away] { transform: translateY(-100%); }
 .bar-in { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); height: 72px; }

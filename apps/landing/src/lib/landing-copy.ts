@@ -2,7 +2,8 @@ export type Lang = 'es' | 'en';
 
 export const copy = {
   en: {
-    announcement: 'Made in Colombia. Made for your everyday shop.',
+    announcement: 'Rinde is entered in the Meta Global AI Developer Hackathon.',
+    announcementLink: 'Support us on X',
     how: 'How it works', prices: 'Our prices', install: 'On your phone', open: 'Open Rinde',
     title: ['Same groceries.', 'More money', 'left over.'],
     intro: 'Your eggs don’t need to cost more. Compare grocery prices at D1, Jumbo, Éxito and Carulla, and find out where your money goes further.',
@@ -42,7 +43,8 @@ export const copy = {
     footer: 'A little more out of every peso.', made: 'An independent project, made in Colombia.', disclaimer: 'Rinde is not affiliated with D1, Jumbo, Éxito or Carulla.', top: 'Back to top',
   },
   es: {
-    announcement: 'Hecho en Colombia. Para el mercado de todos los días.',
+    announcement: 'Rinde participa en el Meta Global AI Developer Hackathon.',
+    announcementLink: 'Apóyanos en X',
     how: 'Cómo funciona', prices: 'Los precios', install: 'En tu celular', open: 'Abrir Rinde',
     title: ['El mismo mercado.', 'Más plata', 'en tu bolsillo.'],
     intro: 'Tus huevos no tienen por qué costar más. Compara precios en D1, Jumbo, Éxito y Carulla, y descubre dónde rinde más tu plata.',

@@ -18,6 +18,9 @@ import packFrutosRojos from '@/assets/match/jumbo-frutos-rojos.webp';
 
 const HOME: Record<Lang, string> = { es: '/', en: '/en/' };
 
+// The post announcing Rinde's hackathon entry; the banner asks visitors to like or share it.
+const HACKATHON_POST = 'https://x.com/TinHoChu/status/2116007150791139559';
+
 // The app's own screens, captured from production in both schemes; the page shows the one that matches the visitor's.
 const STEP_SHOTS = [
   { light: compareLight, dark: compareDark, alt: 'compare' },
@@ -69,7 +72,7 @@ const Index = ({ lang }: { lang: Lang }) => {
   return (
     <div id="top">
       {lang === 'es' && <div id="read-en" hidden className="hint"><a href={HOME[other]} hrefLang={other} lang={other}>{t.readOther}</a></div>}
-      <p className="banner">{t.announcement}</p>
+      <p className="banner">{t.announcement} <a href={HACKATHON_POST} target="_blank" rel="noopener">{t.announcementLink}</a></p>
       <header className="bar" data-bar>
         <div className="container bar-in">
           <a href={HOME[lang]} aria-label="Rinde" className="wordmark"><img src="/icon-192.png" width={32} height={32} alt="" />rinde</a>
