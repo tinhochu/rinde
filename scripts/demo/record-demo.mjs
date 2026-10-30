@@ -10,6 +10,11 @@
 // Run it twice: the first run warms the price and route caches, so the second shows the app at speed.
 // Env: DEMO_BASE_URL, DEMO_OUT (default docs/demo), DEMO_LAT / DEMO_LON (default Chapinero, Bogotá),
 // CHROME_PATH. Needs Node 22+, Chrome and ffmpeg.
+//
+//   DEMO_CLIP=verify node scripts/demo/record-demo.mjs   # rinde-verify.mp4: only the live store checks
+//
+// The clip starts on the budget screen, plays in real time (no speed-up, so the checks are seen as
+// they happen) and ends on the plan: a short cut for social posts.
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -58,8 +63,9 @@ async function connect(endpoint, onEvent) {
 
 const shots = [];
 let send;
-const FAST_WAIT = 4;
-const SPEED = Number(process.env.DEMO_SPEED || 1.5);
+const CLIP = process.env.DEMO_CLIP === "verify";
+const FAST_WAIT = CLIP ? 1 : 4;
+const SPEED = Number(process.env.DEMO_SPEED || (CLIP ? 1 : 1.5));
 let waiting = false;
 // Runs a wait (live checks, Muse, map tiles) and plays it fast in the video.
 const fast = async (promise) => { waiting = true; try { return await promise; } finally { waiting = false; } };
@@ -134,7 +140,7 @@ async function demo(p) {
   await send("Storage.clearDataForOrigin", { origin: new URL(BASE).origin, storageTypes: "local_storage,indexeddb" });
   await send("Page.reload");
   await p.until("the app", `/Explorar/.test(document.body.innerText)`, 60_000);
-  await startRecording();
+  if (!CLIP) await startRecording();
   await sleep(2500);
   if (await p.until("the install sheet", `!!(${p.byText("Ahora no")})`, 8000).catch(() => false)) await p.tap("Ahora no");
   await sleep(1200);
@@ -175,10 +181,12 @@ async function demo(p) {
   await p.tap("$150 mil");
   await sleep(600);
   beat("budget set");
+  if (CLIP) { await startRecording(); await sleep(1500); }
   await p.tap("Ver dónde rinde más");
   await fast(p.until("the plan", `!!document.querySelector('[data-testid="plan-total"]')`, 150_000));
   await sleep(2500);
   await p.glide(420, 2200);
+  if (CLIP) { await sleep(1500); return; }
   await p.glide(420, 2200);
 
   // 1:30 Over budget: accept proposals until the plan fits.
@@ -233,7 +241,7 @@ const browser = await chrome();
 const conn = await connect(browser.endpoint, onEvent);
 send = conn.send;
 const p = page();
-const out = join(OUT, "rinde-demo.mp4");
+const out = join(OUT, CLIP ? "rinde-verify.mp4" : "rinde-demo.mp4");
 try {
   await send("Page.enable");
   await send("Network.setBypassServiceWorker", { bypass: true });

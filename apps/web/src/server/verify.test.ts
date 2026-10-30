@@ -75,6 +75,17 @@ describe("planAndVerify", () => {
     ]);
   });
 
+  it("adds a second round's checks to the store's count instead of starting over", async () => {
+    const progress: { store: string; checked: number; total: number; changed: number }[] = [];
+    // D1's rice goes up past its other rice, which is then checked in round 2 at the same store.
+    const items = [item("arroz", [cand("a", "d1", 4000), cand("a2", "d1", 4200)]), item("frijol", [cand("c", "d1", 6000)])];
+    await planAndVerify(items, OPTIONS, fakeDeps({ d1: { a: 5000, a2: 4200, c: 6000 } }), {
+      onProgress: (p) => progress.push(p),
+    });
+    expect(progress.map((p) => `${p.store} ${p.checked}/${p.total}`)).toEqual(["d1 0/2", "d1 2/2", "d1 2/3", "d1 3/3"]);
+    expect(progress.at(-1)).toMatchObject({ changed: 1 });
+  });
+
   it("drops a stale snapshot price when the retailer fails", async () => {
     const result = await planAndVerify([item("arroz", [cand("a", "jumbo", 4890, hoursAgo(40))])], OPTIONS, fakeDeps({ jumbo: "error" }));
     expect(lines(result)).toEqual([]);

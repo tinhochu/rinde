@@ -42,10 +42,18 @@ export async function planAndVerify(
   let current = items;
   let plan = optimize(current, options);
   let rounds = 0;
+  // A second round adds to each store's count (11/11 ✓, then 12/12 ✓), so a row never starts over.
+  const done = new Map<RetailerSlug, { checked: number; total: number; changed: number }>();
+  const onProgress = opts.onProgress && ((p: VerifyProgress) => {
+    const base = done.get(p.store) ?? { checked: 0, total: 0, changed: 0 };
+    const sum = { checked: base.checked + p.checked, total: base.total + p.total, changed: base.changed + p.changed };
+    if (!p.failed && p.checked === p.total) done.set(p.store, sum);
+    opts.onProgress!({ ...p, ...sum });
+  });
 
   while (rounds < MAX_ROUNDS) {
     rounds++;
-    const result = await verifyPlan(plan, current, deps, { signal, onProgress: opts.onProgress, skip: verified });
+    const result = await verifyPlan(plan, current, deps, { signal, onProgress, skip: verified });
     current = result.items;
     for (const id of result.checked) verified.add(id);
     // Always re-plan so lines carry the verified candidate data (price, observation, status).

@@ -15,6 +15,8 @@ export type AppModal = "area" | "saved" | "help" | "privacy" | null;
 
 /** The planner's phases: build the list, set the budget, wait for prices, see where it goes further. */
 export const PHASE = { list: 0, budget: 1, checking: 2, results: 3 } as const;
+/** How long the finished store checks stay on screen before the plan appears. */
+const CHECKS_HOLD_MS = 1200;
 
 type Prefs = Partial<{ budget: number; hasBudget: boolean; frequency: Frequency; people: number; tripCost: number; stores: Store[] }>;
 
@@ -166,10 +168,15 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       if (mode === "background") setRefreshing(true);
       else if (mode === "decide") setDeciding(key ?? null);
       else setStep(PHASE.checking);
+      let sawProgress = false;
       try {
         const data = await request(p => {
-          if (!controller.signal.aborted) setProgress(previous => [...previous.filter(x => x.store !== p.store), p]);
+          // A store keeps its row; a later update replaces it in place.
+          if (!controller.signal.aborted) setProgress(previous => previous.some(x => x.store === p.store) ? previous.map(x => (x.store === p.store ? p : x)) : [...previous, p]);
+          sawProgress = true;
         }, controller.signal);
+        // Leave the finished checks (✓) on screen for a moment before the plan replaces them.
+        if (mode === "new" && sawProgress) await new Promise(resolve => setTimeout(resolve, CHECKS_HOLD_MS));
         if (!controller.signal.aborted) {
           setResult(data);
           setItemStatus(itemStatuses(data.plan));
