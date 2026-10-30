@@ -3,6 +3,7 @@ import { ShieldCheck } from "lucide-react-native";
 import { InstallCard } from "@/components/install-card";
 import { ProfileAccountCard } from "@/components/profile/account-card";
 import { ContributionSummary } from "@/components/profile/contribution-summary";
+import { HackathonCard } from "@/components/profile/hackathon-card";
 import { AccountSection, DataSection } from "@/components/profile/data-section";
 import { SettingsSection } from "@/components/profile/settings-section";
 import { ShoppingPreferences } from "@/components/profile/shopping-preferences";
@@ -18,6 +19,7 @@ export default function ProfileScreen() {
       <Text accessibilityRole="header" style={styles.title}>Mi perfil</Text>
       <ProfileAccountCard />
       <InstallCard />
+      <HackathonCard />
       <ShoppingPreferences />
       <ContributionSummary />
       <SettingsSection />
