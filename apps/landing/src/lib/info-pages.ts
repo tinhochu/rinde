@@ -4,6 +4,8 @@ import type { Lang } from './landing-copy';
 // Every statement here describes what the app does today; change the text when the app changes.
 
 export const CONTACT_EMAIL = 'tin@chuventures.com';
+export const POSTAL_ADDRESS = { street: '2082 Hwy 183, Ste 170 PMB806', locality: 'Leander', region: 'TX', postalCode: '78641', country: 'US' };
+const postal = `${POSTAL_ADDRESS.street}, ${POSTAL_ADDRESS.locality}, ${POSTAL_ADDRESS.region} ${POSTAL_ADDRESS.postalCode}`;
 
 export type InfoSlug = 'about' | 'contact' | 'privacy';
 export const INFO_SLUGS: InfoSlug[] = ['about', 'contact', 'privacy'];
@@ -47,6 +49,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
         { heading: 'Tiendas y prensa', paragraphs: [
           'Si representas a una tienda y quieres corregir cómo aparece un producto, o si escribes sobre Rinde, usa el mismo correo e indica en el asunto de qué se trata.',
         ] },
+        { heading: 'Dirección postal', paragraphs: [`${postal}, Estados Unidos. Para cualquier asunto, el correo es más rápido.`] },
       ],
     },
     privacy: {
@@ -107,6 +110,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
         { heading: 'Stores and press', paragraphs: [
           'If you represent a store and want to correct how a product appears, or if you are writing about Rinde, use the same address and say what it is about in the subject line.',
         ] },
+        { heading: 'Mailing address', paragraphs: [`${postal}, United States. Email is faster for anything.`] },
       ],
     },
     privacy: {

@@ -1,5 +1,5 @@
 import { copy, type Lang } from './landing-copy';
-import { CONTACT_EMAIL, INFO_SLUGS, infoPages, infoPath, type InfoSlug } from './info-pages';
+import { CONTACT_EMAIL, POSTAL_ADDRESS, INFO_SLUGS, infoPages, infoPath, type InfoSlug } from './info-pages';
 
 // What the site says to agents: a Markdown twin of every page (served for Accept: text/markdown, see nginx.conf),
 // llms.txt, the sitemap, robots.txt and the JSON-LD. Built from the same copy as the HTML (prerender.mjs).
@@ -152,6 +152,7 @@ export function jsonLd(lang: Lang, o: Origins): string {
         email: CONTACT_EMAIL,
         description: homeDescription[lang],
         areaServed: { '@type': 'Country', name: 'Colombia' },
+        address: { '@type': 'PostalAddress', streetAddress: POSTAL_ADDRESS.street, addressLocality: POSTAL_ADDRESS.locality, addressRegion: POSTAL_ADDRESS.region, postalCode: POSTAL_ADDRESS.postalCode, addressCountry: POSTAL_ADDRESS.country },
         contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', email: CONTACT_EMAIL, availableLanguage: ['es', 'en'], url: `${o.site}${infoPath('contact', lang)}` },
       },
       { '@type': 'WebSite', '@id': `${o.site}/#website`, name: 'Rinde', url: `${o.site}/`, inLanguage: ['es', 'en'], publisher: { '@id': org } },

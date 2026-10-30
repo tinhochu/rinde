@@ -154,6 +154,8 @@ test("the homepage carries Organization, WebSite and WebApplication JSON-LD", ()
     assert.equal(org.name, "Rinde");
     assert.match(org.contactPoint.email, /^[^@\s]+@[^@\s]+\.[a-z]+$/);
     assert.ok(org.contactPoint.contactType);
+    assert.equal(org.address["@type"], "PostalAddress");
+    for (const field of ["streetAddress", "addressLocality", "addressRegion", "postalCode", "addressCountry"]) assert.ok(org.address[field], field);
     const app = byType.WebApplication;
     assert.ok(app.name && app.description && app.url && app.applicationCategory);
     assert.equal(app.offers.price, "0");
@@ -171,6 +173,7 @@ test("About, Contact and Privacy exist in both languages, with real text, linked
     }
   }
   assert.match(mainText(readFileSync(dist("contact/index.html"), "utf8")), /\S+@\S+\.\w+/);
+  assert.match(mainText(readFileSync(dist("en/contact/index.html"), "utf8")), /Leander, TX 78641/);
 });
 
 test("every page has a Markdown twin with the same content", () => {
