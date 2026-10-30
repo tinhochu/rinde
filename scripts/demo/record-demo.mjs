@@ -15,6 +15,8 @@
 //
 // The clip starts on the budget screen, plays in real time (no speed-up, so the checks are seen as
 // they happen) and ends on the plan: a short cut for social posts.
+//
+//   DEMO_SHOTS=docs/readme node scripts/demo/record-demo.mjs   # no video: 2x screenshots of each step
 import { spawn, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -64,6 +66,16 @@ async function connect(endpoint, onEvent) {
 const shots = [];
 let send;
 const CLIP = process.env.DEMO_CLIP === "verify";
+const SHOTS = process.env.DEMO_SHOTS;
+if (SHOTS) mkdirSync(SHOTS, { recursive: true });
+// A full-resolution screenshot of the screen as it is, for the README.
+async function shot(name) {
+  if (!SHOTS) return;
+  await sleep(800);
+  const r = await send("Page.captureScreenshot", { format: "png" });
+  writeFileSync(join(SHOTS, `${name}.png`), Buffer.from(r.data, "base64"));
+  beat(`shot ${name}`);
+}
 const FAST_WAIT = CLIP ? 1 : 4;
 const SPEED = Number(process.env.DEMO_SPEED || (CLIP ? 1 : 1.5));
 let waiting = false;
@@ -80,6 +92,7 @@ const onEvent = (m) => {
 };
 let recording = null;
 function startRecording() {
+  if (SHOTS) return;
   // Asking for twice the CSS size keeps the frames at the 2x device pixels.
   recording = () => send("Page.stopScreencast");
   return send("Page.startScreencast", { format: "jpeg", quality: 85, maxWidth: 780, maxHeight: 1688, everyNthFrame: 1 });
@@ -162,6 +175,7 @@ async function demo(p) {
   await p.until("the list", `/Tu lista tiene \\d+ productos?/.test(document.body.innerText)`);
   await sleep(1500);
   beat("list added");
+  await shot("list");
   for (const re of OPTIONAL) {
     beat(`toggle ${re}`);
     const row = `[...document.querySelectorAll('[aria-label$=". Editar"]')].find(e => ${re}.test(e.getAttribute("aria-label")))`;
@@ -183,8 +197,11 @@ async function demo(p) {
   beat("budget set");
   if (CLIP) { await startRecording(); await sleep(1500); }
   await p.tap("Ver dónde rinde más");
+  // Every store checked (✓), in the moment the app holds them before the plan.
+  if (SHOTS) await p.until("the store checks", `/✓/.test(document.body.innerText) && !/en vivo|Buscando precios/.test(document.body.innerText)`, 30_000).then(() => shot("checks")).catch(() => {});
   await fast(p.until("the plan", `!!document.querySelector('[data-testid="plan-total"]')`, 150_000));
   await sleep(2500);
+  await shot("plan");
   await p.glide(420, 2200);
   if (CLIP) { await sleep(1500); return; }
   await p.glide(420, 2200);
@@ -198,6 +215,7 @@ async function demo(p) {
     const at = await p.until(`the ${what} proposal`, p.where(accept), 20_000).catch(() => null);
     console.log(at ? `accepting the ${what} proposal` : `no ${what} proposal`);
     if (!at) break;
+    if (what.source.startsWith("caf")) await shot("proposals");
     beat(`proposal ${what}`);
     await sleep(1200);
     await p.press(at);
@@ -225,11 +243,13 @@ async function demo(p) {
   if (which === "question") { await sleep(1500); await p.tap("No"); await p.until("the advice", `!!document.querySelector('[data-testid="route-advice"]')`, 120_000); }
   await p.js(`document.querySelector('[data-testid="route-advice"]').scrollIntoView({ block: "start", behavior: "smooth" })`);
   await sleep(5000);
+  await shot("advice");
   const pair = `[...document.querySelectorAll('[data-testid="route-option"]')].find(e => /^Carulla \\+ /.test(e.innerText))`;
   if (await p.js(`!!(${pair})`)) { await p.press(await p.until("the two-store option", p.where(pair))); await sleep(2000); }
   await fast(p.until("the map", `!!document.querySelector('.maplibregl-canvas, svg[aria-label="Esquema de la ruta"]')`, 30_000).catch(() => {}));
   await p.js(`document.querySelector('.maplibregl-canvas, svg[aria-label="Esquema de la ruta"]')?.scrollIntoView({ block: "center", behavior: "smooth" })`);
   await sleep(4000);
+  await shot("map");
   await p.glide(500, 2500);
   await p.js(`window.open = () => null`);
   beat("navegar");
@@ -251,9 +271,11 @@ try {
   const started = Date.now();
   await demo(p);
   await recording?.();
-  console.log(`recorded ${shots.length} frames over ${((Date.now() - started) / 1000).toFixed(0)} s`);
-  encode(out);
-  console.log(`wrote ${out}`);
+  if (!SHOTS) {
+    console.log(`recorded ${shots.length} frames over ${((Date.now() - started) / 1000).toFixed(0)} s`);
+    encode(out);
+    console.log(`wrote ${out}`);
+  }
 } catch (e) {
   console.error(`stopped: ${e instanceof Error ? e.message : e}`);
   const r = await send("Page.captureScreenshot", { format: "png" }).catch(() => null);
