@@ -154,6 +154,7 @@ test("the homepage carries Organization, WebSite and WebApplication JSON-LD", ()
     assert.equal(org.name, "Rinde");
     assert.match(org.contactPoint.email, /^[^@\s]+@[^@\s]+\.[a-z]+$/);
     assert.ok(org.contactPoint.contactType);
+    assert.deepEqual(org.sameAs, ["https://github.com/tinhochu/rinde"]);
     assert.equal(org.address["@type"], "PostalAddress");
     for (const field of ["streetAddress", "addressLocality", "addressRegion", "postalCode", "addressCountry"]) assert.ok(org.address[field], field);
     const app = byType.WebApplication;

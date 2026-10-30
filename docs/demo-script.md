@@ -42,7 +42,7 @@ pasta spaghetti 1 kg
 - While it works: "These are live calls. It's re-checking prices at each store right now." Point at the "Verificando D1…" progress line.
 - On the result: "D1 for twelve items, Jumbo for three: about $190 mil, and $75 mil less than buying everything at Jumbo. Four plantains are priced by the piece, not by the kilo. Every price links to the store's page with the time it was checked. Muse decided that Latti milk counts as 'leche entera'. The code did all the arithmetic."
 
-**1:30. Over budget (30 s).** "I'm about $28 mil over budget." Scroll to the proposals. "It never hides the overage. Each proposal shows its exact saving, recalculated." Accept "Quitar café molido", then "Quitar plátanos verdes". The plan is now within budget, at about $147.500. If it's still over, accept "Quitar atún". In the rehearsal on 2026-10-29: $177.975 → $169.100 → $147.500.
+**1:30. Over budget (30 s).** Read the overage off the screen: "I'm $X over budget." Scroll to the proposals. "It never hides the overage. Each proposal shows its exact saving, recalculated." Accept "Quitar café molido", "Quitar plátanos verdes" and, if it's still over, "Quitar atún". Prices move every day, so don't promise it lands within budget: read the new total, and if it's still over say "Closer, and it tells me exactly how much is left. From here it's my call: a cheaper brand or a smaller pack." In the recording on 2026-10-29 the three proposals took it to $166.740, still $16.740 over.
 
 **2:00. The trip (40 s).** Results → "Planear mi ruta" → Carulla chip → "Usar mi ubicación" → the nearest Carulla → "A pie".
 - "Is one extra stop worth it? Muse looks at the real street routes and the savings, and explains." Read the advice aloud.

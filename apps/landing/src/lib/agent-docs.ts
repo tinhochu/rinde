@@ -150,6 +150,7 @@ export function jsonLd(lang: Lang, o: Origins): string {
         url: `${o.site}/`,
         logo: `${o.site}/icon-192.png`,
         email: CONTACT_EMAIL,
+        sameAs: ['https://github.com/tinhochu/rinde'],
         description: homeDescription[lang],
         areaServed: { '@type': 'Country', name: 'Colombia' },
         address: { '@type': 'PostalAddress', streetAddress: POSTAL_ADDRESS.street, addressLocality: POSTAL_ADDRESS.locality, addressRegion: POSTAL_ADDRESS.region, postalCode: POSTAL_ADDRESS.postalCode, addressCountry: POSTAL_ADDRESS.country },
