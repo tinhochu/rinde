@@ -60,6 +60,8 @@ services:
       INBOUND_EMAIL_DOMAIN: ${INBOUND_EMAIL_DOMAIN:-}
       # The app's URL for the review link in reply emails; unset uses the first CORS origin.
       APP_URL: ${APP_URL:-}
+      # DeUna's service key(s) for /api/deuna (comma-separated to rotate); unset answers 503.
+      DEUNA_API_KEY: ${DEUNA_API_KEY:-}
     volumes:
       - receipts:/data/receipts
     ports:
