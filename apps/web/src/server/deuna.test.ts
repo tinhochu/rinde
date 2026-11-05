@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { deunaAuth, humanSize } from "./deuna";
+import { deunaAuth, deunaImage, humanSize } from "./deuna";
 
 const req = (key?: string) => new Request("http://localhost/api/deuna/v1/stores", { headers: key ? { "x-api-key": key } : {} });
 
@@ -16,6 +16,21 @@ describe("deunaAuth", () => {
     expect(deunaAuth(req(), env)).toBe("unauthorized");
     expect(deunaAuth(req("alpha"), env)).toBe("unauthorized");
     expect(deunaAuth(req("alpha-key, beta-key"), env)).toBe("unauthorized");
+  });
+});
+
+describe("deunaImage", () => {
+  it("links the store's VTEX photo at 400 px, and nothing else", () => {
+    expect(deunaImage("https://exito.vteximg.com.br/arquivos/ids/1234567-1000-1000/arroz.jpg")).toBe(
+      "https://exito.vteximg.com.br/arquivos/ids/1234567-400-400/arroz.jpg",
+    );
+    expect(deunaImage("https://jumbocolombiaio.vtexassets.com/arquivos/ids/98765/huevos.png")).toBe(
+      "https://jumbocolombiaio.vtexassets.com/arquivos/ids/98765-400-400/huevos.png",
+    );
+    expect(deunaImage(null)).toBeNull();
+    expect(deunaImage("http://exito.vteximg.com.br/arquivos/ids/1/a.jpg")).toBeNull();
+    expect(deunaImage("https://example.com/a.jpg")).toBeNull();
+    expect(deunaImage("not a url")).toBeNull();
   });
 });
 

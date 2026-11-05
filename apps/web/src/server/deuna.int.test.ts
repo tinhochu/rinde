@@ -11,7 +11,7 @@ const productRoute = (await import("@/app/api/deuna/v1/stores/[storeId]/products
 const RUN = `test-deuna-${Date.now()}`;
 const KEY = { "x-api-key": "new-test-key" };
 const BASE = "http://localhost/api/deuna/v1/stores";
-const ITEM_KEYS = ["brand", "category", "ean", "name", "observedAt", "referencePriceCop", "size", "sku"];
+const ITEM_KEYS = ["brand", "category", "ean", "imageUrl", "name", "observedAt", "referencePriceCop", "size", "sku"];
 
 const get = (url: string, headers: Record<string, string> = KEY) => new Request(url, { headers });
 const products = (storeId: string, qs = "", headers?: Record<string, string>) =>
