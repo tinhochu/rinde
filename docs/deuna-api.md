@@ -2,8 +2,8 @@
 
 A small service-to-service API so DeUna (rural delivery, separate repo) can read each supermarket's
 online catalogue with Rinde's latest observed prices for its "mandado" (errand) orders. Read only.
-Responses carry no images, no descriptions and nothing about Rinde's users; receipt (community)
-prices are never included.
+Each item links to the store's own product photo. Responses carry no descriptions and nothing about
+Rinde's users; receipt (community) prices are never included.
 
 - Host: the Rinde API, `https://rinde-api.cool.chuventures.com` (the `web` service, `apps/web`).
 - Code: `apps/web/src/app/api/deuna/v1/`, logic in `apps/web/src/server/deuna.ts`.
@@ -44,7 +44,8 @@ Errors are `{ "error": code, "message": string, "issues"?: ZodIssue[] }`.
 {
   "items": [{
     "sku": "314031", "ean": "7702001023456", "name": "Arroz Diana 1 kg", "brand": "Diana",
-    "size": "1 kg", "category": "Arroz", "referencePriceCop": 5200, "observedAt": "2026-10-28T18:02:11.000Z"
+    "size": "1 kg", "category": "Arroz", "referencePriceCop": 5200, "observedAt": "2026-10-28T18:02:11.000Z",
+    "imageUrl": "https://exito.vteximg.com.br/arquivos/ids/1234567-400-400/arroz-diana.jpg"
   }],
   "nextCursor": "eyJtIjoicSIs..."
 }
@@ -70,6 +71,7 @@ Values above are illustrative. Item fields:
 | `size` | Package size for people, es-CO: `"500 g"`, `"1 kg"`, `"1,5 L"`, `"6 und"`; `null` when unknown |
 | `referencePriceCop` | Integer COP from the latest online observation. A reference only: DeUna re-quotes before charging |
 | `observedAt` | When that price was read (ISO 8601). No age cut-off is applied; check it |
+| `imageUrl` | The store's own product photo on its VTEX image host, sized 400 × 400 (https), or `null`. A link to the store's image, not a copy: show it as that store's product photo |
 
 Only listings whose latest online observation is available are returned; a product that sold out on
 its latest check disappears until it is seen for sale again.

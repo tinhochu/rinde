@@ -7,8 +7,9 @@ import { enabledRetailers, searchTokens, stem } from "./offers";
 
 /**
  * Service-to-service read of each store's online catalogue for DeUna's "mandado" orders
- * (docs/deuna-api.md). Online prices only: never receipt prices, images, descriptions or anything
- * about Rinde's users.
+ * (docs/deuna-api.md). Online prices only: never receipt prices, descriptions or anything about
+ * Rinde's users. Each item carries the store's own product photo (its VTEX image host, 400 px), so
+ * DeUna can show what the product looks like; it links to the store's image, never a copy.
  */
 
 export const DEUNA_CACHE = "private, max-age=300";
@@ -24,6 +25,8 @@ export type DeunaItem = {
   category: string | null;
   referencePriceCop: number;
   observedAt: string;
+  /** The store's own product photo, sized 400 × 400 by its image server, or `null`. */
+  imageUrl: string | null;
 };
 
 const sha = (value: string) => createHash("sha256").update(value).digest();
@@ -123,7 +126,20 @@ function pricedListings(slug: RetailerSlug) {
     ) latest WHERE latest.available`;
 }
 
-type Row = { sku: string; ean: string | null; name: string; brand: string | null; size: string | null; unit: string | null; category: string | null; price: number; observedAt: Date; lead: number };
+type Row = { sku: string; ean: string | null; name: string; brand: string | null; size: string | null; unit: string | null; category: string | null; imageUrl: string | null; price: number; observedAt: Date; lead: number };
+
+/**
+ * A listing's photo for DeUna: only https links on the stores' VTEX image hosts (the same rule as
+ * `fetchStorePhoto`), asked for at 400 × 400 so a phone downloads a thumbnail, not the full photo.
+ */
+export function deunaImage(url: string | null): string | null {
+  if (!url) return null;
+  let u: URL;
+  try { u = new URL(url); } catch { return null; }
+  if (u.protocol !== "https:" || !/\.(vteximg\.com\.br|vtexassets\.com)$/.test(u.hostname)) return null;
+  u.pathname = u.pathname.replace(/\/arquivos\/ids\/(\d+)(?:-\d+-\d+)?\//, "/arquivos/ids/$1-400-400/");
+  return u.toString();
+}
 
 const toItem = (r: Row): DeunaItem => ({
   sku: r.sku,
@@ -134,12 +150,13 @@ const toItem = (r: Row): DeunaItem => ({
   category: r.category,
   referencePriceCop: r.price,
   observedAt: r.observedAt.toISOString(),
+  imageUrl: deunaImage(r.imageUrl),
 });
 
 function itemsQuery(slug: RetailerSlug, where: Prisma.Sql, lead: Prisma.Sql, after: Prisma.Sql, order: Prisma.Sql, take: number) {
   return db().$queryRaw<Row[]>`
     WITH latest AS (${pricedListings(slug)}), items AS (
-      SELECT rp."externalId" AS sku, p.ean, rp.name, p.brand, p.size::text AS size, p.unit::text AS unit, p.category,
+      SELECT rp."externalId" AS sku, p.ean, rp.name, p.brand, p.size::text AS size, p.unit::text AS unit, p.category, rp."imageUrl",
              l.price, l."observedAt", ${lead} AS lead
       FROM latest l
       JOIN "RetailerProduct" rp ON rp.id = l."retailerProductId"
