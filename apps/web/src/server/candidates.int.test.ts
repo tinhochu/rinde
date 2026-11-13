@@ -4,14 +4,16 @@ import { enabledRetailers } from "./offers";
 
 // Runs against the dev database snapshot: INTEGRATION=1 pnpm --filter @rinde/web test
 describe.skipIf(!process.env["INTEGRATION"])("candidatesFor (dev DB)", () => {
-  it('"arroz 1 kg" returns rice from every enabled store, no non-rice items in the top 5', async () => {
+  it('"arroz 1 kg" returns rice from every enabled supermarket, no non-rice items in the top 5', async () => {
     const item = await candidatesFor({
       id: "arroz", label: "arroz 1 kg", query: "arroz", brand: null,
       quantity: 1000, unit: "g", essential: true, allowSubstitute: true,
     });
+    // Locatel is a health and wellness chain and sells no plain rice; the supermarkets all do.
+    const supermarkets = enabledRetailers().filter((r) => r !== "locatel");
     const stores = new Set(item.candidates.map((c) => c.retailer));
-    expect(stores).toEqual(new Set(enabledRetailers()));
-    for (const retailer of enabledRetailers()) {
+    expect(stores).toEqual(new Set(supermarkets));
+    for (const retailer of supermarkets) {
       const top5 = item.candidates.filter((c) => c.retailer === retailer).slice(0, 5);
       for (const c of top5) expect(c.name.toLowerCase()).toMatch(/^arroz/);
     }

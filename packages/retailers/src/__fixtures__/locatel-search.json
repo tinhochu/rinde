@@ -1,0 +1,126 @@
+[
+  {
+    "productId": "7917",
+    "productName": "Leche Alpina Deslactosada X 200Ml",
+    "brand": "Alpina",
+    "linkText": "7702001044481-leche-alpina-deslactosada-x-200ml",
+    "categories": [
+      "/Alimentos nutricionales/lacteos/",
+      "/Alimentos nutricionales/"
+    ],
+    "items": [
+      {
+        "itemId": "7925",
+        "name": "Leche Alpina Deslactosada X 200Ml",
+        "ean": "7702001044481",
+        "measurementUnit": "un",
+        "unitMultiplier": 1.0,
+        "images": [
+          {
+            "imageId": "392835",
+            "imageLabel": "",
+            "imageTag": "<img src=\"~/arquivos/ids/392835-#width#-#height#/7702001044481_sin banner_LECHE ALPINA DESLACTOSADA X 200ML.jpg.jpg?v=638781046081570000\" width=\"#width#\" height=\"#height#\" alt=\"7702001044481_sin banner_LECHE ALPINA DESLACTOSADA X 200ML.jpg\" id=\"\" />",
+            "imageUrl": "https://locatelcolombia.vteximg.com.br/arquivos/ids/392835/7702001044481_sin banner_LECHE ALPINA DESLACTOSADA X 200ML.jpg.jpg?v=638781046081570000",
+            "imageText": "7702001044481_sin banner_LECHE ALPINA DESLACTOSADA X 200ML.jpg",
+            "imageLastModified": "2025-03-20T21:56:48.1570000Z"
+          }
+        ],
+        "sellers": [
+          {
+            "sellerId": "1",
+            "sellerName": "LOCATEL COLOMBIA",
+            "commertialOffer": {
+              "Price": 2450.0,
+              "ListPrice": 2450.0,
+              "IsAvailable": true,
+              "AvailableQuantity": 10
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "productId": "50232",
+    "productName": "Magnesio Medical House Polvo X 480g",
+    "brand": "Natural House",
+    "linkText": "658325041521-magnesio-medical-house-polvo-x-480g",
+    "categories": [
+      "/Alimentos nutricionales/suplementos/nutricionales/",
+      "/Alimentos nutricionales/suplementos/",
+      "/Alimentos nutricionales/"
+    ],
+    "items": [
+      {
+        "itemId": "58863",
+        "name": "Magnesio Medical House Polvo X 480g",
+        "ean": "658325041521",
+        "measurementUnit": "un",
+        "unitMultiplier": 1.0,
+        "images": [
+          {
+            "imageId": "391236",
+            "imageLabel": "",
+            "imageTag": "<img src=\"~/arquivos/ids/391236-#width#-#height#/658325041521_1_Magnesio-Medical-House-Polvo-X-480g.jpg.jpg?v=638762664461470000\" width=\"#width#\" height=\"#height#\" alt=\"658325041521_1_Magnesio-Medical-House-Polvo-X-480g.jpg\" id=\"\" />",
+            "imageUrl": "https://locatelcolombia.vteximg.com.br/arquivos/ids/391236/658325041521_1_Magnesio-Medical-House-Polvo-X-480g.jpg.jpg?v=638762664461470000",
+            "imageText": "658325041521_1_Magnesio-Medical-House-Polvo-X-480g.jpg",
+            "imageLastModified": "2025-02-27T15:20:46.1470000Z"
+          }
+        ],
+        "sellers": [
+          {
+            "sellerId": "1",
+            "sellerName": "LOCATEL COLOMBIA",
+            "commertialOffer": {
+              "Price": 167500.0,
+              "ListPrice": 167500.0,
+              "IsAvailable": true,
+              "AvailableQuantity": 10
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "productId": "55180",
+    "productName": "Alimento Lácteo Klim 1+ Crecimiento Deslactosado X 800g",
+    "brand": "Klim",
+    "linkText": "7702024204305-alimento-lacteo-klim-1--crecimiento-deslactosado-x-800g",
+    "categories": [
+      "/Marketplace/Snacks/",
+      "/Marketplace/"
+    ],
+    "items": [
+      {
+        "itemId": "63954",
+        "name": "Alimento Lácteo Klim 1+ Crecimiento Deslactosado X 800g",
+        "ean": "7702024204305",
+        "measurementUnit": "Gramos",
+        "unitMultiplier": 1.0,
+        "images": [
+          {
+            "imageId": "409968",
+            "imageLabel": "",
+            "imageTag": "<img src=\"~/arquivos/ids/409968-#width#-#height#/7702024204305_1_ALIM.LACT.KLIM_1-CRECIMIEN.DESLACT.X800G.jpg?v=639198970797430000\" width=\"#width#\" height=\"#height#\" alt=\"7702024204305_1_ALIM.LACT.KLIM_1-CRECIMIEN.DESLACT.X800G\" id=\"\" />",
+            "imageUrl": "https://locatelcolombia.vteximg.com.br/arquivos/ids/409968/7702024204305_1_ALIM.LACT.KLIM_1-CRECIMIEN.DESLACT.X800G.jpg?v=639198970797430000",
+            "imageText": "7702024204305_1_ALIM.LACT.KLIM_1-CRECIMIEN.DESLACT.X800G",
+            "imageLastModified": "2026-07-17T14:57:59.7430000Z"
+          }
+        ],
+        "sellers": [
+          {
+            "sellerId": "1",
+            "sellerName": "LOCATEL COLOMBIA",
+            "commertialOffer": {
+              "Price": 47100.0,
+              "ListPrice": 47100.0,
+              "IsAvailable": true,
+              "AvailableQuantity": 10
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

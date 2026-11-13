@@ -35,12 +35,13 @@
     <div class="row">Jumbo<span class="bar"></span></div>
     <div class="row">Éxito<span class="bar"></span></div>
     <div class="row">Carulla<span class="bar"></span></div>
+    <div class="row">Locatel<span class="bar"></span></div>
   </div>
 <script>
   const en = location.hash === "#en";
   const text = en
-    ? { t: ["Same groceries.", "More money", "left over."], s: "D1, Jumbo, Éxito and Carulla, side by side.", h: "ONE PRODUCT. EVERY STORE.", b: "EVERY<br>PESO<br>COUNTS" }
-    : { t: ["El mismo mercado.", "Más plata", "en tu bolsillo."], s: "D1, Jumbo, Éxito y Carulla, lado a lado.", h: "UN PRODUCTO. CADA TIENDA.", b: "CADA<br>PESO<br>CUENTA" };
+    ? { t: ["Same groceries.", "More money", "left over."], s: "D1, Jumbo, Éxito, Carulla and Locatel, side by side.", h: "ONE PRODUCT. EVERY STORE.", b: "EVERY<br>PESO<br>COUNTS" }
+    : { t: ["El mismo mercado.", "Más plata", "en tu bolsillo."], s: "D1, Jumbo, Éxito, Carulla y Locatel, lado a lado.", h: "UN PRODUCTO. CADA TIENDA.", b: "CADA<br>PESO<br>CUENTA" };
   text.t.forEach((line, i) => (document.getElementById(`t${i + 1}`).textContent = line));
   document.getElementById("s").textContent = text.s;
   document.getElementById("h").textContent = text.h;

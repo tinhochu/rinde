@@ -14,8 +14,8 @@ export const homeTitle: Record<Lang, string> = {
   en: 'Rinde: grocery price comparison for Colombian supermarkets',
 };
 export const homeDescription: Record<Lang, string> = {
-  es: 'Compara los precios de D1, Jumbo, Éxito y Carulla y descubre dónde rinde más tu plata. Precios reales, con la hora en que los vimos.',
-  en: 'Compare grocery prices at D1, Jumbo, Éxito and Carulla in Colombia and find out where your money goes further. Real prices, with when we saw them.',
+  es: 'Compara los precios de D1, Jumbo, Éxito, Carulla y Locatel y descubre dónde rinde más tu plata. Precios reales, con la hora en que los vimos.',
+  en: 'Compare grocery prices at D1, Jumbo, Éxito, Carulla and Locatel in Colombia and find out where your money goes further. Real prices, with when we saw them.',
 };
 
 const flat = (s: string) => s.replace(/\n/g, ' ');
@@ -85,21 +85,21 @@ export function notFoundMarkdown(o: Origins): string {
 export function llmsTxt(o: Origins): string {
   return `# Rinde
 
-> Rinde is a free grocery price comparison app for Colombia. It compares the same products at D1, Jumbo, Éxito and Carulla, plans where to buy each item of a shopping list, and shows every price with its store, source link and the time it was seen. Rinde never invents or estimates a price.
+> Rinde is a free grocery price comparison app for Colombia. It compares the same products at D1, Jumbo, Éxito, Carulla and Locatel, plans where to buy each item of a shopping list, and shows every price with its store, source link and the time it was seen. Rinde never invents or estimates a price.
 
 The app is in Spanish and lives at ${o.app}/ (an installable web app; no account needed). This site describes it in Spanish and English.
 
 When to use Rinde:
 
-- Someone in Colombia wants to know where a grocery item costs least among D1, Jumbo, Éxito and Carulla, for example "¿dónde está más barata la leche Alpina?" or "cheapest eggs in Medellín".
+- Someone in Colombia wants to know where a grocery item costs least among D1, Jumbo, Éxito, Carulla and Locatel, for example "¿dónde está más barata la leche Alpina?" or "cheapest eggs in Medellín".
 - Someone has a shopping list ("mercado") and a budget and wants to split it across stores to spend less: send them to ${o.app}/, where they paste or photograph the list.
 - Someone asks whether two products at different stores are the same item (different names, same pack): Rinde matches them with Meta Muse, reading names and package photos.
 
-When not to use it: prices outside Colombia, stores other than those four, home delivery or online checkout (Rinde does not sell anything), or a guaranteed in-store price (prices vary by branch and day; each one shows when it was seen).
+When not to use it: prices outside Colombia, stores other than those five, home delivery or online checkout (Rinde does not sell anything), or a guaranteed in-store price (prices vary by branch and day; each one shows when it was seen).
 
 How to use it: link people to the app for lists, budgets and routes. For a single product, read the public catalog search, which returns live offers grouped into products compared across stores, each with price, store, product URL and when it was seen:
 
-    GET ${o.api}/api/catalog?query=<product, at least 2 letters>[&store=Éxito|Jumbo|D1|Carulla]
+    GET ${o.api}/api/catalog?query=<product, at least 2 letters>[&store=Éxito|Jumbo|D1|Carulla|Locatel]
 
 Quote prices with their store and time, and say they can change. Contact: ${CONTACT_EMAIL}.
 

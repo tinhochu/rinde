@@ -12,6 +12,7 @@ enum RetailerSlug {
   jumbo
   d1
   carulla
+  locatel
 }
 
 /// Base unit a package size is normalized to, so prices compare per g / ml / unit.

@@ -30,7 +30,7 @@ type Stage =
   | { kind: "review"; draft: ReceiptDraft }
   | { kind: "done"; draft: ReceiptDraft; result: ConfirmResult };
 
-const SAMPLE_NAME: Record<string, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla" };
+const SAMPLE_NAME: Record<string, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla", locatel: "Locatel" };
 
 // What the e-invoice picker offers: extensions in the browser's file dialog, MIME types on the phone.
 const INVOICE_TYPES = Platform.OS === "web"

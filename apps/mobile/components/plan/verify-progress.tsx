@@ -4,8 +4,8 @@ import { StoreLogo } from "@/components/brand";
 import { STORE_NAME, type RetailerSlug, type VerifyProgress } from "@/lib/planner";
 import { colors, fontSize, radius, spacing } from "@/lib/theme";
 
-// Before the first event we don't know which stores the plan uses; D1, Jumbo and Carulla are always enabled.
-const DEFAULT_STORES: RetailerSlug[] = ["d1", "jumbo", "carulla"];
+// Before the first event we don't know which stores the plan uses; D1, Jumbo, Carulla and Locatel are always enabled.
+const DEFAULT_STORES: RetailerSlug[] = ["d1", "jumbo", "carulla", "locatel"];
 
 /** One row per store: live re-check status streamed from the planner ("Verificando D1… 9/9 ✓"). */
 export function VerifyProgressRows({ progress, stores, compact = false }: { progress: VerifyProgress[]; stores?: RetailerSlug[]; compact?: boolean }) {

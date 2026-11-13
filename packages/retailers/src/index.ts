@@ -54,11 +54,22 @@ export const carulla = createVtexClient({
   ownSellerId: "1",
 });
 
-export const retailerBySlug: Record<RetailerSlug, RetailerClient> = { d1, jumbo, exito, carulla };
+// Locatel is a health, beauty and wellness chain (pharmacy, personal care, nutrition foods), on VTEX.
+// robots.txt (checked 2026-11-13) does not disallow /api/, and it answers the RindeBot User-Agent.
+// Every listing seen is sold by seller "1" (LOCATEL COLOMBIA); only that price counts.
+export const locatel = createVtexClient({
+  slug: "locatel",
+  name: "Locatel",
+  baseUrl: "https://www.locatelcolombia.com",
+  searchPath: "/api/catalog_system/pub/products/search",
+  ownSellerId: "1",
+});
+
+export const retailerBySlug: Record<RetailerSlug, RetailerClient> = { d1, jumbo, exito, carulla, locatel };
 
 /** Stores Rinde ingests and offers, in display order. Éxito only when INGEST_EXITO=1; the rest always. */
 export function enabledStores(env: Record<string, string | undefined> = process.env): RetailerSlug[] {
-  return (["d1", "jumbo", "exito", "carulla"] as const).filter((s) => s !== "exito" || env["INGEST_EXITO"] === "1");
+  return (["d1", "jumbo", "exito", "carulla", "locatel"] as const).filter((s) => s !== "exito" || env["INGEST_EXITO"] === "1");
 }
 
 export function retailers(slugs: RetailerSlug[] = enabledStores()): RetailerClient[] {

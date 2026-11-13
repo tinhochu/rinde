@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://rinde.cool.chuventures.com"><img src="apps/landing/public/og-en.png" alt="Rinde: same groceries, more money left over. D1, Jumbo, Éxito and Carulla, side by side." width="760"></a>
+  <a href="https://rinde.cool.chuventures.com"><img src="apps/landing/public/og-en.png" alt="Rinde: same groceries, more money left over. D1, Jumbo, Éxito, Carulla and Locatel, side by side." width="760"></a>
 </p>
 
 <p align="center">
@@ -23,14 +23,15 @@
   <img src="apps/mobile/assets/stores/d1.png" alt="D1" height="44">&nbsp;&nbsp;
   <img src="apps/mobile/assets/stores/jumbo.png" alt="Jumbo" height="44">&nbsp;&nbsp;
   <img src="apps/mobile/assets/stores/exito.png" alt="Éxito" height="44">&nbsp;&nbsp;
-  <img src="apps/mobile/assets/stores/carulla.png" alt="Carulla" height="44">
+  <img src="apps/mobile/assets/stores/carulla.png" alt="Carulla" height="44">&nbsp;&nbsp;
+  <img src="apps/mobile/assets/stores/locatel.png" alt="Locatel" height="44">
   <br>
-  <sub>Live prices from four Colombian supermarkets. Rinde is independent and not affiliated with any of them.</sub>
+  <sub>Live prices from four Colombian supermarkets and the Locatel health and wellness chain. Rinde is independent and not affiliated with any of them.</sub>
 </p>
 
 # Rinde
 
-**Your grocery list, at the supermarkets where it costs least.** Rinde is a shopping agent for families in Colombia. You write your list (or photograph it, or forward a supermarket e-invoice). Rinde finds each item at D1, Jumbo, Éxito and Carulla, checks the prices live, and tells you where to buy what, how much you save, and the walk or ride between stores.
+**Your grocery list, at the supermarkets where it costs least.** Rinde is a shopping agent for families in Colombia. You write your list (or photograph it, or forward a supermarket e-invoice). Rinde finds each item at D1, Jumbo, Éxito, Carulla and Locatel, checks the prices live, and tells you where to buy what, how much you save, and the walk or ride between stores.
 
 Built for the Meta Global AI Developer Hackathon (theme: *Build for Your World*), with **Meta Muse** doing the reasoning and deterministic code doing all the money.
 

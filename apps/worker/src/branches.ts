@@ -11,14 +11,20 @@ const OVERPASS_URLS = ["https://overpass-api.de/api/interpreter", "https://overp
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
 
 const BRANDS = ["D1", "Tiendas D1", "Jumbo", "Éxito", "Exito", "Carulla"];
+// Locatel is a pharmacy and wellness chain, tagged as one in OSM (none mapped in Colombia as of 2026-11-13).
+const PHARMACY_BRANDS = ["Locatel"];
 const CHAIN_BY_BRAND: Record<string, RetailerSlug> = {
-  d1: "d1", "tiendas d1": "d1", jumbo: "jumbo", "éxito": "exito", exito: "exito", carulla: "carulla",
+  d1: "d1", "tiendas d1": "d1", jumbo: "jumbo", "éxito": "exito", exito: "exito", carulla: "carulla", locatel: "locatel",
 };
-const CHAIN_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla" };
+const CHAIN_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla", locatel: "Locatel" };
 
 export const OVERPASS_QUERY = `[out:json][timeout:120];
 area["ISO3166-1"="CO"][admin_level=2]->.co;
-nwr["shop"~"supermarket|convenience|department_store"]["brand"~"^(${BRANDS.join("|")})$",i](area.co);
+(
+  nwr["shop"~"supermarket|convenience|department_store"]["brand"~"^(${BRANDS.join("|")})$",i](area.co);
+  nwr["shop"~"chemist|health_food|medical_supply"]["brand"~"^(${PHARMACY_BRANDS.join("|")})$",i](area.co);
+  nwr["amenity"="pharmacy"]["brand"~"^(${PHARMACY_BRANDS.join("|")})$",i](area.co);
+);
 out center tags;`;
 
 interface OverpassElement {

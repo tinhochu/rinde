@@ -34,15 +34,15 @@ export function allBranches(): Promise<Branch[]> {
 export const roundPoint = ([lat, lon]: LatLon): LatLon => [Math.round(lat * 1000) / 1000, Math.round(lon * 1000) / 1000];
 
 const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
-const CHAIN_WORDS: Record<string, RetailerSlug> = { d1: "d1", jumbo: "jumbo", exito: "exito", carulla: "carulla" };
+const CHAIN_WORDS: Record<string, RetailerSlug> = { d1: "d1", jumbo: "jumbo", exito: "exito", carulla: "carulla", locatel: "locatel" };
 
 export const branchQuerySchema = z.union([
   z.object({
     near: z.string().regex(/^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/).transform((s) => roundPoint(s.split(",").map(Number) as LatLon)),
-    chain: z.enum(["d1", "jumbo", "exito", "carulla"]).optional(),
+    chain: z.enum(["d1", "jumbo", "exito", "carulla", "locatel"]).optional(),
     mode: z.enum(["walk", "bus", "moto", "car"]).default("walk"),
   }),
-  z.object({ q: z.string().trim().min(2).max(80), chain: z.enum(["d1", "jumbo", "exito", "carulla"]).optional() }),
+  z.object({ q: z.string().trim().min(2).max(80), chain: z.enum(["d1", "jumbo", "exito", "carulla", "locatel"]).optional() }),
 ]);
 export type BranchQuery = z.infer<typeof branchQuerySchema>;
 

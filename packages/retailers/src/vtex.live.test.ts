@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { carulla, d1, jumbo } from "./index";
+import { carulla, d1, jumbo, locatel } from "./index";
 
 // Hits the real retailer sites. Run with: LIVE=1 pnpm --filter @rinde/retailers test
 describe.skipIf(!process.env["LIVE"])("live VTEX clients", () => {
@@ -26,5 +26,13 @@ describe.skipIf(!process.env["LIVE"])("live VTEX clients", () => {
     expect(offers.length).toBeGreaterThan(0);
     expect(offers[0]?.price).toBeGreaterThan(0);
     expect(offers[0]?.size?.unit).toBe("ml");
+  }, 60_000);
+
+  it("finds a priced Locatel product by EAN, sold by Locatel itself", async () => {
+    const ean = "7702001044481"; // Leche Alpina deslactosada 200 ml
+    const offers = await locatel.byEan(ean);
+    expect(offers[0]?.ean).toBe(ean);
+    expect(offers[0]?.price).toBeGreaterThan(0);
+    expect(offers[0]?.size).toEqual({ amount: 200, unit: "ml" });
   }, 60_000);
 });

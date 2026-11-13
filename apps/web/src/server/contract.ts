@@ -1,7 +1,7 @@
 // Wire contract consumed by apps/mobile (see apps/mobile/lib/market.ts). Keep in sync.
 import { z } from "zod";
 
-export type Store = "Éxito" | "Jumbo" | "D1" | "Carulla";
+export type Store = "Éxito" | "Jumbo" | "D1" | "Carulla" | "Locatel";
 export type Unit = "g" | "ml" | "und";
 /** Rinde's aisles; the mobile app names them (apps/mobile/lib/shop.ts AISLE_NAMES). */
 export type Aisle = "produce" | "dairy" | "pantry" | "meat" | "bakery" | "drinks" | "home" | "personal" | "other";
@@ -84,5 +84,5 @@ export type ComparedProduct = {
 
 export type CatalogResult = { offers: Offer[]; products: ComparedProduct[]; reasons: string[]; checkedAt: string };
 
-export const STORE_BY_SLUG = { exito: "Éxito", jumbo: "Jumbo", d1: "D1", carulla: "Carulla" } as const satisfies Record<string, Store>;
-export const SLUG_BY_STORE = { "Éxito": "exito", Jumbo: "jumbo", D1: "d1", Carulla: "carulla" } as const satisfies Record<Store, string>;
+export const STORE_BY_SLUG = { exito: "Éxito", jumbo: "Jumbo", d1: "D1", carulla: "Carulla", locatel: "Locatel" } as const satisfies Record<string, Store>;
+export const SLUG_BY_STORE = { "Éxito": "exito", Jumbo: "jumbo", D1: "d1", Carulla: "carulla", Locatel: "locatel" } as const satisfies Record<Store, string>;

@@ -1,7 +1,7 @@
 import "server-only";
 import {
   checkLine, detectStore, effectiveUnitPrice, headerKey, normalizeCufe, normalizeInvoiceNumber, parseCop, parseLines,
-  parseQuantity, parseReceiptDate, PRODUCE, reconcile, scrubPersonalData, type LineIssue, type ParsedLine, type Reconciliation,
+  parseQuantity, parseReceiptDate, PRODUCE, reconcile, scrubPersonalData, type LineIssue, type ParsedLine, type ReceiptStore, type Reconciliation,
 } from "@rinde/core";
 import { db, ensureRetailer, RETAILERS, type Prisma, type RetailerSlug } from "@rinde/db";
 import { STORE_BY_SLUG, type Store } from "./contract";
@@ -175,7 +175,8 @@ export type InputLine = ParsedLine & { priceDerived?: boolean };
 
 /** A receipt as read, whichever way it arrived: the shared input of `draftFromInput`. */
 export type ReceiptInput = {
-  store: RetailerSlug;
+  // Receipts are read only from the stores in ReceiptStore (not Locatel yet).
+  store: ReceiptStore;
   branch: string;
   purchasedAt: Date;
   total: number | null;

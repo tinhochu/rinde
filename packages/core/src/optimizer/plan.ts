@@ -4,8 +4,8 @@ import type {
 } from "./types";
 
 export const DEFAULT_TRIP_COST = 10_000;
-export const STORE_ORDER: RetailerSlug[] = ["d1", "jumbo", "exito", "carulla"];
-export const STORE_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla" };
+export const STORE_ORDER: RetailerSlug[] = ["d1", "jumbo", "exito", "carulla", "locatel"];
+export const STORE_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla", locatel: "Locatel" };
 
 const cop = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
 export const formatCop = (n: number) => `$${cop.format(Math.round(n))}`;

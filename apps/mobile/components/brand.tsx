@@ -19,10 +19,11 @@ const LOGOS: Record<string, { source: number; round?: boolean }> = {
   Jumbo: { source: require("@/assets/stores/jumbo.png"), round: true },
   "Éxito": { source: require("@/assets/stores/exito.png"), round: true },
   Carulla: { source: require("@/assets/stores/carulla.png"), round: true },
+  Locatel: { source: require("@/assets/stores/locatel.png"), round: true },
 };
 
 /** Text badges by store name, for stores without a logo image. */
-const BADGES: Record<string, (typeof stores)[keyof typeof stores]> = { "Éxito": stores.exito, Jumbo: stores.jumbo, D1: stores.d1, Carulla: stores.carulla };
+const BADGES: Record<string, (typeof stores)[keyof typeof stores]> = { "Éxito": stores.exito, Jumbo: stores.jumbo, D1: stores.d1, Carulla: stores.carulla, Locatel: stores.locatel };
 
 export function StoreLogo({ store, large = false, small = false }: { store: string; large?: boolean; small?: boolean }) {
   const logo = LOGOS[store];

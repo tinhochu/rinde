@@ -22,7 +22,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
       description: 'Qué es Rinde, quién lo hace y de dónde salen sus precios.',
       sections: [
         { heading: 'Qué es', paragraphs: [
-          'Rinde es un comparador de precios de supermercado para Colombia. Escribes tu lista de mercado como la escribirías en un papel, y Rinde busca cada producto en D1, Jumbo, Éxito y Carulla, revisa los precios en vivo y te dice dónde comprar cada cosa, cuánto pagas en total y cuánto ahorras frente a comprar todo en una sola tienda.',
+          'Rinde es un comparador de precios de supermercado para Colombia. Escribes tu lista de mercado como la escribirías en un papel, y Rinde busca cada producto en D1, Jumbo, Éxito, Carulla y Locatel, revisa los precios en vivo y te dice dónde comprar cada cosa, cuánto pagas en total y cuánto ahorras frente a comprar todo en una sola tienda.',
           'Si te pasas del presupuesto, Rinde propone cambios (otra tienda, otra marca, un empaque más pequeño o dejar algo opcional), cada uno con su ahorro exacto, y no cambia nada hasta que tú lo aceptes. También planea el recorrido desde el supermercado al que sueles ir, a pie, en bus, en moto o en carro.',
         ] },
         { heading: 'De dónde salen los precios', paragraphs: [
@@ -30,7 +30,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
           'Meta Muse, el modelo de inteligencia artificial de Meta, lee listas y facturas, decide si dos productos de tiendas distintas son el mismo y explica las rutas. Nunca produce, ve ni ajusta un precio; todas las cuentas las hace el código.',
         ] },
         { heading: 'Quién lo hace', paragraphs: [
-          'Rinde es un proyecto independiente hecho en Colombia, creado para el Meta Global AI Developer Hackathon. No tiene relación con D1, Jumbo, Éxito ni Carulla, y no recibe pagos de ninguna tienda. Es gratis y no necesitas cuenta para usarlo.',
+          'Rinde es un proyecto independiente hecho en Colombia, creado para el Meta Global AI Developer Hackathon. No tiene relación con D1, Jumbo, Éxito, Carulla ni Locatel, y no recibe pagos de ninguna tienda. Es gratis y no necesitas cuenta para usarlo.',
         ] },
       ],
     },
@@ -83,7 +83,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
       description: 'What Rinde is, who makes it and where its prices come from.',
       sections: [
         { heading: 'What it is', paragraphs: [
-          'Rinde is a grocery price comparison app for Colombia. You write your shopping list the way you would on paper, and Rinde finds each item at D1, Jumbo, Éxito and Carulla, checks the prices live, and tells you where to buy what, what you pay in total, and how much you save against buying everything at one store.',
+          'Rinde is a grocery price comparison app for Colombia. You write your shopping list the way you would on paper, and Rinde finds each item at D1, Jumbo, Éxito, Carulla and Locatel, checks the prices live, and tells you where to buy what, what you pay in total, and how much you save against buying everything at one store.',
           'If you go over budget, Rinde proposes changes (another store, another brand, a smaller pack, or dropping an optional item), each with its exact saving, and changes nothing until you accept. It also plans the trip from the supermarket you usually go to, on foot, by bus, by moto or by car.',
         ] },
         { heading: 'Where the prices come from', paragraphs: [
@@ -91,7 +91,7 @@ export const infoPages: Record<Lang, Record<InfoSlug, InfoPage>> = {
           'Meta Muse, Meta’s AI model, reads lists and receipts, decides whether two listings at different stores are the same product, and explains routes. It never produces, sees or adjusts a price; code does all the arithmetic.',
         ] },
         { heading: 'Who makes it', paragraphs: [
-          'Rinde is an independent project made in Colombia, built for the Meta Global AI Developer Hackathon. It is not affiliated with D1, Jumbo, Éxito or Carulla and takes no money from any store. It is free and needs no account.',
+          'Rinde is an independent project made in Colombia, built for the Meta Global AI Developer Hackathon. It is not affiliated with D1, Jumbo, Éxito, Carulla or Locatel and takes no money from any store. It is free and needs no account.',
         ] },
       ],
     },

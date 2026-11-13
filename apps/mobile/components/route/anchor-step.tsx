@@ -19,7 +19,7 @@ export interface AnchorChoice {
   note: string;
 }
 
-const CHAINS: Chain[] = ["d1", "jumbo", "exito", "carulla"];
+const CHAINS: Chain[] = ["d1", "jumbo", "exito", "carulla", "locatel"];
 const MODES: TravelMode[] = ["walk", "bus", "moto", "car"];
 
 /**
