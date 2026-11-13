@@ -33,7 +33,7 @@ Errors are `{ "error": code, "message": string, "issues"?: ZodIssue[] }`.
 { "stores": [{ "id": "jumbo", "name": "Jumbo", "productCount": 2153, "lastIngestedAt": "2026-10-28T18:22:23.729Z" }] }
 ```
 
-- `id`: `d1` | `jumbo` | `exito` | `carulla` (Rinde's retailer slugs). Only stores Rinde has switched
+- `id`: `d1` | `jumbo` | `exito` | `carulla` | `locatel` (Rinde's retailer slugs). Only stores Rinde has switched
   on are listed (Éxito needs `INGEST_EXITO=1`, the production default).
 - `productCount`: listings whose latest online observation is for sale.
 - `lastIngestedAt`: when the store's last successful nightly snapshot finished, or `null`.

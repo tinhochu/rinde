@@ -83,11 +83,11 @@ describe.skipIf(!process.env["INTEGRATION"])("DeUna catalogue API (dev DB)", () 
     });
   });
 
-  it("lists the four stores with their priced product count and last snapshot", async () => {
+  it("lists the five stores with their priced product count and last snapshot", async () => {
     const res = await storesRoute(get(BASE));
     expect(res.headers.get("cache-control")).toBe("private, max-age=300");
     const { stores } = await res.json();
-    expect(stores.map((s: { id: string }) => s.id).sort()).toEqual(["carulla", "d1", "exito", "jumbo"]);
+    expect(stores.map((s: { id: string }) => s.id).sort()).toEqual(["carulla", "d1", "exito", "jumbo", "locatel"]);
     const jumbo = stores.find((s: { id: string }) => s.id === "jumbo");
     expect(Object.keys(jumbo).sort()).toEqual(["id", "lastIngestedAt", "name", "productCount"]);
     expect(jumbo.name).toBe("Jumbo");
