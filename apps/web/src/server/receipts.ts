@@ -175,7 +175,7 @@ export type InputLine = ParsedLine & { priceDerived?: boolean };
 
 /** A receipt as read, whichever way it arrived: the shared input of `draftFromInput`. */
 export type ReceiptInput = {
-  // Receipts are read only from the stores in ReceiptStore (not Locatel yet).
+  // Receipts are read only from the stores in ReceiptStore (not Euro or Locatel yet).
   store: ReceiptStore;
   branch: string;
   purchasedAt: Date;

@@ -12,6 +12,7 @@ enum RetailerSlug {
   jumbo
   d1
   carulla
+  euro
   locatel
 }
 

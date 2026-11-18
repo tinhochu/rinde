@@ -137,6 +137,8 @@ export const stores = {
   d1: { bg: "#E43435", fg: "#FFFFFF", label: "D1" },
   // Carulla's black and lime green (carulla.com).
   carulla: { bg: "#8DC63F", fg: "#141414", label: "Carulla" },
+  // Euro's navy wordmark with yellow stars (eurosupermercados.com.co).
+  euro: { bg: "#283069", fg: "#FFD825", label: "Euro" },
   // Locatel's dark green wordmark (locatelcolombia.com).
   locatel: { bg: "#00563B", fg: "#FFFFFF", label: "Locatel" },
 } as const;

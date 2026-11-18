@@ -10,18 +10,23 @@ const USER_AGENT = "RindeBot/0.1 (+https://rinde.cool.chuventures.com; grocery p
 const OVERPASS_URLS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter"];
 const NOMINATIM_URL = "https://nominatim.openstreetmap.org/reverse";
 
-const BRANDS = ["D1", "Tiendas D1", "Jumbo", "Éxito", "Exito", "Carulla"];
+const BRANDS = ["D1", "Tiendas D1", "Jumbo", "Éxito", "Exito", "Carulla", "Euro", "Euro Supermercados"];
+// Euro's supermarkets are mostly mapped by name alone ("Euro", no brand tag; seen 2026-11-18), so a
+// supermarket with no brand whose name is exactly one of these counts as Euro too.
+const NAME_ONLY_BRANDS = ["Euro", "Euro Supermercados", "Euro Supermercado"];
 // Locatel is a pharmacy and wellness chain, tagged as one in OSM (none mapped in Colombia as of 2026-11-13).
 const PHARMACY_BRANDS = ["Locatel"];
 const CHAIN_BY_BRAND: Record<string, RetailerSlug> = {
-  d1: "d1", "tiendas d1": "d1", jumbo: "jumbo", "éxito": "exito", exito: "exito", carulla: "carulla", locatel: "locatel",
+  d1: "d1", "tiendas d1": "d1", jumbo: "jumbo", "éxito": "exito", exito: "exito", carulla: "carulla",
+  euro: "euro", "euro supermercados": "euro", "euro supermercado": "euro", locatel: "locatel",
 };
-const CHAIN_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla", locatel: "Locatel" };
+const CHAIN_NAMES: Record<RetailerSlug, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla", euro: "Euro", locatel: "Locatel" };
 
 export const OVERPASS_QUERY = `[out:json][timeout:120];
 area["ISO3166-1"="CO"][admin_level=2]->.co;
 (
   nwr["shop"~"supermarket|convenience|department_store"]["brand"~"^(${BRANDS.join("|")})$",i](area.co);
+  nwr["shop"="supermarket"][!"brand"]["name"~"^(${NAME_ONLY_BRANDS.join("|")})$",i](area.co);
   nwr["shop"~"chemist|health_food|medical_supply"]["brand"~"^(${PHARMACY_BRANDS.join("|")})$",i](area.co);
   nwr["amenity"="pharmacy"]["brand"~"^(${PHARMACY_BRANDS.join("|")})$",i](area.co);
 );
@@ -49,7 +54,7 @@ export interface ParsedBranch {
 export function branchesFromOverpass(json: { elements: OverpassElement[] }): ParsedBranch[] {
   return json.elements.flatMap((e): ParsedBranch[] => {
     const tags = e.tags ?? {};
-    const chain = CHAIN_BY_BRAND[(tags["brand"] ?? "").trim().toLowerCase()];
+    const chain = CHAIN_BY_BRAND[(tags["brand"] ?? nameOnlyBrand(tags) ?? "").trim().toLowerCase()];
     const lat = e.lat ?? e.center?.lat;
     const lon = e.lon ?? e.center?.lon;
     if (!chain || lat === undefined || lon === undefined) return [];
@@ -57,6 +62,13 @@ export function branchesFromOverpass(json: { elements: OverpassElement[] }): Par
     const own = tags["branch"] ?? (tags["name"] && !sameName(tags["name"], chainName) ? stripChain(tags["name"], chainName) : null);
     return [{ chain, name: own ? `${chainName} ${own}` : chainName, address: address(tags), lat, lon, osmId: `${e.type}/${e.id}` }];
   });
+}
+
+/** A supermarket mapped with no brand tag, named exactly like a chain that's often mapped that way. */
+function nameOnlyBrand(tags: Record<string, string>): string | undefined {
+  if (tags["brand"] || tags["shop"] !== "supermarket") return undefined;
+  const name = tags["name"]?.trim().toLowerCase();
+  return NAME_ONLY_BRANDS.find((b) => b.toLowerCase() === name);
 }
 
 function sameName(name: string, chainName: string) {

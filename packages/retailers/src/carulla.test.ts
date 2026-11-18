@@ -34,9 +34,9 @@ describe("carulla client", () => {
 });
 
 describe("enabledStores", () => {
-  it("always includes D1, Jumbo, Carulla and Locatel; Éxito only with INGEST_EXITO=1", () => {
-    expect(enabledStores({})).toEqual(["d1", "jumbo", "carulla", "locatel"]);
-    expect(enabledStores({ INGEST_EXITO: "0" })).toEqual(["d1", "jumbo", "carulla", "locatel"]);
-    expect(enabledStores({ INGEST_EXITO: "1" })).toEqual(["d1", "jumbo", "exito", "carulla", "locatel"]);
+  it("always includes D1, Jumbo, Carulla, Euro and Locatel; Éxito only with INGEST_EXITO=1", () => {
+    expect(enabledStores({})).toEqual(["d1", "jumbo", "carulla", "euro", "locatel"]);
+    expect(enabledStores({ INGEST_EXITO: "0" })).toEqual(["d1", "jumbo", "carulla", "euro", "locatel"]);
+    expect(enabledStores({ INGEST_EXITO: "1" })).toEqual(["d1", "jumbo", "exito", "carulla", "euro", "locatel"]);
   });
 });

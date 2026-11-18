@@ -25,6 +25,7 @@ export const RETAILERS: Record<RetailerSlug, { name: string; baseUrl: string }> 
   jumbo: { name: "Jumbo", baseUrl: "https://www.jumbocolombia.com" },
   exito: { name: "Éxito", baseUrl: "https://www.exito.com" },
   carulla: { name: "Carulla", baseUrl: "https://www.carulla.com" },
+  euro: { name: "Euro", baseUrl: "https://www.eurosupermercados.com.co" },
   locatel: { name: "Locatel", baseUrl: "https://www.locatelcolombia.com" },
 };
 

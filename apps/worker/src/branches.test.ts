@@ -23,6 +23,18 @@ describe("branchesFromOverpass", () => {
     expect(branches[5]).toMatchObject({ lat: 9.3021664, lon: -75.3952203, osmId: "relation/2648895" });
   });
 
+  it("counts a supermarket mapped only by the name Euro as Euro, but not other shops so named", () => {
+    expect(branchesFromOverpass({ elements: [
+      { type: "node", id: 1, lat: 6.2449, lon: -75.5958, tags: { shop: "supermarket", name: "Euro", "addr:city": "Medellín" } },
+      { type: "node", id: 2, lat: 6.17, lon: -75.58, tags: { shop: "supermarket", brand: "Euro Supermercados", name: "Euro Envigado" } },
+      { type: "node", id: 3, lat: 6.2, lon: -75.5, tags: { shop: "bakery", name: "Euro" } },
+      { type: "node", id: 4, lat: 6.2, lon: -75.5, tags: { shop: "supermarket", name: "Euromarket" } },
+    ] })).toMatchObject([
+      { chain: "euro", name: "Euro", address: "Medellín", osmId: "node/1" },
+      { chain: "euro", name: "Euro Envigado", osmId: "node/2" },
+    ]);
+  });
+
   it("skips other brands and elements without a position", () => {
     expect(branchesFromOverpass({ elements: [
       { type: "node", id: 1, lat: 4.6, lon: -74, tags: { brand: "Surtimax" } },

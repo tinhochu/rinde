@@ -1,0 +1,128 @@
+[
+  {
+    "productId": "30276",
+    "productName": "LECHE DESLACTOSADA CODELAC *1100ML",
+    "brand": "Codelac",
+    "linkText": "leche-deslactosada-codelac--1100ml-cfa",
+    "link": "https://www.eurosupermercados.com.co/leche-deslactosada-codelac--1100ml-cfa/p",
+    "categories": [
+      "/Mercado/Lacteos/Leches liquidas/",
+      "/Mercado/Lacteos/",
+      "/Mercado/"
+    ],
+    "items": [
+      {
+        "itemId": "29797",
+        "name": "LECHE DESLACTOSADA CODELAC *1100ML",
+        "ean": "7707727655065",
+        "measurementUnit": "und",
+        "unitMultiplier": 1.0,
+        "images": [
+          {
+            "imageId": "188226",
+            "imageUrl": "https://eurosuper.vteximg.com.br/arquivos/ids/188226/7707727655065.jpg?v=638705898896570000",
+            "imageText": null
+          }
+        ],
+        "sellers": [
+          {
+            "sellerId": "1",
+            "sellerName": "Euro supermercados (Inversiones euro)",
+            "sellerDefault": true,
+            "commertialOffer": {
+              "Price": 5350.0,
+              "ListPrice": 5350.0,
+              "PriceWithoutDiscount": 5350.0,
+              "IsAvailable": true,
+              "AvailableQuantity": 100
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "productId": "31279",
+    "productName": "LECHE DESLACTOSADA ALQUERIA BOLS *1000ML",
+    "brand": "Alqueria",
+    "linkText": "leche-deslactosada-alqueria-bols--1000ml-8d4",
+    "link": "https://www.eurosupermercados.com.co/leche-deslactosada-alqueria-bols--1000ml-8d4/p",
+    "categories": [
+      "/Mercado/Lacteos/Leches liquidas/",
+      "/Mercado/Lacteos/",
+      "/Mercado/"
+    ],
+    "items": [
+      {
+        "itemId": "30785",
+        "name": "LECHE DESLACTOSADA ALQUERIA BOLS *1000ML",
+        "ean": "7702177024041",
+        "measurementUnit": "und",
+        "unitMultiplier": 1.0,
+        "images": [
+          {
+            "imageId": "189735",
+            "imageUrl": "https://eurosuper.vteximg.com.br/arquivos/ids/189735/7702177024041.jpg?v=638797437803030000",
+            "imageText": null
+          }
+        ],
+        "sellers": [
+          {
+            "sellerId": "1",
+            "sellerName": "Euro supermercados (Inversiones euro)",
+            "sellerDefault": true,
+            "commertialOffer": {
+              "Price": 4632.0,
+              "ListPrice": 5790.0,
+              "PriceWithoutDiscount": 5790.0,
+              "IsAvailable": true,
+              "AvailableQuantity": 99999
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "productId": "30530",
+    "productName": "LECHE DESLACTOSADA UHT CODELAC *900ML",
+    "brand": "Codelac",
+    "linkText": "leche-deslactosada-uht-codelac--900ml-c34",
+    "link": "https://www.eurosupermercados.com.co/leche-deslactosada-uht-codelac--900ml-c34/p",
+    "categories": [
+      "/Mercado/Lacteos/Leches liquidas/",
+      "/Mercado/Lacteos/",
+      "/Mercado/"
+    ],
+    "items": [
+      {
+        "itemId": "30033",
+        "name": "LECHE DESLACTOSADA UHT CODELAC *900ML",
+        "ean": "7707727653696",
+        "measurementUnit": "und",
+        "unitMultiplier": 1.0,
+        "images": [
+          {
+            "imageId": "188290",
+            "imageUrl": "https://eurosuper.vteximg.com.br/arquivos/ids/188290/7707727653696.png?v=638737705223570000",
+            "imageText": null
+          }
+        ],
+        "sellers": [
+          {
+            "sellerId": "1",
+            "sellerName": "Euro supermercados (Inversiones euro)",
+            "sellerDefault": true,
+            "commertialOffer": {
+              "Price": 4350.0,
+              "ListPrice": 4350.0,
+              "PriceWithoutDiscount": 4350.0,
+              "IsAvailable": true,
+              "AvailableQuantity": 100
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

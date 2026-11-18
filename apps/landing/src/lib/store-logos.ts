@@ -2,8 +2,9 @@ import d1 from "@/assets/stores/d1.png";
 import jumbo from "@/assets/stores/jumbo.png";
 import exito from "@/assets/stores/exito.png";
 import carulla from "@/assets/stores/carulla.png";
+import euro from "@/assets/stores/euro.png";
 import locatel from "@/assets/stores/locatel.png";
 
 /** Each store's own logo (the same files the app shows), by the store name the API returns. */
-export const STORE_LOGOS: Record<string, string> = { D1: d1, Jumbo: jumbo, "Éxito": exito, Carulla: carulla, Locatel: locatel };
-export const STORE_ORDER = ["D1", "Jumbo", "Éxito", "Carulla", "Locatel"] as const;
+export const STORE_LOGOS: Record<string, string> = { D1: d1, Jumbo: jumbo, "Éxito": exito, Carulla: carulla, Euro: euro, Locatel: locatel };
+export const STORE_ORDER = ["D1", "Jumbo", "Éxito", "Carulla", "Euro", "Locatel"] as const;

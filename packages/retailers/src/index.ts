@@ -65,11 +65,24 @@ export const locatel = createVtexClient({
   ownSellerId: "1",
 });
 
-export const retailerBySlug: Record<RetailerSlug, RetailerClient> = { d1, jumbo, exito, carulla, locatel };
+// Euro Supermercados (Inversiones Euro) is a supermarket chain in Antioquia and Córdoba, on VTEX. Its
+// robots.txt (checked 2026-11-18) disallows every URL with a query string ("Disallow: /*?"), which
+// covers the catalog search; it is read anyway by product decision (2026-11-18), like Éxito and Carulla.
+// It answers the RindeBot User-Agent, so Rinde's own UA and the default 2 s pace apply. It has one
+// sales channel (sc=1), and every listing seen is sold by seller "1"; only that price counts.
+export const euro = createVtexClient({
+  slug: "euro",
+  name: "Euro",
+  baseUrl: "https://www.eurosupermercados.com.co",
+  searchPath: "/api/catalog_system/pub/products/search",
+  ownSellerId: "1",
+});
+
+export const retailerBySlug: Record<RetailerSlug, RetailerClient> = { d1, jumbo, exito, carulla, euro, locatel };
 
 /** Stores Rinde ingests and offers, in display order. Éxito only when INGEST_EXITO=1; the rest always. */
 export function enabledStores(env: Record<string, string | undefined> = process.env): RetailerSlug[] {
-  return (["d1", "jumbo", "exito", "carulla", "locatel"] as const).filter((s) => s !== "exito" || env["INGEST_EXITO"] === "1");
+  return (["d1", "jumbo", "exito", "carulla", "euro", "locatel"] as const).filter((s) => s !== "exito" || env["INGEST_EXITO"] === "1");
 }
 
 export function retailers(slugs: RetailerSlug[] = enabledStores()): RetailerClient[] {

@@ -4,11 +4,11 @@ import { sessionId } from "./session";
 
 // Wire types for GET /api/branches and POST /api/route-plan (apps/web/src/server/route-plan.ts). Keep in sync.
 
-export type Chain = "d1" | "jumbo" | "exito" | "carulla" | "locatel";
+export type Chain = "d1" | "jumbo" | "exito" | "carulla" | "euro" | "locatel";
 export type TravelMode = "walk" | "bus" | "moto" | "car";
 export type LatLon = [number, number];
 
-export const CHAIN_NAMES: Record<Chain, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla", locatel: "Locatel" };
+export const CHAIN_NAMES: Record<Chain, string> = { d1: "D1", jumbo: "Jumbo", exito: "Éxito", carulla: "Carulla", euro: "Euro", locatel: "Locatel" };
 export const MODE_LABELS: Record<TravelMode, string> = { walk: "A pie", bus: "Bus o TM", moto: "Moto", car: "Carro" };
 
 export interface Branch {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { carulla, d1, jumbo, locatel } from "./index";
+import { carulla, d1, euro, jumbo, locatel } from "./index";
 
 // Hits the real retailer sites. Run with: LIVE=1 pnpm --filter @rinde/retailers test
 describe.skipIf(!process.env["LIVE"])("live VTEX clients", () => {
@@ -34,5 +34,13 @@ describe.skipIf(!process.env["LIVE"])("live VTEX clients", () => {
     expect(offers[0]?.ean).toBe(ean);
     expect(offers[0]?.price).toBeGreaterThan(0);
     expect(offers[0]?.size).toEqual({ amount: 200, unit: "ml" });
+  }, 60_000);
+
+  it("finds a priced Euro product by EAN, sold by Euro itself", async () => {
+    const ean = "7707727655065"; // Leche deslactosada Codelac 1100 ml
+    const offers = await euro.byEan(ean);
+    expect(offers[0]?.ean).toBe(ean);
+    expect(offers[0]?.price).toBeGreaterThan(0);
+    expect(offers[0]?.size).toEqual({ amount: 1100, unit: "ml" });
   }, 60_000);
 });

@@ -20,7 +20,7 @@ import { planAndVerify, type VerifyDeps } from "./verify";
  * location, a typed address and the note are used for this request only and never stored.
  */
 
-const chain = z.enum(["d1", "jumbo", "exito", "carulla", "locatel"]);
+const chain = z.enum(["d1", "jumbo", "exito", "carulla", "euro", "locatel"]);
 const point = { lat: z.number().min(-5).max(14), lon: z.number().min(-82).max(-66) };
 
 export const routePlanSchema = z.object({
